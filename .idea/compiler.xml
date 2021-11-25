@@ -6,11 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HypixelSkyblock" />
+        <module name="SkyBlock-Plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HypixelSkyblock" target="8" />
+      <module name="SkyBlock-Mod" target="1.6" />
+      <module name="SkyBlock-Mod.api" target="1.6" />
+      <module name="SkyBlock-Mod.main" target="1.6" />
+      <module name="SkyBlock-Mod.test" target="1.6" />
+      <module name="spigot" target="1.6" />
+      <module name="spigot-api" target="1.6" />
+      <module name="spigot-parent" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
