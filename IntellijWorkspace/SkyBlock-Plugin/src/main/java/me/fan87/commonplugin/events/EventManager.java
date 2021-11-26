@@ -1,6 +1,8 @@
 package me.fan87.commonplugin.events;
 
+import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.events.registerers.TickEventRegisterer;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
@@ -12,6 +14,9 @@ import org.reflections.Reflections;
 public class EventManager {
 
     private final SkyBlock instance;
+    @Getter
+    private TickEventRegisterer tickEventRegisterer;
+
     public final static EventBus EVENT_BUS = EventBus.builder()
             .sendNoSubscriberEvent(false)
             .throwSubscriberException(false)
@@ -36,6 +41,8 @@ public class EventManager {
                 }
             }, skyBlock);
         }
+
+        this.tickEventRegisterer = new TickEventRegisterer(skyBlock);
     }
 
 }

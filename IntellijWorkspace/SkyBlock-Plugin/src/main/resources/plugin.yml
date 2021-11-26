@@ -1,3 +1,12 @@
 name: HypixelSkyBlock-Common
 main: me.fan87.commonplugin.SkyBlock
 version: 1.0
+commands:
+  updateinventory:
+    description: Update player's inventory
+    permission: skyblock.updateinventory
+    usage: /updateinventory
+  giveitem:
+    description: Give Custom Item to player
+    permission: skyblock.giveitem
+    usage: /giveitem <Item Name>

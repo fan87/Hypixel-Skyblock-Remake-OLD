@@ -3,7 +3,9 @@ package me.fan87.commonplugin.item;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import me.fan87.commonplugin.players.SBPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayInFlying;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,14 +19,47 @@ public class SBItemStack {
     private boolean customized;
 
 
+
     public SBItemStack(ItemStack itemStack) {
-        net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
+        this.itemStack = itemStack;
         customized = getNBT().hasKey("ExtraAttributes");
+        updateItem();
+    }
+
+    public SBItemStack(SBCustomItem item) {
+        this.itemStack = item.newItemStack();
+    }
+
+    public void updatePlayerStats(SBPlayer player, int inventoryIndex) {
+        SBMaterial type = getType();
+        if (type.type == SBMaterial.ItemType.CUSTOM) {
+            type.item.updatePlayerStats(player, inventoryIndex);
+        }
+    }
+
+    private void updateItem() {
         generateExtraAttributes();
+    }
+
+    public SBMaterial getType() {
+        Material material = Material.getMaterial(getItemID());
+        if (material != null) {
+            return new SBMaterial(material, null, SBMaterial.ItemType.VANILLA);
+        } else {
+            SBCustomItem item = SBItems.getItem(getItemID());
+            if (item != null) return new SBMaterial(null, item, SBMaterial.ItemType.CUSTOM);
+            return new SBMaterial(null, null, SBMaterial.ItemType.UNKNOWN);
+        }
     }
 
     public NBTItem getNBT() {
         return new NBTItem(getItemStack(), true);
+    }
+
+    public String getItemID() {
+        generateExtraAttributes();
+        String id = getExtraAttributeCompound().getString("id");
+        return id;
     }
 
     public boolean shouldGenerateExtraInfo() {
@@ -33,15 +68,15 @@ public class SBItemStack {
 
     protected void generateExtraAttributes() {
         if (!customized) {
+            NBTCompound extraAttributeCompound = getExtraAttributeCompound();
+            extraAttributeCompound.setString("id", getItemStack().getType().toString());
             if (shouldGenerateExtraInfo()) {
-                NBTCompound extraAttributeCompound = getExtraAttributeCompound();
                 extraAttributeCompound.setString("uuid", UUID.randomUUID().toString());
-                extraAttributeCompound.setString("id", getItemStack().getType().toString().toUpperCase(Locale.ROOT));
             }
         }
     }
 
-    protected NBTCompound getExtraAttributeCompound() {
+    public NBTCompound getExtraAttributeCompound() {
         NBTItem nbt = getNBT();
         if (!nbt.hasKey("ExtraAttributes")) {
             return nbt.addCompound("ExtraAttributes");
@@ -49,7 +84,7 @@ public class SBItemStack {
         return nbt.getCompound("ExtraAttributes");
     }
 
-    protected net.minecraft.server.v1_8_R3.ItemStack asNMSCopy() {
+    public net.minecraft.server.v1_8_R3.ItemStack asNMSCopy() {
         return CraftItemStack.asNMSCopy(getItemStack());
     }
 

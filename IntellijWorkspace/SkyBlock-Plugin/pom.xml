@@ -29,6 +29,11 @@
             <artifactId>packetevents</artifactId>
             <version>1.8-pre-17</version>
         </dependency>
+        <dependency>
+            <groupId>fr.minuskube.inv</groupId>
+            <artifactId>smart-invs</artifactId>
+            <version>1.2.7</version>
+        </dependency>
     </dependencies>
 
 </project>

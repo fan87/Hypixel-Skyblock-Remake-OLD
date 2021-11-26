@@ -1,8 +1,9 @@
-package me.fan87.commonplugin.events;
+package me.fan87.commonplugin.events.registerers;
 
 import io.github.retrooper.packetevents.event.PacketEvent;
 import io.github.retrooper.packetevents.event.PacketListenerAbstract;
 import io.github.retrooper.packetevents.event.impl.*;
+import me.fan87.commonplugin.events.EventManager;
 
 public class PacketRegisterer extends PacketListenerAbstract {
 
