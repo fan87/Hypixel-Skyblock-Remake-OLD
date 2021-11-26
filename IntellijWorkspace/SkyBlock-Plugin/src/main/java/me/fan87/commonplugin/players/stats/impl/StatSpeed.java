@@ -2,7 +2,6 @@ package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -57,6 +56,14 @@ public class StatSpeed extends SBStat {
     @Override
     public ItemStack getIconItemStack() {
         return new ItemStack(Material.SUGAR);
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        if (getValue() != getDefaultValue()) {
+            return "You are " + ChatColor.GREEN + Math.floor(getValue()) + "% " + ChatColor.RESET + " faster!";
+        }
+        return "";
     }
 
     @Override

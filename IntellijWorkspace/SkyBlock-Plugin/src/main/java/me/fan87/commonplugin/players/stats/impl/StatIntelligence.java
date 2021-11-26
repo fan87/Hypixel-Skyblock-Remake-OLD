@@ -1,11 +1,8 @@
 package me.fan87.commonplugin.players.stats.impl;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.apache.commons.lang.NotImplementedException;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -59,6 +56,12 @@ public class StatIntelligence extends SBStat {
     @Override
     public ItemStack getIconItemStack() {
         return new ItemStack(Material.ENCHANTED_BOOK);
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "Magic Damage: +" + getColor() + Math.floor(getValue()) + "%\n" + ChatColor.RESET +
+                "Mana Pool: " + getColor() + (Math.floor(getValue()) + 100);
     }
 
     @Override

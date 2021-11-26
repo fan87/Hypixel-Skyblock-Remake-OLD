@@ -5,6 +5,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -57,7 +58,7 @@ public class StatPristine extends SBStat {
 
     @Override
     public ItemStack getIconItemStack() {
-        ItemStack item = new ItemStack(Material.SKULL_ITEM);
+        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         NBTItem nbtItem = new NBTItem(item, true);
         NBTCompound skullOwner = nbtItem.addCompound("SkullOwner");
         skullOwner.setString("Id", "08e13e8e-2831-3e9c-a7b0-d9506b0f65b0");
@@ -65,6 +66,11 @@ public class StatPristine extends SBStat {
         NBTListCompound textures = properties.getCompoundList("textures").addCompound();
         textures.setString("Value", "ewogICJ0aW1lc3RhbXAiIDogMTYyNDk3OTI3NDk3OSwKICAicHJvZmlsZUlkIiA6ICJiNjM2OWQ0MzMwNTU0NGIzOWE5OTBhODYyNWY5MmEwNSIsCiAgInByb2ZpbGVOYW1lIiA6ICJCb2JpbmhvXyIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9kODg2ZTBmNDExODViMThhM2FmZDg5NDg4ZDJlZTRjYWEwNzM1MDA5MjQ3Y2NjZjAzOWNlZDZhZWQ3NTJmZjFhIgogICAgfQogIH0KfQ");
         return item;
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "Chance: " + ChatColor.GREEN + Math.floor(getValue()) + "%";
     }
 
     @Override

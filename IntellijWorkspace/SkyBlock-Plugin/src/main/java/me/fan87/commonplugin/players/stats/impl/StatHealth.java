@@ -1,10 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
-import com.mysql.jdbc.NotImplemented;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import net.minecraft.server.v1_8_R3.ChatComponentText;
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -60,6 +57,11 @@ public class StatHealth extends SBStat {
     @Override
     public ItemStack getIconItemStack() {
         return new ItemStack(Material.GOLDEN_APPLE);
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "";
     }
 
     @Override

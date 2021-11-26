@@ -4,12 +4,10 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
 import me.fan87.commonplugin.players.SBPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayInFlying;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Locale;
 import java.util.UUID;
 
 public class SBItemStack {
@@ -27,7 +25,13 @@ public class SBItemStack {
     }
 
     public SBItemStack(SBCustomItem item) {
-        this.itemStack = item.newItemStack();
+        this(item, 1);
+    }
+
+    public SBItemStack(SBCustomItem item, int amount) {
+        ItemStack itemStack = item.newItemStack();
+        itemStack.setAmount(amount);
+        this.itemStack = itemStack;
     }
 
     public void updatePlayerStats(SBPlayer player, int inventoryIndex) {

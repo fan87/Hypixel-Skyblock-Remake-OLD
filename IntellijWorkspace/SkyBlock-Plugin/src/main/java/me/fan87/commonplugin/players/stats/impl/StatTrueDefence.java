@@ -4,7 +4,6 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Dye;
 
@@ -57,7 +56,12 @@ public class StatTrueDefence extends SBStat {
 
     @Override
     public ItemStack getIconItemStack() {
-        return new Dye(DyeColor.WHITE).toItemStack();
+        return new Dye(DyeColor.WHITE).toItemStack(1);
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "";
     }
 
     @Override

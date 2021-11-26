@@ -2,6 +2,7 @@ package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -59,5 +60,13 @@ public class StatBonusAttackSpeed extends SBStat {
     @Override
     public void onTick(SBPlayer player) {
 
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        if (getValue() != getDefaultValue()) {
+            return "You now attack " + ChatColor.GREEN + Math.floor(getValue()) + "% " + ChatColor.RESET + " faster!";
+        }
+        return "";
     }
 }

@@ -5,7 +5,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.apache.commons.lang.NotImplementedException;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -58,7 +58,7 @@ public class StatForagingFortune extends SBStat {
 
     @Override
     public ItemStack getIconItemStack() {
-        ItemStack item = new ItemStack(Material.SKULL_ITEM);
+        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         NBTItem nbtItem = new NBTItem(item, true);
         NBTCompound skullOwner = nbtItem.addCompound("SkullOwner");
         skullOwner.setString("Id", "3c2920ab-4d10-3c6e-aea2-6fc2c7be929d");
@@ -70,5 +70,13 @@ public class StatForagingFortune extends SBStat {
 
     @Override
     public void onTick(SBPlayer player) {
+    }
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        if (getValue() < 100) {
+            return "Chance for " + ChatColor.GREEN + "double " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue() % 100)) + "%";
+        } else {
+            return "Chance for " + ChatColor.GREEN + "triple " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue() % 100)) + "%";
+        }
     }
 }

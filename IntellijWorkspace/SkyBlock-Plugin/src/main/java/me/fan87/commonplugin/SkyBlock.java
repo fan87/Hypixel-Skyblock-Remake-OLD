@@ -6,7 +6,6 @@ import me.fan87.commonplugin.commands.impl.CmdGiveItem;
 import me.fan87.commonplugin.commands.impl.CmdUpdateInventory;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.registerers.PacketRegisterer;
-import me.fan87.commonplugin.events.registerers.TickEventRegisterer;
 import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.players.PlayersManager;
 import org.bukkit.plugin.java.JavaPlugin;

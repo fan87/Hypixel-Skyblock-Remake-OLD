@@ -5,7 +5,6 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +26,7 @@ public class GuiItemProvider {
     }
 
     public static ItemStack getSkull(String texture, String uuid) {
-        ItemStack item = new ItemStack(Material.SKULL_ITEM);
+        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         NBTItem nbtItem = new NBTItem(item, true);
         NBTCompound skullOwner = nbtItem.addCompound("SkullOwner");
         skullOwner.setString("Id", uuid);
@@ -38,8 +37,8 @@ public class GuiItemProvider {
     }
 
     public static ItemStack getMenuSkull(SBPlayer player) {
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM);
-        SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
+        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
         List<String> lores = new ArrayList<>();
         for (Field declaredField : player.getStats().getClass().getDeclaredFields()) {
             try {
@@ -53,9 +52,29 @@ public class GuiItemProvider {
                 e.printStackTrace();
             }
         }
+        meta.setLore(lores);
+        meta.setDisplayName("§aYour SkyBlock Profile");
         meta.setOwner(player.getPlayer().getName());
         skull.setItemMeta(meta);
         return skull;
+    }
+
+    public static ItemStack getPreviousPageItem(String pageName) {
+        ItemStack itemStack = new ItemStack(Material.ARROW);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§aGo Back");
+        List<String> lores = new ArrayList<>();
+        lores.add("§7To " + pageName);
+        itemMeta.setLore(lores);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+    public static ItemStack getClosePageItem() {
+        ItemStack itemStack = new ItemStack(Material.BARRIER);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§cClose");
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 
 }

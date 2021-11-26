@@ -2,7 +2,6 @@ package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -60,7 +59,18 @@ public class StatDefence extends SBStat {
     }
 
     @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        StatHealth health = player.getStats().getHealth();
+        return "Damage Reduction: " + ChatColor.GREEN + Math.round(getDamageModifier()*1000f)/10f + "%\n" + ChatColor.RESET +
+                "Effective Health: " + ChatColor.RED + Math.round(health.getValue()*getDamageModifier()*10f)/10f + health.getIcon();
+    }
+
+    @Override
     public void onTick(SBPlayer player) {
         
+    }
+
+    public double getDamageModifier() {
+        return getValue()/(getValue() + 100);
     }
 }

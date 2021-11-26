@@ -59,6 +59,11 @@ public class StatAbilityDamage extends SBStat {
     }
 
     @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "";
+    }
+
+    @Override
     public void onTick(SBPlayer player) {
 
     }

@@ -39,7 +39,6 @@ public class LoreUtils {
                 continue;
             }
             if (c == ' ') {
-                System.out.println("Line: " + new ChatComponentText(currentLine).getText() + "(Processing word: " + currentWord + ")");
                 if (new ChatComponentText(currentLine + currentWord).getText().length() > 32) {
                     out.add(currentLine);
                     currentLine = currentColor + currentWord + " ";

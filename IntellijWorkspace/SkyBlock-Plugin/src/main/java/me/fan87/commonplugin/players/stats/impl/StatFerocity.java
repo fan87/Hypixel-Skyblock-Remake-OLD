@@ -1,12 +1,9 @@
 package me.fan87.commonplugin.players.stats.impl;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Dye;
 
@@ -59,7 +56,13 @@ public class StatFerocity extends SBStat {
 
     @Override
     public ItemStack getIconItemStack() {
-        return new Dye(DyeColor.RED).toItemStack();
+        return new Dye(DyeColor.RED).toItemStack(1);
+    }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "Base extra strikes: " + getColor() + Math.floor(getValue()) + "\n" + ChatColor.RESET +
+                "Chance for " + Math.max(1, getValue()/100) + " more: " + getColor() + Math.max(Math.floor(getValue() % 100), 0) + "%";
     }
 
     @Override

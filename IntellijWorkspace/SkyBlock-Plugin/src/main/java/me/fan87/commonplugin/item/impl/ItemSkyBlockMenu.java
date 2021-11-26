@@ -2,12 +2,19 @@ package me.fan87.commonplugin.item.impl;
 
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
+import me.fan87.commonplugin.item.SBItemStack;
+import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
 
 public class ItemSkyBlockMenu extends SBCustomItem {
@@ -17,6 +24,51 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, skyBlock);
     }
 
+    @Subscribe
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        event.getPlayer().getInventory().setItem(8, new SBItemStack(this).getItemStack());
+    }
+
+    @Subscribe
+    public void onTrashingMe(PlayerDropItemEvent event) {
+        SBItemStack itemStack = new SBItemStack(event.getItemDrop().getItemStack());
+        if (itemStack.getType().getItem() == this) {
+            event.setCancelled(true);
+            skyBlock.getPlayersManager().getPlayer(event.getPlayer()).openSkyBlockMenu();
+        }
+    }
+
+    @Subscribe
+    public void skyblockMenuClick(InventoryClickEvent event) {
+        if (event.getHotbarButton() != -1) {
+            ItemStack item = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+            if (item != null && item.getType() != Material.AIR) {
+                SBItemStack itemStack = new SBItemStack(item);
+                if (itemStack.getType().getItem() == SBItems.SKYBLOCK_MENU) {
+                    event.setCancelled(true);
+                    skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+                }
+            }
+        }
+        if (event.getCursor() != null && event.getCursor().getType() != Material.AIR) {
+            ItemStack item = event.getCursor();
+            SBItemStack itemStack = new SBItemStack(item);
+            SBMaterial type = itemStack.getType();
+            if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
+                event.setCancelled(true);
+                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+            }
+        }
+        if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
+            ItemStack item = event.getCurrentItem();
+            SBItemStack itemStack = new SBItemStack(item);
+            SBMaterial type = itemStack.getType();
+            if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
+                event.setCancelled(true);
+                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+            }
+        }
+    }
 
 
     @Override

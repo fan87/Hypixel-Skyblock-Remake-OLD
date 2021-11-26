@@ -3,6 +3,7 @@ package me.fan87.commonplugin.players.stats.impl;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.apache.commons.lang.NotImplementedException;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -56,6 +57,12 @@ public class StatStrength extends SBStat {
     public ItemStack getIconItemStack() {
         return new ItemStack(Material.BLAZE_POWDER);
     }
+
+    @Override
+    public String getPerPlayerDescription(SBPlayer player) {
+        return "Base Damage: " + ChatColor.GREEN + (int) (5 * (1 + getValue()/100f));
+    }
+
 
     @Override
     public void onTick(SBPlayer player) {

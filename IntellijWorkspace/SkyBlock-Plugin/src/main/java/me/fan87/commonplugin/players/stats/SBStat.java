@@ -1,18 +1,13 @@
 package me.fan87.commonplugin.players.stats;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import me.fan87.commonplugin.players.SBPlayer;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class SBStat {
 
@@ -57,6 +52,7 @@ public abstract class SBStat {
     public abstract String getIcon();
     public abstract String getColor();
     public abstract ItemStack getIconItemStack();
+    public abstract String getPerPlayerDescription(SBPlayer player);
 
     public String getDisplayName() {
         return getColor() + getIcon() + " " + getName();
@@ -71,5 +67,6 @@ public abstract class SBStat {
         long expirationTime;
         double value;
     }
+
 
 }
