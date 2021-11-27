@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players;
 
 import lombok.Getter;
+import lombok.Setter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
@@ -11,9 +12,12 @@ import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
+import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -26,14 +30,20 @@ public class SBPlayer {
 
     @Getter
     private SBPlayerStats stats = new SBPlayerStats();
+    @Getter
+    @Setter
+    private double mana;
 
     private SkyBlock skyBlock;
+
+    public boolean showActionBar = true;
 
 
     public SBPlayer(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
         EventManager.EVENT_BUS.register(this);
+        mana = getStats().getIntelligence().getValue() + 100;
     }
 
     public void updateInventory() {
@@ -61,6 +71,9 @@ public class SBPlayer {
     @Subscribe
     public void onTick(ServerTickEvent event) {
         tickStats();
+        if (showActionBar) {
+            showInfo();
+        }
     }
 
 
@@ -102,6 +115,22 @@ public class SBPlayer {
     public void openProfileMenu() {
         GuiYourProfile profileGui = new GuiYourProfile(this);
         profileGui.open(player.getPlayer());
+    }
+
+    public void showInfo() {
+        String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()) + "/" + (int) (getPlayer().getMaxHealth()) + stats.getHealth().getIcon() + "   ";
+        if (stats.getDefence().getValue() > 0) {
+            text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue()) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
+        }
+        text += stats.getIntelligence().getColor() + (int) Math.floor(mana) + "/" + (int) Math.floor(getStats().getIntelligence().getValue() + 100) + stats.getIntelligence().getIcon();
+        getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
+    }
+
+    @Subscribe
+    public void onRegen(EntityRegainHealthEvent event) {
+        if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN && event.getEntity() == getPlayer()) {
+            event.setAmount(stats.getHealth().getRegenAmount());
+        }
     }
 
 }

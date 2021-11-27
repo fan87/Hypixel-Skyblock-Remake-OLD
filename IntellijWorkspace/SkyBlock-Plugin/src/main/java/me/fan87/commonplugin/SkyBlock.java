@@ -4,6 +4,7 @@ import io.github.retrooper.packetevents.PacketEvents;
 import lombok.Getter;
 import me.fan87.commonplugin.commands.impl.CmdGiveItem;
 import me.fan87.commonplugin.commands.impl.CmdUpdateInventory;
+import me.fan87.commonplugin.debug.DebugGuiManager;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.registerers.PacketRegisterer;
 import me.fan87.commonplugin.item.SBItems;
@@ -19,8 +20,16 @@ public class SkyBlock extends JavaPlugin {
     @Getter
     private PlayersManager playersManager;
 
+    private DebugGuiManager debugGuiManager;
+
+    private static final boolean DEBUG_MODE = true;
+
     @Override
     public void onEnable() {
+        if (DEBUG_MODE) {
+            debugGuiManager = new DebugGuiManager(this);
+        }
+
         PacketEvents.create(this);
         PacketEvents.get().init();
 
@@ -35,7 +44,6 @@ public class SkyBlock extends JavaPlugin {
 
         getServer().getPluginCommand("updateinventory").setExecutor(new CmdUpdateInventory(this));
         getServer().getPluginCommand("giveitem").setExecutor(new CmdGiveItem(this));
-
     }
 
     @Override

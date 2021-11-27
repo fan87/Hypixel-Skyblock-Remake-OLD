@@ -26,7 +26,11 @@ public class StatHealth extends SBStat {
 
     @Override
     public String getDescription(SBPlayer player) {
-        return "Health is your total maximum health. Your natural regeneration gives " + ChatColor.GREEN + getValue()*0.015 + " HP " + ChatColor.RESET + "every " + ChatColor.GREEN + "2s.";
+        return "Health is your total maximum health. Your natural regeneration gives " + ChatColor.GREEN + Math.round(getRegenAmount()*10f)/10f + " HP " + ChatColor.RESET + "every " + ChatColor.GREEN + "2s.";
+    }
+
+    public double getRegenAmount() {
+        return getValue()*0.015;
     }
 
     @Override
@@ -66,6 +70,8 @@ public class StatHealth extends SBStat {
 
     @Override
     public void onTick(SBPlayer player) {
-        player.getPlayer().setMaxHealth(getValue()/5f);
+        player.getPlayer().setHealthScaled(true);
+        player.getPlayer().setHealthScale(20 + (int) ((getValue() - 100)/100f)*2);
+        player.getPlayer().setMaxHealth(getValue());
     }
 }

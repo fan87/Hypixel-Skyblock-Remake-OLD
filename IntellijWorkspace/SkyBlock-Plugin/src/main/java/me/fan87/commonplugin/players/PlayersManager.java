@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.players;
 
+import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.entity.Player;
@@ -12,7 +13,8 @@ import java.util.List;
 
 public class PlayersManager {
 
-    private List<SBPlayer> loadedPlayers = new ArrayList<>();
+    @Getter
+    private final List<SBPlayer> loadedPlayers = new ArrayList<>();
 
     private SkyBlock skyBlock;
 

@@ -17,6 +17,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/IntellijWorkspace/pom.xml" />
+        <option value="$PROJECT_DIR$/../RektDebugger/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.gui.impl;
 
+import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
@@ -9,6 +10,7 @@ import me.fan87.commonplugin.utils.LoreUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,10 +25,8 @@ public class GuiYourProfile extends Gui {
         this.player = player;
     }
 
-    @Override
-    public void init() {
-        fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
-        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player)));
+    @Subscribe
+    public void onTick(ServerTickEvent event) {
         int slot = 0;
         for (Field declaredField : player.getStats().getClass().getDeclaredFields()) {
             try {
@@ -54,7 +54,6 @@ public class GuiYourProfile extends Gui {
                     }
                     itemMeta.setLore(lores);
                     iconItemStack.setItemMeta(itemMeta);
-                    System.out.println("X: " + (slot % 7 + 2) + " Y: " + (slot/7 + 3));
                     set(slot % 7 + 2, slot/7 + 3, new GuiItem(iconItemStack));
                     slot++;
                 }
@@ -62,6 +61,13 @@ public class GuiYourProfile extends Gui {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void init() {
+        fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
+        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player)));
+
         renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
     }
 }

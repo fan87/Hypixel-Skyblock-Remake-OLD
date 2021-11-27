@@ -55,9 +55,15 @@ public abstract class Gui {
             int y = i / 9;
             if (x == 0 || x == 8) {
                 items[i] = item;
+                if (inventory != null) {
+                    inventory.setItem(i, item.getItemStack());
+                }
             }
             if (y == 0 || y == size/9) {
                 items[i] = item;
+                if (inventory != null) {
+                    inventory.setItem(i, item.getItemStack());
+                }
             }
         }
         return this;
@@ -65,6 +71,11 @@ public abstract class Gui {
 
     public Gui fill(GuiItem item) {
         Arrays.fill(items, item);
+        if (inventory != null) {
+            for (int i = 0; i < inventory.getSize(); i++) {
+                inventory.setItem(i, item.getItemStack());
+            }
+        }
         return this;
     }
 
@@ -72,6 +83,9 @@ public abstract class Gui {
         int slot = (y - 1) * 9 + (x - 1);
         slot = Math.min(size, Math.max(0, slot));
         items[slot] = item;
+        if (inventory != null) {
+            inventory.setItem(slot, item.getItemStack());
+        }
         return this;
     }
 
@@ -92,6 +106,9 @@ public abstract class Gui {
             if (x >= fromX && x <= toX
                && y >= fromY && y <= toY) {
                 items[i] = item;
+                if (inventory != null) {
+                    inventory.setItem(i, item.getItemStack());
+                }
             }
         }
         return this;

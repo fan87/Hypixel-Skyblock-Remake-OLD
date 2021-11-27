@@ -9,6 +9,7 @@ public class SBPlayerStats {
     private final StatHealth health = new StatHealth();
     private final StatDefence defence = new StatDefence();
     private final StatSpeed speed = new StatSpeed();
+    private final StatStrength strength = new StatStrength();
     private final StatCritChance critChance = new StatCritChance();
     private final StatCritDamage critDamage = new StatCritDamage();
     private final StatIntelligence intelligence = new StatIntelligence();
