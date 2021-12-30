@@ -10,9 +10,9 @@ import org.bukkit.Material;
 @Setter
 public class SBMaterial {
 
-    Material material;
-    SBCustomItem item;
-    ItemType type;
+    private Material material;
+    private SBCustomItem item;
+    private ItemType type;
 
 
     public enum ItemType {

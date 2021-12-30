@@ -50,6 +50,7 @@ public abstract class DebugGui {
     private void initWindow() {
         GLFWErrorCallback.createPrint(System.err).set();
 
+
         // Initialize GLFW. Most GLFW functions will not work before doing this.
         if ( !glfwInit() ) {
             throw new IllegalStateException("Unable to initialize GLFW");
@@ -59,7 +60,7 @@ public abstract class DebugGui {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        windowPtr = glfwCreateWindow(100, 100, getTitle(), NULL, NULL);
+        windowPtr = glfwCreateWindow(1920, 1080, getTitle(), NULL, NULL);
 
         if (windowPtr == NULL) {
             System.out.println("Unable to create window");

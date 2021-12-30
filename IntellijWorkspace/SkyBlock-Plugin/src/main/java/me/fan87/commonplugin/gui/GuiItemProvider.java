@@ -27,6 +27,11 @@ public class GuiItemProvider {
 
     public static ItemStack getSkull(String texture, String uuid) {
         ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        return getSkull(item, texture, uuid);
+    }
+
+    public static ItemStack getSkull(ItemStack item, String texture, String uuid) {
+        assert item.getType() == Material.SKULL_ITEM;
         NBTItem nbtItem = new NBTItem(item, true);
         NBTCompound skullOwner = nbtItem.addCompound("SkullOwner");
         skullOwner.setString("Id", uuid);
@@ -54,8 +59,8 @@ public class GuiItemProvider {
         }
         meta.setLore(lores);
         meta.setDisplayName("§aYour SkyBlock Profile");
-        meta.setOwner(player.getPlayer().getName());
         skull.setItemMeta(meta);
+        getSkull(skull, player.getSkin(), player.getPlayer().getUniqueId().toString());
         return skull;
     }
 

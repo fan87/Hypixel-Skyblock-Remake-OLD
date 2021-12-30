@@ -4,9 +4,15 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.utils.LangUtils;
+import me.fan87.commonplugin.utils.LoreUtils;
+import net.minecraft.server.v1_8_R3.EnumItemRarity;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.UUID;
 
@@ -36,8 +42,8 @@ public class SBItemStack {
 
     public void updatePlayerStats(SBPlayer player, int inventoryIndex) {
         SBMaterial type = getType();
-        if (type.type == SBMaterial.ItemType.CUSTOM) {
-            type.item.updatePlayerStats(player, inventoryIndex);
+        if (type.getType() == SBMaterial.ItemType.CUSTOM) {
+            type.getItem().updatePlayerStats(player, inventoryIndex);
         }
     }
 
@@ -92,8 +98,37 @@ public class SBItemStack {
         return CraftItemStack.asNMSCopy(getItemStack());
     }
 
+    public String getVanillaItemName() {
+        net.minecraft.server.v1_8_R3.ItemStack itemStack = asNMSCopy();
+        return LangUtils.getName(itemStack.getItem().k(itemStack) + ".name");
+    }
+
     public ItemStack getDisplayItemStack() {
-        return getItemStack().clone();
+        ItemStack clone = getItemStack().clone();
+        ItemMeta itemMeta = clone.getItemMeta();
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        String displayName = itemMeta.getDisplayName();
+        if (displayName != null && !displayName.equals("")) {
+            return clone;
+        }
+        SBMaterial type = getType();
+        if (type.getType() == SBMaterial.ItemType.CUSTOM) {
+            itemMeta.setDisplayName(type.getItem().getDisplayName());
+            itemMeta.setLore(type.getItem().getLores());
+        }
+        if (type.getType() == SBMaterial.ItemType.UNKNOWN) {
+            itemMeta.setDisplayName(itemMeta.getDisplayName() + ChatColor.BLACK + " (Deprecated)");
+        }
+        if (type.getType() == SBMaterial.ItemType.VANILLA) {
+            EnumItemRarity rarity = asNMSCopy().u();
+            SBCustomItem.Rarity realOne = SBCustomItem.Rarity.getRarityByVanillaRarity(rarity);
+            itemMeta.setDisplayName(realOne.getColor() + "" + getVanillaItemName());
+            itemMeta.setLore(LoreUtils.splitLoreForLine(realOne.getColor().toString() + ChatColor.BOLD + realOne.getName().toUpperCase()));
+        }
+        itemStack.setItemMeta(itemMeta);
+        clone.setItemMeta(itemMeta);
+        return clone;
     }
 
 }

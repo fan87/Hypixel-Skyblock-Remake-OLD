@@ -2,13 +2,15 @@ package me.fan87.commonplugin.item;
 
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.LoreUtils;
+import net.minecraft.server.v1_8_R3.EnumItemRarity;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +70,6 @@ public class SBCustomItem {
 
     public ItemStack newItemStack() {
         ItemStack itemStack = new ItemStack(getMaterial());
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(getDisplayName());
-        itemMeta.setLore(getLores());
-        itemStack.setItemMeta(itemMeta);
         NBTItem nbt = new NBTItem(itemStack, true);
         NBTCompound extraAttributes = nbt.addCompound("ExtraAttributes");
         extraAttributes.setString("id", getNamespace());
@@ -81,6 +79,28 @@ public class SBCustomItem {
 
     public void applyExtraAttributes(NBTCompound compound) {
 
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public enum Rarity {
+        COMMON("Common", ChatColor.WHITE),
+        UNCOMMON("Uncommon", ChatColor.GREEN),
+        RARE("Rare", ChatColor.DARK_BLUE),
+        EPIC("Epic", ChatColor.DARK_PURPLE),
+        LEGENDARY("Legendary", ChatColor.GOLD),
+        MYTHIC("Mythic", ChatColor.LIGHT_PURPLE),
+        DIVINE("Divine", ChatColor.AQUA),
+        SPECIAL("Special", ChatColor.RED),
+        VERY_SPECIAL("Very Special", ChatColor.RED),
+        ;
+        private String name;
+        private ChatColor color;
+
+        public static Rarity getRarityByVanillaRarity(EnumItemRarity rarity) {
+            if (rarity == EnumItemRarity.COMMON) return COMMON;
+            return UNCOMMON;
+        }
     }
 
 }

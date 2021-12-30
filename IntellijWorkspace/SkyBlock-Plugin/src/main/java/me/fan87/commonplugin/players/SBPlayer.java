@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.players;
 
+import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
 import me.fan87.commonplugin.SkyBlock;
@@ -35,6 +36,8 @@ public class SBPlayer {
     private double mana;
 
     private SkyBlock skyBlock;
+    @Getter
+    private String skin;
 
     public boolean showActionBar = true;
 
@@ -44,6 +47,12 @@ public class SBPlayer {
         this.player = player;
         EventManager.EVENT_BUS.register(this);
         mana = getStats().getIntelligence().getValue() + 100;
+        for (Property textures : getCraftPlayer().getProfile().getProperties().get("textures")) {
+            if (textures.getName().equals("textures")) {
+                this.skin = textures.getValue();
+                break;
+            }
+        }
     }
 
     public void updateInventory() {

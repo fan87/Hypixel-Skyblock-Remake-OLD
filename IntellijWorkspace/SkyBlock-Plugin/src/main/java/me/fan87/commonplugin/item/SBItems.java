@@ -6,9 +6,11 @@ import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.item.impl.ItemSkyBlockMenu;
 import net.minecraft.server.v1_8_R3.ItemStack;
-import net.minecraft.server.v1_8_R3.PacketPlayOutWindowItems;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Field;
@@ -50,23 +52,48 @@ public class SBItems {
     }
 
     @Subscribe
+    public void updateItemDrop(EntitySpawnEvent event) {
+        if (event.getEntityType() == EntityType.DROPPED_ITEM) {
+            Item entity = (Item) event.getEntity();
+            entity.setItemStack(new SBItemStack(entity.getItemStack()).getItemStack());
+        }
+    }
+
+    @Subscribe
     public void updateInventories(PacketPlaySendEvent event) {
-        if (event.getNMSPacket().getRawNMSPacket() instanceof PacketPlayOutWindowItems) {
-            skyBlock.getPlayersManager().getPlayer(event.getPlayer()).updateInventory();
-            PacketPlayOutWindowItems packet = ((PacketPlayOutWindowItems) event.getNMSPacket().getRawNMSPacket());
-            try {
-                Field field = PacketPlayOutWindowItems.class.getDeclaredField("b");
-                field.setAccessible(true);
-                ItemStack[] itemStacks = (ItemStack[]) field.get(packet);
-                for (int i = 0; i < itemStacks.length; i++) {
-                    CraftItemStack craftItemStack = CraftItemStack.asCraftMirror(itemStacks[i]);
-                    if (craftItemStack == null || craftItemStack.getType() == Material.AIR) continue;
+        Object rawNMSPacket = event.getNMSPacket().getRawNMSPacket();
+        Field[] fields = rawNMSPacket.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType().equals(ItemStack.class)) {
+                try {
+                    skyBlock.getPlayersManager().getPlayer(event.getPlayer()).updateInventory();
+                    field.setAccessible(true);
+                    ItemStack item = ((ItemStack) field.get(rawNMSPacket));
+                    if (item == null) continue;
+                    CraftItemStack craftItemStack = CraftItemStack.asCraftMirror(item);
+                    if (craftItemStack.getType() == Material.AIR) continue;
                     SBItemStack itemStack = new SBItemStack(craftItemStack);
-                    itemStacks[i] = CraftItemStack.asNMSCopy(itemStack.getDisplayItemStack());
+                    field.set(rawNMSPacket, CraftItemStack.asNMSCopy(itemStack.getDisplayItemStack()));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                field.set(packet, itemStacks);
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+            if (field.getType().isArray() && field.getType().equals(ItemStack[].class)) {
+                try {
+                    skyBlock.getPlayersManager().getPlayer(event.getPlayer()).updateInventory();
+                    field.setAccessible(true);
+                    ItemStack[] itemStacks = (ItemStack[]) field.get(rawNMSPacket);
+                    for (int i = 0; i < itemStacks.length; i++) {
+                        if (itemStacks[i] == null) continue;
+                        CraftItemStack craftItemStack = CraftItemStack.asCraftMirror(itemStacks[i]);
+                        if (craftItemStack.getType() == Material.AIR) continue;
+                        SBItemStack itemStack = new SBItemStack(craftItemStack);
+                        itemStacks[i] = CraftItemStack.asNMSCopy(itemStack.getDisplayItemStack());
+                    }
+                    field.set(rawNMSPacket, itemStacks);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

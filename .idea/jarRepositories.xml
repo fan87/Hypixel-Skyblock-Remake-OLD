@@ -7,24 +7,9 @@
       <option name="url" value="file:$USER_HOME$/.gradle/caches/minecraft/deobfedDeps" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="sonatype-nexus-snapshots" />
-      <option name="name" value="Sonatype Nexus Snapshots" />
-      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="MavenRepo" />
-      <option name="name" value="MavenRepo" />
-      <option name="url" value="https://repo1.maven.org/maven2/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="md_5-releases" />
-      <option name="name" value="md_5-releases" />
-      <option name="url" value="http://repo.md-5.net/content/repositories/releases/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="funkemunky-releases" />
@@ -47,11 +32,6 @@
       <option name="url" value="https://jitpack.io" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="jboss.community" />
-      <option name="name" value="JBoss Community repository" />
-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="forge" />
       <option name="name" value="forge" />
       <option name="url" value="https://maven.minecraftforge.net" />
@@ -60,6 +40,31 @@
       <option name="id" value="deobfDeps" />
       <option name="name" value="deobfDeps" />
       <option name="url" value="file:$USER_HOME$/.gradle/caches/minecraft/deobfedDeps/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sonatype-nexus-snapshots" />
+      <option name="name" value="Sonatype Nexus Snapshots" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenRepo" />
+      <option name="name" value="MavenRepo" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="md_5-releases" />
+      <option name="name" value="md_5-releases" />
+      <option name="url" value="http://repo.md-5.net/content/repositories/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="codemc-repo" />
+      <option name="name" value="codemc-repo" />
+      <option name="url" value="https://repo.codemc.org/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
   </component>
 </project>
