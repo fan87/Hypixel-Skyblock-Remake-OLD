@@ -16,7 +16,8 @@ public class PlayersManager {
     @Getter
     private final List<SBPlayer> loadedPlayers = new ArrayList<>();
 
-    private SkyBlock skyBlock;
+    @Getter
+    private final SkyBlock skyBlock;
 
     public PlayersManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
