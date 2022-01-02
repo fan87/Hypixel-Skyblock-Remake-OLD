@@ -1,100 +1,100 @@
-[13:23:55] [Server thread/INFO]: Starting minecraft server version 1.8.8
-[13:23:55] [Server thread/INFO]: Loading properties
-[13:23:55] [Server thread/INFO]: Default game type: SURVIVAL
-[13:23:55] [Server thread/INFO]: This server is running CraftBukkit version git-Spigot-db6de12-18fbb24 (MC: 1.8.8) (Implementing API version 1.8.8-R0.1-SNAPSHOT)
-[13:23:55] [Server thread/INFO]: Debug logging is disabled
-[13:23:55] [Server thread/INFO]: Using 4 threads for Netty based IO
-[13:23:55] [Server thread/INFO]: Server Ping Player Sample Count: 12
-[13:23:55] [Server thread/INFO]: Generating keypair
-[13:23:55] [Server thread/INFO]: Starting Minecraft server on *:25565
-[13:23:55] [Server thread/INFO]: Using epoll channel type
-[13:23:55] [Server thread/INFO]: Set PluginClassLoader as parallel capable
-[13:23:55] [Server thread/WARN]: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-[13:23:55] [Server thread/WARN]: SLF4J: Defaulting to no-operation (NOP) logger implementation
-[13:23:55] [Server thread/WARN]: SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-[13:23:57] [Server thread/INFO]: [WorldEdit] Loading WorldEdit v6.1.9;caf0ad9
-[13:23:57] [Server thread/INFO]: [HypixelSkyBlock-Common] Loading HypixelSkyBlock-Common v1.0
-[13:23:57] [Server thread/INFO]: [ProtocolLib] Loading ProtocolLib v4.7.0
-[13:23:57] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.7.0
-[13:23:57] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
-[13:23:57] [Server thread/INFO]: **** Beginning UUID conversion, this may take A LONG time ****
-[13:23:57] [Server thread/INFO]: Preparing level "world"
-[13:23:57] [Server thread/INFO]: -------- World Settings For [world] --------
-[13:23:57] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
-[13:23:57] [Server thread/INFO]: Anti X-Ray: true
-[13:23:57] [Server thread/INFO]: 	Engine Mode: 1
-[13:23:57] [Server thread/INFO]: 	Hidden Blocks: [14, 15, 16, 21, 48, 49, 54, 56, 73, 74, 82, 129, 130]
-[13:23:57] [Server thread/INFO]: 	Replace Blocks: [1, 5]
-[13:23:57] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
-[13:23:57] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
-[13:23:57] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
-[13:23:57] [Server thread/INFO]: Random Lighting Updates: false
-[13:23:57] [Server thread/INFO]: Structure Info Saving: true
-[13:23:57] [Server thread/INFO]: Sending up to 10 chunks per packet
-[13:23:57] [Server thread/INFO]: Max Entity Collisions: 8
-[13:23:57] [Server thread/INFO]: Mob Spawn Range: 4
-[13:23:57] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
-[13:23:57] [Server thread/INFO]: Max TNT Explosions: 100
-[13:23:57] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
-[13:23:57] [Server thread/INFO]: Cactus Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Cane Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Melon Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Mushroom Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Sapling Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Wheat Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: NetherWart Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Item Merge Radius: 2.5
-[13:23:57] [Server thread/INFO]: Item Despawn Rate: 6000
-[13:23:57] [Server thread/INFO]: Arrow Despawn Rate: 1200
-[13:23:57] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
-[13:23:57] [Server thread/INFO]: View Distance: 10
-[13:23:57] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
-[13:23:57] [Server thread/INFO]: Chunks to Grow per Tick: 650
-[13:23:57] [Server thread/INFO]: Clear tick list: false
-[13:23:57] [Server thread/INFO]: Experience Merge Radius: 3.0
-[13:23:57] [Server thread/INFO]: -------- World Settings For [world_the_end] --------
-[13:23:57] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
-[13:23:57] [Server thread/INFO]: Anti X-Ray: true
-[13:23:57] [Server thread/INFO]: 	Engine Mode: 1
-[13:23:57] [Server thread/INFO]: 	Hidden Blocks: [14, 15, 16, 21, 48, 49, 54, 56, 73, 74, 82, 129, 130]
-[13:23:57] [Server thread/INFO]: 	Replace Blocks: [1, 5]
-[13:23:57] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
-[13:23:57] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
-[13:23:57] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
-[13:23:57] [Server thread/INFO]: Random Lighting Updates: false
-[13:23:57] [Server thread/INFO]: Structure Info Saving: true
-[13:23:57] [Server thread/INFO]: Sending up to 10 chunks per packet
-[13:23:57] [Server thread/INFO]: Max Entity Collisions: 8
-[13:23:57] [Server thread/INFO]: Mob Spawn Range: 4
-[13:23:57] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
-[13:23:57] [Server thread/INFO]: Max TNT Explosions: 100
-[13:23:57] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
-[13:23:57] [Server thread/INFO]: Cactus Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Cane Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Melon Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Mushroom Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Sapling Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Wheat Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: NetherWart Growth Modifier: 100%
-[13:23:57] [Server thread/INFO]: Item Merge Radius: 2.5
-[13:23:57] [Server thread/INFO]: Item Despawn Rate: 6000
-[13:23:57] [Server thread/INFO]: Arrow Despawn Rate: 1200
-[13:23:57] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
-[13:23:57] [Server thread/INFO]: View Distance: 10
-[13:23:57] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
-[13:23:57] [Server thread/INFO]: Chunks to Grow per Tick: 650
-[13:23:57] [Server thread/INFO]: Clear tick list: false
-[13:23:57] [Server thread/INFO]: Experience Merge Radius: 3.0
-[13:23:57] [Server thread/INFO]: Preparing start region for level 0 (Seed: 7688168089384142518)
-[13:23:58] [Server thread/INFO]: Preparing start region for level 1 (Seed: 7688168089384142518)
-[13:23:58] [Server thread/INFO]: [WorldEdit] Enabling WorldEdit v6.1.9;caf0ad9
-[13:23:59] [Server thread/INFO]: WEPIF: Using the Bukkit Permissions API.
-[13:23:59] [Server thread/INFO]: [WorldEdit] Using com.sk89q.worldedit.bukkit.adapter.impl.Spigot_v1_8_R3 as the Bukkit adapter
-[13:23:59] [Server thread/INFO]: [HypixelSkyBlock-Common] Enabling HypixelSkyBlock-Common v1.0
-[13:23:59] [packetevents-update-check-thread/INFO]: [HypixelSkyBlock-Common] [packetevents] Checking for an update, please wait...
-[13:23:59] [Server thread/INFO]: ttftfffttttttttttfffffffttftt1ttttttt111tttt1111111tttt1tt111tttt111111tttt1ttttttttttttttt111111111
+[11:24:12] [Server thread/INFO]: Starting minecraft server version 1.8.8
+[11:24:12] [Server thread/INFO]: Loading properties
+[11:24:12] [Server thread/INFO]: Default game type: SURVIVAL
+[11:24:12] [Server thread/INFO]: This server is running CraftBukkit version git-Spigot-db6de12-18fbb24 (MC: 1.8.8) (Implementing API version 1.8.8-R0.1-SNAPSHOT)
+[11:24:13] [Server thread/INFO]: Debug logging is disabled
+[11:24:13] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[11:24:13] [Server thread/INFO]: Using 4 threads for Netty based IO
+[11:24:13] [Server thread/INFO]: Generating keypair
+[11:24:13] [Server thread/INFO]: Starting Minecraft server on *:25565
+[11:24:13] [Server thread/INFO]: Using epoll channel type
+[11:24:13] [Server thread/INFO]: Set PluginClassLoader as parallel capable
+[11:24:13] [Server thread/WARN]: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+[11:24:13] [Server thread/WARN]: SLF4J: Defaulting to no-operation (NOP) logger implementation
+[11:24:13] [Server thread/WARN]: SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[11:24:14] [Server thread/INFO]: [WorldEdit] Loading WorldEdit v6.1.9;caf0ad9
+[11:24:14] [Server thread/INFO]: [HypixelSkyBlock-Common] Loading HypixelSkyBlock-Common v1.0
+[11:24:14] [Server thread/INFO]: [ProtocolLib] Loading ProtocolLib v4.7.0
+[11:24:15] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.7.0
+[11:24:15] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
+[11:24:15] [Server thread/INFO]: **** Beginning UUID conversion, this may take A LONG time ****
+[11:24:15] [Server thread/INFO]: Preparing level "world"
+[11:24:15] [Server thread/INFO]: -------- World Settings For [world] --------
+[11:24:15] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[11:24:15] [Server thread/INFO]: Anti X-Ray: true
+[11:24:15] [Server thread/INFO]: 	Engine Mode: 1
+[11:24:15] [Server thread/INFO]: 	Hidden Blocks: [14, 15, 16, 21, 48, 49, 54, 56, 73, 74, 82, 129, 130]
+[11:24:15] [Server thread/INFO]: 	Replace Blocks: [1, 5]
+[11:24:15] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Cane Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Melon Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
+[11:24:15] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[11:24:15] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
+[11:24:15] [Server thread/INFO]: Random Lighting Updates: false
+[11:24:15] [Server thread/INFO]: Structure Info Saving: true
+[11:24:15] [Server thread/INFO]: Sending up to 10 chunks per packet
+[11:24:15] [Server thread/INFO]: Max Entity Collisions: 8
+[11:24:15] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
+[11:24:15] [Server thread/INFO]: Max TNT Explosions: 100
+[11:24:15] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[11:24:15] [Server thread/INFO]: Mob Spawn Range: 4
+[11:24:15] [Server thread/INFO]: Item Merge Radius: 2.5
+[11:24:15] [Server thread/INFO]: Item Despawn Rate: 6000
+[11:24:15] [Server thread/INFO]: Arrow Despawn Rate: 1200
+[11:24:15] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[11:24:15] [Server thread/INFO]: View Distance: 10
+[11:24:15] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[11:24:15] [Server thread/INFO]: Chunks to Grow per Tick: 650
+[11:24:15] [Server thread/INFO]: Clear tick list: false
+[11:24:15] [Server thread/INFO]: Experience Merge Radius: 3.0
+[11:24:15] [Server thread/INFO]: -------- World Settings For [world_the_end] --------
+[11:24:15] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[11:24:15] [Server thread/INFO]: Anti X-Ray: true
+[11:24:15] [Server thread/INFO]: 	Engine Mode: 1
+[11:24:15] [Server thread/INFO]: 	Hidden Blocks: [14, 15, 16, 21, 48, 49, 54, 56, 73, 74, 82, 129, 130]
+[11:24:15] [Server thread/INFO]: 	Replace Blocks: [1, 5]
+[11:24:15] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Cane Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Melon Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[11:24:15] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
+[11:24:15] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[11:24:15] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
+[11:24:15] [Server thread/INFO]: Random Lighting Updates: false
+[11:24:15] [Server thread/INFO]: Structure Info Saving: true
+[11:24:15] [Server thread/INFO]: Sending up to 10 chunks per packet
+[11:24:15] [Server thread/INFO]: Max Entity Collisions: 8
+[11:24:15] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
+[11:24:15] [Server thread/INFO]: Max TNT Explosions: 100
+[11:24:15] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[11:24:15] [Server thread/INFO]: Mob Spawn Range: 4
+[11:24:15] [Server thread/INFO]: Item Merge Radius: 2.5
+[11:24:15] [Server thread/INFO]: Item Despawn Rate: 6000
+[11:24:15] [Server thread/INFO]: Arrow Despawn Rate: 1200
+[11:24:15] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[11:24:15] [Server thread/INFO]: View Distance: 10
+[11:24:15] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[11:24:15] [Server thread/INFO]: Chunks to Grow per Tick: 650
+[11:24:15] [Server thread/INFO]: Clear tick list: false
+[11:24:15] [Server thread/INFO]: Experience Merge Radius: 3.0
+[11:24:15] [Server thread/INFO]: Preparing start region for level 0 (Seed: 7688168089384142518)
+[11:24:16] [Server thread/INFO]: Preparing start region for level 1 (Seed: 7688168089384142518)
+[11:24:16] [Server thread/INFO]: [WorldEdit] Enabling WorldEdit v6.1.9;caf0ad9
+[11:24:16] [Server thread/INFO]: WEPIF: Using the Bukkit Permissions API.
+[11:24:16] [Server thread/INFO]: [WorldEdit] Using com.sk89q.worldedit.bukkit.adapter.impl.Spigot_v1_8_R3 as the Bukkit adapter
+[11:24:16] [Server thread/INFO]: [HypixelSkyBlock-Common] Enabling HypixelSkyBlock-Common v1.0
+[11:24:16] [packetevents-update-check-thread/INFO]: [HypixelSkyBlock-Common] [packetevents] Checking for an update, please wait...
+[11:24:16] [Server thread/INFO]: ttftfffttttttttttfffffffttftt1ttttttt111tttt1111111tttt1tt111tttt111111tttt1ttttttttttttttt111111111
 ttfttttttttttttttttfLLLftfffffffffftttt111tt11111ttffffftttt1111111111111111ttttttfttttttttt111111t1
 ttttttttttttttttffffLfftffffffffLLffttttttftt111ttfffffftttttttt111111ttttttffffttfffttttttt111111tt
 ttttttttttttttttfffLfttffffffLLffffttttttttttt1tfffffffffftttttt111111tffffffffftttfffftttt11111ttt1
@@ -137,38 +137,9 @@ ttttt1tttttttt11tftttttftttttttttt1;,:;:.......,:,,,....................,,1111t1
 1111111111111111111111111111111111111111:.,.....::::::,..................:111tttttt1tttt11tttttt1111
 1111111111111111111111111111111111111111:::,...,::::;::,..,,.............:11tt1ttttttttttttttttt1111
 ~~~~~~ Hypixel SkyBlock Recreate  -  Made by fan87 ~~~~~~
-[13:23:59] [Server thread/INFO]: [0;32;1mEntity Despawn has been enabled![m
-[13:23:59] [Server thread/INFO]: [0;32;1mEntity Damage Indicator has been enabled![m
-[13:23:59] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[13:23:59] [Server thread/INFO]: Done (1.556s)! For help, type "help" or "?"
-[13:23:59] [packetevents-update-check-thread/INFO]: [packetevents] You are on a dev or pre released build of PacketEvents. Your build: (1.7.9.17) | Latest released build: (1.7.9)
-[13:24:04] [User Authenticator #1/INFO]: UUID of player Kumolex is 7665b895-4512-448d-84be-4274dcdc53a0
-[13:24:04] [Server thread/INFO]: Player has been registered
-[13:24:04] [Thread-10/WARN]: java.lang.NullPointerException
-[13:24:04] [Thread-10/WARN]: 	at imgui.ImGui.checkbox(ImGui.java:1794)
-[13:24:04] [Thread-10/WARN]: 	at me.fan87.commonplugin.debug.impl.DebugSkyBlock.process(DebugSkyBlock.java:70)
-[13:24:04] [Thread-10/WARN]: 	at me.fan87.commonplugin.debug.DebugGui.run(DebugGui.java:91)
-[13:24:04] [Thread-10/WARN]: 	at me.fan87.commonplugin.debug.DebugGuiManager.lambda$registerGui$0(DebugGuiManager.java:26)
-[13:24:04] [Thread-10/WARN]: 	at java.lang.Thread.run(Thread.java:748)
-[13:24:04] [Server thread/INFO]: [NBTAPI] Found Spigot: v1_8_R3! Trying to find NMS support
-[13:24:04] [Server thread/INFO]: [NBTAPI] NMS support 'MC1_8_R3' loaded!
-[13:24:04] [Server thread/INFO]: [NBTAPI] Found Gson: class com.google.gson.Gson
-[13:24:04] [Server thread/WARN]: #########################################- NBTAPI -#########################################
-[13:24:04] [Server thread/WARN]: The NBT-API package has not been moved! This *will* cause problems with other plugins containing
-[13:24:04] [Server thread/WARN]: a different version of the api! Please read the guide on the plugin page on how to get the
-[13:24:04] [Server thread/WARN]: Maven Shade plugin to relocate the api to your personal location! If you are not the developer,
-[13:24:04] [Server thread/WARN]: please check your plugins and contact their developer, so he can fix this issue.
-[13:24:04] [Server thread/WARN]: #########################################- NBTAPI -#########################################
-[13:24:04] [Server thread/INFO]: Kumolex[/127.0.0.1:47030] logged in with entity id 26 at ([world]145.3965998962415, 67.0, 67.52680674943667)
-[13:24:04] [Thread-11/INFO]: [NBTAPI] The NBT-API seems to be up-to-date!
-[13:26:30] [Server thread/INFO]: Kumolex lost connection: Disconnected
-[13:26:30] [Server thread/INFO]: [WARNING] Subscriber to unregister was not registered before: class java.lang.Boolean
-[13:26:30] [Server thread/INFO]: Kumolex left the game.
-[13:26:34] [Server thread/INFO]: Stopping server
-[13:26:34] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v4.7.0
-[13:26:34] [Server thread/INFO]: [HypixelSkyBlock-Common] Disabling HypixelSkyBlock-Common v1.0
-[13:26:34] [Server thread/INFO]: [WorldEdit] Disabling WorldEdit v6.1.9;caf0ad9
-[13:26:34] [Server thread/INFO]: Saving players
-[13:26:34] [Server thread/INFO]: Saving worlds
-[13:26:34] [Server thread/INFO]: Saving chunks for level 'world'/Overworld
-[13:26:34] [Server thread/INFO]: Saving chunks for level 'world_the_end'/The End
+[11:24:17] [Server thread/INFO]: [0;32;1mEntity Despawn has been enabled![m
+[11:24:17] [Server thread/INFO]: [0;32;1mEntity Damage Indicator has been enabled![m
+[11:24:17] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[11:24:17] [Server thread/INFO]: Done (1.454s)! For help, type "help" or "?"
+[11:24:17] [packetevents-update-check-thread/INFO]: [packetevents] You are on a dev or pre released build of PacketEvents. Your build: (1.7.9.17) | Latest released build: (1.7.9)
+[11:25:23] [Thread-4/INFO]: Stopping server

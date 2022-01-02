@@ -1,7 +1,8 @@
 package me.fan87.commonplugin.features.entityindicator;
 
 import me.fan87.commonplugin.features.SBFeature;
-import me.fan87.commonplugin.features.entitydespawn.EntityDespawn;
+import me.fan87.commonplugin.features.entitydespawn.EntityDespawner;
+import me.fan87.commonplugin.utils.ColorUtils;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,10 +12,15 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EntityDamageIndicator extends SBFeature {
     public EntityDamageIndicator() {
-        super("Entity Damage Indicator", "Shows entity's current health, info, and other info above them.", true);
+        super("Entity Damage Indicator", "Shows entity's current health, info, and other info above them.", false);
     }
+
+    private final static List<EntityDamageByEntityEvent> criticals = new ArrayList<>();
 
     @Override
     protected void onEnable() {
@@ -24,6 +30,18 @@ public class EntityDamageIndicator extends SBFeature {
     @Override
     protected void onDisable() {
 
+    }
+
+    public static void setCritical(EntityDamageByEntityEvent event, boolean value) {
+        if (value) {
+            criticals.add(event);
+        } else {
+            criticals.remove(event);
+        }
+    }
+
+    public static boolean isCritical(EntityDamageByEntityEvent event) {
+        return criticals.contains(event);
     }
 
     @Subscribe(priority = -60)
@@ -36,7 +54,12 @@ public class EntityDamageIndicator extends SBFeature {
         entityArmorStand.setGravity(false);
         entityArmorStand.setInvisible(true);
         entityArmorStand.setCustomNameVisible(true);
-        entityArmorStand.setCustomName(ChatColor.GRAY + "" + event.getDamage());
-        EntityDespawn.planDespawnTime(((CraftWorld) entity.getWorld()).addEntity(entityArmorStand, CreatureSpawnEvent.SpawnReason.CUSTOM), 20);
+        if (criticals.contains(event)) {
+            criticals.remove(event);
+            entityArmorStand.setCustomName(ColorUtils.generateRainbowText("✮" + event.getDamage() + "✮", ColorUtils.RainbowStyle.CRITICAL));
+        } else {
+            entityArmorStand.setCustomName(ChatColor.GRAY + "" + event.getDamage());
+        }
+        EntityDespawner.planDespawnTime(((CraftWorld) entity.getWorld()).addEntity(entityArmorStand, CreatureSpawnEvent.SpawnReason.CUSTOM), 20);
     }
 }
