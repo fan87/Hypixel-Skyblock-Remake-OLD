@@ -15,6 +15,8 @@ public class DevCommandsPack extends JavaPlugin {
         try {
             SkyBlock skyBlock = SkyBlock.registerPlugin("Development Commands Pack", "devcmdpack", this);
             skyBlock.getCommandsManager().registerCommand("devcmdpack", new CmdGiveItem());
+            skyBlock.getCommandsManager().registerCommand("devcmdpack", new CmdWorldInfo());
+            skyBlock.getCommandsManager().registerCommand("devcmdpack", new CmdReloadWorldManager());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,7 +12,6 @@ public class CmdGiveItem extends SBCommand {
 
     public CmdGiveItem() {
         super("giveitem", "Gives a skyblock item to you", "skyblock.admin", "/giveitem <Item Name>");
-
     }
 
     @Override

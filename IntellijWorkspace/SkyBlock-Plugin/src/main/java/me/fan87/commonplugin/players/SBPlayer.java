@@ -33,7 +33,11 @@ public class SBPlayer {
     @Getter
     @Setter
     private double mana;
+    @Getter
+    @Setter
+    private double coins;
 
+    @Getter
     private SkyBlock skyBlock;
     @Getter
     private String skin;

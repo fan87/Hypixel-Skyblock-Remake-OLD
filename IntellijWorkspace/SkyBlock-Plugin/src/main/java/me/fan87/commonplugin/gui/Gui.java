@@ -3,6 +3,8 @@ package me.fan87.commonplugin.gui;
 import lombok.Getter;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -30,10 +32,16 @@ public abstract class Gui {
         EventManager.EVENT_BUS.register(this);
     }
 
+    public boolean canMove(InventoryClickEvent inventoryClickEvent) {
+        return false;
+    }
+
     @Subscribe
     public void onClick(InventoryClickEvent event) {
         if (event.getInventory().equals(inventory)) {
-            event.setCancelled(true);
+            if (!canMove(event)) {
+                event.setCancelled(true);
+            }
             for (int i = 0; i < items.length; i++) {
                 if (i == event.getRawSlot()) {
                     items[i].getHandler().handleClick(event);
@@ -66,6 +74,7 @@ public abstract class Gui {
                 }
             }
         }
+        updateInventory();
         return this;
     }
 
@@ -76,20 +85,53 @@ public abstract class Gui {
                 inventory.setItem(i, item.getItemStack());
             }
         }
+        updateInventory();
         return this;
     }
 
+    public static int getSlotNumberByXY(int x, int y) {
+        return (y - 1) * 9 + (x - 1);
+    }
+
     public Gui set(int x, int y, GuiItem item) {
-        int slot = (y - 1) * 9 + (x - 1);
+        int slot = getSlotNumberByXY(x, y);
         slot = Math.min(size, Math.max(0, slot));
         items[slot] = item;
         if (inventory != null) {
             inventory.setItem(slot, item.getItemStack());
         }
+        updateInventory();
         return this;
     }
 
+    public void updateInventory() {
+
+        Bukkit.getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("HypixelSkyBlock-Common"), new Runnable() {
+            @Override
+            public void run() {
+                if (inventory != null) {
+                    for (HumanEntity viewer : inventory.getViewers()) {
+                        if (viewer instanceof Player) {
+                            CraftPlayer player = (CraftPlayer) viewer;
+                            player.updateInventory();
+//                            List<ItemStack> items = new ArrayList<>();
+//                            for (int i = 0; i < getInventory().getSize(); i++) {
+//                                CraftItemStack item = (CraftItemStack) getInventory().getItem(i);
+//                                items.add(item==null?CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR)):CraftItemStack.asNMSCopy(item));
+//                            }
+//                            player.getHandle().playerConnection.sendPacket(new PacketPlayOutWindowItems(player.getHandle().activeContainer.windowId, items));
+                        }
+                    }
+                }
+            }
+        }, 1);
+    }
+
     public Gui fill(int fromX, int fromY, int toX, int toY, GuiItem item) {
+        fromX--;
+        fromY--;
+        toX--;
+        toY--;
         if (fromX > toX) {
             int temp = fromX;
             fromX = toX;
@@ -111,6 +153,7 @@ public abstract class Gui {
                 }
             }
         }
+        updateInventory();
         return this;
     }
 

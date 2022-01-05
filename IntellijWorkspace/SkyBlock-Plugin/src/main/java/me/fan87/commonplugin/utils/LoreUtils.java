@@ -9,12 +9,12 @@ import java.util.regex.Pattern;
 
 public class LoreUtils {
 
-    public static List<String> splitLoreForLine(String input) {
+    public static List<String> splitLoreForLine(String input, String linePrefix, String lineSuffix) {
         char[] array = input.toCharArray();
         List<String> out = new ArrayList<>();
         String currentColor = "";
         boolean wasColorChar = false;
-        String currentLine = "";
+        String currentLine = linePrefix;
         String currentWord = "";
         for (int i = 0; i < array.length; i++) {
             char c = array[i];
@@ -34,14 +34,14 @@ public class LoreUtils {
             if (c == '\n') {
                 currentLine += currentWord;
                 currentWord = "";
-                out.add(currentLine);
-                currentLine = currentColor + currentWord;
+                out.add(currentLine + lineSuffix);
+                currentLine = linePrefix + currentColor + currentWord;
                 continue;
             }
             if (c == ' ') {
                 if (new ChatComponentText(currentLine + currentWord).getText().length() > 32) {
-                    out.add(currentLine);
-                    currentLine = currentColor + currentWord + " ";
+                    out.add(currentLine + lineSuffix);
+                    currentLine = linePrefix + currentColor + currentWord;
                 } else {
                     currentLine += currentWord + " ";
                 }
@@ -55,8 +55,12 @@ public class LoreUtils {
             currentWord += c;
         }
         currentLine += currentWord;
-        out.add(currentLine);
+        out.add(currentLine + lineSuffix);
         return out;
+    }
+
+    public static List<String> splitLoreForLine(String input) {
+        return splitLoreForLine(input, "", "");
     }
 
 }

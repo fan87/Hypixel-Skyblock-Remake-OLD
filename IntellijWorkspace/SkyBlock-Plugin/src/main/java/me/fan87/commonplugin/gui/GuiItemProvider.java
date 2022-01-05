@@ -18,7 +18,11 @@ import java.util.List;
 public class GuiItemProvider {
 
     public static ItemStack backgroundGlassPane() {
-        ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, Short.parseShort("15"));
+        return backgroundGlassPane(15);
+    }
+
+    public static ItemStack backgroundGlassPane(int color) {
+        ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) color);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(" ");
         itemStack.setItemMeta(itemMeta);

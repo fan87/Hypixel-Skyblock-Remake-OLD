@@ -30,14 +30,14 @@ public abstract class SBFeature {
     public void setToggled(boolean value) {
         if (value) {
             if (!toggled) {
-                skyBlock.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + getName() + " has been enabled!");
+                skyBlock.getServer().getConsoleSender().sendMessage(" - " + ChatColor.GREEN + getName() + " has been enabled!");
                 EventManager.EVENT_BUS.register(this);
                 this.toggled = true;
                 onEnable();
             }
         } else {
             if (toggled) {
-                skyBlock.getServer().getConsoleSender().sendMessage(ChatColor.RED + getName() + " has been disabled!");
+                skyBlock.getServer().getConsoleSender().sendMessage(" - " + ChatColor.RED + getName() + " has been disabled!");
                 EventManager.EVENT_BUS.unregister(this);
                 this.toggled = false;
                 onDisable();

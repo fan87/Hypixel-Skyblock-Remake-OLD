@@ -20,12 +20,12 @@ public class DebugGuiManager {
     }
 
     public void registerGui(DebugGui gui) {
-        debugGuis.add(gui);
-        new Thread(() -> {
-            gui.init();
-            gui.run();
-            gui.destroy();
-        }).start();
+//        debugGuis.add(gui);
+//        new Thread(() -> {
+//            gui.init();
+//            gui.run();
+//            gui.destroy();
+//        }).start();
     }
 
 }

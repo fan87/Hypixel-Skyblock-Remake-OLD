@@ -10,6 +10,8 @@ import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
 import me.fan87.commonplugin.features.FeaturesManager;
 import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.players.PlayersManager;
+import me.fan87.commonplugin.recipes.RecipesManager;
+import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -30,6 +32,10 @@ public class SkyBlock extends JavaPlugin {
     @Getter
     private CommandsManager commandsManager;
     @Getter
+    private RecipesManager recipesManager;
+    @Getter
+    private WorldsManager worldsManager;
+    @Getter
     private final List<SBAddon> addons = new ArrayList<>();
 
 
@@ -38,6 +44,8 @@ public class SkyBlock extends JavaPlugin {
 
     public static final Reflections reflections = new Reflections();
     private static final boolean DEBUG_MODE = true;
+
+
 
 
     @Override
@@ -55,6 +63,8 @@ public class SkyBlock extends JavaPlugin {
         System.out.println(new String(decode));
 
         this.eventManager = new EventManager(this);
+        this.worldsManager = new WorldsManager(this);
+        this.recipesManager = new RecipesManager(this);
         this.playersManager = new PlayersManager(this);
         this.featuresManager = new FeaturesManager(this);
         this.commandsManager = new CommandsManager(this);

@@ -8,7 +8,6 @@ import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -46,7 +45,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
                 SBItemStack itemStack = new SBItemStack(item);
                 if (itemStack.getType().getItem() == SBItems.SKYBLOCK_MENU) {
                     event.setCancelled(true);
-                    skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+//                    skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
                 }
             }
         }
@@ -56,7 +55,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
             SBMaterial type = itemStack.getType();
             if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
                 event.setCancelled(true);
-                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+//                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
             }
         }
         if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
@@ -65,9 +64,10 @@ public class ItemSkyBlockMenu extends SBCustomItem {
             SBMaterial type = itemStack.getType();
             if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
                 event.setCancelled(true);
-                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
+//                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
             }
         }
+
     }
 
 

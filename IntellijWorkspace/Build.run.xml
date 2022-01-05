@@ -10,7 +10,6 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
               <option value="package" />
             </list>
           </option>
