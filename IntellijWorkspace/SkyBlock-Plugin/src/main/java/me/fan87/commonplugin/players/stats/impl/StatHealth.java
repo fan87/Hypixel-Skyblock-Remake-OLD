@@ -64,7 +64,7 @@ public class StatHealth extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         return "";
     }
 

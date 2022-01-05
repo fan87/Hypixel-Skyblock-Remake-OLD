@@ -18,7 +18,6 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -55,6 +54,9 @@ public class SBPlayer {
         }
     }
 
+    /**
+     * Update the inventory and save custom NBT Data to every items
+     */
     public void updateInventory() {
         stats = new SBPlayerStats();
         for (int i = 0; i < player.getInventory().getSize(); i++) {
@@ -81,7 +83,7 @@ public class SBPlayer {
     public void onTick(ServerTickEvent event) {
         tickStats();
         if (showActionBar) {
-            showInfo();
+            displayActionBar();
         }
     }
 
@@ -99,6 +101,11 @@ public class SBPlayer {
         }
     }
 
+    /**
+     * DEPRECATED!
+     * TODO: Write a replacement
+     */
+    @Deprecated
     public boolean isItemActive(SBCustomItem customItem) {
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             if (player.getInventory().getItem(i) == null || player.getInventory().getItem(i).getType() == Material.AIR) continue;
@@ -115,18 +122,28 @@ public class SBPlayer {
         return false;
     }
 
-
+    /**
+     * Open the skyblock menu
+     * TODO: Un hard code it
+     */
     public void openSkyBlockMenu() {
         GuiSkyBlockMenu menu = new GuiSkyBlockMenu(this);
         getPlayer().openInventory(menu.getInventory());
     }
 
+    /**
+     * Open the profile menu
+     * TODO: Un hard code it
+     */
     public void openProfileMenu() {
         GuiYourProfile profileGui = new GuiYourProfile(this);
         profileGui.open(player.getPlayer());
     }
 
-    public void showInfo() {
+    /**
+     * Displays the bottom text of the screen
+     */
+    public void displayActionBar() {
         String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()) + "/" + (int) (getPlayer().getMaxHealth()) + stats.getHealth().getIcon() + "   ";
         if (stats.getDefence().getValue() > 0) {
             text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue()) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
@@ -135,11 +152,6 @@ public class SBPlayer {
         getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
     }
 
-    @Subscribe
-    public void onRegen(EntityRegainHealthEvent event) {
-        if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN && event.getEntity() == getPlayer()) {
-            event.setAmount(stats.getHealth().getRegenAmount());
-        }
-    }
+
 
 }

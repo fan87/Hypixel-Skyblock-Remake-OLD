@@ -59,20 +59,17 @@ public class StatSpeed extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         if (getValue() != getDefaultValue()) {
             return "You are " + ChatColor.GREEN + Math.floor(getValue()) + "% " + ChatColor.RESET + " faster!";
         }
         return "";
     }
 
+
     @Override
-    public double getTotalBonusValue() {
-        double totalBonusValue = super.getTotalBonusValue();
-        if (getBaseValue() + totalBonusValue > 500) {
-            totalBonusValue = Math.max(0, 500 - getBaseValue());
-        }
-        return totalBonusValue;
+    protected double getMaxValue() {
+        return 500;
     }
 
     @Override

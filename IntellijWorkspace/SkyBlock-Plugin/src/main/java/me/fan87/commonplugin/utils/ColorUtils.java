@@ -14,6 +14,12 @@ public class ColorUtils {
         ChatColor[] colors;
     }
 
+    /**
+     * Generate a rainbow text with input text and rainbow style
+     * @param input Original text
+     * @param rainbowStyle The style you want to use, for example: {@link RainbowStyle#CRITICAL}
+     * @return The output text with color
+     */
     public static String generateRainbowText(String input, RainbowStyle rainbowStyle) {
         StringBuilder output = new StringBuilder();
         char[] chars = input.toCharArray();

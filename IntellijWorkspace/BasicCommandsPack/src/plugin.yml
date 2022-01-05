@@ -1,0 +1,5 @@
+name: BasicCommandPack
+main: me.fan87.basiccommandspack.BasicCommandsPack
+version: 1.0
+depend:
+  - HypixelSkyBlock-Common

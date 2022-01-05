@@ -59,7 +59,7 @@ public class StatDefence extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         StatHealth health = player.getStats().getHealth();
         return "Damage Reduction: " + ChatColor.GREEN + Math.round(getDamageModifier()*1000f)/10f + "%\n" + ChatColor.RESET +
                 "Effective Health: " + ChatColor.RED + Math.round(health.getValue()*getDamageModifier()*10f)/10f + health.getIcon();

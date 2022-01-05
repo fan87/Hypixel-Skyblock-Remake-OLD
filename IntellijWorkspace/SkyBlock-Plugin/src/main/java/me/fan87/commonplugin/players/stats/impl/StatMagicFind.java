@@ -59,7 +59,7 @@ public class StatMagicFind extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         return "";
     }
 

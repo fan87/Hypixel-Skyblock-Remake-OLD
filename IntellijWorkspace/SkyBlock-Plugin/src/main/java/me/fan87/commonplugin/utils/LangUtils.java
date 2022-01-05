@@ -7,6 +7,11 @@ import java.io.InputStream;
 
 public class LangUtils {
 
+    /**
+     * Get vanilla text, for example: tile.dirt.name will return Dirt as logn as it's in en_US.lang
+     * @param original Namespace or whatever you want to call it
+     * @return The translated name, if it's not found it will return `original` directly
+     */
     @SneakyThrows
     public static String getName(String original) {
         InputStream resourceAsStream = LangUtils.class.getClassLoader().getResourceAsStream("en_US.lang");

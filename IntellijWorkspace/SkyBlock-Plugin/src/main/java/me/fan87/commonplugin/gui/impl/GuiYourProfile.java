@@ -48,9 +48,9 @@ public class GuiYourProfile extends Gui {
                     for (String s : LoreUtils.splitLoreForLine(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + stat.getBonusDescription().replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC))) {
                         lores.add("  " + s);
                     }
-                    if (!stat.getPerPlayerDescription(player).equals("")) {
+                    if (!stat.getExampledDescription(player).equals("")) {
                         lores.add("");
-                        lores.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + stat.getPerPlayerDescription(player).replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.GRAY)));
+                        lores.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + stat.getExampledDescription(player).replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.GRAY)));
                     }
                     itemMeta.setLore(lores);
                     iconItemStack.setItemMeta(itemMeta);

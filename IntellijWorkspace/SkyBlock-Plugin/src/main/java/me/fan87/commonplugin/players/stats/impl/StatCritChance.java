@@ -8,6 +8,8 @@ import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class StatCritChance extends SBStat {
 
     @Override
@@ -68,12 +70,21 @@ public class StatCritChance extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         return "";
     }
 
     @Override
     public void onTick(SBPlayer player) {
 
+    }
+
+    @Override
+    protected double getMaxValue() {
+        return 100;
+    }
+
+    public boolean nextValue() {
+        return getValue() > new Random().nextInt(100);
     }
 }

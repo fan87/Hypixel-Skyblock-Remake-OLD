@@ -72,7 +72,7 @@ public class StatForagingFortune extends SBStat {
     public void onTick(SBPlayer player) {
     }
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         if (getValue() < 100) {
             return "Chance for " + ChatColor.GREEN + "double " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue() % 100)) + "%";
         } else {

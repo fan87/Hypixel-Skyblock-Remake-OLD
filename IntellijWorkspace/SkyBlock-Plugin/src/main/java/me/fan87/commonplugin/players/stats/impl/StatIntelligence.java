@@ -59,7 +59,7 @@ public class StatIntelligence extends SBStat {
     }
 
     @Override
-    public String getPerPlayerDescription(SBPlayer player) {
+    public String getExampledDescription(SBPlayer player) {
         return "Magic Damage: +" + getColor() + Math.floor(getValue()) + "%\n" + ChatColor.RESET +
                 "Mana Pool: " + getColor() + (Math.floor(getValue()) + 100);
     }

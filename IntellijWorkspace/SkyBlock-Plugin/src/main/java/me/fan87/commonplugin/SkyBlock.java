@@ -2,8 +2,8 @@ package me.fan87.commonplugin;
 
 import io.github.retrooper.packetevents.PacketEvents;
 import lombok.Getter;
-import me.fan87.commonplugin.commands.impl.CmdGiveItem;
-import me.fan87.commonplugin.commands.impl.CmdUpdateInventory;
+import me.fan87.commonplugin.addon.SBAddon;
+import me.fan87.commonplugin.commands.CommandsManager;
 import me.fan87.commonplugin.debug.DebugGuiManager;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
@@ -13,7 +13,9 @@ import me.fan87.commonplugin.players.PlayersManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class SkyBlock extends JavaPlugin {
 
@@ -25,14 +27,23 @@ public class SkyBlock extends JavaPlugin {
     private FeaturesManager featuresManager;
     @Getter
     private DebugGuiManager debugGuiManager;
+    @Getter
+    private CommandsManager commandsManager;
+    @Getter
+    private final List<SBAddon> addons = new ArrayList<>();
+
+
+    private static SkyBlock instance;
 
 
     public static final Reflections reflections = new Reflections();
-
     private static final boolean DEBUG_MODE = true;
+
 
     @Override
     public void onEnable() {
+        instance = this;
+        addons.clear();
         if (DEBUG_MODE) {
             debugGuiManager = new DebugGuiManager(this);
         }
@@ -46,11 +57,8 @@ public class SkyBlock extends JavaPlugin {
         this.eventManager = new EventManager(this);
         this.playersManager = new PlayersManager(this);
         this.featuresManager = new FeaturesManager(this);
+        this.commandsManager = new CommandsManager(this);
         EventManager.EVENT_BUS.register(new SBItems(this));
-
-
-        getServer().getPluginCommand("updateinventory").setExecutor(new CmdUpdateInventory(this));
-        getServer().getPluginCommand("giveitem").setExecutor(new CmdGiveItem(this));
     }
 
     @Override
@@ -59,5 +67,25 @@ public class SkyBlock extends JavaPlugin {
         PacketEvents.get().terminate();
     }
 
+    public void sendMessage(String message) {
+        getServer().getConsoleSender().sendMessage(message);
+    }
+
+
+    public static SkyBlock registerPlugin(String name, String namespace, JavaPlugin javaPlugin) {
+        for (SBAddon addon : instance.addons) {
+            if (addon.getNamespace().equals(namespace)) {
+                throw new AddonAlreadyRegisteredError("Addon " + namespace + " is already registered! Please contact the addon developer to change addon name.");
+            }
+        }
+        instance.addons.add(new SBAddon(name, namespace, javaPlugin));
+        return instance;
+    }
+
+    public static class AddonAlreadyRegisteredError extends Error {
+        public AddonAlreadyRegisteredError(String message) {
+            super(message);
+        }
+    }
 
 }
