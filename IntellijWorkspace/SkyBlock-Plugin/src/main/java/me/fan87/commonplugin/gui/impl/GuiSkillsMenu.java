@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.gui.impl;
 
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
+import me.fan87.commonplugin.gui.ButtonHandler;
 import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
@@ -9,6 +10,8 @@ import me.fan87.commonplugin.players.skill.SBSkill;
 import me.fan87.commonplugin.utils.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.greenrobot.eventbus.Subscribe;
 
 public class GuiSkillsMenu extends Gui {
@@ -58,7 +61,12 @@ public class GuiSkillsMenu extends Gui {
             }
             itemStackBuilder.addLore("");
             itemStackBuilder.addLore(ChatColor.YELLOW + "Click to view!");
-            set(2 + i, 3, new GuiItem(itemStackBuilder.build()));
+            set(2 + i, 3, new GuiItem(itemStackBuilder.build(), new ButtonHandler() {
+                @Override
+                public void handleClick(InventoryClickEvent event) {
+                    new GuiViewSkill(skill, player, 1).open(((Player) event.getWhoClicked()));
+                }
+            }));
         }
         renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
     }

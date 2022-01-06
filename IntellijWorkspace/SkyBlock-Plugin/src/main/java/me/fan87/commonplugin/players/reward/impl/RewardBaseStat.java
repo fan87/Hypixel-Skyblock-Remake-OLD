@@ -20,7 +20,7 @@ public class RewardBaseStat extends SBReward {
 
     @Override
     public String toString() {
-        return ChatColor.DARK_GRAY + "+" + ChatColor.GREEN + " " + stat.getDisplayName();
+        return ChatColor.DARK_GRAY + "+" + ChatColor.GREEN + Math.floor(baseExtraValues) + " " + stat.getDisplayName();
     }
 
     @Override

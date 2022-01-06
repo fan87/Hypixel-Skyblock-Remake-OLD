@@ -11,16 +11,22 @@ import org.bukkit.ChatColor;
 public abstract class RewardFortune extends SBReward {
 
     private final SBSkill skill;
+    private final int level;
 
-    public RewardFortune(SBSkill skill) {
+    public RewardFortune(SBSkill skill, int level) {
         this.skill = skill;
+        this.level = level;
     }
 
-    public abstract String getDescription(SBSkill skill);
+    public abstract SBPlayer getPlayer();
+
+    public String getDescription(SBSkill skill) {
+        return skill.getFortuneDisplayWithLevel(level, getPlayer());
+    }
 
     @Override
     public String toString() {
-        return ChatColor.GREEN + skill.getSkillType().getFortuneName() + "\n" + ChatColor.WHITE + getDescription(skill);
+        return ChatColor.YELLOW + skill.getSkillType().getFortuneName() + " " + skill.getLevelDisplay(level) + "\n" + ChatColor.WHITE + getDescription(skill);
     }
 
     @Override

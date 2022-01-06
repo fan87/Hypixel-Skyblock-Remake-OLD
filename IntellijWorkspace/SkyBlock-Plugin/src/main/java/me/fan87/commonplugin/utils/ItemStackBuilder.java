@@ -23,11 +23,7 @@ public class ItemStackBuilder {
     }
 
     public ItemStackBuilder(Material material, int data) {
-        if (data == 0) {
-            this.itemStack = new ItemStack(material);
-        } else {
-            this.itemStack = new ItemStack(material, (short) data);
-        }
+        this.itemStack = new ItemStack(material, 1, (short) data);
         itemStack.setAmount(1);
     }
 
