@@ -126,7 +126,7 @@ for id in vanilla_items:
         description = item["description"].replace("\"", "\\\"")
         for color in colors.split("\n"):
             try:
-                description = description.replace("%%" + color.split("(")[0].lower() + "%%", color.split("'")[1])
+                description = description.replace("%%" + color.split("(")[0].lower() + "%%", "§" + color.split("'")[1])
             except:
                 pass
     if "durability" in item:

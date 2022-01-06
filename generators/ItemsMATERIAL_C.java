@@ -985,7 +985,7 @@ public class ItemsMATERIAL_C {
         SBItems.registerItem(STONE__3);
         REDSTONE_ORE = new ItemVanilla("REDSTONE_ORE", "Redstone Ore", "", Material.REDSTONE_ORE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(REDSTONE_ORE);
-        BEDROCK = new ItemVanilla("BEDROCK", "Bedrock", "cI guess you have this now.", Material.BEDROCK, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, SBCustomItem.Category.MATERIAL, skyBlock);
+        BEDROCK = new ItemVanilla("BEDROCK", "Bedrock", "§cI guess you have this now.", Material.BEDROCK, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(BEDROCK);
         SUPER_EGG = new ItemVanilla("SUPER_EGG", "Super Enchanted Egg", "", Material.MONSTER_EGG, (short) 0, "", SBCustomItem.Rarity.RARE, true, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(SUPER_EGG);
