@@ -2,6 +2,8 @@
 
 Hypixel SkyBlock Full Remake Project, Including every single item and feature.<br>WIP
 
+## Code time
+fan87 - 9 hours
 
 ## Contribute
 

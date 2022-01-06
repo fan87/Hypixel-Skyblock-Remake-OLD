@@ -12,7 +12,10 @@ import me.fan87.commonplugin.utils.LoreUtils;
 import net.minecraft.server.v1_8_R3.EnumItemRarity;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -47,11 +50,14 @@ public class SBCustomItem {
     @Getter
     private final Category category;
 
+    @Getter
+    private final boolean glowing;
+
 
     public SBCustomItem(String namespace, String displayName, String description, Material material, SkyBlock skyBlock) {
-        this(namespace, displayName, description, material, (short) 0, "", Rarity.COMMON, Category.MATERIAL, skyBlock);
+        this(namespace, displayName, description, material, (short) 0, "", Rarity.COMMON, false, Category.MATERIAL, skyBlock);
     }
-    public SBCustomItem(String namespace, String displayName, String description, Material material, short damage, String skin, Rarity rarity, Category category, SkyBlock skyBlock) {
+    public SBCustomItem(String namespace, String displayName, String description, Material material, short damage, String skin, Rarity rarity, boolean glowing, Category category, SkyBlock skyBlock) {
         this.namespace = namespace;
         this.material = material;
         this.displayName = displayName;
@@ -61,6 +67,7 @@ public class SBCustomItem {
         this.category = category;
         this.damage = damage;
         this.skyBlock = skyBlock;
+        this.glowing = glowing;
     }
 
     public SBCustomItem(String namespace, String displayName, Material material, SkyBlock skyBlock) {
@@ -110,6 +117,21 @@ public class SBCustomItem {
             NBTListCompound textures = properties.getCompoundList("textures").addCompound();
             textures.setString("Value", skin);
         }
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        try {
+            itemMeta.spigot().setUnbreakable(true);
+        } catch (Exception ignored) {}
+        itemStack.setItemMeta(itemMeta);
+
+        if (isGlowing()) {
+            itemStack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+        }
         applyExtraAttributes(extraAttributes);
         return itemStack;
     }
@@ -129,7 +151,7 @@ public class SBCustomItem {
     public enum Rarity {
         COMMON("Common", ChatColor.WHITE),
         UNCOMMON("Uncommon", ChatColor.GREEN),
-        RARE("Rare", ChatColor.DARK_BLUE),
+        RARE("Rare", ChatColor.BLUE),
         EPIC("Epic", ChatColor.DARK_PURPLE),
         LEGENDARY("Legendary", ChatColor.GOLD),
         MYTHIC("Mythic", ChatColor.LIGHT_PURPLE),

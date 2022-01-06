@@ -19,9 +19,9 @@ public class ItemsARROW_POISON {
 
 
     public ItemsARROW_POISON(SkyBlock skyBlock) {
-        TWILIGHT_ARROW_POISON = new SBCustomItem("TWILIGHT_ARROW_POISON", "Twilight Arrow Poison", "", Material.INK_SACK, (short) 5, "", SBCustomItem.Rarity.UNCOMMON, SBCustomItem.Category.ARROW_POISON, skyBlock);
+        TWILIGHT_ARROW_POISON = new SBCustomItem("TWILIGHT_ARROW_POISON", "Twilight Arrow Poison", "", Material.INK_SACK, (short) 5, "", SBCustomItem.Rarity.UNCOMMON, false, SBCustomItem.Category.ARROW_POISON, skyBlock);
         SBItems.registerItem(TWILIGHT_ARROW_POISON);
-        TOXIC_ARROW_POISON = new SBCustomItem("TOXIC_ARROW_POISON", "Toxic Arrow Poison", "", Material.INK_SACK, (short) 10, "", SBCustomItem.Rarity.UNCOMMON, SBCustomItem.Category.ARROW_POISON, skyBlock);
+        TOXIC_ARROW_POISON = new SBCustomItem("TOXIC_ARROW_POISON", "Toxic Arrow Poison", "", Material.INK_SACK, (short) 10, "", SBCustomItem.Rarity.UNCOMMON, false, SBCustomItem.Category.ARROW_POISON, skyBlock);
         SBItems.registerItem(TOXIC_ARROW_POISON);
 
 

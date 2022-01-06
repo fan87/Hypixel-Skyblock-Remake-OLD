@@ -24,19 +24,19 @@ public class ItemsSPADE {
 
 
     public ItemsSPADE(SkyBlock skyBlock) {
-        GOLD_SPADE = new ItemVanilla("GOLD_SPADE", "Golden Shovel", "", Material.GOLD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SPADE, skyBlock);
+        GOLD_SPADE = new ItemVanilla("GOLD_SPADE", "Golden Shovel", "", Material.GOLD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(GOLD_SPADE);
-        STONE_SPADE = new ItemVanilla("STONE_SPADE", "Stone Shovel", "", Material.STONE_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SPADE, skyBlock);
+        STONE_SPADE = new ItemVanilla("STONE_SPADE", "Stone Shovel", "", Material.STONE_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(STONE_SPADE);
-        IRON_SPADE = new ItemVanilla("IRON_SPADE", "Iron Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SPADE, skyBlock);
+        IRON_SPADE = new ItemVanilla("IRON_SPADE", "Iron Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(IRON_SPADE);
-        DIAMOND_SPADE = new ItemVanilla("DIAMOND_SPADE", "Diamond Shovel", "", Material.DIAMOND_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, SBCustomItem.Category.SPADE, skyBlock);
+        DIAMOND_SPADE = new ItemVanilla("DIAMOND_SPADE", "Diamond Shovel", "", Material.DIAMOND_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(DIAMOND_SPADE);
-        WOOD_SPADE = new ItemVanilla("WOOD_SPADE", "Wooden Shovel", "", Material.WOOD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SPADE, skyBlock);
+        WOOD_SPADE = new ItemVanilla("WOOD_SPADE", "Wooden Shovel", "", Material.WOOD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(WOOD_SPADE);
-        FLINT_SHOVEL = new SBCustomItem("FLINT_SHOVEL", "Flint Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SPADE, skyBlock);
+        FLINT_SHOVEL = new SBCustomItem("FLINT_SHOVEL", "Flint Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(FLINT_SHOVEL);
-        PROMISING_SPADE = new SBCustomItem("PROMISING_SPADE", "Promising Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, SBCustomItem.Category.SPADE, skyBlock);
+        PROMISING_SPADE = new SBCustomItem("PROMISING_SPADE", "Promising Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, SBCustomItem.Category.SPADE, skyBlock);
         SBItems.registerItem(PROMISING_SPADE);
 
 

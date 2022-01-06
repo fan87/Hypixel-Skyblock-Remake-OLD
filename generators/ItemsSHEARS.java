@@ -19,9 +19,9 @@ public class ItemsSHEARS {
 
 
     public ItemsSHEARS(SkyBlock skyBlock) {
-        SHEARS = new ItemVanilla("SHEARS", "Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SHEARS, skyBlock);
+        SHEARS = new ItemVanilla("SHEARS", "Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SHEARS, skyBlock);
         SBItems.registerItem(SHEARS);
-        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, SBCustomItem.Category.SHEARS, skyBlock);
+        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, true, SBCustomItem.Category.SHEARS, skyBlock);
         SBItems.registerItem(ENCHANTED_SHEARS);
 
 

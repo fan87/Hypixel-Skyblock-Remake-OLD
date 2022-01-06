@@ -81,6 +81,30 @@ public class Items%CATEGORY% {
 
 """
 count = 0
+colors = """
+BLACK('0', 0)
+DARK_BLUE('1', 1)
+DARK_GREEN('2', 2)
+DARK_AQUA('3', 3)
+DARK_RED('4', 4)
+DARK_PURPLE('5', 5)
+GOLD('6', 6)
+GRAY('7', 7)
+DARK_GRAY('8', 8)
+BLUE('9', 9)
+GREEN('a', 10)
+AQUA('b', 11)
+RED('c', 12)
+LIGHT_PURPLE('d', 13)
+YELLOW('e', 14) 
+WHITE('f', 15)
+MAGIC('k', 16, true)
+BOLD('l', 17, true)
+STRIKETHROUGH('m', 18, true)
+UNDERLINE('n', 19, true)
+ITALIC('o', 20, true)
+RESET('r', 21)
+"""
 
 for id in vanilla_items:
     item = vanilla_items[id]
@@ -90,6 +114,7 @@ for id in vanilla_items:
     rarity = "COMMON"
     category = "MATERIAL_"
     real_category = "MATERIAL"
+    glowing = "false"
     count += 1
     if count % 3 == 0:
         category += "A"
@@ -99,12 +124,19 @@ for id in vanilla_items:
         category += "C"
     if "description" in item:
         description = item["description"].replace("\"", "\\\"")
+        for color in colors.split("\n"):
+            try:
+                description = description.replace("%%" + color.split("(")[0].lower() + "%%", color.split("'")[1])
+            except:
+                pass
     if "durability" in item:
         durability = str(item["durability"])
     if "skin" in item:
         skin = item["skin"]
     if "tier" in item:
         rarity = item["tier"]
+    if "glowing" in item:
+        glowing = "true"
     if "category" in item:
         category = item["category"]
         real_category = item["category"]
@@ -115,23 +147,26 @@ for id in vanilla_items:
     else:
         fields.update({category: "    public static SBCustomItem %s;\n" % id.replace(":", "__")})
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
     
 
 for id in custom_items:
     item = custom_items[id]
+    if id == "SKYBLOCK_MENU":
+        continue
     description = ""
     durability = "0"
     skin = ""
     rarity = "COMMON"
     category = "MATERIAL_"
     real_category = "MATERIAL"
+    glowing = "false"
     count += 1
     if count % 3 == 0:
         category += "A"
@@ -141,12 +176,19 @@ for id in custom_items:
         category += "C"
     if "description" in item:
         description = item["description"].replace("\"", "\\\"")
+        for color in colors.split("\n"):
+            try:
+                description = description.replace("%%" + color.split("(")[0].lower() + "%%", "§" + color.split("'")[1])
+            except:
+                pass
     if "durability" in item:
         durability = str(item["durability"])
     if "skin" in item:
         skin = item["skin"]
     if "tier" in item:
         rarity = item["tier"]
+    if "glowing" in item:
+        glowing = "true"
     if "category" in item:
         category = item["category"]
         real_category = item["category"]
@@ -157,13 +199,14 @@ for id in custom_items:
     else:
         fields.update({category: "    public static SBCustomItem %s;\n" % id.replace(":", "__")})
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
+    
 
 
 for category in fields.keys():

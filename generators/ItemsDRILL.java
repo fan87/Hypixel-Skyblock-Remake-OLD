@@ -28,27 +28,27 @@ public class ItemsDRILL {
 
 
     public ItemsDRILL(SkyBlock skyBlock) {
-        GEMSTONE_DRILL_2 = new SBCustomItem("GEMSTONE_DRILL_2", "Gemstone Drill LT-522", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, SBCustomItem.Category.DRILL, skyBlock);
+        GEMSTONE_DRILL_2 = new SBCustomItem("GEMSTONE_DRILL_2", "Gemstone Drill LT-522", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(GEMSTONE_DRILL_2);
-        MITHRIL_DRILL_1 = new SBCustomItem("MITHRIL_DRILL_1", "Mithril Drill SX-R226", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, SBCustomItem.Category.DRILL, skyBlock);
+        MITHRIL_DRILL_1 = new SBCustomItem("MITHRIL_DRILL_1", "Mithril Drill SX-R226", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(MITHRIL_DRILL_1);
-        GEMSTONE_DRILL_1 = new SBCustomItem("GEMSTONE_DRILL_1", "Ruby Drill TX-15", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, SBCustomItem.Category.DRILL, skyBlock);
+        GEMSTONE_DRILL_1 = new SBCustomItem("GEMSTONE_DRILL_1", "Ruby Drill TX-15", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(GEMSTONE_DRILL_1);
-        MITHRIL_DRILL_2 = new SBCustomItem("MITHRIL_DRILL_2", "Mithril Drill SX-R326", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, SBCustomItem.Category.DRILL, skyBlock);
+        MITHRIL_DRILL_2 = new SBCustomItem("MITHRIL_DRILL_2", "Mithril Drill SX-R326", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.RARE, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(MITHRIL_DRILL_2);
-        DIVAN_DRILL = new SBCustomItem("DIVAN_DRILL", "Divan's Drill", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.MYTHIC, SBCustomItem.Category.DRILL, skyBlock);
+        DIVAN_DRILL = new SBCustomItem("DIVAN_DRILL", "Divan's Drill", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.MYTHIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(DIVAN_DRILL);
-        GEMSTONE_DRILL_3 = new SBCustomItem("GEMSTONE_DRILL_3", "Topaz Drill KGR-12", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, SBCustomItem.Category.DRILL, skyBlock);
+        GEMSTONE_DRILL_3 = new SBCustomItem("GEMSTONE_DRILL_3", "Topaz Drill KGR-12", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(GEMSTONE_DRILL_3);
-        GEMSTONE_DRILL_4 = new SBCustomItem("GEMSTONE_DRILL_4", "Jasper Drill X", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, SBCustomItem.Category.DRILL, skyBlock);
+        GEMSTONE_DRILL_4 = new SBCustomItem("GEMSTONE_DRILL_4", "Jasper Drill X", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(GEMSTONE_DRILL_4);
-        TITANIUM_DRILL_3 = new SBCustomItem("TITANIUM_DRILL_3", "Titanium Drill DR-X555", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, SBCustomItem.Category.DRILL, skyBlock);
+        TITANIUM_DRILL_3 = new SBCustomItem("TITANIUM_DRILL_3", "Titanium Drill DR-X555", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(TITANIUM_DRILL_3);
-        TITANIUM_DRILL_1 = new SBCustomItem("TITANIUM_DRILL_1", "Titanium Drill DR-X355", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, SBCustomItem.Category.DRILL, skyBlock);
+        TITANIUM_DRILL_1 = new SBCustomItem("TITANIUM_DRILL_1", "Titanium Drill DR-X355", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(TITANIUM_DRILL_1);
-        TITANIUM_DRILL_4 = new SBCustomItem("TITANIUM_DRILL_4", "Titanium Drill DR-X655", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, SBCustomItem.Category.DRILL, skyBlock);
+        TITANIUM_DRILL_4 = new SBCustomItem("TITANIUM_DRILL_4", "Titanium Drill DR-X655", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(TITANIUM_DRILL_4);
-        TITANIUM_DRILL_2 = new SBCustomItem("TITANIUM_DRILL_2", "Titanium Drill DR-X455", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, SBCustomItem.Category.DRILL, skyBlock);
+        TITANIUM_DRILL_2 = new SBCustomItem("TITANIUM_DRILL_2", "Titanium Drill DR-X455", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.EPIC, true, SBCustomItem.Category.DRILL, skyBlock);
         SBItems.registerItem(TITANIUM_DRILL_2);
 
 

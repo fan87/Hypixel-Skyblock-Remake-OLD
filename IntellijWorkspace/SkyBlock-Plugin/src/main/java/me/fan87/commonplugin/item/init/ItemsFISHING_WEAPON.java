@@ -19,9 +19,9 @@ public class ItemsFISHING_WEAPON {
 
 
     public ItemsFISHING_WEAPON(SkyBlock skyBlock) {
-        PHANTOM_ROD = new SBCustomItem("PHANTOM_ROD", "Phantom Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
+        PHANTOM_ROD = new SBCustomItem("PHANTOM_ROD", "Phantom Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
         SBItems.registerItem(PHANTOM_ROD);
-        THE_SHREDDER = new SBCustomItem("THE_SHREDDER", "Shredder", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
+        THE_SHREDDER = new SBCustomItem("THE_SHREDDER", "Shredder", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
         SBItems.registerItem(THE_SHREDDER);
 
 
