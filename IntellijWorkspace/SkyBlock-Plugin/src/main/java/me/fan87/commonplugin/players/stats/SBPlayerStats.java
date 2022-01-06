@@ -1,29 +1,31 @@
 package me.fan87.commonplugin.players.stats;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Getter;
 import me.fan87.commonplugin.players.stats.impl.*;
 
 @Getter
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class SBPlayerStats {
 
-    private final StatHealth health = new StatHealth();
-    private final StatDefence defence = new StatDefence();
-    private final StatSpeed speed = new StatSpeed();
-    private final StatStrength strength = new StatStrength();
-    private final StatCritChance critChance = new StatCritChance();
-    private final StatCritDamage critDamage = new StatCritDamage();
-    private final StatIntelligence intelligence = new StatIntelligence();
-    private final StatMiningSpeed miningSpeed = new StatMiningSpeed();
-    private final StatBonusAttackSpeed bonusAttackSpeed = new StatBonusAttackSpeed();
-    private final StatSeaCreatureChance seaCreatureChance = new StatSeaCreatureChance();
-    private final StatMagicFind magicFind = new StatMagicFind();
-    private final StatPetLuck petLuck = new StatPetLuck();
-    private final StatTrueDefence trueDefence = new StatTrueDefence();
-    private final StatFerocity ferocity = new StatFerocity();
-    private final StatAbilityDamage abilityDamage = new StatAbilityDamage();
-    private final StatMiningFortune miningFortune = new StatMiningFortune();
-    private final StatFarmingFortune farmingFortune = new StatFarmingFortune();
-    private final StatForagingFortune foragingFortune = new StatForagingFortune();
-    private final StatPristine pristine = new StatPristine();
+    private StatHealth health = new StatHealth();
+    private StatDefence defence = new StatDefence();
+    private StatSpeed speed = new StatSpeed();
+    private StatStrength strength = new StatStrength();
+    private StatCritChance critChance = new StatCritChance();
+    private StatCritDamage critDamage = new StatCritDamage();
+    private StatIntelligence intelligence = new StatIntelligence();
+    private StatMiningSpeed miningSpeed = new StatMiningSpeed();
+    private StatBonusAttackSpeed bonusAttackSpeed = new StatBonusAttackSpeed();
+    private StatSeaCreatureChance seaCreatureChance = new StatSeaCreatureChance();
+    private StatMagicFind magicFind = new StatMagicFind();
+    private StatPetLuck petLuck = new StatPetLuck();
+    private StatTrueDefence trueDefence = new StatTrueDefence();
+    private StatFerocity ferocity = new StatFerocity();
+    private StatAbilityDamage abilityDamage = new StatAbilityDamage();
+    private StatMiningFortune miningFortune = new StatMiningFortune();
+    private StatFarmingFortune farmingFortune = new StatFarmingFortune();
+    private StatForagingFortune foragingFortune = new StatForagingFortune();
+    private StatPristine pristine = new StatPristine();
 
 }

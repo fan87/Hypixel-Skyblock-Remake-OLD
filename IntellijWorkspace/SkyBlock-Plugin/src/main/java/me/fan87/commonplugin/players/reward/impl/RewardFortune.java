@@ -5,6 +5,9 @@ import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.skill.SBSkill;
 import org.bukkit.ChatColor;
 
+/**
+ * This part of code is for displaying only, I need a better way to make it functional, and stop hard coding like a stupid asshole
+ */
 public abstract class RewardFortune extends SBReward {
 
     private final SBSkill skill;

@@ -1,7 +1,7 @@
 package me.fan87.commonplugin.players.skill;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.SneakyThrows;
-import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.skill.impl.SkillCombat;
 import me.fan87.commonplugin.players.skill.impl.SkillFarming;
 
@@ -9,15 +9,12 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class SBPlayerSkills {
 
-    public SBPlayerSkills(SBPlayer player) {
-        skillCombat = new SkillCombat(player, 69690);
-        skillFarming = new SkillFarming(player, 0);
-    }
 
-    public SkillCombat skillCombat;
-    public SkillFarming skillFarming;
+    public SkillFarming skillFarming = new SkillFarming();
+    public SkillCombat skillCombat = new SkillCombat();
 
     @SneakyThrows
     public SBSkill[] getSkills() {

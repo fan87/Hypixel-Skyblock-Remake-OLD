@@ -23,19 +23,26 @@ public class PlayersManager {
         this.skyBlock = skyBlock;
         EventManager.EVENT_BUS.register(this);
         for (Player onlinePlayer : skyBlock.getServer().getOnlinePlayers()) {
-            loadedPlayers.add(new SBPlayer(onlinePlayer, skyBlock));
+            addPlayer(onlinePlayer);
         }
     }
 
     @Subscribe(priority = 6969)
     public void onJoin(PlayerJoinEvent event) {
-        System.out.println("Player has been registered");
-        loadedPlayers.add(new SBPlayer(event.getPlayer(), skyBlock));
+        addPlayer(event.getPlayer());
+    }
+
+    public void addPlayer(Player player) {
+        SBPlayer sbPlayer = SBPlayer.newPlayer(player, skyBlock);
+        sbPlayer.init(player, skyBlock);
+        loadedPlayers.add(sbPlayer);
     }
 
     @Subscribe(priority = -6969)
     public void removePlayer(PlayerQuitEvent event) {
-        EventManager.EVENT_BUS.unregister(loadedPlayers.remove(getPlayer(event.getPlayer())));
+        SBPlayer player = getPlayer(event.getPlayer());
+        player.save();
+        EventManager.EVENT_BUS.unregister(loadedPlayers.remove(player));
     }
 
     public SBPlayer getPlayer(Player player) {

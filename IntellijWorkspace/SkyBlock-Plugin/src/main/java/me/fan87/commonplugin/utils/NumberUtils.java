@@ -1,5 +1,7 @@
 package me.fan87.commonplugin.utils;
 
+import org.bukkit.ChatColor;
+
 public class NumberUtils {
 
     public static boolean isBetween(double input, double from, double to) {
@@ -31,8 +33,19 @@ public class NumberUtils {
             }
             unit++;
         }
-        if (unit == -1) return Double.toString(Math.floor(number/100d)/10d);
-        return number + large[unit];
+        if (unit == -1) {
+            double d = Math.floor(number / 100d) / 10d;
+            return Double.toString(d).endsWith(".0")?(int) d + "":d + "";
+        }
+        return (Double.toString(number).endsWith(".0")?(int) number + "":number) + large[unit];
+    }
+
+    public static String valueChangeDisplay(int oldValue, int newValue) {
+        if (oldValue <= 0) {
+            return ChatColor.GREEN + "+" + newValue;
+        } else {
+            return ChatColor.GREEN + "+" + ChatColor.DARK_GRAY + oldValue + "➜" + ChatColor.GREEN + newValue;
+        }
     }
 
 }

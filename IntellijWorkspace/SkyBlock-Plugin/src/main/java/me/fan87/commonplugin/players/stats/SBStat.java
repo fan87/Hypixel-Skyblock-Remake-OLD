@@ -1,10 +1,8 @@
 package me.fan87.commonplugin.players.stats;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import me.fan87.commonplugin.events.EventManager;
-import me.fan87.commonplugin.events.impl.BaseStatCalculationEvent;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,14 +12,14 @@ import java.util.List;
 public abstract class SBStat {
 
     public SBStat() {
-        baseValue = getDefaultValue();
+
     }
 
     /**
      * The base value of the stat, for example: Speed is 100
      */
-    @Setter
-    private double baseValue;
+    @JsonProperty(value = "baseValue")
+    private double baseValue = getDefaultValue();
 
     /**
      * All bonus values, including expire time etc.
@@ -30,11 +28,14 @@ public abstract class SBStat {
     @Getter
     private final List<StatBonus> bonusValue = new ArrayList<>();
 
-    public double getBaseValue(SBPlayer player) {
-        BaseStatCalculationEvent event = new BaseStatCalculationEvent(this, player, baseValue);
-        return event.getBaseValue();
+    public void setBaseValue(double baseValue) {
+        this.baseValue = baseValue;
+
     }
 
+    public double getBaseValue() {
+        return baseValue;
+    }
 
     /**
      * Calculate total bonus value, Basically add every stat bonus together and see if it's expired
@@ -50,20 +51,20 @@ public abstract class SBStat {
             }
             value += statBonus.getValue();
         }
-        if (getMaxValue() > 0 && getBaseValue(player) + value > getMaxValue()) {
-            value = Math.max(0, getMaxValue() - getBaseValue(player));
+        if (getMaxValue() > 0 && getBaseValue() + value > getMaxValue()) {
+            value = Math.max(0, getMaxValue() - getBaseValue());
         }
         return value;
     }
 
     /**
      * Get total value
-     * @see SBStat#getBaseValue(SBPlayer)
+     * @see SBStat#getBaseValue()
      * @see SBStat#getTotalBonusValue(SBPlayer)
      * @return getBaseValue() + getTotalBonusValue()
      */
     public double getValue(SBPlayer player) {
-        return getBaseValue(player) + getTotalBonusValue(player);
+        return getBaseValue() + getTotalBonusValue(player);
     }
 
     /**
@@ -75,7 +76,7 @@ public abstract class SBStat {
 
     /**
      * Get the default value of base value, for example: speed is 100
-     * @see SBStat#getBaseValue(SBPlayer)
+     * @see SBStat#getBaseValue()
      * @return Default base value
      */
     public abstract double getDefaultValue();

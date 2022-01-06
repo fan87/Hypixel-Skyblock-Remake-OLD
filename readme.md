@@ -2,9 +2,6 @@
 
 Hypixel SkyBlock Full Remake Project, Including every single item and feature.<br>WIP
 
-## Coding Style
-
-Nothing is hard coded (except some basic systems like world management, players management etc.), means you can create your own item or block etc. with a plugin, and we have our own event system, which means you can cancel stuff like critical, we are also using features system, you can read the document(WIP) to understand it. We also like to use [Lombok](https://projectlombok.org/), that's all.
 
 ## Contribute
 
@@ -18,6 +15,20 @@ you need to understand java (JVM not included) in order to code addons,
 for example: the plugin is object-oriented, 
 means you need to understand it to code it, 
 or it will be a mess and everything will go wrong.
+#### Obfuscation
+No. You can't obfuscate the plugin without modifying any code. I mean it's open source, obfuscating it makes no sense at all.
+#### Technical Issues
+If you have any technical issues, either DM me on Discord (Or not if I turned my DM off) or create a new github issue and add tag "Question". If you are a developer and know what you are doing, it's 80% my fault since most stuff are un-hardtested (which means I don't test every single stuff, for example: I don't test every single recipe, I mean no one does but you get the idea, so there might be some bugs)
+#### Using
+Hypixel Inc. has the permission to take your server down,
+or even take the repository down. 
+We do not suggest you to make money with this plugin 
+by hosting a server,
+and we do not suggest you to make the server public, 
+just have fun with your friends.
+You can make money by coding addons, but don't be a d*ck,
+the plugin is not yours, it's open source, and the idea is
+made by Hypixel, not by either you or me.
 ### Addons API
 To create an addon, you need to first obtain the instance of `SkyBlock`. To do it, you can type something like this in your main class:
 ```java

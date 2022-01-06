@@ -12,9 +12,11 @@ public abstract class SBReward {
         List<String> strings = LoreUtils.splitLoreForLine(toString());
         List<String> out = new ArrayList<>();
         for (String string : strings) {
-            if (out.isEmpty()) out.add(string); else out.add(" " + string);
+            if (out.isEmpty()) out.add(string); else {
+                out.add(" " + string);
+            }
         }
-        return strings;
+        return out;
     }
     public abstract String toString();
     public abstract void trigger(SBPlayer player);

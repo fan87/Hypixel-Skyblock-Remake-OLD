@@ -5,6 +5,7 @@ import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.item.impl.ItemSkyBlockMenu;
+import me.fan87.commonplugin.players.SBPlayer;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -66,7 +67,8 @@ public class SBItems {
         for (Field field : fields) {
             if (field.getType().equals(ItemStack.class)) {
                 try {
-                    skyBlock.getPlayersManager().getPlayer(event.getPlayer()).updateInventory();
+                    SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+                    player.updateInventory();
                     field.setAccessible(true);
                     ItemStack item = ((ItemStack) field.get(rawNMSPacket));
                     if (item == null) continue;

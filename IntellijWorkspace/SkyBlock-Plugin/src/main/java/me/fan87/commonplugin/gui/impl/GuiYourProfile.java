@@ -39,7 +39,7 @@ public class GuiYourProfile extends Gui {
                     List<String> lores = new ArrayList<>();
                     lores.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + stat.getDescription(player).replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.GRAY)));
                     lores.add("");
-                    lores.add(ChatColor.GRAY + "Base " + stat.getName() + ": " + ChatColor.GREEN + stat.getValueDisplay(stat.getBaseValue(player)));
+                    lores.add(ChatColor.GRAY + "Base " + stat.getName() + ": " + ChatColor.GREEN + stat.getValueDisplay(stat.getBaseValue()));
                     for (String s : LoreUtils.splitLoreForLine(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + stat.getBaseDescription().replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC))) {
                         lores.add("  " + s);
                     }

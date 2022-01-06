@@ -6,10 +6,7 @@ import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.skill.SBSkill;
-import me.fan87.commonplugin.utils.ItemStackBuilder;
-import me.fan87.commonplugin.utils.LoreUtils;
-import me.fan87.commonplugin.utils.NumberUtils;
-import me.fan87.commonplugin.utils.RomanUtils;
+import me.fan87.commonplugin.utils.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,7 +41,8 @@ public class GuiSkillsMenu extends Gui {
                 itemStackBuilder.addLore(ChatColor.GRAY.toString() + ChatColor.ITALIC + "You have reached the max level for this Skill!");
             } else {
                 double a = skill.getExtraExp() * 1f / skill.getRequiredExp(skill.getLevel() + 1);
-                itemStackBuilder.addLore(ChatColor.GRAY + "Progress to Level " + skill.getLevelDisplay(skill.getLevel() + 1) + ": " + Math.floor(a*100*10)/10f + "%");
+                double d = Math.floor(a * 100 * 10) / 10f;
+                itemStackBuilder.addLore(ChatColor.GRAY + "Progress to Level " + skill.getLevelDisplay(skill.getLevel() + 1) + ": " + (Double.toString(d).endsWith(".0")?(int) d:d) + "%");
                 StringBuilder progressBar = new StringBuilder(ChatColor.GREEN.toString());
                 for (int unused = 0; unused < Math.floor(a * 20); unused++) {
                     progressBar.append("-");
@@ -56,7 +54,7 @@ public class GuiSkillsMenu extends Gui {
                 progressBar.append(" ").append(ChatColor.YELLOW).append(NumberUtils.formatNumber(skill.getExtraExp())).append(ChatColor.GOLD).append("/").append(ChatColor.YELLOW).append(NumberUtils.formatLargeNumber(skill.getRequiredExp(skill.getLevel() + 1), false));
                 itemStackBuilder.addLore(progressBar.toString());
                 itemStackBuilder.addLore("");
-                itemStackBuilder.addLore(skill.getRewardLore(ChatColor.GRAY + "Level " + RomanUtils.toRoman(skill.getLevel()+1) + " Rewards:", skill.getLevel()+1));
+                itemStackBuilder.addLore(skill.getRewardLore(ChatColor.GRAY + "Level " + RomanUtils.toRoman(skill.getLevel()+1) + " Rewards:", skill.getLevel()+1, player));
             }
             itemStackBuilder.addLore("");
             itemStackBuilder.addLore(ChatColor.YELLOW + "Click to view!");

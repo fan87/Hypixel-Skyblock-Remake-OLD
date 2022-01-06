@@ -1,11 +1,14 @@
 package me.fan87.commonplugin.players.skill;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardCoins;
+import me.fan87.commonplugin.players.reward.impl.RewardFortune;
 import me.fan87.commonplugin.utils.ExpUtils;
+import me.fan87.commonplugin.utils.NumberUtils;
 import me.fan87.commonplugin.utils.RomanUtils;
 import org.bukkit.Material;
 
@@ -15,27 +18,23 @@ import java.util.List;
 public abstract class SBSkill {
 
     @Getter
+    @JsonProperty("exp")
     private double exp = 0;
-    @Getter
-    private final SBPlayer player;
 
-    public SBSkill(SBPlayer player, double currentExp) {
-        this.exp = currentExp;
-        this.player = player;
-    }
 
-    public void setExp(double exp) {
+
+    public void setExp(double exp, SBPlayer player) {
         int old = getLevel();
         this.exp = exp;
         while (getLevel() > old) {
             old++;
-            levelUp(old);
+            levelUp(old, player);
         }
     }
 
-    private void levelUp(int newLevel) {
-        for (SBReward reward : getRewards(newLevel)) {
-            reward.trigger(getPlayer());
+    private void levelUp(int newLevel, SBPlayer player) {
+        for (SBReward reward : getRewards(newLevel, player)) {
+            reward.trigger(player);
         }
     }
 
@@ -44,11 +43,11 @@ public abstract class SBSkill {
     }
 
     public double getRequiredExp(int targetLevel) {
-        return ExpUtils.getExtraSkillExp(getLevel());
+        return ExpUtils.getExtraSkillExp(targetLevel);
     }
 
     public double getTotalRequiredExp(int targetLevel) {
-        return ExpUtils.getTotalSkillExp(getLevel());
+        return ExpUtils.getTotalSkillExp(targetLevel);
     }
 
     public int getLevel() {
@@ -59,10 +58,11 @@ public abstract class SBSkill {
         return RomanUtils.toRoman(level);
     }
 
-    public List<String> getRewardLore(String title, int level) {
+    public List<String> getRewardLore(String title, int level, SBPlayer player) {
         List<String> out = new ArrayList<>();
+        if (level == 0) return out;
         out.add(title);
-        for (SBReward reward : getRewards(level)) {
+        for (SBReward reward : getRewards(level, player)) {
             List<String> c = reward.toLore();
             List<String> n = new ArrayList<>();
             for (String s : c) {
@@ -74,11 +74,23 @@ public abstract class SBSkill {
     }
 
     public abstract SkillType getSkillType();
-    public List<SBReward> getRewards(int level) {
+    public List<SBReward> getRewards(int level, SBPlayer player) {
+        if (level == 0) return new ArrayList<>();
         List<SBReward> output = new ArrayList<>();
+        output.add(new RewardFortune(this) {
+            @Override
+            public String getDescription(SBSkill skill) {
+                int fortuneValue = getFortuneValue(level - 1);
+                int newFortuneValue = getFortuneValue(level);
+                return getFortuneDescription(player).replace("%s", NumberUtils.valueChangeDisplay(fortuneValue, newFortuneValue));
+            }
+        });
         output.add(new RewardCoins(ExpUtils.getSkillLevelUpCoins(level)));
         return output;
     }
+
+    public abstract String getFortuneDescription(SBPlayer player);
+    public abstract int getFortuneValue(int level);
     public abstract String getNamespace();
 
     @Getter

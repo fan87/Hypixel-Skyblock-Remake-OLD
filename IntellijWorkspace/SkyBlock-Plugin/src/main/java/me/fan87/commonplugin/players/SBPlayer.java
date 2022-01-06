@@ -1,8 +1,10 @@
 package me.fan87.commonplugin.players;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
@@ -21,23 +23,42 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
+import org.jongo.MongoCollection;
+import org.jongo.marshall.jackson.oid.MongoId;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 
 public class SBPlayer {
 
-    @Getter
-    private final Player player;
+    @JsonProperty("_id")
+    @MongoId
+    @MongoObjectId
+    public String _id;
 
     @Getter
-    private SBPlayerStats stats = new SBPlayerStats();
+    private Player player;
+
     @Getter
-    private SBPlayerSkills skills = new SBPlayerSkills(this);
+    @JsonProperty("stats")
+    private SBPlayerStats stats = new SBPlayerStats();
+
+    @Getter
+    @JsonProperty("skills")
+    private SBPlayerSkills skills = new SBPlayerSkills();
+
+    @Getter
+    @JsonProperty("uuid")
+    private String uuid;
+
     @Getter
     @Setter
     private double mana;
+
     @Getter
     @Setter
+    @JsonProperty("coins")
     private double coins;
 
     @Getter
@@ -51,10 +72,16 @@ public class SBPlayer {
         this.coins += coins;
     }
 
-    public SBPlayer(Player player, SkyBlock skyBlock) {
+    public SBPlayer() {
+    }
+
+    public void init(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
-        EventManager.EVENT_BUS.register(this);
+        this.uuid = player.getUniqueId().toString();
+        if (!EventManager.EVENT_BUS.isRegistered(this)) {
+            EventManager.EVENT_BUS.register(this);
+        }
         mana = getStats().getIntelligence().getValue(this) + 100;
         for (Property textures : getCraftPlayer().getProfile().getProperties().get("textures")) {
             if (textures.getName().equals("textures")) {
@@ -64,11 +91,34 @@ public class SBPlayer {
         }
     }
 
+    protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
+        MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
+        Iterator<SBPlayer> iterator = players.find("{uuid: \"" + player.getUniqueId().toString() + "\"}").as(SBPlayer.class).iterator();
+        while (iterator.hasNext()) {
+            SBPlayer sbPlayer = iterator.next();
+            System.out.println("Player Joined! " + sbPlayer._id);
+            //
+            players.remove(String.format("{\"uuid\": \"%s\", \"_id\": {\"$ne\": {\"$oid\": \"%s\"}}}", player.getUniqueId().toString(), sbPlayer._id));
+            sbPlayer.init(player, skyBlock);
+            return sbPlayer;
+        }
+        SBPlayer sbPlayer = new SBPlayer();
+        sbPlayer.init(player, skyBlock);
+        players.insert(sbPlayer);
+        return sbPlayer;
+    }
+
+
     /**
      * Update the inventory and save custom NBT Data to every items
      */
+    @SneakyThrows
     public void updateInventory() {
-        stats = new SBPlayerStats();
+        for (Field declaredField : stats.getClass().getDeclaredFields()) {
+            declaredField.setAccessible(true);
+            SBStat stat = (SBStat) declaredField.get(stats);
+            stat.getBonusValue().clear();
+        }
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             if (player.getInventory().getItem(i) == null || player.getInventory().getItem(i).getType() == Material.AIR) continue;
             ItemStack item = player.getInventory().getItem(i);
@@ -162,6 +212,9 @@ public class SBPlayer {
         getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
     }
 
-
+    public void save() {
+        MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
+        players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
+    }
 
 }

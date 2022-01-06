@@ -73,8 +73,8 @@ public class StatSpeed extends SBStat {
     }
 
     @Override
-    public double getBaseValue(SBPlayer player) {
-        double baseValue = super.getBaseValue(player);
+    public double getBaseValue() {
+        double baseValue = super.getBaseValue();
         return Math.max(0, Math.min(500, baseValue));
     }
 

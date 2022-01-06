@@ -77,8 +77,4 @@ public class StatCritDamage extends SBStat {
 
     }
 
-    @Override
-    public double getBaseValue(SBPlayer player) {
-        return super.getBaseValue(player) + player.getSkills().skillCombat.getLevel()*0.5;
-    }
 }
