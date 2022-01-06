@@ -6,24 +6,8 @@
     <version>v1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>SkyBlock-Plugin</artifactId>
-  <repositories>
-    <repository>
-      <id>jitpack</id>
-      <url>https://jitpack.io</url>
-    </repository>
-    <repository>
-      <id>codemc-repo</id>
-      <url>https://repo.codemc.org/repository/maven-public/</url>
-    </repository>
-  </repositories>
+  <artifactId>SkyBlock-Grabber</artifactId>
   <dependencies>
-    <dependency>
-      <groupId>com.github.retrooper</groupId>
-      <artifactId>packetevents</artifactId>
-      <version>1.8-pre-17</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot</artifactId>
@@ -37,20 +21,7 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.lwjgl</groupId>
-        <artifactId>lwjgl-bom</artifactId>
-        <version>${lwjgl.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <properties>
-    <lwjgl.version>3.2.3</lwjgl.version>
-    <imgui.java.version>1.84.1.4</imgui.java.version>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>

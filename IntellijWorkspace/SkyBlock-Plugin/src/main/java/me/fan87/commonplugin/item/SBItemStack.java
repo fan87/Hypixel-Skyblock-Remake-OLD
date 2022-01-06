@@ -3,6 +3,7 @@ package me.fan87.commonplugin.item;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
+import me.fan87.commonplugin.item.impl.ItemVanilla;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.LangUtils;
 import me.fan87.commonplugin.utils.LoreUtils;
@@ -21,7 +22,7 @@ public class SBItemStack {
     @Getter
     private ItemStack itemStack;
     private boolean customized;
-
+    
 
 
     public SBItemStack(ItemStack itemStack) {
@@ -53,12 +54,16 @@ public class SBItemStack {
 
     public SBMaterial getType() {
         Material material = Material.getMaterial(getItemID());
-        if (material != null) {
-            return new SBMaterial(material, null, SBMaterial.ItemType.VANILLA);
+
+        SBCustomItem item = SBItems.getItem(getItemID());
+        if (item != null) {
+            return new SBMaterial(null, item, SBMaterial.ItemType.CUSTOM);
         } else {
-            SBCustomItem item = SBItems.getItem(getItemID());
-            if (item != null) return new SBMaterial(null, item, SBMaterial.ItemType.CUSTOM);
-            return new SBMaterial(null, null, SBMaterial.ItemType.UNKNOWN);
+            if (material != null) {
+                return new SBMaterial(material, null, SBMaterial.ItemType.VANILLA);
+            } else {
+                return new SBMaterial(null, null, SBMaterial.ItemType.UNKNOWN);
+            }
         }
     }
 
@@ -79,7 +84,8 @@ public class SBItemStack {
     protected void generateExtraAttributes() {
         if (!customized) {
             NBTCompound extraAttributeCompound = getExtraAttributeCompound();
-            extraAttributeCompound.setString("id", getItemStack().getType().toString());
+            ItemVanilla item = SBItems.getVanillaItem(getItemStack().getType(), getItemStack().getDurability());
+            extraAttributeCompound.setString("id", item ==null?getItemStack().getType().toString():item.getNamespace());
             if (shouldGenerateExtraInfo()) {
                 extraAttributeCompound.setString("uuid", UUID.randomUUID().toString());
             }
@@ -114,7 +120,7 @@ public class SBItemStack {
         }
         SBMaterial type = getType();
         if (type.getType() == SBMaterial.ItemType.CUSTOM) {
-            itemMeta.setDisplayName(type.getItem().getDisplayName());
+            itemMeta.setDisplayName(type.getItem().getRarity().getColor() + type.getItem().getDisplayName());
             itemMeta.setLore(type.getItem().getLores());
         }
         if (type.getType() == SBMaterial.ItemType.UNKNOWN) {

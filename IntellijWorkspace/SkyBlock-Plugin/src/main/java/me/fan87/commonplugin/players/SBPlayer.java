@@ -204,7 +204,7 @@ public class SBPlayer {
      * Displays the bottom text of the screen
      */
     public void displayActionBar() {
-        String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()) + "/" + (int) (getPlayer().getMaxHealth()) + stats.getHealth().getIcon() + "   ";
+        String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()*5) + "/" + (int) (getPlayer().getMaxHealth()*5) + stats.getHealth().getIcon() + "   ";
         if (stats.getDefence().getValue(this) > 0) {
             text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue(this)) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
         }

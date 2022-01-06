@@ -5,6 +5,8 @@ import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.item.impl.ItemSkyBlockMenu;
+import me.fan87.commonplugin.item.impl.ItemVanilla;
+import me.fan87.commonplugin.item.init.*;
 import me.fan87.commonplugin.players.SBPlayer;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import org.bukkit.Material;
@@ -23,9 +25,54 @@ public class SBItems {
     @Getter
     private static final Map<String, SBCustomItem> registeredItems = new HashMap<>();
 
-
     public static SBCustomItem SKYBLOCK_MENU;
 
+    private final SkyBlock skyBlock;
+
+    public SBItems(SkyBlock skyBlock) {
+        this.skyBlock = skyBlock;
+
+        SKYBLOCK_MENU = new ItemSkyBlockMenu(skyBlock);
+        registerItem(SKYBLOCK_MENU);
+
+        new ItemsMATERIAL_A(skyBlock);
+        new ItemsMATERIAL_C(skyBlock);
+        new ItemsMATERIAL_B(skyBlock);
+        new ItemsBOW(skyBlock);
+        new ItemsBOOTS(skyBlock);
+        new ItemsSPADE(skyBlock);
+        new ItemsPICKAXE(skyBlock);
+        new ItemsAXE(skyBlock);
+        new ItemsSWORD(skyBlock);
+        new ItemsHELMET(skyBlock);
+        new ItemsLEGGINGS(skyBlock);
+        new ItemsSHEARS(skyBlock);
+        new ItemsCHESTPLATE(skyBlock);
+        new ItemsHOE(skyBlock);
+        new ItemsFISHING_ROD(skyBlock);
+        new ItemsARROW(skyBlock);
+        new ItemsPET_ITEM(skyBlock);
+        new ItemsREFORGE_STONE(skyBlock);
+        new ItemsCOSMETIC(skyBlock);
+        new ItemsACCESSORY(skyBlock);
+        new ItemsTRAVEL_SCROLL(skyBlock);
+        new ItemsBAIT(skyBlock);
+        new ItemsDUNGEON_PASS(skyBlock);
+        new ItemsARROW_POISON(skyBlock);
+        new ItemsWAND(skyBlock);
+        new ItemsDRILL(skyBlock);
+        new ItemsFISHING_WEAPON(skyBlock);
+        new ItemsGAUNTLET(skyBlock);
+    }
+    
+    public static ItemVanilla getVanillaItem(Material material, short damage) {
+        for (SBCustomItem item : registeredItems.values()) {
+            if (item instanceof ItemVanilla && item.getMaterial() == material && item.getDamage() == damage) {
+                return (ItemVanilla) item;
+            }
+        }
+        return null;
+    }
 
 
     public static void registerItem(SBCustomItem item) {
@@ -33,7 +80,7 @@ public class SBItems {
             registeredItems.put(item.getNamespace(), item);
             EventManager.EVENT_BUS.register(item);
         } else {
-            throw new IllegalArgumentException("Name already taken!");
+            throw new IllegalArgumentException("Name already taken: " + item.getNamespace());
         }
     }
 
@@ -42,15 +89,7 @@ public class SBItems {
         return registeredItems.get(namespace);
     }
 
-    private final SkyBlock skyBlock;
 
-    public SBItems(SkyBlock skyBlock) {
-        this.skyBlock = skyBlock;
-
-
-        SKYBLOCK_MENU = new ItemSkyBlockMenu(skyBlock);
-        registerItem(SKYBLOCK_MENU);
-    }
 
     @Subscribe
     public void updateItemDrop(EntitySpawnEvent event) {

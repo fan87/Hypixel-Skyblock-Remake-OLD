@@ -32,6 +32,10 @@ public abstract class SBSkill {
         }
     }
 
+    public void addExp(double exp, SBPlayer player) {
+        setExp(getExp() + exp, player);
+    }
+
     private void levelUp(int newLevel, SBPlayer player) {
         for (SBReward reward : getRewards(newLevel, player)) {
             reward.trigger(player);

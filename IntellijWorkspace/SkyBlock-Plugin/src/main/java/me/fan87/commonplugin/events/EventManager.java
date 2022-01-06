@@ -25,6 +25,7 @@ public class EventManager {
             .sendNoSubscriberEvent(false)
             .throwSubscriberException(false)
             .sendSubscriberExceptionEvent(true)
+            .eventInheritance(true)
             .logNoSubscriberMessages(false)
             .build();
 

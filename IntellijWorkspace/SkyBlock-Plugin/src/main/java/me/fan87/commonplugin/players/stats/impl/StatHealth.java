@@ -72,6 +72,6 @@ public class StatHealth extends SBStat {
     public void onTick(SBPlayer player) {
         player.getPlayer().setHealthScaled(true);
         player.getPlayer().setHealthScale(20 + (int) ((getValue(player) - 100)/100f)*2);
-        player.getPlayer().setMaxHealth(getValue(player));
+        player.getPlayer().setMaxHealth(getValue(player)/5f);
     }
 }
