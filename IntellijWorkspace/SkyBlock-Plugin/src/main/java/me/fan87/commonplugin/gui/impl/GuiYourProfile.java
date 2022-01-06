@@ -35,16 +35,16 @@ public class GuiYourProfile extends Gui {
                     SBStat stat = ((SBStat) declaredField.get(player.getStats()));
                     ItemStack iconItemStack = stat.getIconItemStack();
                     ItemMeta itemMeta = iconItemStack.getItemMeta();
-                    itemMeta.setDisplayName(stat.getColor() + stat.getIcon() + " " + stat.getName() + " " + ChatColor.WHITE + stat.getValueDisplay(stat.getValue()));
+                    itemMeta.setDisplayName(stat.getColor() + stat.getIcon() + " " + stat.getName() + " " + ChatColor.WHITE + stat.getValueDisplay(stat.getValue(player)));
                     List<String> lores = new ArrayList<>();
                     lores.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + stat.getDescription(player).replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.GRAY)));
                     lores.add("");
-                    lores.add(ChatColor.GRAY + "Base " + stat.getName() + ": " + ChatColor.GREEN + stat.getValueDisplay(stat.getBaseValue()));
+                    lores.add(ChatColor.GRAY + "Base " + stat.getName() + ": " + ChatColor.GREEN + stat.getValueDisplay(stat.getBaseValue(player)));
                     for (String s : LoreUtils.splitLoreForLine(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + stat.getBaseDescription().replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC))) {
                         lores.add("  " + s);
                     }
                     lores.add(" ");
-                    lores.add(ChatColor.GRAY + "Bonus " + stat.getName() + ": " + ChatColor.DARK_GRAY + "+" + ChatColor.YELLOW + stat.getValueDisplay(stat.getTotalBonusValue()));
+                    lores.add(ChatColor.GRAY + "Bonus " + stat.getName() + ": " + ChatColor.DARK_GRAY + "+" + ChatColor.YELLOW + stat.getValueDisplay(stat.getTotalBonusValue(player)));
                     for (String s : LoreUtils.splitLoreForLine(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + stat.getBonusDescription().replaceAll(ChatColor.RESET + "", ChatColor.RESET + "" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC))) {
                         lores.add("  " + s);
                     }

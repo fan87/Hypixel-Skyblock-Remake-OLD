@@ -137,7 +137,7 @@ public class GuiCraftingTable extends Gui {
                     int y = i1 / 3;
                     set(x + 2, y + 2, new GuiItem(content[i1]));
                 }
-                amount++;
+                amount += recipe.getOutput().getAmount();
             }
             event.setCancelled(true);
             while (amount > 0) {

@@ -23,6 +23,7 @@ public class RomanUtils {
     }
 
     public static String toRoman(int number) {
+        if (number == 0) return "";
         int fk = map.floorKey(number);
         if ( number == fk ) {
             return map.get(number);

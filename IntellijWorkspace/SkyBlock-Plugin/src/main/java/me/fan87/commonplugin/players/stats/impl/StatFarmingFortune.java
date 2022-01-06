@@ -73,10 +73,10 @@ public class StatFarmingFortune extends SBStat {
     }
     @Override
     public String getExampledDescription(SBPlayer player) {
-        if (getValue() < 100) {
-            return "Chance for " + ChatColor.GREEN + "double " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue() % 100)) + "%";
+        if (getValue(player) < 100) {
+            return "Chance for " + ChatColor.GREEN + "double " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue(player) % 100)) + "%";
         } else {
-            return "Chance for " + ChatColor.GREEN + "triple " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue() % 100)) + "%";
+            return "Chance for " + ChatColor.GREEN + "triple " + ChatColor.RESET + "drops: " + ChatColor.GREEN + Math.min(100, Math.floor(getValue(player) % 100)) + "%";
         }
     }
 }

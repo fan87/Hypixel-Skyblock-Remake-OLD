@@ -61,8 +61,8 @@ public class StatFerocity extends SBStat {
 
     @Override
     public String getExampledDescription(SBPlayer player) {
-        return "Base extra strikes: " + getColor() + Math.floor(getValue()) + "\n" + ChatColor.RESET +
-                "Chance for " + Math.max(1, getValue()/100) + " more: " + getColor() + Math.max(Math.floor(getValue() % 100), 0) + "%";
+        return "Base extra strikes: " + getColor() + Math.floor(getValue(player)) + "\n" + ChatColor.RESET +
+                "Chance for " + Math.max(1, getValue(player)/100) + " more: " + getColor() + Math.max(Math.floor(getValue(player) % 100), 0) + "%";
     }
 
     @Override

@@ -84,7 +84,7 @@ public class StatCritChance extends SBStat {
         return 100;
     }
 
-    public boolean nextValue() {
-        return getValue() > new Random().nextInt(100);
+    public boolean nextValue(SBPlayer player) {
+        return getValue(player) > new Random().nextInt(100);
     }
 }

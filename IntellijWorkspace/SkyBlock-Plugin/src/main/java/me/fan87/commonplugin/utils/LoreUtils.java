@@ -41,7 +41,7 @@ public class LoreUtils {
             if (c == ' ') {
                 if (new ChatComponentText(currentLine + currentWord).getText().length() > 32) {
                     out.add(currentLine + lineSuffix);
-                    currentLine = linePrefix + currentColor + currentWord;
+                    currentLine = linePrefix + currentColor + currentWord + " ";
                 } else {
                     currentLine += currentWord + " ";
                 }

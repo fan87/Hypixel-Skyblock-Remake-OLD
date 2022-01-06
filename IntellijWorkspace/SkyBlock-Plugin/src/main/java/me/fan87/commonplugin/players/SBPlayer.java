@@ -11,6 +11,7 @@ import me.fan87.commonplugin.gui.impl.GuiYourProfile;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
+import me.fan87.commonplugin.players.skill.SBPlayerSkills;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
@@ -31,6 +32,8 @@ public class SBPlayer {
     @Getter
     private SBPlayerStats stats = new SBPlayerStats();
     @Getter
+    private SBPlayerSkills skills = new SBPlayerSkills(this);
+    @Getter
     @Setter
     private double mana;
     @Getter
@@ -44,12 +47,15 @@ public class SBPlayer {
 
     public boolean showActionBar = true;
 
+    public void addCoins(double coins) {
+        this.coins += coins;
+    }
 
     public SBPlayer(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
         EventManager.EVENT_BUS.register(this);
-        mana = getStats().getIntelligence().getValue() + 100;
+        mana = getStats().getIntelligence().getValue(this) + 100;
         for (Property textures : getCraftPlayer().getProfile().getProperties().get("textures")) {
             if (textures.getName().equals("textures")) {
                 this.skin = textures.getValue();
@@ -149,10 +155,10 @@ public class SBPlayer {
      */
     public void displayActionBar() {
         String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()) + "/" + (int) (getPlayer().getMaxHealth()) + stats.getHealth().getIcon() + "   ";
-        if (stats.getDefence().getValue() > 0) {
-            text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue()) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
+        if (stats.getDefence().getValue(this) > 0) {
+            text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue(this)) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
         }
-        text += stats.getIntelligence().getColor() + (int) Math.floor(mana) + "/" + (int) Math.floor(getStats().getIntelligence().getValue() + 100) + stats.getIntelligence().getIcon();
+        text += stats.getIntelligence().getColor() + (int) Math.floor(mana) + "/" + (int) Math.floor(getStats().getIntelligence().getValue(this) + 100) + stats.getIntelligence().getIcon();
         getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
     }
 

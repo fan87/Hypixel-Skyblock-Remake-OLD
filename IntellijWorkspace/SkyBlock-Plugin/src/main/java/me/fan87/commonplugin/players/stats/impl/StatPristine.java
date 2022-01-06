@@ -70,7 +70,7 @@ public class StatPristine extends SBStat {
 
     @Override
     public String getExampledDescription(SBPlayer player) {
-        return "Chance: " + ChatColor.GREEN + Math.floor(getValue()) + "%";
+        return "Chance: " + ChatColor.GREEN + Math.floor(getValue(player)) + "%";
     }
 
     @Override

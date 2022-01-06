@@ -59,7 +59,7 @@ public class StatStrength extends SBStat {
 
     @Override
     public String getExampledDescription(SBPlayer player) {
-        return "Base Damage: " + ChatColor.GREEN + (int) (5 * (1 + getValue()/100f));
+        return "Base Damage: " + ChatColor.GREEN + (int) (5 * (1 + getValue(player)/100f));
     }
 
 

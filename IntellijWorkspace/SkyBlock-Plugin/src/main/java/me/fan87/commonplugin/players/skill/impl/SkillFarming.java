@@ -6,15 +6,14 @@ import me.fan87.commonplugin.players.skill.SBSkill;
 
 import java.util.List;
 
-public class SkillCombat extends SBSkill {
-
-    public SkillCombat(SBPlayer player, int currentExp) {
+public class SkillFarming extends SBSkill {
+    public SkillFarming(SBPlayer player, double currentExp) {
         super(player, currentExp);
     }
 
     @Override
     public SkillType getSkillType() {
-        return SkillType.COMBAT;
+        return SkillType.FARMING;
     }
 
     @Override
@@ -24,7 +23,6 @@ public class SkillCombat extends SBSkill {
 
     @Override
     public String getNamespace() {
-        return "COMBAT";
+        return "FARMING";
     }
-
 }

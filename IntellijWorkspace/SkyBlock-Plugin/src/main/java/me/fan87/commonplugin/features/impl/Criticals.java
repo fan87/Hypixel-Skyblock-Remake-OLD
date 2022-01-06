@@ -29,7 +29,7 @@ public class Criticals extends SBFeature {
         if (event.getDamager() instanceof Player) {
             Player damager = (Player) event.getDamager();
             SBPlayer player = skyBlock.getPlayersManager().getPlayer(damager);
-            if (player.getStats().getCritChance().nextValue()) {
+            if (player.getStats().getCritChance().nextValue(player)) {
                 PlayerCriticalEvent criticalEvent = new PlayerCriticalEvent(event);
                 EventManager.EVENT_BUS.post(criticalEvent);
                 if (criticalEvent.isCancelled()) return;

@@ -5,6 +5,7 @@ import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.LoreUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -38,10 +39,20 @@ public class GuiSkyBlockMenu extends Gui {
         craftItemMeta.setDisplayName(ChatColor.GREEN + "Crafting Table");
         craftItemMeta.setLore(LoreUtils.splitLoreForLine(ChatColor.GRAY + "Opens the crafting gird.\n\n" + ChatColor.YELLOW + "Click to open!"));
         craft.setItemMeta(craftItemMeta);
-        this.set(5, 4, new GuiItem(craft, event -> {
+        set(2, 3, new GuiItem(
+                new ItemStackBuilder(Material.DIAMOND_SWORD)
+                        .setDisplayName(ChatColor.GREEN + "Your Skills")
+                        .addLore(LoreUtils.splitLoreForLine(ChatColor.GRAY + "View your Skill progression and rewards."))
+                        .addLore("")
+                        .addLore(ChatColor.YELLOW + "Click to view!")
+                        .build(), event -> {
+                    new GuiSkillsMenu(player).open(((Player) event.getWhoClicked()));
+        }));
+        set(5, 4, new GuiItem(craft, event -> {
             event.setCancelled(true);
             new GuiCraftingTable(player.getSkyBlock(), player).open(((Player) event.getWhoClicked()));
         }));
+
     }
 
     @Subscribe

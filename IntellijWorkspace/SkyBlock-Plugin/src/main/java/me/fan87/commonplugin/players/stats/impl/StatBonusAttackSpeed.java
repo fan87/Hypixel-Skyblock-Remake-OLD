@@ -64,8 +64,8 @@ public class StatBonusAttackSpeed extends SBStat {
 
     @Override
     public String getExampledDescription(SBPlayer player) {
-        if (getValue() != getDefaultValue()) {
-            return "You now attack " + ChatColor.GREEN + Math.floor(getValue()) + "% " + ChatColor.RESET + " faster!";
+        if (getValue(player) != getDefaultValue()) {
+            return "You now attack " + ChatColor.GREEN + Math.floor(getValue(player)) + "% " + ChatColor.RESET + " faster!";
         }
         return "";
     }

@@ -66,7 +66,7 @@ public class ExpUtils {
             60, 7000000, 111672425, 1000000
     };
 
-    public static int getCurrentSkillLevel(long exp) {
+    public static int getCurrentSkillLevel(double exp) {
         for (int i = 0; i < 61; i++) {
             if (exp < skill[i*4 + 2]) return i - 1;
         }

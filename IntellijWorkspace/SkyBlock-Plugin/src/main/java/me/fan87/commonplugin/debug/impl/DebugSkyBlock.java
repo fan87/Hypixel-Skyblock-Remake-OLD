@@ -159,7 +159,7 @@ public class DebugSkyBlock extends DebugGui {
                                                 ImGui.beginChild(stat.getName(), ImGui.getWindowWidth() - 20, 50);
                                                 ImGui.setCursorPosX(20f);
                                                 float[] baseValue = new float[] {
-                                                        (float) stat.getBaseValue()
+                                                        (float) stat.getBaseValue(loadedPlayer)
                                                 };
                                                 if (ImGui.sliderFloat("Base Value", baseValue, 0, 1000)) {
                                                     stat.setBaseValue(baseValue[0]);

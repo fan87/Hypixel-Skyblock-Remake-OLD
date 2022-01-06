@@ -61,8 +61,8 @@ public class StatDefence extends SBStat {
     @Override
     public String getExampledDescription(SBPlayer player) {
         StatHealth health = player.getStats().getHealth();
-        return "Damage Reduction: " + ChatColor.GREEN + Math.round(getDamageModifier()*1000f)/10f + "%\n" + ChatColor.RESET +
-                "Effective Health: " + ChatColor.RED + Math.round(health.getValue()*getDamageModifier()*10f)/10f + health.getIcon();
+        return "Damage Reduction: " + ChatColor.GREEN + Math.round(getDamageModifier(player)*1000f)/10f + "%\n" + ChatColor.RESET +
+                "Effective Health: " + ChatColor.RED + Math.round(health.getValue(player)*getDamageModifier(player)*10f)/10f + health.getIcon();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class StatDefence extends SBStat {
         
     }
 
-    public double getDamageModifier() {
-        return getValue()/(getValue() + 100);
+    public double getDamageModifier(SBPlayer player) {
+        return getValue(player)/(getValue(player) + 100);
     }
 }

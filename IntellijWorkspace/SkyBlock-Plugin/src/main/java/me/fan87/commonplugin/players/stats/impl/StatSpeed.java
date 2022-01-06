@@ -60,8 +60,8 @@ public class StatSpeed extends SBStat {
 
     @Override
     public String getExampledDescription(SBPlayer player) {
-        if (getValue() != getDefaultValue()) {
-            return "You are " + ChatColor.GREEN + Math.floor(getValue()) + "% " + ChatColor.RESET + " faster!";
+        if (getValue(player) != getDefaultValue()) {
+            return "You are " + ChatColor.GREEN + Math.floor(getValue(player)) + "% " + ChatColor.RESET + " faster!";
         }
         return "";
     }
@@ -73,13 +73,13 @@ public class StatSpeed extends SBStat {
     }
 
     @Override
-    public double getBaseValue() {
-        double baseValue = super.getBaseValue();
+    public double getBaseValue(SBPlayer player) {
+        double baseValue = super.getBaseValue(player);
         return Math.max(0, Math.min(500, baseValue));
     }
 
     @Override
     public void onTick(SBPlayer player) {
-        player.getPlayer().setWalkSpeed(((float) getValue())/500f);
+        player.getPlayer().setWalkSpeed(((float) getValue(player))/500f);
     }
 }

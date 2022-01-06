@@ -55,7 +55,7 @@ public class GuiItemProvider {
                 Object value = declaredField.get(player.getStats());
                 if (value instanceof SBStat) {
                     SBStat stat = ((SBStat) value);
-                    lores.add("  " + stat.getColor() + stat.getIcon() + " " + stat.getName() + " " + ChatColor.WHITE + stat.getValueDisplay(stat.getValue()));
+                    lores.add("  " + stat.getColor() + stat.getIcon() + " " + stat.getName() + " " + ChatColor.WHITE + stat.getValueDisplay(stat.getValue(player)));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
