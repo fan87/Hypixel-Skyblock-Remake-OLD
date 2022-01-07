@@ -1,6 +1,6 @@
-package me.fan87.commonplugin.players.collections.impl.features.impl;
+package me.fan87.commonplugin.features.impl;
 
-import me.fan87.commonplugin.players.collections.impl.features.SBFeature;
+import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.greenrobot.eventbus.Subscribe;
