@@ -9,7 +9,7 @@ import me.fan87.commonplugin.database.DatabaseManager;
 import me.fan87.commonplugin.debug.DebugGuiManager;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
-import me.fan87.commonplugin.features.FeaturesManager;
+import me.fan87.commonplugin.players.collections.impl.features.FeaturesManager;
 import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.players.PlayersManager;
 import me.fan87.commonplugin.recipes.RecipesManager;

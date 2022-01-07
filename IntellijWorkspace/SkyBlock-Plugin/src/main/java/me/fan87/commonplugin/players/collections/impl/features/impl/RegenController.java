@@ -1,6 +1,6 @@
-package me.fan87.commonplugin.features.impl;
+package me.fan87.commonplugin.players.collections.impl.features.impl;
 
-import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.players.collections.impl.features.SBFeature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.greenrobot.eventbus.Subscribe;
@@ -14,8 +14,8 @@ public class RegenController extends SBFeature {
     @Subscribe
     public void onRegen(EntityRegainHealthEvent event) {
         if (event.getEntity() instanceof Player) {
+            if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED) event.setCancelled(true);
             if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN) {
-                event.setCancelled(true);
                 event.setAmount(skyBlock.getPlayersManager().getPlayer(((Player) event.getEntity())).getStats().getHealth().getRegenAmount(skyBlock.getPlayersManager().getPlayer(((Player) event.getEntity())))/5f);
             }
         }

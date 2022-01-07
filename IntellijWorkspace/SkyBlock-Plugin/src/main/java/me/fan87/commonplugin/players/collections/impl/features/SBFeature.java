@@ -1,4 +1,4 @@
-package me.fan87.commonplugin.features;
+package me.fan87.commonplugin.players.collections.impl.features;
 
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;

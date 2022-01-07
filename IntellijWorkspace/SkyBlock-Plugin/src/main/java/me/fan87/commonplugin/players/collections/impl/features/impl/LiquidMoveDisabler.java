@@ -1,6 +1,6 @@
-package me.fan87.commonplugin.features.impl;
+package me.fan87.commonplugin.players.collections.impl.features.impl;
 
-import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.players.collections.impl.features.SBFeature;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockEvent;

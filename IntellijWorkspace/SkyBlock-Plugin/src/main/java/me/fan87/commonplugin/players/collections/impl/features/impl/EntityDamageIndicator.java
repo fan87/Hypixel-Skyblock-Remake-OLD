@@ -1,6 +1,6 @@
-package me.fan87.commonplugin.features.impl;
+package me.fan87.commonplugin.players.collections.impl.features.impl;
 
-import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.players.collections.impl.features.SBFeature;
 import me.fan87.commonplugin.utils.ColorUtils;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import org.bukkit.ChatColor;

@@ -1,8 +1,8 @@
-package me.fan87.commonplugin.features.impl;
+package me.fan87.commonplugin.players.collections.impl.features.impl;
 
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.PlayerCriticalEvent;
-import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.players.collections.impl.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
