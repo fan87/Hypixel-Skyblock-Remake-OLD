@@ -34,6 +34,7 @@ public class CmdGiveItem extends SBCommand {
             if (loadedPlayer.getPlayer().getName().equals(args[0])){
 
                 loadedPlayer.getPlayer().getInventory().addItem(new SBItemStack(item).getItemStack());
+                sender.sendMessage(ChatColor.GREEN + "Successfully give " + item.getRarity().getColor() + item.getDisplayName() + " to" + ChatColor.YELLOW + loadedPlayer.getPlayer().getName());
                 return true;
             }
 

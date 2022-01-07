@@ -13,11 +13,14 @@ public class CmdDmgPlayer extends SBCommand {
     @Override
     protected boolean onCommand(CommandSender sender, String label, String[] args) {
 
+        if (args.length !=2) return false;
+
         for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
 
             if (loadedPlayer.getPlayer().getName().equals(args[0])){
 
                 loadedPlayer.getPlayer().damage(Double.valueOf(args[1])/5d);
+                sender.sendMessage(ChatColor.GREEN + "Damaged " + ChatColor.YELLOW + loadedPlayer.getPlayer().getName());
                 return true;
 
             }

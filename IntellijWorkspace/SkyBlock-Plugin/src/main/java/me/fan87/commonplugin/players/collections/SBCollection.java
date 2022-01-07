@@ -3,6 +3,7 @@ package me.fan87.commonplugin.players.collections;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardSkillExp;
@@ -26,6 +27,7 @@ public abstract class SBCollection {
 
     @JsonProperty("collected")
     @Getter
+    @Setter
     private int collected = 0;
 
     public SBCollection(SBCustomItem item, CollectionPattern pattern, int maxLevel, CollectionType collectionType) {
