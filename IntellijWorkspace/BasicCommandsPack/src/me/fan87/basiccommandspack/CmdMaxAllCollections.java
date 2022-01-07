@@ -36,6 +36,6 @@ public class CmdMaxAllCollections extends SBCommand {
 
         }
         sender.sendMessage(ChatColor.RED + "Invalid player");
-        return false;
+        return true;
     }
 }
