@@ -13,6 +13,7 @@ import me.fan87.commonplugin.gui.impl.GuiYourProfile;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
+import me.fan87.commonplugin.players.collections.SBPlayerCollections;
 import me.fan87.commonplugin.players.skill.SBPlayerSkills;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
@@ -47,6 +48,10 @@ public class SBPlayer {
     @Getter
     @JsonProperty("skills")
     private SBPlayerSkills skills = new SBPlayerSkills();
+
+    @Getter
+    @JsonProperty("collections")
+    private SBPlayerCollections collections = new SBPlayerCollections();
 
     @Getter
     @JsonProperty("uuid")

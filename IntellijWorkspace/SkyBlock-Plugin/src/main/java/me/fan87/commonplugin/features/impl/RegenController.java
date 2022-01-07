@@ -15,6 +15,7 @@ public class RegenController extends SBFeature {
     public void onRegen(EntityRegainHealthEvent event) {
         if (event.getEntity() instanceof Player) {
             if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN) {
+                event.setCancelled(true);
                 event.setAmount(skyBlock.getPlayersManager().getPlayer(((Player) event.getEntity())).getStats().getHealth().getRegenAmount(skyBlock.getPlayersManager().getPlayer(((Player) event.getEntity())))/5f);
             }
         }

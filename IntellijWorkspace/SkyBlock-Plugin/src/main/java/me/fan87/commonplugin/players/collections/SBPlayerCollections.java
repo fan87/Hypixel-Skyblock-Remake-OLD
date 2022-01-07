@@ -11,7 +11,10 @@ import me.fan87.commonplugin.players.collections.impl.mining.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @JsonAutoDetect(setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY, creatorVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 public class SBPlayerCollections {
@@ -152,5 +155,36 @@ public class SBPlayerCollections {
         return collectionList.toArray(new SBCollection[0]);
     }
 
+    public int getMaxedOutCollections() {
+        return getMaxedOutCollections(c -> true);
+    }
+
+    public int getUnlockedCollections() {
+        return getUnlockedCollections(c -> true);
+    }
+
+    public int getMaxedOutCollections(Predicate<SBCollection> filter) {
+        int amount = 0;
+        for (SBCollection collection : getCollections()) {
+            if (collection.isMaxedOut() && filter.test(collection)) {
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public int getUnlockedCollections(Predicate<SBCollection> filter) {
+        int amount = 0;
+        for (SBCollection collection : getCollections()) {
+            if (collection.getCollected() > 0 && filter.test(collection)) {
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public SBCollection[] getCollectionsByType(SBCollection.CollectionType type) {
+        return Arrays.stream(getCollections()).filter(c -> c.getCollectionType() == type).collect(Collectors.toList()).toArray(new SBCollection[0]);
+    }
 
 }

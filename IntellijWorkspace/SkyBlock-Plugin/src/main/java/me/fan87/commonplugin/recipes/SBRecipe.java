@@ -8,6 +8,7 @@ public abstract class SBRecipe {
     public abstract ItemStack getOutput();
     public abstract RecipeType getType();
     public abstract boolean action(ItemStack[] items, int width, int height);
+    public abstract boolean isVanilla();
 
     public enum RecipeType {
         CRAFTING_TABLE;

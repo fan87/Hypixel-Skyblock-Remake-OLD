@@ -38,6 +38,16 @@ public class ItemStackBuilder {
         return setLore(Arrays.asList(lore));
     }
 
+    public ItemStackBuilder setData(int durability) {
+        itemStack.setDurability((short) durability);
+        return this;
+    }
+
+    public ItemStackBuilder setMaterial(Material material) {
+        itemStack.setType(material);
+        return this;
+    }
+
     public ItemStackBuilder addLore(List<String> lore) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         List<String> lore1 = itemMeta.getLore();
@@ -50,6 +60,10 @@ public class ItemStackBuilder {
         return this;
     }
 
+    public ItemStackBuilder addLore(String lore, boolean splitLine) {
+        if (splitLine)  return addLore(LoreUtils.splitLoreForLine(lore));
+        return addLore(lore);
+    }
 
     public ItemStackBuilder addLore(String... lore) {
         return addLore(Arrays.asList(lore));
@@ -100,6 +114,11 @@ public class ItemStackBuilder {
             itemMeta.removeEnchant(enchantment);
         }
         itemStack.setItemMeta(itemMeta);
+        return this;
+    }
+
+    public ItemStackBuilder setAmount(int amount) {
+        itemStack.setAmount(amount);
         return this;
     }
 

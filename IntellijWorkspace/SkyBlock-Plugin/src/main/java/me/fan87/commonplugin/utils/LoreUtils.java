@@ -9,10 +9,13 @@ import java.util.regex.Pattern;
 
 public class LoreUtils {
 
+
+
     public static List<String> splitLoreForLine(String input, String linePrefix, String lineSuffix) {
         char[] array = input.toCharArray();
         List<String> out = new ArrayList<>();
         String currentColor = "";
+        String cachedColor = "";
         boolean wasColorChar = false;
         String currentLine = linePrefix;
         String currentWord = "";
@@ -20,6 +23,7 @@ public class LoreUtils {
             char c = array[i];
             if (wasColorChar) {
                 wasColorChar = false;
+                cachedColor = currentColor;
                 Pattern pattern = Pattern.compile("[0-9a-fkmolnr]");
                 if (pattern.matcher(c + "").matches()) {
                     if (c == 'r') {
@@ -35,16 +39,18 @@ public class LoreUtils {
                 currentLine += currentWord;
                 currentWord = "";
                 out.add(currentLine + lineSuffix);
-                currentLine = linePrefix + currentColor + currentWord;
+                currentLine = linePrefix + cachedColor + currentWord;
+                cachedColor = currentColor;
                 continue;
             }
             if (c == ' ') {
                 if (new ChatComponentText(currentLine + currentWord).getText().length() > 32) {
                     out.add(currentLine + lineSuffix);
-                    currentLine = linePrefix + currentColor + currentWord + " ";
+                    currentLine = linePrefix + cachedColor + currentWord + " ";
                 } else {
                     currentLine += currentWord + " ";
                 }
+                cachedColor = currentColor;
                 currentWord = "";
                 continue;
             }

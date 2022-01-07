@@ -7,6 +7,7 @@ import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardSkillExp;
 import me.fan87.commonplugin.players.skill.SBSkill;
+import me.fan87.commonplugin.utils.RomanUtils;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -14,13 +15,17 @@ import java.util.List;
 
 public abstract class SBCollection {
 
+    @Getter
     private final SBCustomItem item;
+    @Getter
     private final CollectionPattern collectionPattern;
+    @Getter
     private final int maxLevel;
     @Getter
     private final CollectionType collectionType;
 
     @JsonProperty("collected")
+    @Getter
     private int collected = 0;
 
     public SBCollection(SBCustomItem item, CollectionPattern pattern, int maxLevel, CollectionType collectionType) {
@@ -33,14 +38,38 @@ public abstract class SBCollection {
     protected abstract SBReward[] getLevelReward(int level);
 
     public int getRequiredAmount(int level) {
-        return collectionPattern.getAmount()[level - 1];
+        return collectionPattern.getAmount()[Math.min(level, getMaxLevel()) - 1];
+    }
+
+
+
+    public boolean isMaxedOut() {
+        System.out.println(getLevel(getCollected()) + ">=" + getMaxLevel());
+        return getLevel(getCollected()) >= getMaxLevel();
+    }
+
+    public int getLevel(int collected) {
+        int currentLevel = 0;
+        for (int i : collectionPattern.getAmount()) {
+            if (collected < i) return currentLevel;
+            currentLevel++;
+        }
+        return maxLevel;
+    }
+
+    public int getLevel() {
+        return getLevel(collected);
+    }
+
+    public String getLevelDisplay(int level) {
+        return RomanUtils.toRoman(level);
     }
 
     public SBReward[] getRewards(int level) {
         SBReward[] levelReward = getLevelReward(level);
         if (levelReward.length <= 0) {
             return new SBReward[] {
-                new RewardSkillExp(getCollectionType().getSkillType(), getRequiredAmount(level))
+                new RewardSkillExp(getCollectionType().getSkillType(), getRequiredAmount(level)/10)
             };
         }
         return levelReward;
@@ -79,6 +108,7 @@ public abstract class SBCollection {
 
         private String name;
         private SBSkill.SkillType skillType;
+
     }
 
 }

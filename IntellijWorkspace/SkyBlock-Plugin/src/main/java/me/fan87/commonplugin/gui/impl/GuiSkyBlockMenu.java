@@ -7,6 +7,7 @@ import me.fan87.commonplugin.gui.GuiItemProvider;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.LoreUtils;
+import me.fan87.commonplugin.utils.NumberUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -47,6 +48,26 @@ public class GuiSkyBlockMenu extends Gui {
                         .addLore(ChatColor.YELLOW + "Click to view!")
                         .build(), event -> {
                     new GuiSkillsMenu(player).open(((Player) event.getWhoClicked()));
+        }));
+        int unlockedCollections = player.getCollections().getUnlockedCollections();
+        boolean showMaxedOut = unlockedCollections == player.getCollections().getCollections().length;
+        set(3, 3, new GuiItem(
+                new ItemStackBuilder(Material.PAINTING)
+                        .setDisplayName(ChatColor.GREEN + "Collection")
+                        .addLore(LoreUtils.splitLoreForLine(ChatColor.GRAY +
+                                "View all of the items available in SkyBlock. Collect more of an item to unlock rewards on your way to becoming a master of SkyBlock!"))
+                        .addLore("")
+                        .addLore(NumberUtils.getPercentageText("Collection " +
+                                (showMaxedOut?"Maxed Out":"Unlocked"),
+                                (showMaxedOut?player.getCollections().getMaxedOutCollections(): unlockedCollections),
+                                player.getCollections().getCollections().length, ChatColor.GOLD + "%"))
+                        .addLore(NumberUtils.generateProgressBar(
+                                (showMaxedOut?player.getCollections().getMaxedOutCollections(): unlockedCollections),
+                                player.getCollections().getCollections().length))
+                        .addLore("")
+                        .addLore(ChatColor.YELLOW + "Click to view!")
+                        .build(), event -> {
+            new GuiCollectionTypesMenu(player).open(((Player) event.getWhoClicked()));
         }));
         set(5, 4, new GuiItem(craft, event -> {
             event.setCancelled(true);

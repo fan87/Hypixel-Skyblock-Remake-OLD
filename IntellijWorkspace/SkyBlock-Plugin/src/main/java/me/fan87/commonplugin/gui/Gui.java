@@ -58,22 +58,10 @@ public abstract class Gui {
     }
 
     public Gui fillBorder(GuiItem item) {
-        for (int i = 0; i < items.length; i++) {
-            int x = i % 9;
-            int y = i / 9;
-            if (x == 0 || x == 8) {
-                items[i] = item;
-                if (inventory != null) {
-                    inventory.setItem(i, item.getItemStack());
-                }
-            }
-            if (y == 0 || y == size/9) {
-                items[i] = item;
-                if (inventory != null) {
-                    inventory.setItem(i, item.getItemStack());
-                }
-            }
-        }
+        fill(1, 1, 9, 1, item);
+        fill(1, size/9, 1, 1, item);
+        fill(9, size/9, 9, 0, item);
+        fill(9, size/9, 0, size/9, item);
         updateInventory();
         return this;
     }

@@ -145,6 +145,7 @@ public class GuiViewSkill extends Gui {
         }
         builder.addLore(skill.getRewardLore(ChatColor.GRAY + "Level " + RomanUtils.toRoman(skill.getLevel()+1) + " Rewards:", level, player));
         builder.addAllItemFlags();
+        builder.setAmount(level);
         set(x, y, new GuiItem(builder.build()));
     }
 }

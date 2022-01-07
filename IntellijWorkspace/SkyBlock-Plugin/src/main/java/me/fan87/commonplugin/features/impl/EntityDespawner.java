@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class EntityDespawner extends SBFeature {
     public EntityDespawner() {
-        super("Entity Despawn", "Despawn mobs automatically when their \"ticksLeft\" ran out. DO NOT TURN THIS OFF OR YOU'LL FUCK UP YOUR WORLD!", false);
+        super("Entity Despawn", "Despawn mobs automatically when their \"ticksLeft\" ran out. DO NOT TURN THIS OFF OR YOU'LL F*CK UP YOUR WORLD!", false);
     }
 
     private static final Map<Integer, Long> despawns = new HashMap<>();

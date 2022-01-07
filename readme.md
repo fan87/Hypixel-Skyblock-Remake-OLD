@@ -3,7 +3,10 @@
 Hypixel SkyBlock Full Remake Project, Including every single item and feature.<br>WIP
 
 ## Code time
-fan87 - 9 hours
+fan87 - 
+Day 1 - 8 hours (Recipe System)
+Day 2 - 9 hours (Skill System/Gui, Hypixel API Items, Collection System)
+Day 3 - 4 hours (Hypixel API Collections, Collection Gui)
 
 ## Contribute
 

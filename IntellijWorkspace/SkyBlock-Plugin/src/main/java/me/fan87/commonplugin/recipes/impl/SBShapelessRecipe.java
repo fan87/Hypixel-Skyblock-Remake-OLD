@@ -15,17 +15,21 @@ public class SBShapelessRecipe extends SBRecipe {
     @Getter
     private final List<SBRecipeItem> ingredients = new ArrayList<>();
 
+    private final boolean vanilla;
+
     public SBShapelessRecipe(ShapelessRecipe recipe) {
         for (ItemStack itemStack : recipe.getIngredientList()) {
             ingredients.add(new SBSimpleRecipeItem(itemStack.getType(), itemStack.getAmount()));
         }
         this.output = recipe.getResult();
+        this.vanilla = true;
     }
 
     private final ItemStack output;
 
     public SBShapelessRecipe(ItemStack output) {
         this.output = output;
+        this.vanilla = false;
     }
 
 
@@ -71,5 +75,10 @@ public class SBShapelessRecipe extends SBRecipe {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean isVanilla() {
+        return vanilla;
     }
 }

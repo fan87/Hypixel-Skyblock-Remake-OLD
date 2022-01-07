@@ -21,6 +21,7 @@ public class SBShapedRecipe extends SBRecipe {
     @Getter
     private String[] shape = new String[0];
     private final ItemStack outputItem;
+    private final boolean vanilla;
 
     public SBShapedRecipe(ShapedRecipe shapedRecipe) {
         outputItem = shapedRecipe.getResult();
@@ -30,11 +31,13 @@ public class SBShapedRecipe extends SBRecipe {
             if (map.get(character) == null) ingredient(character, new SBSimpleRecipeItem(Material.AIR, 0)); else ingredient(character, new SBSimpleRecipeItem(map.get(character).getType(), 1));
         }
         shape(shapedRecipe.getShape());
+        this.vanilla = true;
     }
 
     public SBShapedRecipe(ItemStack outputItem) {
         this.outputItem = outputItem;
         ingredient(' ', new SBSimpleRecipeItem(Material.AIR, 0));
+        this.vanilla = false;
     }
 
     public SBShapedRecipe ingredient(char c, SBRecipeItem item) {
@@ -113,6 +116,11 @@ public class SBShapedRecipe extends SBRecipe {
         return true;
     }
 
+    @Override
+    public boolean isVanilla() {
+        return vanilla;
+    }
+
     private SBRecipeItem[] getRecipeItems() {
         List<SBRecipeItem> items = new ArrayList<>();
         for (String s : shape) {
@@ -122,4 +130,6 @@ public class SBShapedRecipe extends SBRecipe {
         }
         return items.toArray(new SBRecipeItem[0]);
     }
+
+
 }

@@ -55,9 +55,9 @@ public class SBItems {
         new ItemsDRILL(SkyBlock.getPlugin(SkyBlock.class));
         new ItemsFISHING_WEAPON(SkyBlock.getPlugin(SkyBlock.class));
         new ItemsGAUNTLET(SkyBlock.getPlugin(SkyBlock.class));
-
-
+        new ItemsVANILLA(SkyBlock.getPlugin(SkyBlock.class));
     }
+
     public static SBCustomItem STAINED_GLASS__15 = ItemsVANILLA.STAINED_GLASS__15;
     public static SBCustomItem FERMENTED_SPIDER_EYE = ItemsVANILLA.FERMENTED_SPIDER_EYE;
     public static SBCustomItem REDSTONE_COMPARATOR = ItemsVANILLA.REDSTONE_COMPARATOR;

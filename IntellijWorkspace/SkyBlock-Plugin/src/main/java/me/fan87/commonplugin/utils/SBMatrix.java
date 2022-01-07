@@ -1,7 +1,6 @@
 package me.fan87.commonplugin.utils;
 
 import lombok.Getter;
-import org.bukkit.inventory.ShapelessRecipe;
 
 import java.lang.reflect.Array;
 import java.util.function.Predicate;
