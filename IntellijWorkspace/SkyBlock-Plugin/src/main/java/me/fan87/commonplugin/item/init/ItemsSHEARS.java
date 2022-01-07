@@ -1,7 +1,15 @@
 
+////////////////////////////////////////////////////////
+//                                                    //
+// File generated with Hypixel SkyBlock API           //
+// Tool by fan87                                      //
+// https://github.com/fan87/Hypixel-Skyblock-Remake   //
+//                                                    //
+// PLEASE CHECK "GENERATOIN" FILE FOR MORE INFO       //
+//                                                    //
+//                                                    //
+////////////////////////////////////////////////////////
 
-// File generated with Hypixel SkyBlock API
-// Tool by fan87
 
 package me.fan87.commonplugin.item.init;
 
@@ -10,6 +18,12 @@ import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.item.impl.ItemVanilla;
 import org.bukkit.Material;
+import org.bukkit.Color;
+
+
+// Start class: ItemsSHEARS
+// Category: SHEARS
+// Last Update: 2022-01-07 08:50:37.813981
 
 public class ItemsSHEARS {
 
@@ -19,9 +33,9 @@ public class ItemsSHEARS {
 
 
     public ItemsSHEARS(SkyBlock skyBlock) {
-        SHEARS = new ItemVanilla("SHEARS", "Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, SBCustomItem.Category.SHEARS, skyBlock);
+        SHEARS = new ItemVanilla("SHEARS", "Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SHEARS, skyBlock);
         SBItems.registerItem(SHEARS);
-        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, true, SBCustomItem.Category.SHEARS, skyBlock);
+        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, true, null, SBCustomItem.Category.SHEARS, skyBlock);
         SBItems.registerItem(ENCHANTED_SHEARS);
 
 

@@ -11,11 +11,13 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.LoreUtils;
 import net.minecraft.server.v1_8_R3.EnumItemRarity;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -53,11 +55,14 @@ public class SBCustomItem {
     @Getter
     private final boolean glowing;
 
+    @Getter
+    private final Color color;
+
 
     public SBCustomItem(String namespace, String displayName, String description, Material material, SkyBlock skyBlock) {
-        this(namespace, displayName, description, material, (short) 0, "", Rarity.COMMON, false, Category.MATERIAL, skyBlock);
+        this(namespace, displayName, description, material, (short) 0, "", Rarity.COMMON, false, null, Category.MATERIAL, skyBlock);
     }
-    public SBCustomItem(String namespace, String displayName, String description, Material material, short damage, String skin, Rarity rarity, boolean glowing, Category category, SkyBlock skyBlock) {
+    public SBCustomItem(String namespace, String displayName, String description, Material material, short damage, String skin, Rarity rarity, boolean glowing, Color color, Category category, SkyBlock skyBlock) {
         this.namespace = namespace;
         this.material = material;
         this.displayName = displayName;
@@ -68,6 +73,7 @@ public class SBCustomItem {
         this.damage = damage;
         this.skyBlock = skyBlock;
         this.glowing = glowing;
+        this.color = color;
     }
 
     public SBCustomItem(String namespace, String displayName, Material material, SkyBlock skyBlock) {
@@ -116,6 +122,12 @@ public class SBCustomItem {
             NBTCompound properties = skullOwner.addCompound("Properties");
             NBTListCompound textures = properties.getCompoundList("textures").addCompound();
             textures.setString("Value", skin);
+        }
+        if (getMaterial().toString().startsWith("LEATHER_") && color != null) {
+            LeatherArmorMeta leatherArmorMeta = ((LeatherArmorMeta) itemStack.getItemMeta());
+            leatherArmorMeta.setColor(color);
+            itemStack.setItemMeta(leatherArmorMeta);
+
         }
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

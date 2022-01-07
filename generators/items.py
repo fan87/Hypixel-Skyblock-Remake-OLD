@@ -4,6 +4,8 @@
 import requests
 import json
 from difflib import SequenceMatcher
+import datetime
+import re
 
 content = json.loads(requests.get("https://api.hypixel.net/resources/skyblock/items").text)
 
@@ -55,9 +57,17 @@ const = {}
 categories = []
 
 sample = """
+////////////////////////////////////////////////////////
+//                                                    //
+// File generated with Hypixel SkyBlock API           //
+// Tool by fan87                                      //
+// https://github.com/fan87/Hypixel-Skyblock-Remake   //
+//                                                    //
+// PLEASE CHECK "GENERATOIN" FILE FOR MORE INFO       //
+//                                                    //
+//                                                    //
+////////////////////////////////////////////////////////
 
-// File generated with Hypixel SkyBlock API
-// Tool by fan87
 
 package me.fan87.commonplugin.item.init;
 
@@ -66,6 +76,12 @@ import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.item.impl.ItemVanilla;
 import org.bukkit.Material;
+import org.bukkit.Color;
+
+
+// Start class: Items%CATEGORY%
+// Category: %CATEGORY%
+// Last Update: %LAST_UPDATE%
 
 public class Items%CATEGORY% {
 
@@ -106,22 +122,24 @@ ITALIC('o', 20, true)
 RESET('r', 21)
 """
 
+items = """
+
+"""
+all = ""
+
 for id in vanilla_items:
     item = vanilla_items[id]
     description = ""
     durability = "0"
     skin = ""
     rarity = "COMMON"
-    category = "MATERIAL_"
+    category = "VANILLA"
     real_category = "MATERIAL"
     glowing = "false"
+    color = "null"
     count += 1
-    if count % 3 == 0:
-        category += "A"
-    elif count % 3 == 1:
-        category += "B"
-    else:
-        category += "C"
+    if "color" in item:
+        color = f"Color.fromRGB({item['color']})"
     if "description" in item:
         description = item["description"].replace("\"", "\\\"")
         for color in colors.split("\n"):
@@ -142,18 +160,24 @@ for id in vanilla_items:
         real_category = item["category"]
         if not item["category"] in categories:
             categories.append(item["category"])
+    if bool(re.match("[A-Z].*_GENERATOR_[1-9].*", id)):
+        category = "GENERATOR"
     if category in fields:
         fields[category] += "    public static SBCustomItem %s;\n" % id.replace(":", "__")
     else:
         fields.update({category: "    public static SBCustomItem %s;\n" % id.replace(":", "__")})
+    if color == "":
+        color = "null"
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
+    all += f"public static SBCustomItem " + id.replace(":", "__") + f" = Items" + category + "." + id.replace(":", "__") + ";\n"
+
     
 
 for id in custom_items:
@@ -165,15 +189,18 @@ for id in custom_items:
     skin = ""
     rarity = "COMMON"
     category = "MATERIAL_"
-    real_category = "MATERIAL"
-    glowing = "false"
-    count += 1
     if count % 3 == 0:
         category += "A"
     elif count % 3 == 1:
         category += "B"
-    else:
+    else: 
         category += "C"
+    real_category = "MATERIAL"
+    glowing = "false"
+    color = "null"
+    count += 1
+    if "color" in item:
+        color = f"Color.fromRGB({item['color']})"
     if "description" in item:
         description = item["description"].replace("\"", "\\\"")
         for color in colors.split("\n"):
@@ -194,22 +221,29 @@ for id in custom_items:
         real_category = item["category"]
         if not item["category"] in categories:
             categories.append(item["category"])
+    if bool(re.match("[A-Z].*_GENERATOR_[1-9].*", id)):
+        category = "GENERATOR"
     if category in fields:
         fields[category] += "    public static SBCustomItem %s;\n" % id.replace(":", "__")
     else:
         fields.update({category: "    public static SBCustomItem %s;\n" % id.replace(":", "__")})
+    if color == "":
+        color = "null"
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
+    all += f"public static SBCustomItem " + id.replace(":", "__") + f" = Items" + category + "." + id.replace(":", "__") + ";\n"
     
 
 
 for category in fields.keys():
-    content = sample.replace("%CONST%", const[category]).replace("%FIELDS%", fields[category]).replace("%CATEGORY%", category)
-    open("Items" + str(category) + ".java", "w").write(content)
+    content = sample.replace("%CONST%", const[category]).replace("%FIELDS%", fields[category]).replace("%CATEGORY%", category).replace("%LAST_UPDATE%", str(datetime.datetime.now()))
+    open("init/Items" + str(category) + ".java", "w").write(content)
     print("new Items" + category + "(skyBlock);")
+
+open("SBItems.txt", "w").write(all)

@@ -3,18 +3,18 @@ package me.fan87.commonplugin.players.collections;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardSkillExp;
 import me.fan87.commonplugin.players.skill.SBSkill;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SBCollection {
 
-    private final Material material;
+    private final SBCustomItem item;
     private final CollectionPattern collectionPattern;
     private final int maxLevel;
     @Getter
@@ -23,8 +23,8 @@ public abstract class SBCollection {
     @JsonProperty("collected")
     private int collected = 0;
 
-    public SBCollection(Material material, CollectionPattern pattern, int maxLevel, CollectionType collectionType) {
-        this.material = material;
+    public SBCollection(SBCustomItem item, CollectionPattern pattern, int maxLevel, CollectionType collectionType) {
+        this.item = item;
         this.collectionPattern = pattern;
         this.maxLevel = maxLevel;
         this.collectionType = collectionType;
