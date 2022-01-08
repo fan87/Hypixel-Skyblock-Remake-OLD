@@ -15,6 +15,7 @@ public abstract class SBRecipe {
     public abstract boolean action(ItemStack[] items, int width, int height);
     public abstract SBCustomItem getOutputType();
     public abstract boolean isUnlockable();
+    public abstract ItemStack[] getExample();
     public SBCollection relatedCollection(SBPlayer player) {
         for (SBCollection collection : player.getCollections().getCollections()) {
             for (SBReward[] value : collection.getRewardsMap().values()) {

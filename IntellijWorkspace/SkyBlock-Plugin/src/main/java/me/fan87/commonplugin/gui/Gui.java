@@ -29,7 +29,7 @@ public abstract class Gui {
 
     public Gui(String title, int rows) {
         this.items = new GuiItem[rows*9];
-        this.title = title;
+        this.title = title.substring(0, Math.min(32, title.length()));
         this.size = rows*9;
         EventManager.EVENT_BUS.register(this);
     }
@@ -56,7 +56,12 @@ public abstract class Gui {
     public void onClose(InventoryCloseEvent event) {
         if (event.getInventory().equals(inventory)) {
             destroy();
+            onGuiClose(event);
         }
+    }
+
+    protected void onGuiClose(InventoryCloseEvent event) {
+
     }
 
     public Gui fillBorder(GuiItem item) {

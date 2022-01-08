@@ -7,8 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 public class CmsUnlockAllRecipe extends SBCommand {
     public CmsUnlockAllRecipe() {
         super("unlockallrecipe", "Unlock all recipe", "skyblock.admin", "/unlockallrecipe <player>", "uar");
@@ -52,7 +50,7 @@ public class CmsUnlockAllRecipe extends SBCommand {
             return true;
 
         }
-        sender.sendMessage(ChatColor.GREEN + "Unlocked all recipe for " + ChatColor.YELLOW + args[0]);
+        sender.sendMessage(ChatColor.GREEN + "Unlocked all recipe for " + ChatColor.YELLOW + player.getPlayer().getDisplayName());
         return true;
 
     }

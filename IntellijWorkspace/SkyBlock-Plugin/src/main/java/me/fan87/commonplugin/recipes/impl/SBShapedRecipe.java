@@ -80,7 +80,9 @@ public class SBShapedRecipe extends SBRecipe {
 
     @Override
     public boolean match(ItemStack[] items, int width, int height) {
-        if (!isValid()) return false;
+        if (!isValid()) {
+            return false;
+        }
         assert items.length == width*height;
         SBMatrix<ItemStack> cleaned = ItemUtils.getRecipeMin(items, width, height);
         if (cleaned.getHeight() == 0 || cleaned.getWidth() == 0) return false;
@@ -140,6 +142,17 @@ public class SBShapedRecipe extends SBRecipe {
 
     public boolean isUnlockable() {
         return unlockable;
+    }
+
+    @Override
+    public ItemStack[] getExample() {
+        ItemStack[] itemStacks = new ItemStack[9];
+        for (int y = 0; y < getShape().length; y++) {
+            for (int x = 0; x < getShape()[y].toCharArray().length; x++) {
+                itemStacks[y*3 + x] = getIngredient(getShape()[y].toCharArray()[x]).getExampleItem();
+            }
+        }
+        return itemStacks;
     }
 
     private SBRecipeItem[] getRecipeItems() {

@@ -19,10 +19,10 @@ public abstract class GuiList extends Gui {
         super(title, 6);
         this.contents = contents;
         this.currentPage = currentPage;
-        setTitle(String.format("(%d/%d) %s", getCurrentPage(), getMaxPages(), title));
     }
 
     public void putItems() {
+        setTitle(String.format("(%d/%d) %s", getCurrentPage(), getMaxPages(), getTitle()));
         for (int i = 0; i < contents.size(); i++) {
             GuiItem item = contents.get(i);
             if (i > getLastIndex()) break;

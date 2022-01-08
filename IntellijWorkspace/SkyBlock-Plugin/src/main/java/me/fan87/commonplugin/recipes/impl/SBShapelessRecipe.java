@@ -23,7 +23,11 @@ public class SBShapelessRecipe extends SBRecipe {
 
     public SBShapelessRecipe(ShapelessRecipe recipe) {
         for (ItemStack itemStack : recipe.getIngredientList()) {
-            ingredients.add(new SBCustomRecipeItem(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount()));
+            SBCustomRecipeItem e = new SBCustomRecipeItem(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount());
+            ingredients.add(e);
+            if (e.getItem() == null) {
+                throw new IllegalArgumentException("Item is somehow cannot be handled by the plugin");
+            }
         }
         this.output = recipe.getResult();
         this.unlockable = true;
@@ -102,5 +106,10 @@ public class SBShapelessRecipe extends SBRecipe {
     @Override
     public boolean isUnlockable() {
         return unlockable;
+    }
+
+    @Override
+    public ItemStack[] getExample() {
+        return new ItemStack[0];
     }
 }

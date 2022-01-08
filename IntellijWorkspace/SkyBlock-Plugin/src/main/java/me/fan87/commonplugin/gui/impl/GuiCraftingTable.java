@@ -36,7 +36,16 @@ public class GuiCraftingTable extends Gui {
         fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
         fill(0, 6, 9, 6, new GuiItem(GuiItemProvider.backgroundGlassPane(14)));
         fill(2, 2, 4, 4, new GuiItem(new ItemStack(Material.AIR)));
-        set(7, 3, new GuiItem(new ItemStack(Material.AIR)));
+        set(7, 3, new GuiItem(new ItemStackBuilder(Material.BARRIER, 0)
+                .addAllItemFlags()
+                .setDisplayName(ChatColor.RED + "Recipe Required")
+                .addLore(ChatColor.GRAY + "Add the items for a valid recipe in the crafting gird to the left!", true)
+                .build(), new ButtonHandler() {
+            @Override
+            public void handleClick(InventoryClickEvent event) {
+                event.setCancelled(true);
+            }
+        }));
         set(5, 6, new GuiItem(GuiItemProvider.getPreviousPageItem("SkyBlock Menu"), event -> {
             new GuiSkyBlockMenu(player).open(player.getPlayer());
             event.setCancelled(true);
@@ -95,13 +104,14 @@ public class GuiCraftingTable extends Gui {
                 for (SBRecipe craftingRecipe : skyBlock.getRecipesManager().getCraftingRecipes()) {
                     if (craftingRecipe.match(content, 3, 3)) {
                         recipe = craftingRecipe;
-                        if (player.isRecipeUnlocked(recipe)) {
+                        boolean recipeUnlocked = player.isRecipeUnlocked(recipe);
+                        if (recipeUnlocked) {
                             setOutputSlot(craftingRecipe.getOutput());
                         } else {
                             set(7, 3, new GuiItem(new ItemStackBuilder(Material.BARRIER, 0)
                                     .addAllItemFlags()
                                     .setDisplayName(ChatColor.RED + "Recipe Required")
-                                    .addLore("Add the items for a valid recipe in the crafting gird to the left!")
+                                    .addLore(ChatColor.GRAY + "Add the items for a valid recipe in the crafting gird to the left!", true)
                                     .build(), new ButtonHandler() {
                                 @Override
                                 public void handleClick(InventoryClickEvent event) {
@@ -115,7 +125,7 @@ public class GuiCraftingTable extends Gui {
                 set(7, 3, new GuiItem(new ItemStackBuilder(Material.BARRIER, 0)
                         .addAllItemFlags()
                         .setDisplayName(ChatColor.RED + "Recipe Required")
-                        .addLore("Add the items for a valid recipe in the crafting gird to the left!")
+                        .addLore(ChatColor.GRAY + "Add the items for a valid recipe in the crafting gird to the left!", true)
                         .build(), new ButtonHandler() {
                     @Override
                     public void handleClick(InventoryClickEvent event) {
@@ -136,13 +146,12 @@ public class GuiCraftingTable extends Gui {
     }
 
     @Override
-    public void onClose(InventoryCloseEvent event) {
+    protected void onGuiClose(InventoryCloseEvent event) {
         for (int y = 2; y < 5; y++) {
             for (int x = 2; x < 5; x++) {
                 InventoryUtils.giveItem(((Player) event.getPlayer()), getInventory().getItem(getSlotNumberByXY(x, y)));
             }
         }
-
     }
 
     private void takeItem(InventoryClickEvent event) {

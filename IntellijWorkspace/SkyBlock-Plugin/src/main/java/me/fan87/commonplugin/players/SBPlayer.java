@@ -2,7 +2,6 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
-import dev.jcsoftware.jscoreboards.JPerPlayerMethodBasedScoreboard;
 import dev.jcsoftware.jscoreboards.JPerPlayerScoreboard;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +39,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Function;
 
 public class SBPlayer {
 
@@ -122,10 +120,10 @@ public class SBPlayer {
             }
         }
         for (SBCustomItem value : SBItems.getRegisteredItems().values()) {
-            if (value.isRecipeUnlockedByDefault()) unlockedRecipeData.add(value.getNamespace());
+            if (value.isRecipeUnlockedByDefault()) unlockRecipe(value);
         }
         for (SBTrading value : SBTradings.getRegisteredTradings().values()) {
-            if (value.isUnlockedByDefault()) unlockedTradingData.add(value.getNamespace().toString());
+            if (value.isUnlockedByDefault()) unlockTrading(value);
         }
     }
 
@@ -291,7 +289,7 @@ public class SBPlayer {
     }
 
     public void unlockTrading(SBTrading trading) {
-        if (!isTradingUnlocked(trading)) {
+        if (!unlockedTradingData.contains(trading.getNamespace().toString())) {
             unlockedTradingData.add(trading.getNamespace().toString());
         }
     }
@@ -332,7 +330,7 @@ public class SBPlayer {
         }
         for (int i = 0; i < "SKYBLOCK".length(); i++) {
             String first = "SKYBLOCK".substring(0, i + 1);
-            String second = "SKYBLOCK".substring(i + 2, "SKYBLOCK".length());
+            String second = "SKYBLOCK".substring(i + 1);
         }
         if (tick % totalTick == firstDuration + animationDuration*1) {
             return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";

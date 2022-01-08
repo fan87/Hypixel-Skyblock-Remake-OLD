@@ -34,7 +34,7 @@ public class RecipesManager {
         }
         for (Recipe r : rs) {
             if (r instanceof ShapelessRecipe) {
-                craftingRecipes.add(new SBShapelessRecipe(((ShapelessRecipe) r)));
+                try {craftingRecipes.add(new SBShapelessRecipe(((ShapelessRecipe) r)));} catch (Exception ignored) {}
             }
         }
     }
@@ -42,7 +42,7 @@ public class RecipesManager {
     public List<SBCustomItem> getAllUnlockableCraftingRecipes() {
         List<SBCustomItem> out = new ArrayList<>();
         for (SBRecipe craftingRecipe : craftingRecipes) {
-            if (!craftingRecipe.isUnlockable()) {
+            if (craftingRecipe.isUnlockable()) {
                 if (craftingRecipe.getOutputType() != null) {
                     if (!out.contains(craftingRecipe.getOutputType())) {
                         out.add(craftingRecipe.getOutputType());

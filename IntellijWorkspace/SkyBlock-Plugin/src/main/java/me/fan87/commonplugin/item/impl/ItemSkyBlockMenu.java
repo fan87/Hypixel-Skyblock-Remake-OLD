@@ -27,11 +27,11 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         skyBlock.getRecipesManager().getCraftingRecipes().add(new SBShapedRecipe(this, 1, true)
                 .ingredient('B', new SBCustomRecipeItem(ItemsVANILLA.BEDROCK, 64))
                 .ingredient('D', new SBCustomRecipeItem(ItemsVANILLA.DIAMOND, 64))
-                        .shape(
-                                " B ",
-                                "BDB",
-                                " B "
-                        )
+                .shape(
+                        " B ",
+                        "BDB",
+                        " B "
+                )
                 );
     }
 
@@ -114,4 +114,8 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         }
     }
 
+    @Override
+    public boolean shouldDisplayRarity() {
+        return false;
+    }
 }

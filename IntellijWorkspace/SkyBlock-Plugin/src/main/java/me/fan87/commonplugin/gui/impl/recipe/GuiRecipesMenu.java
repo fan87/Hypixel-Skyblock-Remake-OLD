@@ -4,6 +4,7 @@ import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
 import me.fan87.commonplugin.gui.impl.types.GuiList;
 import me.fan87.commonplugin.item.SBCustomItem;
+import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.recipes.SBRecipe;
@@ -20,25 +21,14 @@ public class GuiRecipesMenu extends GuiList {
 
     private final SBPlayer player;
     private final SBCustomItem.RecipeCategory recipeCategory;
-    private final int page;
 
     public GuiRecipesMenu(SBPlayer player, SBCustomItem.RecipeCategory recipeCategory, int page) {
         super(recipeCategory.getName(), page, new ArrayList<>());
-        this.setTitle(String.format("(%d/%d) %s Recipes", page + 1, getTotalPages(), recipeCategory.getName()));
         this.player = player;
         this.recipeCategory = recipeCategory;
-        this.page = page;
     }
 
-    public int getTotalPages() {
-        int count = 0;
-        for (SBCustomItem allUnlockableCraftingRecipe : player.getSkyBlock().getRecipesManager().getAllUnlockableCraftingRecipes()) {
-            if (allUnlockableCraftingRecipe.getRecipeCategory() == recipeCategory) {
-                count++;
-            }
-        }
-        return count/28;
-    }
+
 
     @Override
     public void init() {
@@ -64,26 +54,28 @@ public class GuiRecipesMenu extends GuiList {
                 return -1;
             }
             return o1.getOutputType().getDisplayName().compareTo(o2.getOutputType().getDisplayName());
-        }).collect(Collectors.toList())) {
-            if (player.isRecipeUnlocked(recipe)) {
-                ItemStackBuilder itemStackBuilder = new ItemStackBuilder(Material.INK_SACK, 8)
-                        .addAllItemFlags()
-                        .setDisplayName(ChatColor.RED + "???");
+        }).filter(r -> r.getOutputType().getRecipeCategory() == recipeCategory).collect(Collectors.toList())) {
+            ItemStackBuilder itemStackBuilder = new ItemStackBuilder(Material.INK_SACK, 8)
+                    .addAllItemFlags()
+                    .setDisplayName(ChatColor.RED + "???")
+                    .addLore(ChatColor.GRAY + "Progress through your item collections and explore the world to unlock new trades!", true);
+            if (!player.isRecipeUnlocked(recipe)) {
                 SBCollection sbCollection = recipe.relatedCollection(player);
                 if (sbCollection != null) {
                     itemStackBuilder.addLore(ChatColor.GRAY + String.format("Unlocked in the %s Collection", sbCollection.getDisplayName()), true);
                 }
                 getContents().add(new GuiItem(itemStackBuilder.build()));
             } else {
-                getContents().add(new GuiItem(new ItemStackBuilder(recipe.getOutputType().newItemStack())
+                getContents().add(new GuiItem(new ItemStackBuilder(new SBItemStack(recipe.getOutputType().newItemStack()).getDisplayItemStack())
                         .addLore("")
                         .addLore(ChatColor.YELLOW + "Click to view recipe!")
                         .build(), event -> {
-                    new GuiRecipeMenu(recipe, player, this);
+                    new GuiRecipeMenu(recipe, player, new GuiRecipesMenu(player, recipeCategory, getCurrentPage())).open(player.getPlayer());
                 }));
             }
         }
         putItems();
+        renderGoBackItems(new GuiRecipeTypesMenu(player), player.getPlayer());
     }
 
     @Override

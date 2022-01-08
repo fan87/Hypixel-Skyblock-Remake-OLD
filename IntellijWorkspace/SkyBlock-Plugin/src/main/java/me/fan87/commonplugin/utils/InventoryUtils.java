@@ -6,6 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class InventoryUtils {
 
     /**
@@ -14,7 +20,8 @@ public class InventoryUtils {
      * @param items Items to add
      */
     public static void giveItem(Player player, ItemStack... items) {
-        for (ItemStack value : player.getInventory().addItem(items).values()) {
+        for (ItemStack value : player.getInventory().addItem(Arrays.stream(items).filter(Objects::nonNull).collect(Collectors.toList()).toArray(new ItemStack[0])).values()) {
+            if (value == null) continue;
             ((CraftPlayer) player).getHandle().drop(CraftItemStack.asNMSCopy(value), true);
         }
     }

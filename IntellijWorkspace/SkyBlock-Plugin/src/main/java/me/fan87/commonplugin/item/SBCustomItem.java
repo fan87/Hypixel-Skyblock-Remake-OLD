@@ -85,11 +85,11 @@ public class SBCustomItem {
 
     public List<String> getLores() {
         List<String> out = new ArrayList<>();
+        out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
         if (!getDescription().equals("") && shouldDisplayRarity()) {
-            out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
             out.add("");
+            out.add(rarity.getColor() + ChatColor.BOLD.toString() + rarity.getName());
         }
-        out.add(rarity.getColor() + ChatColor.BOLD.toString() + rarity.getName());
         return out;
     }
 
@@ -151,15 +151,15 @@ public class SBCustomItem {
     @AllArgsConstructor
     @Getter
     public enum Rarity {
-        COMMON("Common", ChatColor.WHITE),
-        UNCOMMON("Uncommon", ChatColor.GREEN),
-        RARE("Rare", ChatColor.BLUE),
-        EPIC("Epic", ChatColor.DARK_PURPLE),
-        LEGENDARY("Legendary", ChatColor.GOLD),
-        MYTHIC("Mythic", ChatColor.LIGHT_PURPLE),
-        DIVINE("Divine", ChatColor.AQUA),
-        SPECIAL("Special", ChatColor.RED),
-        VERY_SPECIAL("Very Special", ChatColor.RED),
+        COMMON("COMMON", ChatColor.WHITE),
+        UNCOMMON("UNCOMMON", ChatColor.GREEN),
+        RARE("RARE", ChatColor.BLUE),
+        EPIC("EPIC", ChatColor.DARK_PURPLE),
+        LEGENDARY("LEGENDARY", ChatColor.GOLD),
+        MYTHIC("MYTHIC", ChatColor.LIGHT_PURPLE),
+        DIVINE("DIVINE", ChatColor.AQUA),
+        SPECIAL("SPECIAL", ChatColor.RED),
+        VERY_SPECIAL("VERY SPECIAL", ChatColor.RED),
         ;
         private String name;
         private ChatColor color;
