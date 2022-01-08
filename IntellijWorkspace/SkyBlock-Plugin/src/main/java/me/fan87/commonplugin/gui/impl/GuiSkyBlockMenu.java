@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.gui.impl;
 
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
+import me.fan87.commonplugin.gui.ButtonHandler;
 import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
@@ -18,6 +19,7 @@ import me.fan87.commonplugin.utils.NumberUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.greenrobot.eventbus.Subscribe;
@@ -117,6 +119,20 @@ public class GuiSkyBlockMenu extends Gui {
                 new GuiTradings(player, 1).open(player.getPlayer());
             }));
         }
+        set(8, 3, new GuiItem(new ItemStackBuilder(Material.ENDER_CHEST)
+                .setDisplayName(ChatColor.GREEN + "Ender Chest")
+                .addLore(ChatColor.GRAY + "Store global items that you want to access at any time from anywhere here.", true)
+                .addLore("")
+                .addLore(ChatColor.YELLOW + "Click to view!")
+                .addAllItemFlags()
+                .build(), new ButtonHandler() {
+            @Override
+            public void handleClick(InventoryClickEvent event) {
+
+                player.openEnderChest();
+
+            }
+        }));
     }
 
     @Subscribe

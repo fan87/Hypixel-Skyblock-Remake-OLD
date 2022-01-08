@@ -29,7 +29,7 @@ public class GuiTradings extends GuiList {
         for (SBTrading value : SBTradings.getRegisteredTradings().values()) {
             ItemStackBuilder builder = new ItemStackBuilder(Material.INK_SACK, 8)
                     .setDisplayName(ChatColor.RED + "???")
-                    .addLore();
+                    .addLore(ChatColor.GRAY + "Progress through your item collections and explore the world to unlock new trades!", true);
             if (player.isTradingUnlocked(value)) {
                 builder.setItemStack(value.getTo().getDisplayItem());
                 builder.addLore("");

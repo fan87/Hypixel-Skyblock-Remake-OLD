@@ -2,6 +2,8 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
+import dev.jcsoftware.jscoreboards.JPerPlayerMethodBasedScoreboard;
+import dev.jcsoftware.jscoreboards.JPerPlayerScoreboard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -23,7 +25,9 @@ import me.fan87.commonplugin.players.tradings.SBTradings;
 import me.fan87.commonplugin.recipes.SBRecipe;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,6 +40,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 public class SBPlayer {
 
@@ -87,6 +92,9 @@ public class SBPlayer {
     @Getter
     private boolean debugging = true;
 
+    @Getter
+    private JPerPlayerScoreboard scoreboard;
+
     public boolean showActionBar = true;
 
     public void addCoins(double coins) {
@@ -99,6 +107,9 @@ public class SBPlayer {
     public void init(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
+        scoreboard = new JPerPlayerScoreboard(p -> getScoreboardTitle(), p -> getScoreboardContent());
+        scoreboard.addPlayer(player.getPlayer());
+
         this.uuid = player.getUniqueId().toString();
         if (!EventManager.EVENT_BUS.isRegistered(this)) {
             EventManager.EVENT_BUS.register(this);
@@ -297,6 +308,35 @@ public class SBPlayer {
     public void save() {
         MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
         players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
+    }
+
+    public void openEnderChest() {
+        player.openInventory(player.getEnderChest());
+        player.playSound(player.getLocation(), Sound.CHEST_OPEN, 0.5f, 0.69f);
+        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 0.5f, 0.69f);
+    }
+
+    public List<String> getScoreboardContent() {
+
+    }
+
+    public String getScoreboardTitle() {
+        int tick = player.getTicksLived();
+        int firstDuration = 120;
+        int animationDuration = 2;
+        int keepWhiteDuration = 20;
+        int blinkDuration = 8;
+        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*2;
+        if (tick % totalTick <= firstDuration) {
+            return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";
+        }
+        for (int i = 0; i < "SKYBLOCK".length(); i++) {
+            String first = "SKYBLOCK".substring(0, i + 1);
+            String second = "SKYBLOCK".substring(i + 2, "SKYBLOCK".length());
+        }
+        if (tick % totalTick == firstDuration + animationDuration*1) {
+            return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";
+        }
     }
 
 }
