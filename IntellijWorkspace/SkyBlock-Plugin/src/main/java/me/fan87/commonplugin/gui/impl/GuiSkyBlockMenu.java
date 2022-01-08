@@ -4,7 +4,14 @@ import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
+import me.fan87.commonplugin.gui.impl.collection.GuiCollectionTypesMenu;
+import me.fan87.commonplugin.gui.impl.recipe.GuiRecipeTypesMenu;
+import me.fan87.commonplugin.gui.impl.skill.GuiSkillTypesMenu;
+import me.fan87.commonplugin.gui.impl.trading.GuiTradings;
+import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.tradings.SBTrading;
+import me.fan87.commonplugin.players.tradings.SBTradings;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.LoreUtils;
 import me.fan87.commonplugin.utils.NumberUtils;
@@ -14,6 +21,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Collection;
+import java.util.List;
 
 public class GuiSkyBlockMenu extends Gui {
 
@@ -47,7 +57,7 @@ public class GuiSkyBlockMenu extends Gui {
                         .addLore("")
                         .addLore(ChatColor.YELLOW + "Click to view!")
                         .build(), event -> {
-                    new GuiSkillsMenu(player).open(((Player) event.getWhoClicked()));
+                    new GuiSkillTypesMenu(player).open(((Player) event.getWhoClicked()));
         }));
         int unlockedCollections = player.getCollections().getUnlockedCollections();
         boolean showMaxedOut = unlockedCollections == player.getCollections().getCollections().length;
@@ -73,7 +83,40 @@ public class GuiSkyBlockMenu extends Gui {
             event.setCancelled(true);
             new GuiCraftingTable(player.getSkyBlock(), player).open(((Player) event.getWhoClicked()));
         }));
-
+        {
+            List<SBCustomItem> allUnlockableCraftingRecipes = player.getSkyBlock().getRecipesManager().getAllUnlockableCraftingRecipes();
+            int unlocked = (int) allUnlockableCraftingRecipes.stream().filter(player::isRecipeUnlocked).count();
+            int all = allUnlockableCraftingRecipes.size();
+            set(4, 3, new GuiItem(new ItemStackBuilder(Material.BOOK)
+                    .addAllItemFlags()
+                    .setDisplayName(ChatColor.GREEN + "Recipe Book")
+                    .addLore(ChatColor.GRAY + "Through your adventure, you will unlock recipes for all kinds of special items! You can view how to craft items here.", true)
+                    .addLore("")
+                    .addLore(NumberUtils.getPercentageText(ChatColor.GRAY + "Recipe Book Unlocked", unlocked, all))
+                    .addLore(NumberUtils.generateProgressBar(unlocked, all))
+                    .addLore("")
+                    .addLore(ChatColor.YELLOW + "Click to view!")
+                    .build(), event -> {
+                new GuiRecipeTypesMenu(player).open(player.getPlayer());
+            }));
+        }
+        {
+            Collection<SBTrading> allTrades = SBTradings.getRegisteredTradings().values();
+            int unlocked = (int) allTrades.stream().filter(player::isTradingUnlocked).count();
+            int all = allTrades.size();
+            set(5, 3, new GuiItem(new ItemStackBuilder(Material.EMERALD)
+                    .addAllItemFlags()
+                    .setDisplayName(ChatColor.GREEN + "Trades")
+                    .addLore(ChatColor.GRAY + "View your available trades.\nThese trades are always available and accessible through the SkyBlock Menu.", true)
+                    .addLore("")
+                    .addLore(NumberUtils.getPercentageText(ChatColor.GRAY + "Trades Unlocked", unlocked, all))
+                    .addLore(NumberUtils.generateProgressBar(unlocked, all))
+                    .addLore("")
+                    .addLore(ChatColor.YELLOW + "Click to view!")
+                    .build(), event -> {
+                new GuiTradings(player, 1).open(player.getPlayer());
+            }));
+        }
     }
 
     @Subscribe

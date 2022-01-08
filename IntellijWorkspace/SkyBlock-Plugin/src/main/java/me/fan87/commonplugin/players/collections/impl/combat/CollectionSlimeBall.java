@@ -9,13 +9,14 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.combat;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 
 public class CollectionSlimeBall extends SBCollection {
     public CollectionSlimeBall() {
-        super(SBItems.SLIME_BALL, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 50000), 9, CollectionType.COMBAT);
+        super(ItemsVANILLA.SLIME_BALL, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 50000), 9, CollectionType.COMBAT);
     }
 
     @Override

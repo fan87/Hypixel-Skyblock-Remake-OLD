@@ -2,15 +2,17 @@
 
 Hypixel SkyBlock Full Remake Project, Including every single item and feature.<br>WIP
 
-## Code time
-fan87 - 
-Day 1 - 8 hours (Recipe System)
-Day 2 - 9 hours (Skill System/Gui, Hypixel API Items, Collection System)
-Day 3 - 4 hours (Hypixel API Collections, Collection Gui)
-
 ## Contribute
 
 Contact me on Discord: `fan87#5283`. I'm not a Hypixel SkyBlock pro, so I might missed something.
+
+## Developers/Contributors
+Go 
+[GitHub Contributors Page](https://github.com/fan87/Hypixel-Skyblock-Remake/graphs/contributors)
+for latest contributors list<br>
+### Contributors
+ - fan87 (`fan87#5283`)
+ - TropicalFan344 (`TropicalFan344#2076`)
 
 ## Document
 ### Warning
@@ -34,6 +36,17 @@ just have fun with your friends.
 You can make money by coding addons, but don't be a d*ck,
 the plugin is not yours, it's open source, and the idea is
 made by Hypixel, not by either you or me.
+
+### FAQ
+> How can I get the Hypixel SkyBlock Map?
+
+We've prepared it for you, it's in the root directory/hub.zip, just unzip it and weep
+> Is the map same as Hypixel SkyBlock?
+
+Yes, but<br>
+No...<br>
+I messed the map up because I forgot to turn the grass spread off, at least I turned lava/water flowing off, it doensn't matter. We are fixing it. 
+
 ### Addons API
 To create an addon, you need to first obtain the instance of `SkyBlock`. To do it, you can type something like this in your main class:
 ```java

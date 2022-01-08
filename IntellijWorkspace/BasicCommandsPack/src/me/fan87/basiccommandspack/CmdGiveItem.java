@@ -3,12 +3,10 @@ package me.fan87.basiccommandspack;
 import me.fan87.commonplugin.commands.SBCommand;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.players.SBPlayer;
-import net.minecraft.server.v1_8_R3.Item;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.inventory.ItemStack;
 
 public class CmdGiveItem extends SBCommand {
 

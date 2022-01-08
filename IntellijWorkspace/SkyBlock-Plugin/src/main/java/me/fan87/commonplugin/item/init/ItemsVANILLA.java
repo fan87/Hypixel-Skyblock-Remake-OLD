@@ -15,10 +15,8 @@ package me.fan87.commonplugin.item.init;
 
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
-import me.fan87.commonplugin.item.SBItems;
 import me.fan87.commonplugin.item.impl.ItemVanilla;
 import org.bukkit.Material;
-import org.bukkit.Color;
 
 
 // Start class: ItemsVANILLA

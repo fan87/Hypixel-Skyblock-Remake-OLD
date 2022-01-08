@@ -1,9 +1,11 @@
 package me.fan87.commonplugin.recipes.impl;
 
 import lombok.Getter;
+import me.fan87.commonplugin.item.SBCustomItem;
+import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.recipes.SBRecipe;
 import me.fan87.commonplugin.recipes.recipeitem.SBRecipeItem;
-import me.fan87.commonplugin.recipes.recipeitem.impl.SBSimpleRecipeItem;
+import me.fan87.commonplugin.recipes.recipeitem.impl.SBCustomRecipeItem;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 
@@ -15,21 +17,35 @@ public class SBShapelessRecipe extends SBRecipe {
     @Getter
     private final List<SBRecipeItem> ingredients = new ArrayList<>();
 
-    private final boolean vanilla;
+    private final boolean unlockable;
+    private final SBCustomItem item;
+    private final ItemStack output;
 
     public SBShapelessRecipe(ShapelessRecipe recipe) {
         for (ItemStack itemStack : recipe.getIngredientList()) {
-            ingredients.add(new SBSimpleRecipeItem(itemStack.getType(), itemStack.getAmount()));
+            ingredients.add(new SBCustomRecipeItem(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount()));
         }
         this.output = recipe.getResult();
-        this.vanilla = true;
+        this.unlockable = true;
+        this.item = null;
     }
 
-    private final ItemStack output;
 
+    public SBShapelessRecipe(SBCustomItem item, int amount, boolean unlockable) {
+        this.item = item;
+        this.output = new SBItemStack(item, amount).getItemStack();
+        this.unlockable = unlockable;
+    }
+
+    /**
+     * @deprecated Use {@link SBShapelessRecipe#SBShapelessRecipe(SBCustomItem, int, boolean) instead}
+     * @param output Output item, but deprecated since recipe system won't be able to get the output type
+     */
+    @Deprecated
     public SBShapelessRecipe(ItemStack output) {
         this.output = output;
-        this.vanilla = false;
+        this.unlockable = false;
+        this.item = null;
     }
 
 
@@ -49,7 +65,7 @@ public class SBShapelessRecipe extends SBRecipe {
 
     @Override
     public ItemStack getOutput() {
-        return output;
+        return output.clone();
     }
 
     @Override
@@ -78,7 +94,13 @@ public class SBShapelessRecipe extends SBRecipe {
     }
 
     @Override
-    public boolean isVanilla() {
-        return vanilla;
+    public SBCustomItem getOutputType() {
+        return item;
+    }
+
+
+    @Override
+    public boolean isUnlockable() {
+        return unlockable;
     }
 }

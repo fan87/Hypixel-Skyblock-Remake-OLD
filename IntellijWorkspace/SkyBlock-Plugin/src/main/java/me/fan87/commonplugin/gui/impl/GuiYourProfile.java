@@ -27,6 +27,16 @@ public class GuiYourProfile extends Gui {
 
     @Subscribe
     public void onTick(ServerTickEvent event) {
+
+    }
+
+    @Override
+    public void init() {
+        fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
+        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player)));
+
+        renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
+
         int slot = 0;
         for (Field declaredField : player.getStats().getClass().getDeclaredFields()) {
             try {
@@ -61,13 +71,5 @@ public class GuiYourProfile extends Gui {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void init() {
-        fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
-        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player)));
-
-        renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
     }
 }

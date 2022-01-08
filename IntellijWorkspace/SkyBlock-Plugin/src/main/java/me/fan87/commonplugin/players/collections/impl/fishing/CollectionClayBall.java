@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.fishing;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionClayBall extends SBCollection {
     public CollectionClayBall() {
-        super(SBItems.CLAY_BALL, new CollectionPattern(50, 100, 250, 1000, 2500), 5, CollectionType.FISHING);
+        super(ItemsVANILLA.CLAY_BALL, new CollectionPattern(50, 100, 250, 1000, 2500), 5, CollectionType.FISHING);
     }
 
     @Override

@@ -1,12 +1,14 @@
 package me.fan87.commonplugin.recipes.impl;
 
 import lombok.Getter;
+import me.fan87.commonplugin.item.SBCustomItem;
+import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.recipes.SBRecipe;
 import me.fan87.commonplugin.recipes.recipeitem.SBRecipeItem;
-import me.fan87.commonplugin.recipes.recipeitem.impl.SBSimpleRecipeItem;
+import me.fan87.commonplugin.recipes.recipeitem.impl.SBAirRecipeItem;
+import me.fan87.commonplugin.recipes.recipeitem.impl.SBCustomRecipeItem;
 import me.fan87.commonplugin.utils.ItemUtils;
 import me.fan87.commonplugin.utils.SBMatrix;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -21,23 +23,38 @@ public class SBShapedRecipe extends SBRecipe {
     @Getter
     private String[] shape = new String[0];
     private final ItemStack outputItem;
-    private final boolean vanilla;
+    private final boolean unlockable;
+    private final SBCustomItem item;
 
-    public SBShapedRecipe(ShapedRecipe shapedRecipe) {
+    public SBShapedRecipe(ShapedRecipe shapedRecipe, boolean unlockable) {
         outputItem = shapedRecipe.getResult();
         shape = shapedRecipe.getShape();
         Map<Character, ItemStack> map = shapedRecipe.getIngredientMap();
         for (Character character : map.keySet()) {
-            if (map.get(character) == null) ingredient(character, new SBSimpleRecipeItem(Material.AIR, 0)); else ingredient(character, new SBSimpleRecipeItem(map.get(character).getType(), 1));
+            if (map.get(character) == null) ingredient(character, new SBAirRecipeItem()); else ingredient(character, new SBCustomRecipeItem(map.get(character).getType(), map.get(character).getDurability(), 1));
         }
         shape(shapedRecipe.getShape());
-        this.vanilla = true;
+        this.item = null;
+        this.unlockable = unlockable;
     }
 
+    public SBShapedRecipe(SBCustomItem outputType, int amount, boolean unlockable) {
+        ingredient(' ', new SBAirRecipeItem());
+        this.unlockable = unlockable;
+        this.outputItem = new SBItemStack(outputType, amount).getItemStack();
+        this.item = outputType;
+    }
+
+    /**
+     * @deprecated Use {@link SBShapedRecipe#SBShapedRecipe(SBCustomItem, int, boolean) instead}
+     * @param outputItem Output item, but deprecated since recipe system won't be able to get the output type
+     */
+    @Deprecated
     public SBShapedRecipe(ItemStack outputItem) {
         this.outputItem = outputItem;
-        ingredient(' ', new SBSimpleRecipeItem(Material.AIR, 0));
-        this.vanilla = false;
+        ingredient(' ', new SBAirRecipeItem());
+        this.unlockable = true;
+        this.item = null;
     }
 
     public SBShapedRecipe ingredient(char c, SBRecipeItem item) {
@@ -89,7 +106,7 @@ public class SBShapedRecipe extends SBRecipe {
 
     @Override
     public ItemStack getOutput() {
-        return outputItem;
+        return outputItem.clone();
     }
 
     @Override
@@ -117,8 +134,12 @@ public class SBShapedRecipe extends SBRecipe {
     }
 
     @Override
-    public boolean isVanilla() {
-        return vanilla;
+    public SBCustomItem getOutputType() {
+        return item;
+    }
+
+    public boolean isUnlockable() {
+        return unlockable;
     }
 
     private SBRecipeItem[] getRecipeItems() {

@@ -3,7 +3,7 @@ package me.fan87.commonplugin.item.impl;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.ChatColor;
@@ -20,7 +20,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
 
 
     public ItemSkyBlockMenu(SkyBlock skyBlock) {
-        super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, skyBlock);
+        super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, (short) 0, Rarity.COMMON, Category.MATERIAL, skyBlock, RecipeCategory.SPECIAL);
     }
 
     @Subscribe

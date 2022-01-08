@@ -52,7 +52,13 @@ public class NumberUtils {
 
     public static String getPercentageText(String title, double value, double max, String percentageIcon) {
         double d = Math.round(value / max * 1000d)/10d;
-        return ChatColor.GRAY + title + ChatColor.GRAY + ": " + (d>100?ChatColor.GREEN:ChatColor.YELLOW) + (Double.toString(Math.min(d, 100)).endsWith(".0")?(int) Math.min(d, 100):Math.min(d, 100)) + percentageIcon;
+        d = Math.min(d, 100);
+        String string = Double.toString(d);
+        return ChatColor.GRAY + title + ChatColor.GRAY + ": " + (d>=100?ChatColor.GREEN:ChatColor.YELLOW) + (string.endsWith(".0")? string.substring(0, string.length() - 2): string) + percentageIcon;
+    }
+
+    public static String getPercentageText(String title, double value, double max) {
+        return getPercentageText(title, value, max, ChatColor.GOLD + "%");
     }
 
     public static String generateProgressBar(int value, int max) {

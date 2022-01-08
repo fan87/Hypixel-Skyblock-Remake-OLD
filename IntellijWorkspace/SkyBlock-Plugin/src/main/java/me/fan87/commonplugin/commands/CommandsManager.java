@@ -3,6 +3,7 @@ package me.fan87.commonplugin.commands;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.addon.SBAddon;
+import me.fan87.commonplugin.addon.exceptions.UnknownAddonError;
 import me.fan87.commonplugin.utils.ReflectionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandMap;
@@ -53,13 +54,8 @@ public class CommandsManager {
                 return;
             }
         }
-        throw new UnknownAddonError("Addon " + addonNamespace + " is not defined!");
+        throw new UnknownAddonError(addonNamespace);
     }
 
-    public static class UnknownAddonError extends Error {
 
-        public UnknownAddonError(String s) {
-            super(s);
-        }
-    }
 }

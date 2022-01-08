@@ -13,10 +13,14 @@ import me.fan87.commonplugin.gui.impl.GuiYourProfile;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
+import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.players.collections.SBPlayerCollections;
 import me.fan87.commonplugin.players.skill.SBPlayerSkills;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
+import me.fan87.commonplugin.players.tradings.SBTrading;
+import me.fan87.commonplugin.players.tradings.SBTradings;
+import me.fan87.commonplugin.recipes.SBRecipe;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Material;
@@ -29,7 +33,9 @@ import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class SBPlayer {
 
@@ -66,10 +72,20 @@ public class SBPlayer {
     @JsonProperty("coins")
     private double coins;
 
+    @JsonProperty("unlockedRecipeData")
+    private List<String> unlockedRecipeData = new ArrayList<>();
+
+    @JsonProperty("unlockedTradingData")
+    private List<String> unlockedTradingData = new ArrayList<>();
+
     @Getter
     private SkyBlock skyBlock;
     @Getter
     private String skin;
+
+    @Setter
+    @Getter
+    private boolean debugging = true;
 
     public boolean showActionBar = true;
 
@@ -94,6 +110,12 @@ public class SBPlayer {
                 break;
             }
         }
+        for (SBCustomItem value : SBItems.getRegisteredItems().values()) {
+            if (value.isRecipeUnlockedByDefault()) unlockedRecipeData.add(value.getNamespace());
+        }
+        for (SBTrading value : SBTradings.getRegisteredTradings().values()) {
+            if (value.isUnlockedByDefault()) unlockedTradingData.add(value.getNamespace().toString());
+        }
     }
 
     protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
@@ -101,8 +123,6 @@ public class SBPlayer {
         Iterator<SBPlayer> iterator = players.find("{uuid: \"" + player.getUniqueId().toString() + "\"}").as(SBPlayer.class).iterator();
         while (iterator.hasNext()) {
             SBPlayer sbPlayer = iterator.next();
-            System.out.println("Player Joined! " + sbPlayer._id);
-            //
             players.remove(String.format("{\"uuid\": \"%s\", \"_id\": {\"$ne\": {\"$oid\": \"%s\"}}}", player.getUniqueId().toString(), sbPlayer._id));
             sbPlayer.init(player, skyBlock);
             return sbPlayer;
@@ -188,8 +208,7 @@ public class SBPlayer {
     }
 
     /**
-     * Open the skyblock menu
-     * TODO: Un hard code it
+     * Opens the skyblock menu
      */
     public void openSkyBlockMenu() {
         GuiSkyBlockMenu menu = new GuiSkyBlockMenu(this);
@@ -198,8 +217,9 @@ public class SBPlayer {
 
     /**
      * Open the profile menu
-     * TODO: Un hard code it
+     * @deprecated Use {@link GuiYourProfile#open(Player)} instead
      */
+    @Deprecated
     public void openProfileMenu() {
         GuiYourProfile profileGui = new GuiYourProfile(this);
         profileGui.open(player.getPlayer());
@@ -215,6 +235,63 @@ public class SBPlayer {
         }
         text += stats.getIntelligence().getColor() + (int) Math.floor(mana) + "/" + (int) Math.floor(getStats().getIntelligence().getValue(this) + 100) + stats.getIntelligence().getIcon();
         getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
+    }
+
+    public boolean isRecipeUnlocked(SBCustomItem item) {
+        return unlockedRecipeData.contains(item.getNamespace());
+    }
+
+    public boolean isRecipeUnlocked(SBRecipe recipe) {
+        if (recipe == null) return false;
+        if (recipe.getOutputType() == null) return true;
+        return isRecipeUnlocked(recipe.getOutputType());
+    }
+
+    public void unlockRecipe(SBCustomItem item) {
+        if (!unlockedRecipeData.contains(item.getNamespace())) {
+            unlockedRecipeData.add(item.getNamespace());
+        }
+    }
+
+    public List<SBCustomItem> getAllUnlockedRecipes() {
+        List<SBCustomItem> items = new ArrayList<>();
+        for (String namespace : new ArrayList<>(unlockedRecipeData)) {
+            SBCustomItem item = SBItems.getItem(namespace);
+            if (item == null) {
+                unlockedRecipeData.remove(namespace);
+                continue;
+            }
+            if (isRecipeUnlocked(item)) items.add(item);
+        }
+        return items;
+    }
+
+    public List<SBTrading> getAllUnlockedTradings() {
+        List<SBTrading> tradings = new ArrayList<>();
+        for (String namespace : new ArrayList<>(unlockedTradingData)) {
+            SBTrading item = SBTradings.getTradingByNamespace(namespace);
+            if (item == null) {
+                unlockedRecipeData.remove(namespace);
+                continue;
+            }
+            if (isTradingUnlocked(item)) tradings.add(item);
+        }
+        return tradings;
+    }
+
+    public void unlockTrading(SBTrading trading) {
+        if (!isTradingUnlocked(trading)) {
+            unlockedTradingData.add(trading.getNamespace().toString());
+        }
+    }
+
+    public boolean isTradingUnlocked(SBTrading trading) {
+        for (String unlockedTradingDatum : unlockedTradingData) {
+            if (unlockedTradingDatum.equals(trading.getNamespace().toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void save() {

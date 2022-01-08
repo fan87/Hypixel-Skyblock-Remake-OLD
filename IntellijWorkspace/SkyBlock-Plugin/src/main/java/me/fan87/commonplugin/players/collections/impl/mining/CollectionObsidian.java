@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.mining;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionObsidian extends SBCollection {
     public CollectionObsidian() {
-        super(SBItems.OBSIDIAN, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 50000, 100000), 10, CollectionType.MINING);
+        super(ItemsVANILLA.OBSIDIAN, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 50000, 100000), 10, CollectionType.MINING);
     }
 
     @Override

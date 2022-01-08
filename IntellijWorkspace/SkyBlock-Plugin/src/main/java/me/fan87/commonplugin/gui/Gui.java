@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.gui;
 
 import lombok.Getter;
+import lombok.Setter;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -20,6 +21,7 @@ public abstract class Gui {
     @Getter
     protected int size;
     @Getter
+    @Setter
     private String title;
     private Inventory inventory;
 

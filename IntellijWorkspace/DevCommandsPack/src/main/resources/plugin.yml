@@ -1,5 +1,0 @@
-name: DevCommandsPack
-version: 1.0
-main: me.fan87.devcmd.DevCommandsPack
-depend:
-  - HypixelSkyBlock-Common

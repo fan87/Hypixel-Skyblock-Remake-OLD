@@ -4,6 +4,7 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
 import me.fan87.commonplugin.item.impl.ItemVanilla;
+import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.LangUtils;
 import me.fan87.commonplugin.utils.LoreUtils;
@@ -29,6 +30,10 @@ public class SBItemStack {
         this.itemStack = itemStack;
         customized = getNBT().hasKey("ExtraAttributes");
         updateItem();
+    }
+
+    public boolean canBeUsedForCrafting() {
+        return true;
     }
 
     public SBItemStack(SBCustomItem item) {

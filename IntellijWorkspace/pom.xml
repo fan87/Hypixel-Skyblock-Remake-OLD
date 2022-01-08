@@ -10,8 +10,6 @@
     <version>v1</version>
     <modules>
         <module>SkyBlock-Plugin</module>
-        <module>DevCommandsPack</module>
-        <module>SkyBlock-Grabber</module>
     </modules>
 
     <properties>

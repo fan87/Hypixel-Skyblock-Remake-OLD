@@ -1,12 +1,15 @@
 package me.fan87.commonplugin.players.reward.impl;
 
+import lombok.Getter;
 import me.fan87.commonplugin.item.SBCustomItem;
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
+import org.bukkit.ChatColor;
 
 public class RewardRecipe extends SBReward {
 
+    @Getter
     private SBCustomItem item;
 
     /**
@@ -24,11 +27,11 @@ public class RewardRecipe extends SBReward {
 
     @Override
     public String toString() {
-        return null;
+        return item.getRarity().getColor() + item.getDisplayName() + ChatColor.GRAY + " Recipe";
     }
 
     @Override
     public void trigger(SBPlayer player) {
-
+        player.unlockRecipe(item);
     }
 }

@@ -67,8 +67,6 @@ public class SBPlayerCollections {
     public CollectionSand SAND = new CollectionSand();
     @JsonProperty("IRON_INGOT")
     public CollectionIronIngot IRON_INGOT = new CollectionIronIngot();
-    @JsonProperty("GEMSTONE_COLLECTION")
-    public CollectionGemstoneCollection GEMSTONE_COLLECTION = new CollectionGemstoneCollection();
     @JsonProperty("OBSIDIAN")
     public CollectionObsidian OBSIDIAN = new CollectionObsidian();
     @JsonProperty("DIAMOND")
@@ -81,10 +79,6 @@ public class SBPlayerCollections {
     public CollectionGoldIngot GOLD_INGOT = new CollectionGoldIngot();
     @JsonProperty("GRAVEL")
     public CollectionGravel GRAVEL = new CollectionGravel();
-    @JsonProperty("HARD_STONE")
-    public CollectionHardStone HARD_STONE = new CollectionHardStone();
-    @JsonProperty("MITHRIL_ORE")
-    public CollectionMithrilOre MITHRIL_ORE = new CollectionMithrilOre();
     @JsonProperty("EMERALD")
     public CollectionEmerald EMERALD = new CollectionEmerald();
     @JsonProperty("ICE")

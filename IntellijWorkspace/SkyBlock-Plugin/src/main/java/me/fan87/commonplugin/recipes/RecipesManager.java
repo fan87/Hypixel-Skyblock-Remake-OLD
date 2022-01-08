@@ -2,6 +2,7 @@ package me.fan87.commonplugin.recipes;
 
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.recipes.impl.SBShapedRecipe;
 import me.fan87.commonplugin.recipes.impl.SBShapelessRecipe;
 import org.bukkit.inventory.Recipe;
@@ -28,7 +29,7 @@ public class RecipesManager {
         }
         for (Recipe r : rs) {
             if (r instanceof ShapedRecipe) {
-                craftingRecipes.add(new SBShapedRecipe(((ShapedRecipe) r)));
+                craftingRecipes.add(new SBShapedRecipe(((ShapedRecipe) r), false));
             }
         }
         for (Recipe r : rs) {
@@ -36,6 +37,21 @@ public class RecipesManager {
                 craftingRecipes.add(new SBShapelessRecipe(((ShapelessRecipe) r)));
             }
         }
+    }
+
+    public List<SBCustomItem> getAllUnlockableCraftingRecipes() {
+        List<SBCustomItem> out = new ArrayList<>();
+        for (SBRecipe craftingRecipe : craftingRecipes) {
+            if (!craftingRecipe.isUnlockable()) {
+                if (craftingRecipe.getOutputType() != null) {
+                    if (!out.contains(craftingRecipe.getOutputType())) {
+                        out.add(craftingRecipe.getOutputType());
+                    }
+                }
+
+            }
+        }
+        return out;
     }
 
 }

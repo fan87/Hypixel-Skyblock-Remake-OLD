@@ -3,6 +3,7 @@ package me.fan87.commonplugin.utils;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryUtils {
@@ -16,6 +17,10 @@ public class InventoryUtils {
         for (ItemStack value : player.getInventory().addItem(items).values()) {
             ((CraftPlayer) player).getHandle().drop(CraftItemStack.asNMSCopy(value), true);
         }
+    }
+
+    public static boolean isInventoryFull(Inventory inventory) {
+        return inventory.firstEmpty() == -1;
     }
 
 }

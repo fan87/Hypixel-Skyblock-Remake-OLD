@@ -9,13 +9,14 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.farming;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 
 public class CollectionMelon extends SBCollection {
     public CollectionMelon() {
-        super(SBItems.MELON, new CollectionPattern(250, 500, 1250, 5000, 15000, 25000, 50000, 100000, 250000), 9, CollectionType.FARMING);
+        super(ItemsVANILLA.MELON, new CollectionPattern(250, 500, 1250, 5000, 15000, 25000, 50000, 100000, 250000), 9, CollectionType.FARMING);
     }
 
     @Override

@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.mining;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionCobblestone extends SBCollection {
     public CollectionCobblestone() {
-        super(SBItems.COBBLESTONE, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 40000, 70000), 10, CollectionType.MINING);
+        super(ItemsVANILLA.COBBLESTONE, new CollectionPattern(50, 100, 250, 1000, 2500, 5000, 10000, 25000, 40000, 70000), 10, CollectionType.MINING);
     }
 
     @Override

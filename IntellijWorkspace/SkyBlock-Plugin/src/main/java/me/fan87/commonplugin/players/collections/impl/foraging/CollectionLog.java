@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.foraging;
 
-import me.fan87.commonplugin.item.SBItems;
+import me.fan87.commonplugin.item.init.ItemsVANILLA;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionLog extends SBCollection {
     public CollectionLog() {
-        super(SBItems.LOG, new CollectionPattern(50, 100, 250, 500, 1000, 2000, 5000, 10000, 30000), 9, CollectionType.FORAGING);
+        super(ItemsVANILLA.LOG, new CollectionPattern(50, 100, 250, 500, 1000, 2000, 5000, 10000, 30000), 9, CollectionType.FORAGING);
     }
 
     @Override

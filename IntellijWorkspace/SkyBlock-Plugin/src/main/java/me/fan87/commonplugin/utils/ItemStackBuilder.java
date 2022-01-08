@@ -22,6 +22,15 @@ public class ItemStackBuilder {
         itemStack.setAmount(1);
     }
 
+    public ItemStackBuilder(ItemStack itemStack) {
+        this.itemStack = itemStack;
+    }
+
+    public ItemStackBuilder setItemStack(ItemStack itemStack) {
+        this.itemStack = itemStack;
+        return this;
+    }
+
     public ItemStackBuilder(Material material, int data) {
         this.itemStack = new ItemStack(material, 1, (short) data);
         itemStack.setAmount(1);
@@ -36,6 +45,11 @@ public class ItemStackBuilder {
 
     public ItemStackBuilder setLore(String... lore) {
         return setLore(Arrays.asList(lore));
+    }
+
+    public ItemStackBuilder clearLore() {
+        setLore(new ArrayList<>());
+        return this;
     }
 
     public ItemStackBuilder setData(int durability) {

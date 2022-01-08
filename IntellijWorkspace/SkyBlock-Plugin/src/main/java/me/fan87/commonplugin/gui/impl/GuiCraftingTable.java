@@ -10,8 +10,10 @@ import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.recipes.SBRecipe;
 import me.fan87.commonplugin.utils.InventoryUtils;
+import me.fan87.commonplugin.utils.ItemStackBuilder;
 import net.minecraft.server.v1_8_R3.PacketPlayInWindowClick;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -37,6 +39,7 @@ public class GuiCraftingTable extends Gui {
         set(7, 3, new GuiItem(new ItemStack(Material.AIR)));
         set(5, 6, new GuiItem(GuiItemProvider.getPreviousPageItem("SkyBlock Menu"), event -> {
             new GuiSkyBlockMenu(player).open(player.getPlayer());
+            event.setCancelled(true);
         }));
     }
 
@@ -92,11 +95,33 @@ public class GuiCraftingTable extends Gui {
                 for (SBRecipe craftingRecipe : skyBlock.getRecipesManager().getCraftingRecipes()) {
                     if (craftingRecipe.match(content, 3, 3)) {
                         recipe = craftingRecipe;
-                        setOutputSlot(craftingRecipe.getOutput());
+                        if (player.isRecipeUnlocked(recipe)) {
+                            setOutputSlot(craftingRecipe.getOutput());
+                        } else {
+                            set(7, 3, new GuiItem(new ItemStackBuilder(Material.BARRIER, 0)
+                                    .addAllItemFlags()
+                                    .setDisplayName(ChatColor.RED + "Recipe Required")
+                                    .addLore("Add the items for a valid recipe in the crafting gird to the left!")
+                                    .build(), new ButtonHandler() {
+                                @Override
+                                public void handleClick(InventoryClickEvent event) {
+                                    event.setCancelled(true);
+                                }
+                            }));
+                        }
                         return;
                     }
                 }
-                setOutputSlot(new ItemStack(Material.AIR));
+                set(7, 3, new GuiItem(new ItemStackBuilder(Material.BARRIER, 0)
+                        .addAllItemFlags()
+                        .setDisplayName(ChatColor.RED + "Recipe Required")
+                        .addLore("Add the items for a valid recipe in the crafting gird to the left!")
+                        .build(), new ButtonHandler() {
+                    @Override
+                    public void handleClick(InventoryClickEvent event) {
+                        event.setCancelled(true);
+                    }
+                }));
             }
         }, 1);
     }
