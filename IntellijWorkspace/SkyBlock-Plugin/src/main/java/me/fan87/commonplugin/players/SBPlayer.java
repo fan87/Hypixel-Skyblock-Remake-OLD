@@ -24,6 +24,7 @@ import me.fan87.commonplugin.recipes.SBRecipe;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -297,6 +298,14 @@ public class SBPlayer {
     public void save() {
         MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
         players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
+    }
+
+    public void openEnderChest() {
+
+        player.openInventory(player.getEnderChest());
+        player.playSound(player.getLocation(), Sound.CHEST_OPEN, 0.5f, 0.69f);
+        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 0.5f, 0.69f);
+
     }
 
 }
