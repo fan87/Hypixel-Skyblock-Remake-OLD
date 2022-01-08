@@ -24,15 +24,6 @@ public class ItemSkyBlockMenu extends SBCustomItem {
 
     public ItemSkyBlockMenu(SkyBlock skyBlock) {
         super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, (short) 0, Rarity.COMMON, Category.MATERIAL, skyBlock, RecipeCategory.SPECIAL);
-        skyBlock.getRecipesManager().getCraftingRecipes().add(new SBShapedRecipe(this, 1, true)
-                .ingredient('B', new SBCustomRecipeItem(ItemsVANILLA.BEDROCK, 64))
-                .ingredient('D', new SBCustomRecipeItem(ItemsVANILLA.DIAMOND, 64))
-                .shape(
-                        " B ",
-                        "BDB",
-                        " B "
-                )
-                );
     }
 
     @Subscribe
