@@ -317,7 +317,7 @@ public class SBPlayer {
     }
 
     public List<String> getScoreboardContent() {
-
+        return new ArrayList<>();
     }
 
     public String getScoreboardTitle() {
@@ -337,6 +337,7 @@ public class SBPlayer {
         if (tick % totalTick == firstDuration + animationDuration*1) {
             return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";
         }
+        return "";
     }
 
 }
