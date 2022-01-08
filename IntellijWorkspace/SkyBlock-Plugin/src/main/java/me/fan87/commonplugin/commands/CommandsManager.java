@@ -7,6 +7,7 @@ import me.fan87.commonplugin.addon.exceptions.UnknownAddonError;
 import me.fan87.commonplugin.utils.ReflectionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.SimpleCommandMap;
 
 import java.util.HashMap;
 import java.util.Map;
