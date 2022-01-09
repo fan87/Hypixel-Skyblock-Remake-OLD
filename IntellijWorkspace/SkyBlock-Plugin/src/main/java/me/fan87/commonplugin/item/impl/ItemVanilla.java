@@ -11,4 +11,6 @@ public class ItemVanilla extends SBCustomItem {
         super(namespace, displayName, description, material, damage, rarity, category, skyBlock, RecipeCategory.SPECIAL);
     }
 
+
+
 }

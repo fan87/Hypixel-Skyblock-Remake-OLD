@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.utils.world.VoidGenerator;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.apache.commons.io.FileUtils;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class WorldsManager {
@@ -30,7 +30,6 @@ public class WorldsManager {
     public WorldsManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
 
-        reload();
     }
 
     @SneakyThrows
@@ -42,6 +41,7 @@ public class WorldsManager {
         return file;
     }
 
+    @SneakyThrows
     protected void reloadWorlds() {
         skyBlock.sendMessage(ChatColor.YELLOW + "Loading worlds manager...");
         List<WorldType> missingTypes = Arrays.asList(WorldType.values()).stream().filter(worldType -> !worldType.isHidden()).collect(Collectors.toList());
@@ -58,10 +58,27 @@ public class WorldsManager {
             }
         }
         for (String worldName : getAllConfiguredWorlds()) {
-            if (skyBlock.getServer().getWorld(worldName) != null) {
+            World world = skyBlock.getServer().getWorld(worldName);
+            if (world != null) {
                 WorldType worldType = getWorld(worldName).getWorldType();
-                skyBlock.sendMessage(ChatColor.GREEN + " - Prepared map: " + worldName + " (World already loaded) (Type: " + worldType.getName() + ")");
-                continue;
+                if (worldType != WorldType.NONE) {
+                    Bukkit.unloadWorld(world, false);
+                    skyBlock.sendMessage(ChatColor.GREEN + " - Unloading map: " + worldName + " (World already loaded) (Type: " + worldType.getName() + ")");
+                }
+            }
+            File file = new File(worldName);
+            if (file.exists()) {
+                File backupFile = new File("backups");
+                if (!backupFile.exists()) backupFile.mkdirs();
+                File backup = new File(backupFile, worldName);
+                if (!backup.exists()) {
+                    backup.mkdirs();
+                    skyBlock.sendMessage(ChatColor.RED + "Backup not found! Creating one..");
+                    FileUtils.copyDirectory(file, backup);
+                } else {
+                    skyBlock.sendMessage(ChatColor.GREEN + "Backup found! Using it...");
+                    FileUtils.copyDirectory(backup, file);
+                }
             }
             new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
             WorldType worldType = getWorld(worldName).getWorldType();
@@ -141,5 +158,16 @@ public class WorldsManager {
 
         private String name;
         private boolean hidden;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum AreaType {
+        ;
+
+        private String name;
+        private String icon;
+        private ChatColor color;
+        private Predicate<Location> matcher;
     }
 }

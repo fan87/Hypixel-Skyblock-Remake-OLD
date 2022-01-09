@@ -5,11 +5,16 @@ import org.bukkit.ChatColor;
 public class NumberUtils {
 
     public static boolean isBetween(double input, double from, double to) {
+        if (from > to) {
+            double tmpFrom = from;
+            from = to;
+            to = tmpFrom;
+        }
         return input > from && input < to;
     }
 
     public static String formatNumber(double number) {
-        String format = String.format("%,.1f", Math.round(number * 10d) / 10d);
+        String format = number<1000?String.format("%,.1f", Math.round(number * 10d) / 10d):String.format("%,d", Math.round(number));
         if (format.endsWith(".0")) format = format.substring(0, format.length() - 2);
         return format;
     }
@@ -75,6 +80,20 @@ public class NumberUtils {
         }
         progressBar.append(" ").append(ChatColor.YELLOW).append(NumberUtils.formatNumber(value)).append(ChatColor.GOLD).append("/").append(ChatColor.YELLOW).append(NumberUtils.formatLargeNumber(max, false));
         return progressBar.toString();
+    }
+
+    // https://stackoverflow.com/questions/6810336/is-there-a-way-in-java-to-convert-an-integer-to-its-ordinal-name
+    public static String ordinal(int i) {
+        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + suffixes[i % 10];
+
+        }
     }
 
 }

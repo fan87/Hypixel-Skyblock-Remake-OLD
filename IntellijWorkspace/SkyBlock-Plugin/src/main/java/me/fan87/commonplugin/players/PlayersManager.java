@@ -3,11 +3,14 @@ package me.fan87.commonplugin.players;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +36,28 @@ public class PlayersManager {
     }
 
     public void addPlayer(Player player) {
-        SBPlayer sbPlayer = SBPlayer.newPlayer(player, skyBlock);
-        sbPlayer.init(player, skyBlock);
-        loadedPlayers.add(sbPlayer);
+        try {
+            SBPlayer sbPlayer = SBPlayer.newPlayer(player, skyBlock);
+            loadedPlayers.add(sbPlayer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (player.isOp()) {
+                try {
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    PrintWriter writer = new PrintWriter(out);
+                    e.printStackTrace(writer);
+                    writer.close();
+                    String message = out.toString();
+                    String m = "";
+                    for (String s : message.split("\n")) {
+                        m += ChatColor.RED + s + "\n";
+                    }
+                    player.kickPlayer(ChatColor.RED + "Something went wrong while logging you in!\nPlease contact the plugin developer!\n\n" + ChatColor.RED + m);
+                } catch (Exception ignored) {}
+            } else {
+                player.kickPlayer(ChatColor.RED + "Failed to log you in! Please contact the server admin!\n(You will be able to see the error message after getting OP)");
+            }
+        }
     }
 
     @Subscribe(priority = -6969)

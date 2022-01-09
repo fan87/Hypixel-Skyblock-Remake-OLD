@@ -2,11 +2,12 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
-import dev.jcsoftware.jscoreboards.JPerPlayerScoreboard;
+import dev.jcsoftware.jscoreboards.JPerPlayerMethodBasedScoreboard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.impl.GuiSkyBlockMenu;
@@ -22,11 +23,13 @@ import me.fan87.commonplugin.players.stats.SBStat;
 import me.fan87.commonplugin.players.tradings.SBTrading;
 import me.fan87.commonplugin.players.tradings.SBTradings;
 import me.fan87.commonplugin.recipes.SBRecipe;
+import me.fan87.commonplugin.utils.IngameDate;
+import me.fan87.commonplugin.utils.NumberUtils;
+import me.fan87.commonplugin.world.SBWorld;
+import me.fan87.commonplugin.world.WorldsManager;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,7 +39,9 @@ import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,9 +76,17 @@ public class SBPlayer {
     private double mana;
 
     @Getter
-    @Setter
     @JsonProperty("coins")
     private double coins;
+
+    public void setCoins(double coins) {
+        this.coins = Math.max(0, coins);
+    }
+
+    @Getter
+    @Setter
+    @JsonProperty("bankCoins")
+    private double bankCoins;
 
     @JsonProperty("unlockedRecipeData")
     private List<String> unlockedRecipeData = new ArrayList<>();
@@ -88,10 +101,18 @@ public class SBPlayer {
 
     @Setter
     @Getter
-    private boolean debugging = true;
+    private boolean debugging = false;
+
+    @Setter
+    @Getter
+    private boolean building = false;
 
     @Getter
-    private JPerPlayerScoreboard scoreboard;
+    private JPerPlayerMethodBasedScoreboard scoreboard;
+
+    @Getter
+    @JsonProperty("lastWorld")
+    private WorldsManager.WorldType currentWorldType;
 
     public boolean showActionBar = true;
 
@@ -105,9 +126,7 @@ public class SBPlayer {
     public void init(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
-        scoreboard = new JPerPlayerScoreboard(p -> getScoreboardTitle(), p -> getScoreboardContent());
-        scoreboard.addPlayer(player.getPlayer());
-
+        player.closeInventory();
         this.uuid = player.getUniqueId().toString();
         if (!EventManager.EVENT_BUS.isRegistered(this)) {
             EventManager.EVENT_BUS.register(this);
@@ -125,10 +144,34 @@ public class SBPlayer {
         for (SBTrading value : SBTradings.getRegisteredTradings().values()) {
             if (value.isUnlockedByDefault()) unlockTrading(value);
         }
+
+        scoreboard = new JPerPlayerMethodBasedScoreboard();
+        scoreboard.addPlayer(player.getPlayer());
+
+        if (currentWorldType != null) {
+            send(currentWorldType);
+        }
+
+        player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
     }
 
     protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
         MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
+        if (players.count("{uuid: \"" + player.getUniqueId().toString() + "\"}") == 0) {
+            player.sendMessage(ChatColor.YELLOW + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n" +
+                    ChatColor.WHITE + ChatColor.BOLD + "                     Welcome to SkyBlock, " + ChatColor.RESET + player.getDisplayName() + ChatColor.WHITE + ChatColor.BOLD + "!\n" +
+                    "\n" +
+                    ChatColor.YELLOW + "                    This is your island! The SkyBlock\n" +
+                    ChatColor.YELLOW + "                 universe has many lands to discover,\n" +
+                    ChatColor.YELLOW + "               secrets to uncover, and people to meet.\n" +
+                    ChatColor.YELLOW + "                  Collect resources, craft items, and\n" +
+                    ChatColor.YELLOW + "              complete objectives to advance your way\n" +
+                    ChatColor.YELLOW + "                             through SkyBlock.\n" +
+                    "\n" +
+                    ChatColor.YELLOW + "                                   Have fun!\n" +
+                    "\n" +
+                    ChatColor.YELLOW + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        }
         Iterator<SBPlayer> iterator = players.find("{uuid: \"" + player.getUniqueId().toString() + "\"}").as(SBPlayer.class).iterator();
         while (iterator.hasNext()) {
             SBPlayer sbPlayer = iterator.next();
@@ -175,6 +218,8 @@ public class SBPlayer {
 
     @Subscribe
     public void onTick(ServerTickEvent event) {
+        scoreboard.setTitle(player.getPlayer(), getScoreboardTitle());
+        scoreboard.setLines(player.getPlayer(), getScoreboardContent());
         tickStats();
         if (showActionBar) {
             displayActionBar();
@@ -314,28 +359,79 @@ public class SBPlayer {
         player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 0.5f, 0.69f);
     }
 
-    public List<String> getScoreboardContent() {
-        return new ArrayList<>();
+    public SBWorld getWorld() {
+        return skyBlock.getWorldsManager().getWorld(player.getWorld().getName());
     }
+
+    public SBArea getArea() {
+        return skyBlock.getAreasManager().getAreaOf(player.getLocation());
+    }
+
+    public List<String> getScoreboardContent() {
+        List<String> out = new ArrayList<>();
+        if (getWorld() == null || getWorld().getWorldType() == WorldsManager.WorldType.NONE) return out;
+        Date date = new Date(System.currentTimeMillis());
+        out.add(ChatColor.GRAY + new SimpleDateFormat("dd/MM/yy").format(date) + " " + ChatColor.DARK_GRAY + skyBlock.getConfigsManager().config.serverId + getWorld().getWorldID());
+        out.add("");
+        IngameDate ingameDate = new IngameDate(skyBlock.getDatabaseManager().getServerData().dayZero);
+        out.add(String.format(" %s %s", ingameDate.getMonthDisplay().getName(), ingameDate.getDayOfMonthDisplay()));
+        out.add(ChatColor.GRAY + " " + ingameDate.getTimeDisplay());
+        SBArea area = getArea();
+        out.add(ChatColor.GRAY + " ⏣ " + (area ==null?"None": area.getColor() + area.getName()));
+        out.add("");
+        out.add(ChatColor.RESET + "Purse: " + ChatColor.GOLD + NumberUtils.formatNumber(coins));
+        out.add("");
+        out.add("Objective");
+        out.add(ChatColor.YELLOW + "Objective System coming soon!");
+        out.add("");
+        out.add(ChatColor.YELLOW + skyBlock.getConfigsManager().config.serverIp);
+        return out;
+    }
+
 
     public String getScoreboardTitle() {
         int tick = player.getTicksLived();
         int firstDuration = 120;
         int animationDuration = 2;
         int keepWhiteDuration = 20;
-        int blinkDuration = 8;
-        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*2;
+        int blinkDuration = 12;
+        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*3;
         if (tick % totalTick <= firstDuration) {
-            return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";
+            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
         }
         for (int i = 0; i < "SKYBLOCK".length(); i++) {
-            String first = "SKYBLOCK".substring(0, i + 1);
-            String second = "SKYBLOCK".substring(i + 1);
+            if (tick % totalTick <= firstDuration + animationDuration*(i + 2)) {
+                String first = "SKYBLOCK".substring(0, i + 1);
+                String second = "SKYBLOCK".substring(i + 1);
+                return ChatColor.WHITE + ChatColor.BOLD.toString() + first + ChatColor.YELLOW + ChatColor.BOLD.toString() + second;
+            }
         }
-        if (tick % totalTick == firstDuration + animationDuration*1) {
-            return ChatColor.BOLD.toString() + ChatColor.YELLOW + "SKYBLOCK";
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration) {
+            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
         }
-        return "";
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration) {
+            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration*2) {
+            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
+        return "UNKNOWN";
+    }
+
+    public boolean send(WorldsManager.WorldType worldType) {
+        for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
+            if (world.getWorldType() == worldType) {
+                World w = skyBlock.getServer().getWorld(world.getWorldName());
+                player.sendMessage(ChatColor.GRAY + "Sending to server " + skyBlock.getConfigsManager().config.serverId + world.getWorldID() + "...");
+                Location spawnLocation = w.getSpawnLocation();
+                spawnLocation.setYaw(180);
+                player.teleport(spawnLocation);
+                currentWorldType = worldType;
+                return true;
+            }
+        }
+        player.sendMessage(ChatColor.RED + "Unable to send you to " + worldType.getName() + "! Please try again later.");
+        return false;
     }
 
 }

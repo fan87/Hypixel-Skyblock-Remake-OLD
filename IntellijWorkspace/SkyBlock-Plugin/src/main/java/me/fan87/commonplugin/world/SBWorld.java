@@ -27,4 +27,8 @@ public class SBWorld {
         worldsManager.getConfig().set(worldName + ".type", worldType.getName());
     }
 
+    public char getWorldID() {
+        return "ABCDEFGHIKLMNOPQRSTVXYZ".charAt(worldsManager.getWorlds().indexOf(this));
+    }
+
 }

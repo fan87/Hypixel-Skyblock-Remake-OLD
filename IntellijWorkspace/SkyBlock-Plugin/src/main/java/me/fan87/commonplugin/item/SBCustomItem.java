@@ -85,9 +85,11 @@ public class SBCustomItem {
 
     public List<String> getLores() {
         List<String> out = new ArrayList<>();
-        out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
-        if (!getDescription().equals("") && shouldDisplayRarity()) {
+        if (!getDescription().equals("")) {
+            out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
             out.add("");
+        }
+        if (shouldDisplayRarity()) {
             out.add(rarity.getColor() + ChatColor.BOLD.toString() + rarity.getName());
         }
         return out;
@@ -96,6 +98,10 @@ public class SBCustomItem {
 
 
     public boolean activateForSlot(int slot, SBPlayer player) {
+        return true;
+    }
+
+    public boolean isUnbreakable() {
         return true;
     }
 

@@ -54,6 +54,9 @@ public class SBItemStack {
     }
 
     private void updateItem() {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.spigot().setUnbreakable(true);
+        itemStack.setItemMeta(itemMeta);
         generateExtraAttributes();
     }
 
@@ -119,6 +122,7 @@ public class SBItemStack {
         ItemMeta itemMeta = clone.getItemMeta();
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         String displayName = itemMeta.getDisplayName();
         if (displayName != null && !displayName.equals("")) {
             return clone;

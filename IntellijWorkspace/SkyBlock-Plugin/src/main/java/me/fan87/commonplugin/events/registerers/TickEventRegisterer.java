@@ -5,6 +5,7 @@ import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.events.impl.WorldTickEvent;
 import me.fan87.commonplugin.world.SBWorld;
+import org.bukkit.Bukkit;
 
 public class TickEventRegisterer {
 
@@ -14,7 +15,8 @@ public class TickEventRegisterer {
             public void run() {
                 EventManager.EVENT_BUS.post(new ServerTickEvent());
                 for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
-                    EventManager.EVENT_BUS.post(new WorldTickEvent(world.getWorldType(), skyBlock.getServer().getWorld(world.getWorldName()), world));
+                    if (Bukkit.getWorld(world.getWorldName()) != null)
+                        EventManager.EVENT_BUS.post(new WorldTickEvent(world.getWorldType(), skyBlock.getServer().getWorld(world.getWorldName()), world));
                 }
             }
         }, 0, 0);

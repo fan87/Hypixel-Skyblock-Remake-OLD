@@ -33,6 +33,8 @@ public class DatabaseManager {
     private MongoDatabase database;
     @Getter
     private Jongo jongo;
+    @Getter
+    private SBServerData serverData;
 
 
     @SneakyThrows
@@ -53,6 +55,15 @@ public class DatabaseManager {
             this.jongo = new Jongo(db, new JacksonMapper.Builder()
                     .setVisibilityChecker(new VisibilityChecker.Std(JsonAutoDetect.Visibility.NONE, JsonAutoDetect.Visibility.NONE, JsonAutoDetect.Visibility.NONE, JsonAutoDetect.Visibility.NONE, JsonAutoDetect.Visibility.NONE))
                     .build());
+            MongoCollection server = getCollection("server");
+            if (server.count() != 1) {
+                server.remove();
+                serverData = new SBServerData();
+                server.insert(serverData);
+            } else {
+                serverData = server.findOne().as(SBServerData.class);
+            }
+
             skyBlock.sendMessage(ChatColor.GREEN + "Initialized database manager!");
         } catch (Exception e) {
             e.printStackTrace();

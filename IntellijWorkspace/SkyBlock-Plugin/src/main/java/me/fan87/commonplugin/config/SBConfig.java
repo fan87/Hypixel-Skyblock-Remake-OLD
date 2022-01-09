@@ -10,4 +10,10 @@ public class SBConfig {
     @SerializedName("noDatabaseSavingMessage")
     public boolean noDatabaseSavingMessage = false;
 
+    @SerializedName("hexServerId")
+    public String serverId = "m001";
+
+    @SerializedName("serverIp")
+    public String serverIp = "www.hypixel.net";
+
 }
