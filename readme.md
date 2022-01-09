@@ -64,7 +64,7 @@ I messed the map up because I forgot to turn the grass spread off, at least I tu
 ### Addons API
 To create an addon, you need to first obtain the instance of `SkyBlock`. To do it, you can type something like this in your main class:
 ```java
-SkyBlock skyBlock = SkyBlock.registerPlugin("Example Addon", "exampleaddon", this);
+SkyBlock skyBlock = SkyBlock.registerAddon("Example Addon", "exampleaddon", this);
 ```
 With this instance, you can start getting stuff like `PlayersManager`, `WorldsManager` etc., and you can start doing stuff.<br>
 Now I want to talk about the addon api, we got a command system, if you want to register a command, you need to use type something like this:
