@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.features.impl.greif;
 
+import me.fan87.commonplugin.events.impl.DamageIndicatorEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -21,11 +22,14 @@ public class PvPDisabler extends SBFeature {
     }
 
     @Subscribe
-    public void onPlayerDamagePlayer(EntityDamageByEntityEvent event){
+    public void onPlayerDamagePlayer(DamageIndicatorEvent event){
+        if (event.getEvent() instanceof EntityDamageByEntityEvent){
 
-        if (event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+            if (event.getEvent().getEntity() instanceof Player && ((EntityDamageByEntityEvent) event.getEvent()).getDamager() instanceof Player){
 
-            event.setCancelled(true);
+                event.setCancelled(true);
+
+            }
 
         }
 
