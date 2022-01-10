@@ -5,6 +5,10 @@ import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.ChatColor;
 
+/**
+ * SBFeature works like daemon in linux (or service if you want to name it), it will keep running and listen for events
+ * Once it's enabled, it's automatically registered in EventsManager, and you are allowed to listen to any event you want
+ */
 public abstract class SBFeature {
 
     @Getter

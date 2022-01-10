@@ -42,7 +42,7 @@ public class EventManager {
             }, EventPriority.NORMAL, new EventExecutor() {
                 @Override
                 public void execute(Listener listener, Event event) throws EventException {
-                    EVENT_BUS.post(event);
+                    EVENT_BUS.postSticky(event);
                 }
             }, skyBlock);
         }

@@ -23,6 +23,7 @@ import me.fan87.commonplugin.players.stats.SBStat;
 import me.fan87.commonplugin.players.tradings.SBTrading;
 import me.fan87.commonplugin.players.tradings.SBTradings;
 import me.fan87.commonplugin.recipes.SBRecipe;
+import me.fan87.commonplugin.utils.BukkitSerialization;
 import me.fan87.commonplugin.utils.IngameDate;
 import me.fan87.commonplugin.utils.NumberUtils;
 import me.fan87.commonplugin.world.SBWorld;
@@ -32,6 +33,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
 import org.jongo.MongoCollection;
@@ -114,6 +116,9 @@ public class SBPlayer {
     @JsonProperty("lastWorld")
     private WorldsManager.WorldType currentWorldType;
 
+    @JsonProperty("inventory")
+    private String inventory = "";
+
     public boolean showActionBar = true;
 
     public void addCoins(double coins) {
@@ -150,6 +155,15 @@ public class SBPlayer {
 
         if (currentWorldType != null) {
             send(currentWorldType);
+        }
+
+        try {
+            Inventory itemStacks = BukkitSerialization.fromBase64(inventory);
+            for (int i = 0; i < itemStacks.getSize(); i++) {
+                player.getInventory().setItem(i, itemStacks.getItem(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
@@ -349,6 +363,7 @@ public class SBPlayer {
     }
 
     public void save() {
+        this.inventory = BukkitSerialization.toBase64(player.getInventory());
         MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
         players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
     }

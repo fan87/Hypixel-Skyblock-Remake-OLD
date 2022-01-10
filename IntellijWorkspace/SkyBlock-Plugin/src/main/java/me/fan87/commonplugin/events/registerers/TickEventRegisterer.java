@@ -13,10 +13,10 @@ public class TickEventRegisterer {
         skyBlock.getServer().getScheduler().runTaskTimer(skyBlock, new Runnable() {
             @Override
             public void run() {
-                EventManager.EVENT_BUS.post(new ServerTickEvent());
+                EventManager.EVENT_BUS.postSticky(new ServerTickEvent());
                 for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
                     if (Bukkit.getWorld(world.getWorldName()) != null)
-                        EventManager.EVENT_BUS.post(new WorldTickEvent(world.getWorldType(), skyBlock.getServer().getWorld(world.getWorldName()), world));
+                        EventManager.EVENT_BUS.postSticky(new WorldTickEvent(world.getWorldType(), skyBlock.getServer().getWorld(world.getWorldName()), world));
                 }
             }
         }, 0, 0);

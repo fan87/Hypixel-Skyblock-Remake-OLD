@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -151,7 +152,38 @@ public class SBCustomItem {
     @AllArgsConstructor
     @Getter
     public enum Category {
-        MATERIAL, BOW, BOOTS, SPADE, PICKAXE, AXE, SWORD, HELMET, LEGGINGS, SHEARS, CHESTPLATE, HOE, FISHING_ROD, ARROW, PET_ITEM, REFORGE_STONE, COSMETIC, ACCESSORY, TRAVEL_SCROLL, BAIT, DUNGEON_PASS, ARROW_POISON, WAND, DRILL, FISHING_WEAPON, GAUNTLET
+        MATERIAL((inventory, slot) -> false),
+        BOW((inventory, slot) -> inventory.getHeldItemSlot() == slot + 36),
+        BOOTS((inventory, slot) -> false),
+        SPADE((inventory, slot) -> false),
+        PICKAXE((inventory, slot) -> false),
+        AXE((inventory, slot) -> false),
+        SWORD((inventory, slot) -> false),
+        HELMET((inventory, slot) -> false),
+        LEGGINGS((inventory, slot) -> false),
+        SHEARS((inventory, slot) -> false),
+        CHESTPLATE((inventory, slot) -> false),
+        HOE((inventory, slot) -> false),
+        FISHING_ROD((inventory, slot) -> false),
+        ARROW((inventory, slot) -> false),
+        PET_ITEM((inventory, slot) -> false),
+        REFORGE_STONE((inventory, slot) -> false),
+        COSMETIC((inventory, slot) -> false),
+        ACCESSORY((inventory, slot) -> false),
+        TRAVEL_SCROLL((inventory, slot) -> false),
+        BAIT((inventory, slot) -> false),
+        DUNGEON_PASS((inventory, slot) -> false),
+        ARROW_POISON((inventory, slot) -> false),
+        WAND((inventory, slot) -> false),
+        DRILL((inventory, slot) -> false),
+        FISHING_WEAPON((inventory, slot) -> false),
+        GAUNTLET((inventory, slot) -> false);
+
+        private ActiveChecker activeChecker;
+    }
+
+    public interface ActiveChecker {
+        boolean isActive(PlayerInventory inventory, int slot);
     }
 
     @AllArgsConstructor

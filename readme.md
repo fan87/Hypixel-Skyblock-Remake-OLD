@@ -29,6 +29,9 @@ features in.
  - Save location and stuff to config/database (Lazy, will make it later. For now just change the sourcecode and build it)
 
 ## Document
+
+> :warning: **Warning**: This tutorial is outdated, please read `documents/addons/GettingStarted.md` instead
+
 ### Warning
 This is not as easy as Spigot plugins, 
 there are some advanced syntax in the addon api, 

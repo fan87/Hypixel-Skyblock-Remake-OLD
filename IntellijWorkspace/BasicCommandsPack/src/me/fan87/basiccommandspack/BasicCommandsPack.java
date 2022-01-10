@@ -1,5 +1,6 @@
 package me.fan87.basiccommandspack;
 
+import me.fan87.basiccommandspack.cmd.*;
 import me.fan87.commonplugin.SkyBlock;
 import org.bukkit.plugin.java.JavaPlugin;
 

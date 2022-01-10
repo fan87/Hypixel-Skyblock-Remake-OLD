@@ -23,7 +23,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, (short) 0, Rarity.COMMON, Category.MATERIAL, skyBlock, RecipeCategory.SPECIAL);
     }
 
-    @Subscribe
+    @Subscribe(priority = 0)
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.getPlayer().getInventory().setItem(8, new SBItemStack(this).getItemStack());
     }

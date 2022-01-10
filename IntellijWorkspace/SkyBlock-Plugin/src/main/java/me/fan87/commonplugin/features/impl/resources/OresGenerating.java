@@ -124,7 +124,6 @@ public class OresGenerating extends SBFeature {
         ticks++;
         if (ticks % 100 == 0 && generated < oreSpawns.size()/100) {
             Random random = new Random();
-            System.out.println(oreSpawns.size());
             for (int i = 0; i < oreSpawns.size()/1000; i++) {
                 OreSpawn oreSpawn = oreSpawns.get(random.nextInt(oreSpawns.size()));
                 if (oreSpawn.getLocation().getBlock().getType() == Material.STONE) {
@@ -224,25 +223,24 @@ public class OresGenerating extends SBFeature {
         SBWorld world = skyBlock.getWorldsManager().getWorld(event.getWorld().getName());
         if (!hasCache(event.getWorld()) && world.getWorldType() == WorldsManager.WorldType.SKYBLOCK_HUB || world.getWorldType() == WorldsManager.WorldType.GOLD_MINE || world.getWorldType() == WorldsManager.WorldType.DEEP_CAVERNS) {
             Chunk chunk = event.getChunk();
-            SBArea area = skyBlock.getAreasManager().getAreaOf(new Location(event.getWorld(), chunk.getX() * 16, 71, chunk.getZ() * 16));
-            if (skyBlock.getAreasManager().getOresToGenerate(area).size() > 0) {
-                System.out.println("Generating " + chunk.getX() + " / " + chunk.getZ());
-                for (int x = 0; x < 16; x++) {
-                    for (int z = 0; z < 16; z++) {
-                        long l = System.currentTimeMillis();
-                        if (skyBlock.getAreasManager().getOresToGenerate(area).size() > 0) {
-                            for (int y = 0; y < 256; y++) {
-                                SBArea a = skyBlock.getAreasManager().getAreaOf(new Location(event.getWorld(), chunk.getX() * 16 + x, y, chunk.getZ() * 16));
-                                Block block = event.getChunk().getBlock(x, y, z);
-                                if (block.getType() == Material.SPONGE) {
-                                    oreSpawns.add(new OreSpawn(new Location(event.getWorld(), chunk.getX()*16 + x, y, chunk.getZ()*16 + z), a));
-                                    block.setType(Material.STONE);
-                                }
+
+            System.out.println("Generating " + chunk.getX() + " / " + chunk.getZ());
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 16; z++) {
+                    SBArea area = skyBlock.getAreasManager().getAreaOf(new Location(event.getWorld(), chunk.getX() * 16 + x, 64, chunk.getZ() * 16 + z));
+                    if (skyBlock.getAreasManager().getOresToGenerate(area).size() > 0) {
+                        for (int y = 0; y < 256; y++) {
+                            SBArea a = skyBlock.getAreasManager().getAreaOf(new Location(event.getWorld(), chunk.getX() * 16 + x, y, chunk.getZ() * 16));
+                            Block block = event.getChunk().getBlock(x, y, z);
+                            if (block.getType() == Material.SPONGE) {
+                                oreSpawns.add(new OreSpawn(new Location(event.getWorld(), chunk.getX()*16 + x, y, chunk.getZ()*16 + z), a));
+                                block.setType(Material.STONE);
                             }
                         }
                     }
                 }
             }
+
         }
     }
 
