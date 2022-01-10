@@ -1,6 +1,7 @@
 package me.fan87.basiccommandspack.cmd;
 
 import me.fan87.commonplugin.commands.SBCommand;
+import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.impl.GuiYourProfile;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.ChatColor;
@@ -19,9 +20,11 @@ public class CmdView extends SBCommand {
 
         for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
 
-            if (loadedPlayer.getPlayer().getName().equals(args[0])){
+            if (loadedPlayer.getPlayer().getName().equalsIgnoreCase(args[0])){
 
-                new GuiYourProfile(loadedPlayer).open(((Player) sender));
+                GuiYourProfile gui = new GuiYourProfile(loadedPlayer);
+                gui.setTitle("Viewing " + loadedPlayer.getPlayer().getName() + "'s Profile");
+                gui.open(((Player) sender));
                 return true;
                 
 
