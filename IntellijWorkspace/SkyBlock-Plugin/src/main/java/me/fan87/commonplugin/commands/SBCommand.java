@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class SBCommand extends BukkitCommand {
     protected SkyBlock skyBlock;
@@ -31,6 +32,10 @@ public abstract class SBCommand extends BukkitCommand {
         }
     }
 
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+        return onTabComplete(sender, alias, args);
+    }
 
     /**
      * What will happen if command is executed
@@ -43,4 +48,8 @@ public abstract class SBCommand extends BukkitCommand {
      * @return Returns true if command executed successfully, false if wrong usage
      */
     protected abstract boolean onCommand(CommandSender sender, String label, String[] args);
+
+    protected List<String> onTabComplete(CommandSender sender, String alias, String[] args) {
+        return Arrays.asList();
+    }
 }

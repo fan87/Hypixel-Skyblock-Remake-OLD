@@ -1,5 +1,7 @@
 package me.fan87.commonplugin.features.impl.gameplay.rendering;
 
+import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.impl.DamageIndicatorEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.features.impl.logic.EntityDespawner;
 import me.fan87.commonplugin.utils.ColorUtils;
@@ -47,6 +49,9 @@ public class EntityDamageIndicator extends SBFeature {
     @Subscribe(priority = -60)
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         CraftEntity entity = ((CraftEntity) event.getEntity());
+        DamageIndicatorEvent event1 = new DamageIndicatorEvent(event);
+        EventManager.EVENT_BUS.postSticky(event1);
+        if (event1.isCancelled()) return;
         float height = entity.getHandle().length / 2f;
         Location location = entity.getLocation().add(0, height, 0);
         EntityArmorStand entityArmorStand = new EntityArmorStand(((CraftWorld) entity.getWorld()).getHandle(), location.getX(), location.getY(), location.getZ());
