@@ -12,7 +12,7 @@ public class CmdGiveItem extends SBCommand {
 
 
     public CmdGiveItem() {
-        super("getitem", "Give item to target player", "skyblock.admin", "/giveitem <player name> <item name>");
+        super("giveitem", "Give item to target player", "skyblock.giveitem", "/giveitem <player name> <item name>");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CmdGiveItem extends SBCommand {
             if (loadedPlayer.getPlayer().getName().equals(args[0])){
 
                 loadedPlayer.getPlayer().getInventory().addItem(new SBItemStack(item).getItemStack());
-                sender.sendMessage(ChatColor.GREEN + "Successfully give " + item.getRarity().getColor() + item.getDisplayName() + " to" + ChatColor.YELLOW + loadedPlayer.getPlayer().getName());
+                sender.sendMessage(ChatColor.GREEN + "Successfully gave " + item.getRarity().getColor() + item.getDisplayName() + " to" + ChatColor.YELLOW + loadedPlayer.getPlayer().getName());
                 return true;
             }
 

@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.item.init;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import io.github.retrooper.packetevents.event.impl.PacketPlaySendEvent;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
@@ -14,6 +15,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.minecraft.server.v1_8_R3.ItemStack;
+import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -126,6 +128,15 @@ public class SBItems {
     }
 
     @Subscribe
+    public void onReceive(PacketPlayReceiveEvent event) {
+        SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        if (player == null) return;
+        if (event.getNMSPacket().getRawNMSPacket() instanceof PacketPlayInHeldItemSlot) {
+            player.updateInventory();
+        }
+    }
+
+    @Subscribe
     public void updateInventories(PacketPlaySendEvent event) {
         Object rawNMSPacket = event.getNMSPacket().getRawNMSPacket();
         Field[] fields = rawNMSPacket.getClass().getDeclaredFields();
@@ -133,6 +144,7 @@ public class SBItems {
             if (field.getType().equals(ItemStack.class)) {
                 try {
                     SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+                    if (player == null) return;
                     player.updateInventory();
                     field.setAccessible(true);
                     ItemStack item = ((ItemStack) field.get(rawNMSPacket));

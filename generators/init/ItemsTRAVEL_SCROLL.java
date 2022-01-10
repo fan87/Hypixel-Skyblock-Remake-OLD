@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsTRAVEL_SCROLL
 // Category: TRAVEL_SCROLL
-// Last Update: 2022-01-07 09:10:25.079532
+// Last Update: 2022-01-10 17:27:50.173206
 
 public class ItemsTRAVEL_SCROLL {
 

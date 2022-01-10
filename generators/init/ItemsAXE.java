@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsAXE
 // Category: AXE
-// Last Update: 2022-01-07 09:10:25.074478
+// Last Update: 2022-01-10 17:27:50.172275
 
 public class ItemsAXE {
 
-    public static SBCustomItem GOLD_AXE;
-    public static SBCustomItem IRON_AXE;
-    public static SBCustomItem STONE_AXE;
-    public static SBCustomItem DIAMOND_AXE;
-    public static SBCustomItem WOOD_AXE;
     public static SBCustomItem CHICKEN_AXE;
     public static SBCustomItem SWEET_AXE;
     public static SBCustomItem ROOKIE_AXE;
@@ -55,16 +50,6 @@ public class ItemsAXE {
 
 
     public ItemsAXE(SkyBlock skyBlock) {
-        GOLD_AXE = new ItemVanilla("GOLD_AXE", "Golden Axe", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
-        SBItems.registerItem(GOLD_AXE);
-        IRON_AXE = new ItemVanilla("IRON_AXE", "Iron Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
-        SBItems.registerItem(IRON_AXE);
-        STONE_AXE = new ItemVanilla("STONE_AXE", "Stone Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
-        SBItems.registerItem(STONE_AXE);
-        DIAMOND_AXE = new ItemVanilla("DIAMOND_AXE", "Diamond Axe", "", Material.DIAMOND_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
-        SBItems.registerItem(DIAMOND_AXE);
-        WOOD_AXE = new ItemVanilla("WOOD_AXE", "Wooden Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
-        SBItems.registerItem(WOOD_AXE);
         CHICKEN_AXE = new SBCustomItem("CHICKEN_AXE", "Chicken Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
         SBItems.registerItem(CHICKEN_AXE);
         SWEET_AXE = new SBCustomItem("SWEET_AXE", "Sweet Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);

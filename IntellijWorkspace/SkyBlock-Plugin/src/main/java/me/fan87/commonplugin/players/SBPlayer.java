@@ -121,6 +121,8 @@ public class SBPlayer {
 
     public boolean showActionBar = true;
 
+    private final List<SBItemStack> activeItems = new ArrayList<>();
+
     public void addCoins(double coins) {
         this.coins += coins;
     }
@@ -200,31 +202,50 @@ public class SBPlayer {
     }
 
 
+    public ItemStack[] getAllInventoryItems() {
+        ItemStack[] out = new ItemStack[45];
+        out[5] = player.getInventory().getArmorContents()[0];
+        out[6] = player.getInventory().getArmorContents()[1];
+        out[7] = player.getInventory().getArmorContents()[2];
+        out[8] = player.getInventory().getArmorContents()[3];
+        for (int i = 0; i < 9; i++) {
+            out[36 + i] = player.getInventory().getItem(i);
+        }
+        for (int i = 9; i < 36; i++) {
+            out[i] = player.getInventory().getItem(i);
+        }
+        return out;
+    }
+
     /**
      * Update the inventory and save custom NBT Data to every items
      */
     @SneakyThrows
     public void updateInventory() {
-        for (Field declaredField : stats.getClass().getDeclaredFields()) {
-            declaredField.setAccessible(true);
-            SBStat stat = (SBStat) declaredField.get(stats);
+        activeItems.clear();
+        for (SBStat stat : stats.getStats()) {
             stat.getBonusValue().clear();
         }
-        for (int i = 0; i < player.getInventory().getSize(); i++) {
-            if (player.getInventory().getItem(i) == null || player.getInventory().getItem(i).getType() == Material.AIR) continue;
-            ItemStack item = player.getInventory().getItem(i);
+        ItemStack[] allInventoryItems = getAllInventoryItems();
+        for (int i = 0; i < allInventoryItems.length; i++) {
+            if (allInventoryItems[i] == null || allInventoryItems[i].getType() == Material.AIR) continue;
+            ItemStack item = allInventoryItems[i];
             SBItemStack sbItemStack = new SBItemStack(item);
             if (sbItemStack.getType().getType() != SBMaterial.ItemType.CUSTOM) {
                 sbItemStack.updatePlayerStats(this, i);
             } else {
-                if (sbItemStack.getType().getItem().activateForSlot(i, this)) {
+                if (sbItemStack.getType().getItem().isInActive(i, this)) {
                     sbItemStack.updatePlayerStats(this, i);
+                    activeItems.add(sbItemStack);;
                 }
             }
         }
 
     }
 
+    public List<SBItemStack> getActiveItems() {
+        return new ArrayList<>(activeItems);
+    }
 
     public CraftPlayer getCraftPlayer() {
         return (CraftPlayer) player;
@@ -267,7 +288,7 @@ public class SBPlayer {
             if (sbItemStack.getType().getType() != SBMaterial.ItemType.CUSTOM) {
                 continue;
             } else {
-                if (sbItemStack.getType().getItem().activateForSlot(i, this) && sbItemStack.getType().getItem() == customItem) {
+                if (sbItemStack.getType().getItem().isInActive(i, this) && sbItemStack.getType().getItem() == customItem) {
                     return true;
                 }
             }

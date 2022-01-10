@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsCHESTPLATE
 // Category: CHESTPLATE
-// Last Update: 2022-01-07 09:10:25.075320
+// Last Update: 2022-01-10 17:27:50.171115
 
 public class ItemsCHESTPLATE {
 
-    public static SBCustomItem GOLD_CHESTPLATE;
-    public static SBCustomItem CHAINMAIL_CHESTPLATE;
-    public static SBCustomItem LEATHER_CHESTPLATE;
-    public static SBCustomItem IRON_CHESTPLATE;
-    public static SBCustomItem DIAMOND_CHESTPLATE;
     public static SBCustomItem FARM_ARMOR_CHESTPLATE;
     public static SBCustomItem PERFECT_CHESTPLATE_3;
     public static SBCustomItem MINOS_HUNTER_CHESTPLATE;
@@ -154,16 +149,6 @@ public class ItemsCHESTPLATE {
 
 
     public ItemsCHESTPLATE(SkyBlock skyBlock) {
-        GOLD_CHESTPLATE = new ItemVanilla("GOLD_CHESTPLATE", "Golden Chestplate", "", Material.GOLD_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
-        SBItems.registerItem(GOLD_CHESTPLATE);
-        CHAINMAIL_CHESTPLATE = new ItemVanilla("CHAINMAIL_CHESTPLATE", "Chainmail Chestplate", "", Material.CHAINMAIL_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
-        SBItems.registerItem(CHAINMAIL_CHESTPLATE);
-        LEATHER_CHESTPLATE = new ItemVanilla("LEATHER_CHESTPLATE", "Leather Chestplate", "", Material.LEATHER_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
-        SBItems.registerItem(LEATHER_CHESTPLATE);
-        IRON_CHESTPLATE = new ItemVanilla("IRON_CHESTPLATE", "Iron Chestplate", "", Material.IRON_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
-        SBItems.registerItem(IRON_CHESTPLATE);
-        DIAMOND_CHESTPLATE = new ItemVanilla("DIAMOND_CHESTPLATE", "Diamond Chestplate", "", Material.DIAMOND_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
-        SBItems.registerItem(DIAMOND_CHESTPLATE);
         FARM_ARMOR_CHESTPLATE = new SBCustomItem("FARM_ARMOR_CHESTPLATE", "Farm Armor Chestplate", "", Material.LEATHER_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.RARE, false, Color.fromRGB(255,215,0), SBCustomItem.Category.CHESTPLATE, skyBlock);
         SBItems.registerItem(FARM_ARMOR_CHESTPLATE);
         PERFECT_CHESTPLATE_3 = new SBCustomItem("PERFECT_CHESTPLATE_3", "Perfect Chestplate - Tier III", "", Material.DIAMOND_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);

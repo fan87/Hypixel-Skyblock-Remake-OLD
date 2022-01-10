@@ -1,10 +1,8 @@
 package me.fan87.basiccommandspack.cmd;
 
-import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.commands.SBCommand;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.collections.SBCollection;
-import me.fan87.commonplugin.players.collections.SBPlayerCollections;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -12,7 +10,7 @@ public class CmdMaxAllCollections extends SBCommand {
 
 
     public CmdMaxAllCollections() {
-        super("maxallcollections", "Max all collections", "skyblock.admin", "/maxallcollections <player name>", "mac");
+        super("maxallcollections", "Max all collections", "skyblock.collections", "/maxallcollections <player name>", "mac");
     }
 
     @Override

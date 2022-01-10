@@ -18,7 +18,6 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class SBItemStack {
         this.itemStack = itemStack;
         customized = getNBT().hasKey("ExtraAttributes");
         updateItem();
-        NBTCompound enchantments = getExtraAttributeCompound().getCompound("enchantments");
+        NBTCompound enchantments = getExtraAttributeCompound().getOrCreateCompound("enchantments");
         for (String key : enchantments.getKeys()) {
             SBEnchantment enchantment = SBEnchantments.getEnchantment(SBNamespace.fromString(key));
             if (enchantment == null) continue;
@@ -69,6 +68,7 @@ public class SBItemStack {
     private void updateItem() {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.spigot().setUnbreakable(true);
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         itemStack.setItemMeta(itemMeta);
         generateExtraAttributes();
     }
@@ -202,10 +202,10 @@ public class SBItemStack {
         return integer;
     }
 
-    public boolean isInActive(PlayerInventory inventory, int slot) {
+    public boolean isInActive(SBPlayer player, int slot) {
         SBCustomItem item = getType().getItem();
         if (item != null) {
-            return item.getCategory().getActiveChecker().isActive(inventory, slot);
+            return item.isInActive(slot, player);
         }
         return false;
     }

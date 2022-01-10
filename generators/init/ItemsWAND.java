@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsWAND
 // Category: WAND
-// Last Update: 2022-01-07 09:10:25.079869
+// Last Update: 2022-01-10 17:27:50.174404
 
 public class ItemsWAND {
 

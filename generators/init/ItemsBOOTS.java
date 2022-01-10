@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsBOOTS
 // Category: BOOTS
-// Last Update: 2022-01-07 09:10:25.074140
+// Last Update: 2022-01-10 17:27:50.173370
 
 public class ItemsBOOTS {
 
-    public static SBCustomItem GOLD_BOOTS;
-    public static SBCustomItem CHAINMAIL_BOOTS;
-    public static SBCustomItem IRON_BOOTS;
-    public static SBCustomItem DIAMOND_BOOTS;
-    public static SBCustomItem LEATHER_BOOTS;
     public static SBCustomItem SHADOW_ASSASSIN_BOOTS;
     public static SBCustomItem OLD_DRAGON_BOOTS;
     public static SBCustomItem UNSTABLE_DRAGON_BOOTS;
@@ -155,16 +150,6 @@ public class ItemsBOOTS {
 
 
     public ItemsBOOTS(SkyBlock skyBlock) {
-        GOLD_BOOTS = new ItemVanilla("GOLD_BOOTS", "Golden Boots", "", Material.GOLD_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
-        SBItems.registerItem(GOLD_BOOTS);
-        CHAINMAIL_BOOTS = new ItemVanilla("CHAINMAIL_BOOTS", "Chainmail Boots", "", Material.CHAINMAIL_BOOTS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
-        SBItems.registerItem(CHAINMAIL_BOOTS);
-        IRON_BOOTS = new ItemVanilla("IRON_BOOTS", "Iron Boots", "", Material.IRON_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
-        SBItems.registerItem(IRON_BOOTS);
-        DIAMOND_BOOTS = new ItemVanilla("DIAMOND_BOOTS", "Diamond Boots", "", Material.DIAMOND_BOOTS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
-        SBItems.registerItem(DIAMOND_BOOTS);
-        LEATHER_BOOTS = new ItemVanilla("LEATHER_BOOTS", "Leather Boots", "", Material.LEATHER_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
-        SBItems.registerItem(LEATHER_BOOTS);
         SHADOW_ASSASSIN_BOOTS = new SBCustomItem("SHADOW_ASSASSIN_BOOTS", "Shadow Assassin Boots", "", Material.LEATHER_BOOTS, (short) 0, "", SBCustomItem.Rarity.EPIC, false, Color.fromRGB(0,0,0), SBCustomItem.Category.BOOTS, skyBlock);
         SBItems.registerItem(SHADOW_ASSASSIN_BOOTS);
         OLD_DRAGON_BOOTS = new SBCustomItem("OLD_DRAGON_BOOTS", "Old Dragon Boots", "", Material.LEATHER_BOOTS, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, Color.fromRGB(240,230,170), SBCustomItem.Category.BOOTS, skyBlock);

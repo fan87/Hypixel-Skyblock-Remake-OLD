@@ -68,6 +68,7 @@ public class PlayersManager {
     }
 
     public SBPlayer getPlayer(Player player) {
+        if (player == null) return null;
         return loadedPlayers.stream().filter(sbPlayer -> player.equals(sbPlayer.getPlayer())).findFirst().orElse(null);
     }
 

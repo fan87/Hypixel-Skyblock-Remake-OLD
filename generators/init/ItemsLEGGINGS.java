@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsLEGGINGS
 // Category: LEGGINGS
-// Last Update: 2022-01-07 09:10:25.075072
+// Last Update: 2022-01-10 17:27:50.172445
 
 public class ItemsLEGGINGS {
 
-    public static SBCustomItem GOLD_LEGGINGS;
-    public static SBCustomItem IRON_LEGGINGS;
-    public static SBCustomItem CHAINMAIL_LEGGINGS;
-    public static SBCustomItem DIAMOND_LEGGINGS;
-    public static SBCustomItem LEATHER_LEGGINGS;
     public static SBCustomItem CHEAP_TUXEDO_LEGGINGS;
     public static SBCustomItem CELESTE_LEGGINGS;
     public static SBCustomItem MASTIFF_LEGGINGS;
@@ -147,16 +142,6 @@ public class ItemsLEGGINGS {
 
 
     public ItemsLEGGINGS(SkyBlock skyBlock) {
-        GOLD_LEGGINGS = new ItemVanilla("GOLD_LEGGINGS", "Golden Leggings", "", Material.GOLD_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
-        SBItems.registerItem(GOLD_LEGGINGS);
-        IRON_LEGGINGS = new ItemVanilla("IRON_LEGGINGS", "Iron Leggings", "", Material.IRON_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
-        SBItems.registerItem(IRON_LEGGINGS);
-        CHAINMAIL_LEGGINGS = new ItemVanilla("CHAINMAIL_LEGGINGS", "Chainmail Leggings", "", Material.CHAINMAIL_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
-        SBItems.registerItem(CHAINMAIL_LEGGINGS);
-        DIAMOND_LEGGINGS = new ItemVanilla("DIAMOND_LEGGINGS", "Diamond Leggings", "", Material.DIAMOND_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
-        SBItems.registerItem(DIAMOND_LEGGINGS);
-        LEATHER_LEGGINGS = new ItemVanilla("LEATHER_LEGGINGS", "Leather Leggings", "", Material.LEATHER_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
-        SBItems.registerItem(LEATHER_LEGGINGS);
         CHEAP_TUXEDO_LEGGINGS = new SBCustomItem("CHEAP_TUXEDO_LEGGINGS", "Cheap Tuxedo Pants", "", Material.LEATHER_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.EPIC, false, Color.fromRGB(199,199,199), SBCustomItem.Category.LEGGINGS, skyBlock);
         SBItems.registerItem(CHEAP_TUXEDO_LEGGINGS);
         CELESTE_LEGGINGS = new SBCustomItem("CELESTE_LEGGINGS", "Celeste Leggings", "", Material.LEATHER_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, Color.fromRGB(255,142,202), SBCustomItem.Category.LEGGINGS, skyBlock);

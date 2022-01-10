@@ -23,11 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsARROW
 // Category: ARROW
-// Last Update: 2022-01-07 09:10:25.075644
+// Last Update: 2022-01-10 17:27:50.174074
 
 public class ItemsARROW {
 
-    public static SBCustomItem ARROW;
     public static SBCustomItem REDSTONE_TIPPED_ARROW;
     public static SBCustomItem GOLD_TIPPED_ARROW;
     public static SBCustomItem BOUNCY_ARROW;
@@ -42,8 +41,6 @@ public class ItemsARROW {
 
 
     public ItemsARROW(SkyBlock skyBlock) {
-        ARROW = new ItemVanilla("ARROW", "Flint Arrow", "", Material.ARROW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.ARROW, skyBlock);
-        SBItems.registerItem(ARROW);
         REDSTONE_TIPPED_ARROW = new SBCustomItem("REDSTONE_TIPPED_ARROW", "Redstone-tipped Arrow", "", Material.ARROW, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.ARROW, skyBlock);
         SBItems.registerItem(REDSTONE_TIPPED_ARROW);
         GOLD_TIPPED_ARROW = new SBCustomItem("GOLD_TIPPED_ARROW", "Gold-tipped Arrow", "", Material.ARROW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.ARROW, skyBlock);

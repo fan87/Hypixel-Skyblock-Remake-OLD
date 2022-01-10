@@ -1,0 +1,5 @@
+name: LPSkyBlock
+main: me.fan87.lpskyblock.LPSkyBlock
+version: 1.0
+depend:
+  - HypixelSkyBlock-Common

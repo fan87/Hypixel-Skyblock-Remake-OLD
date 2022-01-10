@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 public class CmdDmgPlayer extends SBCommand {
     public CmdDmgPlayer() {
-        super("damage", "Damage the target player", "skyblock.admin", "/damage <player name> <amount>");
+        super("damage", "Damage the target player", "skyblock.damage", "/damage <player name> <amount>");
     }
 
     @Override

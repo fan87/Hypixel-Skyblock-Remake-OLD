@@ -89,7 +89,8 @@ public class SkyBlock extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        EventManager.EVENT_BUS.postSticky(new ServerShutdownEvent());
+        databaseManager.saveAll();
+        EventManager.EVENT_BUS.post(new ServerShutdownEvent());
         PacketEvents.get().terminate();
     }
 

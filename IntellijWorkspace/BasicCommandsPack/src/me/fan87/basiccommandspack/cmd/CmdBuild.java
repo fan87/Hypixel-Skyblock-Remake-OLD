@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class CmdBuild extends SBCommand {
     public CmdBuild() {
-        super("build", "Toggle the build mode", "", "/build");
+        super("build", "Toggle the build mode", "skyblock.build", "/build");
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class CmsUnlockAllRecipe extends SBCommand {
     public CmsUnlockAllRecipe() {
-        super("unlockallrecipe", "Unlock all recipe", "skyblock.admin", "/unlockallrecipe <player>", "uar");
+        super("unlockallrecipe", "Unlock all recipe", "skyblock.recipe", "/unlockallrecipe <player>", "uar");
     }
 
     @Override

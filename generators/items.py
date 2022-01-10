@@ -156,7 +156,7 @@ for id in vanilla_items:
     if "glowing" in item:
         glowing = "true"
     if "category" in item:
-        category = item["category"]
+        # category = item["category"]
         real_category = item["category"]
         if not item["category"] in categories:
             categories.append(item["category"])

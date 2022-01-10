@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsGAUNTLET
 // Category: GAUNTLET
-// Last Update: 2022-01-07 09:10:25.080096
+// Last Update: 2022-01-10 17:27:50.174974
 
 public class ItemsGAUNTLET {
 

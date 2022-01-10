@@ -1,13 +1,12 @@
 package me.fan87.basiccommandspack.cmd;
 
 import me.fan87.commonplugin.commands.SBCommand;
-import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.impl.trading.GuiTradings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CmdTrade extends SBCommand {
-    public CmdTrade() {
+public class CmdTradeMenu extends SBCommand {
+    public CmdTradeMenu() {
         super("trademenu", "Open the trade menu", "", "/trademenu");
     }
 

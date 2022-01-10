@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsSWORD
 // Category: SWORD
-// Last Update: 2022-01-07 09:10:25.074600
+// Last Update: 2022-01-10 17:27:50.169543
 
 public class ItemsSWORD {
 
-    public static SBCustomItem WOOD_SWORD;
-    public static SBCustomItem GOLD_SWORD;
-    public static SBCustomItem DIAMOND_SWORD;
-    public static SBCustomItem IRON_SWORD;
-    public static SBCustomItem STONE_SWORD;
     public static SBCustomItem END_STONE_SWORD;
     public static SBCustomItem DAEDALUS_AXE;
     public static SBCustomItem FROZEN_SCYTHE;
@@ -134,16 +129,6 @@ public class ItemsSWORD {
 
 
     public ItemsSWORD(SkyBlock skyBlock) {
-        WOOD_SWORD = new ItemVanilla("WOOD_SWORD", "Wooden Sword", "", Material.WOOD_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
-        SBItems.registerItem(WOOD_SWORD);
-        GOLD_SWORD = new ItemVanilla("GOLD_SWORD", "Golden Sword", "", Material.GOLD_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
-        SBItems.registerItem(GOLD_SWORD);
-        DIAMOND_SWORD = new ItemVanilla("DIAMOND_SWORD", "Diamond Sword", "", Material.DIAMOND_SWORD, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
-        SBItems.registerItem(DIAMOND_SWORD);
-        IRON_SWORD = new ItemVanilla("IRON_SWORD", "Iron Sword", "", Material.IRON_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
-        SBItems.registerItem(IRON_SWORD);
-        STONE_SWORD = new ItemVanilla("STONE_SWORD", "Stone Sword", "", Material.STONE_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
-        SBItems.registerItem(STONE_SWORD);
         END_STONE_SWORD = new SBCustomItem("END_STONE_SWORD", "End Stone Sword", "", Material.GOLD_SWORD, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.SWORD, skyBlock);
         SBItems.registerItem(END_STONE_SWORD);
         DAEDALUS_AXE = new SBCustomItem("DAEDALUS_AXE", "Daedalus Axe", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.SWORD, skyBlock);

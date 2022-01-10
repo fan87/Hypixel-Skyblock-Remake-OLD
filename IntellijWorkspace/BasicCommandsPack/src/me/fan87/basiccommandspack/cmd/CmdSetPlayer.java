@@ -11,7 +11,7 @@ public class CmdSetPlayer extends SBCommand {
 
     public CmdSetPlayer(){
 
-        super("setStat", "Set player stats.", "skyblock.admin", "/setStat <player name> <stat name> <base value>");
+        super("setStat", "Set player stats.", "skyblock.stats", "/setStat <player name> <stat name> <base value>");
 
     }
 

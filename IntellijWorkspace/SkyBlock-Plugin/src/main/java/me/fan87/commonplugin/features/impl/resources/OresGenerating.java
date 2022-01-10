@@ -3,6 +3,9 @@ package me.fan87.commonplugin.features.impl.resources;
 import com.google.common.primitives.Ints;
 import lombok.*;
 import me.fan87.commonplugin.areas.SBArea;
+import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.impl.ModifiedDropsEvent;
+import me.fan87.commonplugin.events.impl.ModifiedXPDropsEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
@@ -13,11 +16,17 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.world.*;
+import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.*;
 
 public class OresGenerating extends SBFeature {
@@ -63,26 +72,27 @@ public class OresGenerating extends SBFeature {
         SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
         SBArea area = skyBlock.getAreasManager().getAreaOf(event.getBlock().getLocation());
         boolean canMine = skyBlock.getAreasManager().getOresToGenerate(area).size() > 0;
+        SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        Random random = new Random();
+        List<ItemStack> newDrops = new ArrayList<>();
+        int amount = 0;
         if (canMine && skyBlock.getAreasManager().getOresToGenerate(area).contains(event.getBlock().getType())) {
-            SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
-            generated--;
-            Random random = new Random();
             for (ItemStack drop : event.getBlock().getDrops()) {
-                Location spawnLocation = event.getBlock().getLocation();
-                double d0 = (double)(random.nextFloat() * 0.5) + (double)(1.0F - 0.5) * 0.5D;
-                double d1 = (double)(random.nextFloat() * 0.5) + (double)(1.0F - 0.5) * 0.5D;
-                double d2 = (double)(random.nextFloat() * 0.5) + (double)(1.0F - 0.5) * 0.5D;
-                spawnLocation = spawnLocation.add(d0, d1, d2);
-                for (int i = -1; i < (int) player.getStats().getMiningFortune().getValue(player)/100; i++) {
-                    event.getBlock().getWorld().dropItem(spawnLocation, drop);
-                }
+                amount = drop.getAmount();
+                amount += (int) player.getStats().getMiningFortune().getValue(player)/100;
                 if (random.nextInt(99) + 1 < player.getStats().getMiningFortune().getValue(player) % 100) {
-                    event.getBlock().getWorld().dropItem(spawnLocation, drop);
+                    amount++;
+                }
+                int left = amount;
+                while (left > 0) {
+                    int count = Math.min(left, drop.getMaxStackSize());
+                    left -= count;
+                    ItemStack clone = drop.clone();
+                    clone.setAmount(count);
+                    newDrops.add(clone);
                 }
             }
-            for (int i = 0; i < event.getExpToDrop(); i++) {
-                event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
-            }
+            generated--;
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.STONE), 0);
 
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
@@ -91,10 +101,15 @@ public class OresGenerating extends SBFeature {
         }
         if (canMine && (event.getBlock().getType() == Material.STONE && event.getBlock().getData() == 0)) {
             for (ItemStack drop : event.getBlock().getDrops()) {
-                event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), drop);
-            }
-            for (int i = 0; i < event.getExpToDrop(); i++) {
-                event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
+                amount = drop.getAmount();
+                int left = amount;
+                while (left > 0) {
+                    int count = Math.min(left, drop.getMaxStackSize());
+                    left -= count;
+                    ItemStack clone = drop.clone();
+                    clone.setAmount(count);
+                    newDrops.add(clone);
+                }
             }
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.COBBLESTONE), 0);
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
@@ -104,15 +119,34 @@ public class OresGenerating extends SBFeature {
 
         if (canMine && (event.getBlock().getType() == Material.COBBLESTONE) && event.getBlock().getData() == 0) {
             for (ItemStack drop : event.getBlock().getDrops()) {
-                event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), drop);
+                amount = drop.getAmount();
+                int left = amount;
+                while (left > 0) {
+                    int count = Math.min(left, drop.getMaxStackSize());
+                    left -= count;
+                    ItemStack clone = drop.clone();
+                    clone.setAmount(count);
+                    newDrops.add(clone);
+                }
             }
-            for (int i = 0; i < event.getExpToDrop(); i++) {
-                event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
-            }
-            event.setCancelled(true);
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.BEDROCK), 0);
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
                 minedStones.put(event.getBlock().getLocation(), new MinedStone(event.getBlock().getType(), System.currentTimeMillis()));
+            }
+        }
+        ModifiedDropsEvent e = new ModifiedDropsEvent(newDrops, event);
+        EventManager.EVENT_BUS.postSticky(e);
+        if (!e.isCancelled()) {
+            for (ItemStack newDrop : e.getDrops()) {
+                event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), newDrop);
+            }
+        }
+        ModifiedXPDropsEvent e2 = new ModifiedXPDropsEvent(event.getExpToDrop(), event);
+        EventManager.EVENT_BUS.postSticky(e2);
+        if (!e2.isCancelled()) {
+            if (e2.getXp() > 0) {
+                ExperienceOrb spawn = event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
+                spawn.setExperience(e2.getXp());
             }
         }
     }
@@ -122,7 +156,7 @@ public class OresGenerating extends SBFeature {
     @Subscribe
     public void onTick(ServerTickEvent event) {
         ticks++;
-        if (ticks % 100 == 0 && generated < oreSpawns.size()/100) {
+        if (ticks % 100 == 0 && generated < oreSpawns.size()/50) {
             Random random = new Random();
             for (int i = 0; i < oreSpawns.size()/1000; i++) {
                 OreSpawn oreSpawn = oreSpawns.get(random.nextInt(oreSpawns.size()));

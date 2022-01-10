@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsHOE
 // Category: HOE
-// Last Update: 2022-01-07 09:10:25.075465
+// Last Update: 2022-01-10 17:27:50.173564
 
 public class ItemsHOE {
 
-    public static SBCustomItem IRON_HOE;
-    public static SBCustomItem STONE_HOE;
-    public static SBCustomItem WOOD_HOE;
-    public static SBCustomItem GOLD_HOE;
-    public static SBCustomItem DIAMOND_HOE;
     public static SBCustomItem ROOKIE_HOE;
     public static SBCustomItem THEORETICAL_HOE_CARROT_3;
     public static SBCustomItem THEORETICAL_HOE;
@@ -58,16 +53,6 @@ public class ItemsHOE {
 
 
     public ItemsHOE(SkyBlock skyBlock) {
-        IRON_HOE = new ItemVanilla("IRON_HOE", "Iron Hoe", "", Material.IRON_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
-        SBItems.registerItem(IRON_HOE);
-        STONE_HOE = new ItemVanilla("STONE_HOE", "Stone Hoe", "", Material.STONE_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
-        SBItems.registerItem(STONE_HOE);
-        WOOD_HOE = new ItemVanilla("WOOD_HOE", "Wooden Hoe", "", Material.WOOD_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
-        SBItems.registerItem(WOOD_HOE);
-        GOLD_HOE = new ItemVanilla("GOLD_HOE", "Golden Hoe", "", Material.GOLD_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
-        SBItems.registerItem(GOLD_HOE);
-        DIAMOND_HOE = new ItemVanilla("DIAMOND_HOE", "Diamond Hoe", "", Material.DIAMOND_HOE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
-        SBItems.registerItem(DIAMOND_HOE);
         ROOKIE_HOE = new SBCustomItem("ROOKIE_HOE", "Rookie Hoe", "", Material.STONE_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
         SBItems.registerItem(ROOKIE_HOE);
         THEORETICAL_HOE_CARROT_3 = new SBCustomItem("THEORETICAL_HOE_CARROT_3", "Gauss Carrot Hoe", "", Material.DIAMOND_HOE, (short) 0, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.HOE, skyBlock);

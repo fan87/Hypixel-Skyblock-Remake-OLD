@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsFISHING_WEAPON
 // Category: FISHING_WEAPON
-// Last Update: 2022-01-07 09:10:25.080014
+// Last Update: 2022-01-10 17:27:50.174632
 
 public class ItemsFISHING_WEAPON {
 

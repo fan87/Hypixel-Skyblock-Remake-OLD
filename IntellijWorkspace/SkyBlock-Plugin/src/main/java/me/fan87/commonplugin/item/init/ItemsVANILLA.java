@@ -21,7 +21,7 @@ import org.bukkit.Material;
 
 // Start class: ItemsVANILLA
 // Category: VANILLA
-// Last Update: 2022-01-07 08:50:37.798095
+// Last Update: 2022-01-10 17:27:50.166849
 
 public class ItemsVANILLA {
 
@@ -32,6 +32,7 @@ public class ItemsVANILLA {
     public static SBCustomItem CARPET__11;
     public static SBCustomItem CLAY_BRICK;
     public static SBCustomItem CARPET__1;
+    public static SBCustomItem BOW;
     public static SBCustomItem QUARTZ_ORE;
     public static SBCustomItem SPRUCE_WOOD_STAIRS;
     public static SBCustomItem CARPET__9;
@@ -45,8 +46,10 @@ public class ItemsVANILLA {
     public static SBCustomItem RABBIT_HIDE;
     public static SBCustomItem TORCH;
     public static SBCustomItem STAINED_GLASS_PANE__15;
+    public static SBCustomItem GOLD_BOOTS;
     public static SBCustomItem RED_SANDSTONE__1;
     public static SBCustomItem CARPET__8;
+    public static SBCustomItem GOLD_SPADE;
     public static SBCustomItem INK_SACK__11;
     public static SBCustomItem WOOL__6;
     public static SBCustomItem BIRCH_FENCE;
@@ -54,6 +57,7 @@ public class ItemsVANILLA {
     public static SBCustomItem SPRUCE_FENCE_GATE;
     public static SBCustomItem WOOL__4;
     public static SBCustomItem GLASS;
+    public static SBCustomItem GOLD_PICKAXE;
     public static SBCustomItem NETHER_BRICK;
     public static SBCustomItem STAINED_GLASS__14;
     public static SBCustomItem STONE;
@@ -75,6 +79,7 @@ public class ItemsVANILLA {
     public static SBCustomItem IRON_PLATE;
     public static SBCustomItem DOUBLE_PLANT__1;
     public static SBCustomItem COBBLE_WALL;
+    public static SBCustomItem GOLD_AXE;
     public static SBCustomItem CAULDRON_ITEM;
     public static SBCustomItem STAINED_GLASS_PANE__4;
     public static SBCustomItem ANVIL;
@@ -95,6 +100,7 @@ public class ItemsVANILLA {
     public static SBCustomItem SAPLING__2;
     public static SBCustomItem CACTUS;
     public static SBCustomItem WOOD__4;
+    public static SBCustomItem WOOD_SWORD;
     public static SBCustomItem STAINED_GLASS__3;
     public static SBCustomItem SPRUCE_FENCE;
     public static SBCustomItem FEATHER;
@@ -105,6 +111,7 @@ public class ItemsVANILLA {
     public static SBCustomItem SPRUCE_DOOR_ITEM;
     public static SBCustomItem COOKED_MUTTON;
     public static SBCustomItem STAINED_GLASS__8;
+    public static SBCustomItem CHAINMAIL_HELMET;
     public static SBCustomItem STAINED_CLAY__9;
     public static SBCustomItem WATER_BUCKET;
     public static SBCustomItem DOUBLE_PLANT;
@@ -113,13 +120,18 @@ public class ItemsVANILLA {
     public static SBCustomItem STICK;
     public static SBCustomItem STAINED_GLASS__11;
     public static SBCustomItem MINECART;
+    public static SBCustomItem GOLD_SWORD;
     public static SBCustomItem INK_SACK__5;
     public static SBCustomItem YELLOW_FLOWER;
     public static SBCustomItem BROWN_MUSHROOM;
+    public static SBCustomItem CHAINMAIL_BOOTS;
+    public static SBCustomItem GOLD_LEGGINGS;
     public static SBCustomItem INK_SACK__3;
     public static SBCustomItem JUNGLE_DOOR_ITEM;
     public static SBCustomItem EXPLOSIVE_MINECART;
+    public static SBCustomItem STONE_SPADE;
     public static SBCustomItem PORK;
+    public static SBCustomItem IRON_HELMET;
     public static SBCustomItem STAINED_GLASS_PANE__2;
     public static SBCustomItem STAINED_GLASS__12;
     public static SBCustomItem GOLDEN_APPLE;
@@ -138,6 +150,7 @@ public class ItemsVANILLA {
     public static SBCustomItem REDSTONE_TORCH_ON;
     public static SBCustomItem POISONOUS_POTATO;
     public static SBCustomItem BED;
+    public static SBCustomItem SHEARS;
     public static SBCustomItem INK_SACK__2;
     public static SBCustomItem BOOK;
     public static SBCustomItem STAINED_GLASS_PANE__6;
@@ -151,28 +164,35 @@ public class ItemsVANILLA {
     public static SBCustomItem ACACIA_FENCE;
     public static SBCustomItem COBBLESTONE_STAIRS;
     public static SBCustomItem COMPASS;
+    public static SBCustomItem GOLD_CHESTPLATE;
     public static SBCustomItem STAINED_GLASS__1;
+    public static SBCustomItem IRON_LEGGINGS;
     public static SBCustomItem EMPTY_MAP;
     public static SBCustomItem SPIDER_EYE;
     public static SBCustomItem WOOD__5;
+    public static SBCustomItem IRON_AXE;
     public static SBCustomItem WOOD__1;
     public static SBCustomItem GOLD_ORE;
     public static SBCustomItem GRASS;
     public static SBCustomItem SPECKLED_MELON;
     public static SBCustomItem COOKED_FISH__1;
     public static SBCustomItem STEP__4;
+    public static SBCustomItem WOOD_PICKAXE;
     public static SBCustomItem WOOD__3;
     public static SBCustomItem PRISMARINE_CRYSTALS;
     public static SBCustomItem SPONGE;
+    public static SBCustomItem CHAINMAIL_LEGGINGS;
     public static SBCustomItem STONE_BUTTON;
     public static SBCustomItem BAKED_POTATO;
     public static SBCustomItem FENCE;
     public static SBCustomItem COAL_ORE;
+    public static SBCustomItem IRON_SPADE;
     public static SBCustomItem MYCEL;
     public static SBCustomItem COOKIE;
     public static SBCustomItem RED_SANDSTONE__2;
     public static SBCustomItem LADDER;
     public static SBCustomItem JACK_O_LANTERN;
+    public static SBCustomItem CHAINMAIL_CHESTPLATE;
     public static SBCustomItem IRON_FENCE;
     public static SBCustomItem EYE_OF_ENDER;
     public static SBCustomItem RED_ROSE__3;
@@ -192,6 +212,7 @@ public class ItemsVANILLA {
     public static SBCustomItem DIAMOND;
     public static SBCustomItem STAINED_GLASS_PANE__14;
     public static SBCustomItem LEATHER;
+    public static SBCustomItem STONE_AXE;
     public static SBCustomItem STAINED_GLASS__13;
     public static SBCustomItem SMOOTH_BRICK;
     public static SBCustomItem COBBLESTONE;
@@ -205,6 +226,7 @@ public class ItemsVANILLA {
     public static SBCustomItem DIAMOND_ORE;
     public static SBCustomItem FENCE_GATE;
     public static SBCustomItem CARPET__12;
+    public static SBCustomItem IRON_HOE;
     public static SBCustomItem ENCHANTED_FISH__2;
     public static SBCustomItem WOOD_STEP;
     public static SBCustomItem STORAGE_MINECART;
@@ -213,6 +235,7 @@ public class ItemsVANILLA {
     public static SBCustomItem STEP;
     public static SBCustomItem STAINED_CLAY__10;
     public static SBCustomItem SAPLING__1;
+    public static SBCustomItem IRON_PICKAXE;
     public static SBCustomItem PRISMARINE_SHARD;
     public static SBCustomItem STRING;
     public static SBCustomItem POWERED_RAIL;
@@ -235,6 +258,7 @@ public class ItemsVANILLA {
     public static SBCustomItem WEB;
     public static SBCustomItem WOOL__15;
     public static SBCustomItem STAINED_CLAY__15;
+    public static SBCustomItem STONE_HOE;
     public static SBCustomItem RAW_FISH__1;
     public static SBCustomItem FURNACE;
     public static SBCustomItem WATCH;
@@ -242,8 +266,10 @@ public class ItemsVANILLA {
     public static SBCustomItem DIRT;
     public static SBCustomItem DIODE;
     public static SBCustomItem WOOD_STEP__4;
+    public static SBCustomItem IRON_BOOTS;
     public static SBCustomItem RABBIT;
     public static SBCustomItem CARROT_ITEM;
+    public static SBCustomItem DIAMOND_SWORD;
     public static SBCustomItem LEAVES__2;
     public static SBCustomItem EMERALD_BLOCK;
     public static SBCustomItem SAPLING;
@@ -252,6 +278,7 @@ public class ItemsVANILLA {
     public static SBCustomItem TRAPPED_CHEST;
     public static SBCustomItem PRISMARINE__1;
     public static SBCustomItem STAINED_GLASS__7;
+    public static SBCustomItem DIAMOND_SPADE;
     public static SBCustomItem BUCKET;
     public static SBCustomItem ENCHANTED_BOOK;
     public static SBCustomItem HUGE_MUSHROOM_2;
@@ -267,23 +294,33 @@ public class ItemsVANILLA {
     public static SBCustomItem HAY_BLOCK;
     public static SBCustomItem STAINED_GLASS__9;
     public static SBCustomItem LEASH;
+    public static SBCustomItem IRON_SWORD;
+    public static SBCustomItem DIAMOND_HELMET;
     public static SBCustomItem STAINED_CLAY__11;
     public static SBCustomItem BOOKSHELF;
     public static SBCustomItem DEAD_BUSH;
     public static SBCustomItem WOOL__5;
     public static SBCustomItem RABBIT_STEW;
+    public static SBCustomItem LEATHER_CHESTPLATE;
+    public static SBCustomItem WOOD_HOE;
+    public static SBCustomItem STONE_SWORD;
     public static SBCustomItem PISTON_BASE;
     public static SBCustomItem DIAMOND_BARDING;
     public static SBCustomItem STAINED_CLAY__1;
     public static SBCustomItem RAW_FISH__2;
+    public static SBCustomItem IRON_CHESTPLATE;
+    public static SBCustomItem DIAMOND_BOOTS;
+    public static SBCustomItem FISHING_ROD;
     public static SBCustomItem RED_SANDSTONE;
     public static SBCustomItem COOKED_FISH;
     public static SBCustomItem PAINTING;
     public static SBCustomItem CARPET__5;
+    public static SBCustomItem DIAMOND_LEGGINGS;
     public static SBCustomItem IRON_INGOT;
     public static SBCustomItem JUNGLE_WOOD_STAIRS;
     public static SBCustomItem WOOL__9;
     public static SBCustomItem WOOL__11;
+    public static SBCustomItem LEATHER_HELMET;
     public static SBCustomItem SKULL_ITEM__1;
     public static SBCustomItem HOPPER;
     public static SBCustomItem RAW_FISH;
@@ -295,6 +332,7 @@ public class ItemsVANILLA {
     public static SBCustomItem INK_SACK__14;
     public static SBCustomItem STAINED_GLASS__2;
     public static SBCustomItem INK_SACK__13;
+    public static SBCustomItem STONE_PICKAXE;
     public static SBCustomItem ENDER_STONE;
     public static SBCustomItem SAPLING__4;
     public static SBCustomItem ITEM_FRAME;
@@ -316,6 +354,7 @@ public class ItemsVANILLA {
     public static SBCustomItem THIN_GLASS;
     public static SBCustomItem IRON_BLOCK;
     public static SBCustomItem JUNGLE_FENCE_GATE;
+    public static SBCustomItem GOLD_HELMET;
     public static SBCustomItem WATER_LILY;
     public static SBCustomItem WOOL__2;
     public static SBCustomItem GOLD_PLATE;
@@ -336,6 +375,7 @@ public class ItemsVANILLA {
     public static SBCustomItem LOG_2;
     public static SBCustomItem CARPET;
     public static SBCustomItem NETHER_STAR;
+    public static SBCustomItem DIAMOND_PICKAXE;
     public static SBCustomItem INK_SACK__9;
     public static SBCustomItem STEP__3;
     public static SBCustomItem PAPER;
@@ -346,6 +386,7 @@ public class ItemsVANILLA {
     public static SBCustomItem EMERALD;
     public static SBCustomItem RED_SANDSTONE_STAIRS;
     public static SBCustomItem WOOL__12;
+    public static SBCustomItem WOOD_SPADE;
     public static SBCustomItem APPLE;
     public static SBCustomItem GLASS_BOTTLE;
     public static SBCustomItem RECORD_8;
@@ -354,11 +395,13 @@ public class ItemsVANILLA {
     public static SBCustomItem EMERALD_ORE;
     public static SBCustomItem BLAZE_ROD;
     public static SBCustomItem FLINT;
+    public static SBCustomItem DIAMOND_CHESTPLATE;
     public static SBCustomItem STAINED_GLASS_PANE__8;
     public static SBCustomItem COOKED_BEEF;
     public static SBCustomItem JUNGLE_FENCE;
     public static SBCustomItem ICE;
     public static SBCustomItem DOUBLE_PLANT__5;
+    public static SBCustomItem GOLD_HOE;
     public static SBCustomItem WOOD_STEP__5;
     public static SBCustomItem NETHER_FENCE;
     public static SBCustomItem IRON_ORE;
@@ -367,10 +410,12 @@ public class ItemsVANILLA {
     public static SBCustomItem BOOK_AND_QUILL;
     public static SBCustomItem GOLDEN_CARROT;
     public static SBCustomItem LOG__3;
+    public static SBCustomItem ARROW;
     public static SBCustomItem CARPET__14;
     public static SBCustomItem SEA_LANTERN;
     public static SBCustomItem COAL;
     public static SBCustomItem WOOD_STEP__1;
+    public static SBCustomItem LEATHER_BOOTS;
     public static SBCustomItem INK_SACK__12;
     public static SBCustomItem LONG_GRASS__1;
     public static SBCustomItem BRICK;
@@ -381,6 +426,7 @@ public class ItemsVANILLA {
     public static SBCustomItem IRON_DOOR;
     public static SBCustomItem BOAT;
     public static SBCustomItem LOG__2;
+    public static SBCustomItem DIAMOND_AXE;
     public static SBCustomItem GOLD_BARDING;
     public static SBCustomItem SAPLING__3;
     public static SBCustomItem SNOW_BALL;
@@ -389,12 +435,14 @@ public class ItemsVANILLA {
     public static SBCustomItem DIRT__2;
     public static SBCustomItem QUARTZ_BLOCK;
     public static SBCustomItem GHAST_TEAR;
+    public static SBCustomItem DIAMOND_HOE;
     public static SBCustomItem MOSSY_COBBLESTONE;
     public static SBCustomItem BLAZE_POWDER;
     public static SBCustomItem DARK_OAK_FENCE_GATE;
     public static SBCustomItem SKULL_ITEM;
     public static SBCustomItem RAW_BEEF;
     public static SBCustomItem STAINED_GLASS__4;
+    public static SBCustomItem LEATHER_LEGGINGS;
     public static SBCustomItem LEAVES__3;
     public static SBCustomItem STAINED_CLAY__14;
     public static SBCustomItem RECORD_9;
@@ -419,6 +467,7 @@ public class ItemsVANILLA {
     public static SBCustomItem SANDSTONE_STAIRS;
     public static SBCustomItem LEAVES;
     public static SBCustomItem DARK_OAK_STAIRS;
+    public static SBCustomItem WOOD_AXE;
     public static SBCustomItem STONE__5;
     public static SBCustomItem STONE__1;
     public static SBCustomItem SAPLING__5;
@@ -477,6 +526,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(CLAY_BRICK);
         CARPET__1 = new ItemVanilla("CARPET:1", "Orange Carpet", "", Material.CARPET, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARPET__1);
+        BOW = new ItemVanilla("BOW", "Bow", "", Material.BOW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOW, skyBlock);
+        SBItems.registerItem(BOW);
         QUARTZ_ORE = new ItemVanilla("QUARTZ_ORE", "Nether Quartz Ore", "", Material.QUARTZ_ORE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(QUARTZ_ORE);
         SPRUCE_WOOD_STAIRS = new ItemVanilla("SPRUCE_WOOD_STAIRS", "Spruce Wood Stairs", "", Material.SPRUCE_WOOD_STAIRS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -503,10 +554,14 @@ public class ItemsVANILLA {
         SBItems.registerItem(TORCH);
         STAINED_GLASS_PANE__15 = new ItemVanilla("STAINED_GLASS_PANE:15", "Black Stained Glass Pane", "", Material.STAINED_GLASS_PANE, (short) 15, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS_PANE__15);
+        GOLD_BOOTS = new ItemVanilla("GOLD_BOOTS", "Golden Boots", "", Material.GOLD_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
+        SBItems.registerItem(GOLD_BOOTS);
         RED_SANDSTONE__1 = new ItemVanilla("RED_SANDSTONE:1", "Red Chiseled Sandstone", "", Material.RED_SANDSTONE, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RED_SANDSTONE__1);
         CARPET__8 = new ItemVanilla("CARPET:8", "Light Gray Carpet", "", Material.CARPET, (short) 8, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARPET__8);
+        GOLD_SPADE = new ItemVanilla("GOLD_SPADE", "Golden Shovel", "", Material.GOLD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        SBItems.registerItem(GOLD_SPADE);
         INK_SACK__11 = new ItemVanilla("INK_SACK:11", "Dandelion Yellow", "", Material.INK_SACK, (short) 11, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__11);
         WOOL__6 = new ItemVanilla("WOOL:6", "Pink Wool", "", Material.WOOL, (short) 6, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -521,6 +576,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(WOOL__4);
         GLASS = new ItemVanilla("GLASS", "Glass", "", Material.GLASS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(GLASS);
+        GOLD_PICKAXE = new ItemVanilla("GOLD_PICKAXE", "Golden Pickaxe", "", Material.GOLD_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
+        SBItems.registerItem(GOLD_PICKAXE);
         NETHER_BRICK = new ItemVanilla("NETHER_BRICK", "Nether Bricks", "", Material.NETHER_BRICK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(NETHER_BRICK);
         STAINED_GLASS__14 = new ItemVanilla("STAINED_GLASS:14", "Red Stained Glass", "", Material.STAINED_GLASS, (short) 14, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -563,6 +620,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(DOUBLE_PLANT__1);
         COBBLE_WALL = new ItemVanilla("COBBLE_WALL", "Cobblestone Wall", "", Material.COBBLE_WALL, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(COBBLE_WALL);
+        GOLD_AXE = new ItemVanilla("GOLD_AXE", "Golden Axe", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SBItems.registerItem(GOLD_AXE);
         CAULDRON_ITEM = new ItemVanilla("CAULDRON_ITEM", "Cauldron", "", Material.CAULDRON_ITEM, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CAULDRON_ITEM);
         STAINED_GLASS_PANE__4 = new ItemVanilla("STAINED_GLASS_PANE:4", "Yellow Stained Glass Pane", "", Material.STAINED_GLASS_PANE, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -603,6 +662,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(CACTUS);
         WOOD__4 = new ItemVanilla("WOOD:4", "Acacia Wood Plank", "", Material.WOOD, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD__4);
+        WOOD_SWORD = new ItemVanilla("WOOD_SWORD", "Wooden Sword", "", Material.WOOD_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
+        SBItems.registerItem(WOOD_SWORD);
         STAINED_GLASS__3 = new ItemVanilla("STAINED_GLASS:3", "Light Blue Stained Glass", "", Material.STAINED_GLASS, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__3);
         SPRUCE_FENCE = new ItemVanilla("SPRUCE_FENCE", "Spruce Fence", "", Material.SPRUCE_FENCE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -623,6 +684,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(COOKED_MUTTON);
         STAINED_GLASS__8 = new ItemVanilla("STAINED_GLASS:8", "Light Gray Stained Glass", "", Material.STAINED_GLASS, (short) 8, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__8);
+        CHAINMAIL_HELMET = new ItemVanilla("CHAINMAIL_HELMET", "Chainmail Helmet", "", Material.CHAINMAIL_HELMET, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
+        SBItems.registerItem(CHAINMAIL_HELMET);
         STAINED_CLAY__9 = new ItemVanilla("STAINED_CLAY:9", "Cyan Hardened Clay", "", Material.STAINED_CLAY, (short) 9, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_CLAY__9);
         WATER_BUCKET = new ItemVanilla("WATER_BUCKET", "Water Bucket", "", Material.WATER_BUCKET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -639,20 +702,30 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_GLASS__11);
         MINECART = new ItemVanilla("MINECART", "Minecart", "", Material.MINECART, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(MINECART);
+        GOLD_SWORD = new ItemVanilla("GOLD_SWORD", "Golden Sword", "", Material.GOLD_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
+        SBItems.registerItem(GOLD_SWORD);
         INK_SACK__5 = new ItemVanilla("INK_SACK:5", "Purple Dye", "", Material.INK_SACK, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__5);
         YELLOW_FLOWER = new ItemVanilla("YELLOW_FLOWER", "Dandelion", "", Material.YELLOW_FLOWER, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(YELLOW_FLOWER);
         BROWN_MUSHROOM = new ItemVanilla("BROWN_MUSHROOM", "Brown Mushroom", "", Material.BROWN_MUSHROOM, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(BROWN_MUSHROOM);
+        CHAINMAIL_BOOTS = new ItemVanilla("CHAINMAIL_BOOTS", "Chainmail Boots", "", Material.CHAINMAIL_BOOTS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
+        SBItems.registerItem(CHAINMAIL_BOOTS);
+        GOLD_LEGGINGS = new ItemVanilla("GOLD_LEGGINGS", "Golden Leggings", "", Material.GOLD_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
+        SBItems.registerItem(GOLD_LEGGINGS);
         INK_SACK__3 = new ItemVanilla("INK_SACK:3", "Cocoa Beans", "", Material.INK_SACK, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__3);
         JUNGLE_DOOR_ITEM = new ItemVanilla("JUNGLE_DOOR_ITEM", "Jungle Door", "", Material.JUNGLE_DOOR_ITEM, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(JUNGLE_DOOR_ITEM);
         EXPLOSIVE_MINECART = new ItemVanilla("EXPLOSIVE_MINECART", "Minecart with TNT", "", Material.EXPLOSIVE_MINECART, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(EXPLOSIVE_MINECART);
+        STONE_SPADE = new ItemVanilla("STONE_SPADE", "Stone Shovel", "", Material.STONE_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        SBItems.registerItem(STONE_SPADE);
         PORK = new ItemVanilla("PORK", "Raw Porkchop", "", Material.PORK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(PORK);
+        IRON_HELMET = new ItemVanilla("IRON_HELMET", "Iron Helmet", "", Material.IRON_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
+        SBItems.registerItem(IRON_HELMET);
         STAINED_GLASS_PANE__2 = new ItemVanilla("STAINED_GLASS_PANE:2", "Magenta Stained Glass Pane", "", Material.STAINED_GLASS_PANE, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS_PANE__2);
         STAINED_GLASS__12 = new ItemVanilla("STAINED_GLASS:12", "Brown Stained Glass", "", Material.STAINED_GLASS, (short) 12, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -689,6 +762,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(POISONOUS_POTATO);
         BED = new ItemVanilla("BED", "Bed", "", Material.BED, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(BED);
+        SHEARS = new ItemVanilla("SHEARS", "Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SHEARS, skyBlock);
+        SBItems.registerItem(SHEARS);
         INK_SACK__2 = new ItemVanilla("INK_SACK:2", "Cactus Green", "", Material.INK_SACK, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__2);
         BOOK = new ItemVanilla("BOOK", "Book", "", Material.BOOK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -715,14 +790,20 @@ public class ItemsVANILLA {
         SBItems.registerItem(COBBLESTONE_STAIRS);
         COMPASS = new ItemVanilla("COMPASS", "Compass", "", Material.COMPASS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(COMPASS);
+        GOLD_CHESTPLATE = new ItemVanilla("GOLD_CHESTPLATE", "Golden Chestplate", "", Material.GOLD_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
+        SBItems.registerItem(GOLD_CHESTPLATE);
         STAINED_GLASS__1 = new ItemVanilla("STAINED_GLASS:1", "Orange Stained Glass", "", Material.STAINED_GLASS, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__1);
+        IRON_LEGGINGS = new ItemVanilla("IRON_LEGGINGS", "Iron Leggings", "", Material.IRON_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
+        SBItems.registerItem(IRON_LEGGINGS);
         EMPTY_MAP = new ItemVanilla("EMPTY_MAP", "Empty Map", "", Material.EMPTY_MAP, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(EMPTY_MAP);
         SPIDER_EYE = new ItemVanilla("SPIDER_EYE", "Spider Eye", "", Material.SPIDER_EYE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(SPIDER_EYE);
         WOOD__5 = new ItemVanilla("WOOD:5", "Dark Oak Wood Plank", "", Material.WOOD, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD__5);
+        IRON_AXE = new ItemVanilla("IRON_AXE", "Iron Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SBItems.registerItem(IRON_AXE);
         WOOD__1 = new ItemVanilla("WOOD:1", "Spruce Wood Plank", "", Material.WOOD, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD__1);
         GOLD_ORE = new ItemVanilla("GOLD_ORE", "Gold Ore", "", Material.GOLD_ORE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -735,12 +816,16 @@ public class ItemsVANILLA {
         SBItems.registerItem(COOKED_FISH__1);
         STEP__4 = new ItemVanilla("STEP:4", "Brick Slab", "", Material.STEP, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STEP__4);
+        WOOD_PICKAXE = new ItemVanilla("WOOD_PICKAXE", "Wooden Pickaxe", "", Material.WOOD_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
+        SBItems.registerItem(WOOD_PICKAXE);
         WOOD__3 = new ItemVanilla("WOOD:3", "Jungle Wood Plank", "", Material.WOOD, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD__3);
         PRISMARINE_CRYSTALS = new ItemVanilla("PRISMARINE_CRYSTALS", "Prismarine Crystals", "", Material.PRISMARINE_CRYSTALS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(PRISMARINE_CRYSTALS);
         SPONGE = new ItemVanilla("SPONGE", "Sponge", "", Material.SPONGE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(SPONGE);
+        CHAINMAIL_LEGGINGS = new ItemVanilla("CHAINMAIL_LEGGINGS", "Chainmail Leggings", "", Material.CHAINMAIL_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
+        SBItems.registerItem(CHAINMAIL_LEGGINGS);
         STONE_BUTTON = new ItemVanilla("STONE_BUTTON", "Stone Button", "", Material.STONE_BUTTON, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STONE_BUTTON);
         BAKED_POTATO = new ItemVanilla("BAKED_POTATO", "Baked Potato", "", Material.BAKED_POTATO, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -749,6 +834,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(FENCE);
         COAL_ORE = new ItemVanilla("COAL_ORE", "Coal Ore", "", Material.COAL_ORE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(COAL_ORE);
+        IRON_SPADE = new ItemVanilla("IRON_SPADE", "Iron Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        SBItems.registerItem(IRON_SPADE);
         MYCEL = new ItemVanilla("MYCEL", "Mycelium", "", Material.MYCEL, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(MYCEL);
         COOKIE = new ItemVanilla("COOKIE", "Cookie", "", Material.COOKIE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -759,6 +846,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(LADDER);
         JACK_O_LANTERN = new ItemVanilla("JACK_O_LANTERN", "Jack o' Lantern", "", Material.JACK_O_LANTERN, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(JACK_O_LANTERN);
+        CHAINMAIL_CHESTPLATE = new ItemVanilla("CHAINMAIL_CHESTPLATE", "Chainmail Chestplate", "", Material.CHAINMAIL_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
+        SBItems.registerItem(CHAINMAIL_CHESTPLATE);
         IRON_FENCE = new ItemVanilla("IRON_FENCE", "Iron Bars", "", Material.IRON_FENCE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(IRON_FENCE);
         EYE_OF_ENDER = new ItemVanilla("EYE_OF_ENDER", "Eye of Ender", "", Material.EYE_OF_ENDER, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -797,6 +886,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_GLASS_PANE__14);
         LEATHER = new ItemVanilla("LEATHER", "Leather", "", Material.LEATHER, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LEATHER);
+        STONE_AXE = new ItemVanilla("STONE_AXE", "Stone Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SBItems.registerItem(STONE_AXE);
         STAINED_GLASS__13 = new ItemVanilla("STAINED_GLASS:13", "Green Stained Glass", "", Material.STAINED_GLASS, (short) 13, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__13);
         SMOOTH_BRICK = new ItemVanilla("SMOOTH_BRICK", "Stone Bricks", "", Material.SMOOTH_BRICK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -823,6 +914,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(FENCE_GATE);
         CARPET__12 = new ItemVanilla("CARPET:12", "Brown Carpet", "", Material.CARPET, (short) 12, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARPET__12);
+        IRON_HOE = new ItemVanilla("IRON_HOE", "Iron Hoe", "", Material.IRON_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
+        SBItems.registerItem(IRON_HOE);
         ENCHANTED_FISH__2 = new ItemVanilla("ENCHANTED_FISH:2", "Enchanted Clownfish", "", Material.RAW_FISH, (short) 2, "", SBCustomItem.Rarity.UNCOMMON, true, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(ENCHANTED_FISH__2);
         WOOD_STEP = new ItemVanilla("WOOD_STEP", "Oak Wood Slab", "", Material.WOOD_STEP, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -839,6 +932,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_CLAY__10);
         SAPLING__1 = new ItemVanilla("SAPLING:1", "Spruce Sapling", "", Material.SAPLING, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(SAPLING__1);
+        IRON_PICKAXE = new ItemVanilla("IRON_PICKAXE", "Iron Pickaxe", "", Material.IRON_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
+        SBItems.registerItem(IRON_PICKAXE);
         PRISMARINE_SHARD = new ItemVanilla("PRISMARINE_SHARD", "Prismarine Shard", "", Material.PRISMARINE_SHARD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(PRISMARINE_SHARD);
         STRING = new ItemVanilla("STRING", "String", "", Material.STRING, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -883,6 +978,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(WOOL__15);
         STAINED_CLAY__15 = new ItemVanilla("STAINED_CLAY:15", "Black Hardened Clay", "", Material.STAINED_CLAY, (short) 15, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_CLAY__15);
+        STONE_HOE = new ItemVanilla("STONE_HOE", "Stone Hoe", "", Material.STONE_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
+        SBItems.registerItem(STONE_HOE);
         RAW_FISH__1 = new ItemVanilla("RAW_FISH:1", "Raw Salmon", "", Material.RAW_FISH, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RAW_FISH__1);
         FURNACE = new ItemVanilla("FURNACE", "Furnace", "", Material.FURNACE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -897,10 +994,14 @@ public class ItemsVANILLA {
         SBItems.registerItem(DIODE);
         WOOD_STEP__4 = new ItemVanilla("WOOD_STEP:4", "Acacia Wood Slab", "", Material.WOOD_STEP, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD_STEP__4);
+        IRON_BOOTS = new ItemVanilla("IRON_BOOTS", "Iron Boots", "", Material.IRON_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
+        SBItems.registerItem(IRON_BOOTS);
         RABBIT = new ItemVanilla("RABBIT", "Raw Rabbit", "", Material.RABBIT, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RABBIT);
         CARROT_ITEM = new ItemVanilla("CARROT_ITEM", "Carrot", "", Material.CARROT_ITEM, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARROT_ITEM);
+        DIAMOND_SWORD = new ItemVanilla("DIAMOND_SWORD", "Diamond Sword", "", Material.DIAMOND_SWORD, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
+        SBItems.registerItem(DIAMOND_SWORD);
         LEAVES__2 = new ItemVanilla("LEAVES:2", "Birch Leaves", "", Material.LEAVES, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LEAVES__2);
         EMERALD_BLOCK = new ItemVanilla("EMERALD_BLOCK", "Block of Emerald", "", Material.EMERALD_BLOCK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -917,6 +1018,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(PRISMARINE__1);
         STAINED_GLASS__7 = new ItemVanilla("STAINED_GLASS:7", "Gray Stained Glass", "", Material.STAINED_GLASS, (short) 7, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__7);
+        DIAMOND_SPADE = new ItemVanilla("DIAMOND_SPADE", "Diamond Shovel", "", Material.DIAMOND_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        SBItems.registerItem(DIAMOND_SPADE);
         BUCKET = new ItemVanilla("BUCKET", "Bucket", "", Material.BUCKET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(BUCKET);
         ENCHANTED_BOOK = new ItemVanilla("ENCHANTED_BOOK", "Enchanted Book", "", Material.ENCHANTED_BOOK, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -947,6 +1050,10 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_GLASS__9);
         LEASH = new ItemVanilla("LEASH", "Lead", "", Material.LEASH, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LEASH);
+        IRON_SWORD = new ItemVanilla("IRON_SWORD", "Iron Sword", "", Material.IRON_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
+        SBItems.registerItem(IRON_SWORD);
+        DIAMOND_HELMET = new ItemVanilla("DIAMOND_HELMET", "Diamond Helmet", "", Material.DIAMOND_HELMET, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
+        SBItems.registerItem(DIAMOND_HELMET);
         STAINED_CLAY__11 = new ItemVanilla("STAINED_CLAY:11", "Blue Hardened Clay", "", Material.STAINED_CLAY, (short) 11, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_CLAY__11);
         BOOKSHELF = new ItemVanilla("BOOKSHELF", "Bookshelf", "", Material.BOOKSHELF, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -957,6 +1064,12 @@ public class ItemsVANILLA {
         SBItems.registerItem(WOOL__5);
         RABBIT_STEW = new ItemVanilla("RABBIT_STEW", "Rabbit Stew", "", Material.RABBIT_STEW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RABBIT_STEW);
+        LEATHER_CHESTPLATE = new ItemVanilla("LEATHER_CHESTPLATE", "Leather Chestplate", "", Material.LEATHER_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
+        SBItems.registerItem(LEATHER_CHESTPLATE);
+        WOOD_HOE = new ItemVanilla("WOOD_HOE", "Wooden Hoe", "", Material.WOOD_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
+        SBItems.registerItem(WOOD_HOE);
+        STONE_SWORD = new ItemVanilla("STONE_SWORD", "Stone Sword", "", Material.STONE_SWORD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SWORD, skyBlock);
+        SBItems.registerItem(STONE_SWORD);
         PISTON_BASE = new ItemVanilla("PISTON_BASE", "Piston", "", Material.PISTON_BASE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(PISTON_BASE);
         DIAMOND_BARDING = new ItemVanilla("DIAMOND_BARDING", "Diamond Horse Armor", "", Material.DIAMOND_BARDING, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -965,6 +1078,12 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_CLAY__1);
         RAW_FISH__2 = new ItemVanilla("RAW_FISH:2", "Clownfish", "", Material.RAW_FISH, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RAW_FISH__2);
+        IRON_CHESTPLATE = new ItemVanilla("IRON_CHESTPLATE", "Iron Chestplate", "", Material.IRON_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
+        SBItems.registerItem(IRON_CHESTPLATE);
+        DIAMOND_BOOTS = new ItemVanilla("DIAMOND_BOOTS", "Diamond Boots", "", Material.DIAMOND_BOOTS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
+        SBItems.registerItem(DIAMOND_BOOTS);
+        FISHING_ROD = new ItemVanilla("FISHING_ROD", "Fishing Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.FISHING_ROD, skyBlock);
+        SBItems.registerItem(FISHING_ROD);
         RED_SANDSTONE = new ItemVanilla("RED_SANDSTONE", "Red Sandstone", "", Material.RED_SANDSTONE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(RED_SANDSTONE);
         COOKED_FISH = new ItemVanilla("COOKED_FISH", "Cooked Fish", "", Material.COOKED_FISH, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -973,6 +1092,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(PAINTING);
         CARPET__5 = new ItemVanilla("CARPET:5", "Lime Carpet", "", Material.CARPET, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARPET__5);
+        DIAMOND_LEGGINGS = new ItemVanilla("DIAMOND_LEGGINGS", "Diamond Leggings", "", Material.DIAMOND_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
+        SBItems.registerItem(DIAMOND_LEGGINGS);
         IRON_INGOT = new ItemVanilla("IRON_INGOT", "Iron Ingot", "", Material.IRON_INGOT, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(IRON_INGOT);
         JUNGLE_WOOD_STAIRS = new ItemVanilla("JUNGLE_WOOD_STAIRS", "Jungle Wood Stairs", "", Material.JUNGLE_WOOD_STAIRS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -981,6 +1102,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(WOOL__9);
         WOOL__11 = new ItemVanilla("WOOL:11", "Blue Wool", "", Material.WOOL, (short) 11, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOL__11);
+        LEATHER_HELMET = new ItemVanilla("LEATHER_HELMET", "Leather Helmet", "", Material.LEATHER_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
+        SBItems.registerItem(LEATHER_HELMET);
         SKULL_ITEM__1 = new ItemVanilla("SKULL_ITEM:1", "Wither Skeleton Skull", "", Material.SKULL_ITEM, (short) 1, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(SKULL_ITEM__1);
         HOPPER = new ItemVanilla("HOPPER", "Hopper", "", Material.HOPPER, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1003,6 +1126,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(STAINED_GLASS__2);
         INK_SACK__13 = new ItemVanilla("INK_SACK:13", "Magenta Dye", "", Material.INK_SACK, (short) 13, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__13);
+        STONE_PICKAXE = new ItemVanilla("STONE_PICKAXE", "Stone Pickaxe", "", Material.STONE_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
+        SBItems.registerItem(STONE_PICKAXE);
         ENDER_STONE = new ItemVanilla("ENDER_STONE", "End Stone", "", Material.ENDER_STONE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(ENDER_STONE);
         SAPLING__4 = new ItemVanilla("SAPLING:4", "Acacia Sapling", "", Material.SAPLING, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1045,6 +1170,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(IRON_BLOCK);
         JUNGLE_FENCE_GATE = new ItemVanilla("JUNGLE_FENCE_GATE", "Jungle Fence Gate", "", Material.JUNGLE_FENCE_GATE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(JUNGLE_FENCE_GATE);
+        GOLD_HELMET = new ItemVanilla("GOLD_HELMET", "Golden Helmet", "", Material.GOLD_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
+        SBItems.registerItem(GOLD_HELMET);
         WATER_LILY = new ItemVanilla("WATER_LILY", "Lily Pad", "", Material.WATER_LILY, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WATER_LILY);
         WOOL__2 = new ItemVanilla("WOOL:2", "Magenta Wool", "", Material.WOOL, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1085,6 +1212,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(CARPET);
         NETHER_STAR = new ItemVanilla("NETHER_STAR", "Nether Star", "", Material.NETHER_STAR, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(NETHER_STAR);
+        DIAMOND_PICKAXE = new ItemVanilla("DIAMOND_PICKAXE", "Diamond Pickaxe", "", Material.DIAMOND_PICKAXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
+        SBItems.registerItem(DIAMOND_PICKAXE);
         INK_SACK__9 = new ItemVanilla("INK_SACK:9", "Pink Dye", "", Material.INK_SACK, (short) 9, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__9);
         STEP__3 = new ItemVanilla("STEP:3", "Cobblestone Slab", "", Material.STEP, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1105,6 +1234,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(RED_SANDSTONE_STAIRS);
         WOOL__12 = new ItemVanilla("WOOL:12", "Brown Wool", "", Material.WOOL, (short) 12, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOL__12);
+        WOOD_SPADE = new ItemVanilla("WOOD_SPADE", "Wooden Shovel", "", Material.WOOD_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        SBItems.registerItem(WOOD_SPADE);
         APPLE = new ItemVanilla("APPLE", "Apple", "", Material.APPLE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(APPLE);
         GLASS_BOTTLE = new ItemVanilla("GLASS_BOTTLE", "Glass Bottle", "", Material.GLASS_BOTTLE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1121,6 +1252,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(BLAZE_ROD);
         FLINT = new ItemVanilla("FLINT", "Flint", "", Material.FLINT, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(FLINT);
+        DIAMOND_CHESTPLATE = new ItemVanilla("DIAMOND_CHESTPLATE", "Diamond Chestplate", "", Material.DIAMOND_CHESTPLATE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.CHESTPLATE, skyBlock);
+        SBItems.registerItem(DIAMOND_CHESTPLATE);
         STAINED_GLASS_PANE__8 = new ItemVanilla("STAINED_GLASS_PANE:8", "Light Gray Stained Glass Pane", "", Material.STAINED_GLASS_PANE, (short) 8, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS_PANE__8);
         COOKED_BEEF = new ItemVanilla("COOKED_BEEF", "Cooked Beef", "", Material.COOKED_BEEF, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1131,6 +1264,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(ICE);
         DOUBLE_PLANT__5 = new ItemVanilla("DOUBLE_PLANT:5", "Peony", "", Material.DOUBLE_PLANT, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(DOUBLE_PLANT__5);
+        GOLD_HOE = new ItemVanilla("GOLD_HOE", "Golden Hoe", "", Material.GOLD_HOE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
+        SBItems.registerItem(GOLD_HOE);
         WOOD_STEP__5 = new ItemVanilla("WOOD_STEP:5", "Dark Oak Wood Slab", "", Material.WOOD_STEP, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD_STEP__5);
         NETHER_FENCE = new ItemVanilla("NETHER_FENCE", "Nether Brick Fence", "", Material.NETHER_FENCE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1147,6 +1282,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(GOLDEN_CARROT);
         LOG__3 = new ItemVanilla("LOG:3", "Jungle Wood", "", Material.LOG, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LOG__3);
+        ARROW = new ItemVanilla("ARROW", "Flint Arrow", "", Material.ARROW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.ARROW, skyBlock);
+        SBItems.registerItem(ARROW);
         CARPET__14 = new ItemVanilla("CARPET:14", "Red Carpet", "", Material.CARPET, (short) 14, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(CARPET__14);
         SEA_LANTERN = new ItemVanilla("SEA_LANTERN", "Sea Lantern", "", Material.SEA_LANTERN, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1155,6 +1292,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(COAL);
         WOOD_STEP__1 = new ItemVanilla("WOOD_STEP:1", "Spruce Wood Slab", "", Material.WOOD_STEP, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(WOOD_STEP__1);
+        LEATHER_BOOTS = new ItemVanilla("LEATHER_BOOTS", "Leather Boots", "", Material.LEATHER_BOOTS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOOTS, skyBlock);
+        SBItems.registerItem(LEATHER_BOOTS);
         INK_SACK__12 = new ItemVanilla("INK_SACK:12", "Light Blue Dye", "", Material.INK_SACK, (short) 12, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(INK_SACK__12);
         LONG_GRASS__1 = new ItemVanilla("LONG_GRASS:1", "Long Grass", "", Material.LONG_GRASS, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1175,6 +1314,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(BOAT);
         LOG__2 = new ItemVanilla("LOG:2", "Birch Wood", "", Material.LOG, (short) 2, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LOG__2);
+        DIAMOND_AXE = new ItemVanilla("DIAMOND_AXE", "Diamond Axe", "", Material.DIAMOND_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SBItems.registerItem(DIAMOND_AXE);
         GOLD_BARDING = new ItemVanilla("GOLD_BARDING", "Gold Horse Armor", "", Material.GOLD_BARDING, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(GOLD_BARDING);
         SAPLING__3 = new ItemVanilla("SAPLING:3", "Jungle Sapling", "", Material.SAPLING, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1191,6 +1332,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(QUARTZ_BLOCK);
         GHAST_TEAR = new ItemVanilla("GHAST_TEAR", "Ghast Tear", "", Material.GHAST_TEAR, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(GHAST_TEAR);
+        DIAMOND_HOE = new ItemVanilla("DIAMOND_HOE", "Diamond Hoe", "", Material.DIAMOND_HOE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HOE, skyBlock);
+        SBItems.registerItem(DIAMOND_HOE);
         MOSSY_COBBLESTONE = new ItemVanilla("MOSSY_COBBLESTONE", "Moss Stone", "", Material.MOSSY_COBBLESTONE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(MOSSY_COBBLESTONE);
         BLAZE_POWDER = new ItemVanilla("BLAZE_POWDER", "Blaze Powder", "", Material.BLAZE_POWDER, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1203,6 +1346,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(RAW_BEEF);
         STAINED_GLASS__4 = new ItemVanilla("STAINED_GLASS:4", "Yellow Stained Glass", "", Material.STAINED_GLASS, (short) 4, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STAINED_GLASS__4);
+        LEATHER_LEGGINGS = new ItemVanilla("LEATHER_LEGGINGS", "Leather Leggings", "", Material.LEATHER_LEGGINGS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.LEGGINGS, skyBlock);
+        SBItems.registerItem(LEATHER_LEGGINGS);
         LEAVES__3 = new ItemVanilla("LEAVES:3", "Jungle Leaves", "", Material.LEAVES, (short) 3, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(LEAVES__3);
         STAINED_CLAY__14 = new ItemVanilla("STAINED_CLAY:14", "Red Hardened Clay", "", Material.STAINED_CLAY, (short) 14, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
@@ -1251,6 +1396,8 @@ public class ItemsVANILLA {
         SBItems.registerItem(LEAVES);
         DARK_OAK_STAIRS = new ItemVanilla("DARK_OAK_STAIRS", "Dark Oak Wood Stairs", "", Material.DARK_OAK_STAIRS, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(DARK_OAK_STAIRS);
+        WOOD_AXE = new ItemVanilla("WOOD_AXE", "Wooden Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SBItems.registerItem(WOOD_AXE);
         STONE__5 = new ItemVanilla("STONE:5", "Andesite", "", Material.STONE, (short) 5, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(STONE__5);
         STONE__1 = new ItemVanilla("STONE:1", "Granite", "", Material.STONE, (short) 1, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, skyBlock);

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class CmdSetSpawn extends SBCommand {
     public CmdSetSpawn() {
-        super("setspawn", "Set the spawnpoint of a world", "skyblock.admin", "/setspawn");
+        super("setspawn", "Set the spawnpoint of a world", "skyblock.build", "/setspawn");
     }
 
     @Override

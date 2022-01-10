@@ -72,7 +72,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
 
 
     @Override
-    public boolean activateForSlot(int slot, SBPlayer player) {
+    public boolean isInActive(int slot, SBPlayer player) {
         if (player.getPlayer().getInventory().getHeldItemSlot() == slot) {
             return true;
         }

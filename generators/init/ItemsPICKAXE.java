@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsPICKAXE
 // Category: PICKAXE
-// Last Update: 2022-01-07 09:10:25.074379
+// Last Update: 2022-01-10 17:27:50.174746
 
 public class ItemsPICKAXE {
 
-    public static SBCustomItem GOLD_PICKAXE;
-    public static SBCustomItem WOOD_PICKAXE;
-    public static SBCustomItem IRON_PICKAXE;
-    public static SBCustomItem STONE_PICKAXE;
-    public static SBCustomItem DIAMOND_PICKAXE;
     public static SBCustomItem ZOOM_PICKAXE;
     public static SBCustomItem TITANIUM_PICKAXE;
     public static SBCustomItem ALPHA_PICK;
@@ -51,16 +46,6 @@ public class ItemsPICKAXE {
 
 
     public ItemsPICKAXE(SkyBlock skyBlock) {
-        GOLD_PICKAXE = new ItemVanilla("GOLD_PICKAXE", "Golden Pickaxe", "", Material.GOLD_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
-        SBItems.registerItem(GOLD_PICKAXE);
-        WOOD_PICKAXE = new ItemVanilla("WOOD_PICKAXE", "Wooden Pickaxe", "", Material.WOOD_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
-        SBItems.registerItem(WOOD_PICKAXE);
-        IRON_PICKAXE = new ItemVanilla("IRON_PICKAXE", "Iron Pickaxe", "", Material.IRON_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
-        SBItems.registerItem(IRON_PICKAXE);
-        STONE_PICKAXE = new ItemVanilla("STONE_PICKAXE", "Stone Pickaxe", "", Material.STONE_PICKAXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
-        SBItems.registerItem(STONE_PICKAXE);
-        DIAMOND_PICKAXE = new ItemVanilla("DIAMOND_PICKAXE", "Diamond Pickaxe", "", Material.DIAMOND_PICKAXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.PICKAXE, skyBlock);
-        SBItems.registerItem(DIAMOND_PICKAXE);
         ZOOM_PICKAXE = new SBCustomItem("ZOOM_PICKAXE", "Zoom", "", Material.WOOD_PICKAXE, (short) 0, "", SBCustomItem.Rarity.SPECIAL, true, null, SBCustomItem.Category.PICKAXE, skyBlock);
         SBItems.registerItem(ZOOM_PICKAXE);
         TITANIUM_PICKAXE = new SBCustomItem("TITANIUM_PICKAXE", "Titanium Pickaxe", "", Material.IRON_PICKAXE, (short) 0, "", SBCustomItem.Rarity.RARE, true, null, SBCustomItem.Category.PICKAXE, skyBlock);

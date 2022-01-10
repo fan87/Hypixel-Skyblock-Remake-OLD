@@ -28,6 +28,7 @@ public class WorldInteractDisabler extends SBFeature {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         if (!player.isBuilding() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             event.setCancelled(true);
+            player.updateInventory();
         }
     }
 

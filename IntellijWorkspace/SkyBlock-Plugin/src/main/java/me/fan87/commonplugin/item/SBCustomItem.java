@@ -98,8 +98,8 @@ public class SBCustomItem {
 
 
 
-    public boolean activateForSlot(int slot, SBPlayer player) {
-        return true;
+    public boolean isInActive(int slot, SBPlayer player) {
+        return getCategory().getActiveChecker().isActive(player.getPlayer().getInventory(), slot);
     }
 
     public boolean isUnbreakable() {
@@ -153,31 +153,31 @@ public class SBCustomItem {
     @Getter
     public enum Category {
         MATERIAL((inventory, slot) -> false),
-        BOW((inventory, slot) -> inventory.getHeldItemSlot() == slot + 36),
-        BOOTS((inventory, slot) -> false),
-        SPADE((inventory, slot) -> false),
-        PICKAXE((inventory, slot) -> false),
-        AXE((inventory, slot) -> false),
-        SWORD((inventory, slot) -> false),
-        HELMET((inventory, slot) -> false),
-        LEGGINGS((inventory, slot) -> false),
-        SHEARS((inventory, slot) -> false),
-        CHESTPLATE((inventory, slot) -> false),
-        HOE((inventory, slot) -> false),
-        FISHING_ROD((inventory, slot) -> false),
+        BOW((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        HELMET((inventory, slot) ->  slot == 5),
+        CHESTPLATE((inventory, slot) -> slot == 6),
+        LEGGINGS((inventory, slot) -> slot == 7),
+        BOOTS((inventory, slot) -> slot == 8),
+        SPADE((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        PICKAXE((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        AXE((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        SWORD((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        SHEARS((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        HOE((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        FISHING_ROD((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
         ARROW((inventory, slot) -> false),
         PET_ITEM((inventory, slot) -> false),
         REFORGE_STONE((inventory, slot) -> false),
         COSMETIC((inventory, slot) -> false),
-        ACCESSORY((inventory, slot) -> false),
+        ACCESSORY((inventory, slot) -> true),
         TRAVEL_SCROLL((inventory, slot) -> false),
         BAIT((inventory, slot) -> false),
         DUNGEON_PASS((inventory, slot) -> false),
         ARROW_POISON((inventory, slot) -> false),
-        WAND((inventory, slot) -> false),
-        DRILL((inventory, slot) -> false),
-        FISHING_WEAPON((inventory, slot) -> false),
-        GAUNTLET((inventory, slot) -> false);
+        WAND((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        DRILL((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        FISHING_WEAPON((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36),
+        GAUNTLET((inventory, slot) -> inventory.getHeldItemSlot() == slot - 36);
 
         private ActiveChecker activeChecker;
     }

@@ -23,11 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsFISHING_ROD
 // Category: FISHING_ROD
-// Last Update: 2022-01-07 09:10:25.075559
+// Last Update: 2022-01-10 17:27:50.173807
 
 public class ItemsFISHING_ROD {
 
-    public static SBCustomItem FISHING_ROD;
     public static SBCustomItem ROD_OF_THE_SEA;
     public static SBCustomItem WINTER_ROD;
     public static SBCustomItem CHAMP_ROD;
@@ -44,8 +43,6 @@ public class ItemsFISHING_ROD {
 
 
     public ItemsFISHING_ROD(SkyBlock skyBlock) {
-        FISHING_ROD = new ItemVanilla("FISHING_ROD", "Fishing Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.FISHING_ROD, skyBlock);
-        SBItems.registerItem(FISHING_ROD);
         ROD_OF_THE_SEA = new SBCustomItem("ROD_OF_THE_SEA", "Rod of the Sea", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.FISHING_ROD, skyBlock);
         SBItems.registerItem(ROD_OF_THE_SEA);
         WINTER_ROD = new SBCustomItem("WINTER_ROD", "Winter Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.FISHING_ROD, skyBlock);

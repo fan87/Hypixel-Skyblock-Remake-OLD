@@ -23,11 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsBOW
 // Category: BOW
-// Last Update: 2022-01-07 09:10:25.074006
+// Last Update: 2022-01-10 17:27:50.173063
 
 public class ItemsBOW {
 
-    public static SBCustomItem BOW;
     public static SBCustomItem TERMINATOR;
     public static SBCustomItem PRISMARINE_BOW;
     public static SBCustomItem SKELETON_LORD_BOW;
@@ -70,8 +69,6 @@ public class ItemsBOW {
 
 
     public ItemsBOW(SkyBlock skyBlock) {
-        BOW = new ItemVanilla("BOW", "Bow", "", Material.BOW, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.BOW, skyBlock);
-        SBItems.registerItem(BOW);
         TERMINATOR = new SBCustomItem("TERMINATOR", "Terminator", "", Material.BOW, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, true, null, SBCustomItem.Category.BOW, skyBlock);
         SBItems.registerItem(TERMINATOR);
         PRISMARINE_BOW = new SBCustomItem("PRISMARINE_BOW", "Prismarine Bow", "", Material.BOW, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.BOW, skyBlock);

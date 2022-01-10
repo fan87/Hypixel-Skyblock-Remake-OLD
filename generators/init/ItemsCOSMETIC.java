@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsCOSMETIC
 // Category: COSMETIC
-// Last Update: 2022-01-07 09:10:25.079023
+// Last Update: 2022-01-10 17:27:50.171977
 
 public class ItemsCOSMETIC {
 

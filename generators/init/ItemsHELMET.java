@@ -23,15 +23,10 @@ import org.bukkit.Color;
 
 // Start class: ItemsHELMET
 // Category: HELMET
-// Last Update: 2022-01-07 09:10:25.074811
+// Last Update: 2022-01-10 17:27:50.171416
 
 public class ItemsHELMET {
 
-    public static SBCustomItem CHAINMAIL_HELMET;
-    public static SBCustomItem IRON_HELMET;
-    public static SBCustomItem DIAMOND_HELMET;
-    public static SBCustomItem LEATHER_HELMET;
-    public static SBCustomItem GOLD_HELMET;
     public static SBCustomItem CRYPT_WITHERLORD_HELMET;
     public static SBCustomItem PERFECT_HELMET_5;
     public static SBCustomItem TITAN_HELMET;
@@ -212,16 +207,6 @@ public class ItemsHELMET {
 
 
     public ItemsHELMET(SkyBlock skyBlock) {
-        CHAINMAIL_HELMET = new ItemVanilla("CHAINMAIL_HELMET", "Chainmail Helmet", "", Material.CHAINMAIL_HELMET, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
-        SBItems.registerItem(CHAINMAIL_HELMET);
-        IRON_HELMET = new ItemVanilla("IRON_HELMET", "Iron Helmet", "", Material.IRON_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
-        SBItems.registerItem(IRON_HELMET);
-        DIAMOND_HELMET = new ItemVanilla("DIAMOND_HELMET", "Diamond Helmet", "", Material.DIAMOND_HELMET, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
-        SBItems.registerItem(DIAMOND_HELMET);
-        LEATHER_HELMET = new ItemVanilla("LEATHER_HELMET", "Leather Helmet", "", Material.LEATHER_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
-        SBItems.registerItem(LEATHER_HELMET);
-        GOLD_HELMET = new ItemVanilla("GOLD_HELMET", "Golden Helmet", "", Material.GOLD_HELMET, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.HELMET, skyBlock);
-        SBItems.registerItem(GOLD_HELMET);
         CRYPT_WITHERLORD_HELMET = new SBCustomItem("CRYPT_WITHERLORD_HELMET", "Crypt Witherlord Helmet", "", Material.LEATHER_HELMET, (short) 0, "", SBCustomItem.Rarity.EPIC, false, Color.fromRGB(69,1,1), SBCustomItem.Category.HELMET, skyBlock);
         SBItems.registerItem(CRYPT_WITHERLORD_HELMET);
         PERFECT_HELMET_5 = new SBCustomItem("PERFECT_HELMET_5", "Perfect Helmet - Tier V", "", Material.DIAMOND_HELMET, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.HELMET, skyBlock);

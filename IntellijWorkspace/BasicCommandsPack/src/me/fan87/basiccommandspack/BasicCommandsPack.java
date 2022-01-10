@@ -15,7 +15,7 @@ public class BasicCommandsPack extends JavaPlugin {
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdEnderChest());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdDmgPlayer());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdMaxAllCollections());
-        skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdTrade());
+        skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdTradeMenu());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmsUnlockAllRecipe());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdWorldType());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdItemDebug());
