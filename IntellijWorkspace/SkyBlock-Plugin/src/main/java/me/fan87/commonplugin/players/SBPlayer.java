@@ -119,6 +119,12 @@ public class SBPlayer {
     @JsonProperty("inventory")
     private String inventory = "";
 
+    @JsonProperty("enderChest")
+    private String enderChest = "";
+
+    @JsonProperty("xp")
+    private float xp = 0;
+
     public boolean showActionBar = true;
 
     private final List<SBItemStack> activeItems = new ArrayList<>();
@@ -160,9 +166,16 @@ public class SBPlayer {
         }
 
         try {
+            player.setExp(xp);
+
             Inventory itemStacks = BukkitSerialization.fromBase64(inventory);
             for (int i = 0; i < itemStacks.getSize(); i++) {
                 player.getInventory().setItem(i, itemStacks.getItem(i));
+            }
+
+            Inventory e = BukkitSerialization.fromBase64(enderChest);
+            for (int i = 0; i < e.getSize(); i++) {
+                player.getEnderChest().setItem(i, e.getItem(i));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -384,7 +397,9 @@ public class SBPlayer {
     }
 
     public void save() {
+        this.xp = player.getExp();
         this.inventory = BukkitSerialization.toBase64(player.getInventory());
+        this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
         MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
         players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
     }

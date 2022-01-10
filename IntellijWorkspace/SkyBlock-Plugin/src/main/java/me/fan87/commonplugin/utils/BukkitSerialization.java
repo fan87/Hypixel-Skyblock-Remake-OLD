@@ -1,6 +1,5 @@
 package me.fan87.commonplugin.utils;
 
-import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -116,8 +115,7 @@ public class BukkitSerialization {
      * @return Inventory created from the Base64 string.
      * @throws IOException
      */
-    @SneakyThrows
-    public static Inventory fromBase64(String data) {
+    public static Inventory fromBase64(String data) throws IOException {
         try {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
