@@ -5,6 +5,9 @@ import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CmdDmgPlayer extends SBCommand {
     public CmdDmgPlayer() {
         super("damage", "Damage the target player", "skyblock.damage", "/damage <player name> <amount>");
@@ -28,5 +31,18 @@ public class CmdDmgPlayer extends SBCommand {
         }
         sender.sendMessage(ChatColor.RED + "Invalid player");
         return true;
+    }
+
+    @Override
+    protected List<String> onTabComplete(CommandSender sender, String alias, String[] args) {
+
+        List<String> out = new ArrayList<>();
+        for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
+
+            out.add(loadedPlayer.getPlayer().getName());
+
+        }
+
+        return out;
     }
 }
