@@ -67,7 +67,8 @@ public class WorldsManager {
                 }
             }
             File file = new File(worldName);
-            if (file.exists()) {
+            SBWorld type = getWorld(worldName);
+            if (file.exists() && type != null && type.getWorldType() != WorldType.NONE) {
                 File backupFile = new File("backups");
                 if (!backupFile.exists()) backupFile.mkdirs();
                 File backup = new File(backupFile, worldName);
