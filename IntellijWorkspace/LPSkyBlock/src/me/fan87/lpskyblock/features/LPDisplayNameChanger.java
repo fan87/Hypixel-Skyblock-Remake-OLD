@@ -4,6 +4,7 @@ import me.fan87.commonplugin.features.SBFeature;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
@@ -47,7 +48,7 @@ public class LPDisplayNameChanger extends SBFeature {
                 }
             }
             event.getPlayer().setDisplayName(color + event.getPlayer().getDisplayName());
-            Scoreboard scoreboard = event.getPlayer().getScoreboard();
+            Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
             Team team = scoreboard.getTeam("SB" + event.getPlayer().getUniqueId().toString().substring(0, 14));
             if (team == null) {
                 team = scoreboard.registerNewTeam("SB" + event.getPlayer().getUniqueId().toString().substring(0, 14));
