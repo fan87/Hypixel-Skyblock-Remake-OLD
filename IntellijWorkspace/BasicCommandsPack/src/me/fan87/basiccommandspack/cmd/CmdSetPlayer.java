@@ -38,11 +38,9 @@ public class CmdSetPlayer extends SBCommand {
                 sender.sendMessage(ChatColor.RED + "Invalid Stat name");
                 return true;
             }
-            sender.sendMessage(ChatColor.RED + "Invalid player name");
-            return true;
 
         }
-
-        return false;
+        sender.sendMessage(ChatColor.RED + "Invalid player name");
+        return true;
     }
 }
