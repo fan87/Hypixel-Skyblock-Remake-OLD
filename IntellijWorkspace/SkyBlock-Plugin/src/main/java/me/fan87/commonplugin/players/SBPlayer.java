@@ -123,7 +123,7 @@ public class SBPlayer {
     private String enderChest = "";
 
     @JsonProperty("xp")
-    private float xp = 0;
+    private Float xp = 0F;
 
     public boolean showActionBar = true;
 
