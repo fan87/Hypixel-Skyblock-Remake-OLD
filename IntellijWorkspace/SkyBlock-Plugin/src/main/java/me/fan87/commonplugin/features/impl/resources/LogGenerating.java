@@ -59,7 +59,11 @@ public class LogGenerating extends SBFeature {
         Random random = new Random();
         List<ItemStack> newDrops = new ArrayList<>();
         int amount = 0;
-        if (skyBlock.getAreasManager().canMineLogs(area)) {
+        if (skyBlock.getAreasManager().canMineLogs(area) &&
+                (event.getBlock().getType() == Material.LOG ||
+                        event.getBlock().getType() == Material.LOG_2 ||
+                        event.getBlock().getType() == Material.LEAVES ||
+                        event.getBlock().getType() == Material.LEAVES_2)) {
             for (ItemStack drop : event.getBlock().getDrops()) {
                 amount = drop.getAmount();
                 amount += (int) player.getStats().getForagingFortune().getValue(player)/100;
@@ -96,7 +100,7 @@ public class LogGenerating extends SBFeature {
     @Subscribe
     public void onTick(ServerTickEvent event) {
         ticks++;
-        if (ticks % 1000 != 0) return;
+        if (ticks % 200 != 0) return;
         Set<Location> locations = minedStones.keySet();
         for (Location location : new ArrayList<>(locations)) {
             if (System.currentTimeMillis() - minedStones.get(location).mineTime > 30000) {
