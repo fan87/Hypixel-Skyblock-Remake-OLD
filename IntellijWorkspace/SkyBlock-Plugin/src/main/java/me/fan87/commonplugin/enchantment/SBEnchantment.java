@@ -39,8 +39,8 @@ public class SBEnchantment {
         return 1;
     }
 
-    public boolean isCategoryAccepted(SBCustomItem.Category category) {
-        return category == SBCustomItem.Category.SWORD;
+    public boolean isItemAccepted(SBCustomItem item) {
+        return item.getCategory() == SBCustomItem.Category.SWORD;
     }
 
 }
