@@ -25,6 +25,7 @@ public class AreasManager {
     public final SBArea AUCTION_HOUSE = new SBArea("Auction House", ChatColor.GOLD, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -60, 68, -102, -21, 118, -82);
     public final SBArea BANK = new SBArea("Bank", ChatColor.GOLD, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -31, 68, -69, -21, 118, -57);
     public final SBArea FOREST = new SBArea("Forest", ChatColor.AQUA, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -248, 60, -81, -84, 160, 21);
+    public final SBArea FOREST_HOUSE = new SBArea("Forest", ChatColor.AQUA, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -154, 160, -39, -137, 60, -28);
     public final SBArea VILLAGE_1 = new SBArea("Village", ChatColor.AQUA, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -129, 65, -80, -84, 115, -57);
     public final SBArea BAZAAR_ALLEY = new SBArea("Bazaar Alley", ChatColor.YELLOW, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, -44, 68, -79, -22, 118, -72);
     public final SBArea COLOSSEUM = new SBArea("Colosseum", ChatColor.AQUA, SBArea.AreaCheckType.POSITION, null, WorldsManager.WorldType.SKYBLOCK_HUB, 52, 55, -73, 182, 135, -20);
