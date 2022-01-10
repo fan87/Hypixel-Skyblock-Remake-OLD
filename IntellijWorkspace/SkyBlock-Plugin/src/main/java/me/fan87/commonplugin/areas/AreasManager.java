@@ -122,4 +122,8 @@ public class AreasManager {
         return Arrays.asList();
     }
 
+    public boolean canMineLogs(SBArea area) {
+        return area.getWorldType() == WorldsManager.WorldType.PARK || area == FOREST;
+    }
+
 }
