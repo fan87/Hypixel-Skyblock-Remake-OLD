@@ -30,6 +30,7 @@ You don't need to change anything, but you need to somehow get the SkyBlock inst
 To get the instance, you need to do something like this:
 
 ```java
-SkyBlock skyBlock = SkyBlock.registerAddon("Basic Commands Pack", "basiccmdpack", this);
+SkyBlock skyBlock = SkyBlock.registerAddon("Example User Friendly Pack Name", "examplepack", this);
 ```
 
+Then you can start coding! Check the `document/addons` for more documents!

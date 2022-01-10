@@ -15,6 +15,7 @@ import net.minecraft.server.v1_8_R3.EnumItemRarity;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -180,9 +181,13 @@ public class SBItemStack {
 
     private void saveEnchantments() {
         if (enchantments.size() > 0) {
+            for (Enchantment enchantment : itemStack.getEnchantments().keySet()) {
+                itemStack.removeEnchantment(enchantment);
+            }
             NBTCompound enchantments = getExtraAttributeCompound().getOrCreateCompound("enchantments");
             for (SBEnchantment key : this.enchantments.keySet()) {
                 enchantments.setInteger(key.getNamespace() + "", this.enchantments.get(key));
+                itemStack.addEnchantments(key.getVanillaEnchantment());
             }
         } else {
             if (getExtraAttributeCompound().hasKey("enchantments")) {
