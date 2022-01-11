@@ -26,7 +26,7 @@ public class SkillCombat extends SBSkill {
     }
 
     @Override
-    public int getFortuneValue(int level) {
+    public double getFortuneValue(int level) {
         if (level <= 50) {
             return level*4;
         }

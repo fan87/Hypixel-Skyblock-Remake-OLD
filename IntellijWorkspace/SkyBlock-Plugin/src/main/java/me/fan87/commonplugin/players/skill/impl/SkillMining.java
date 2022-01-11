@@ -28,7 +28,7 @@ public class SkillMining extends SBSkill {
 
 
     @Override
-    public int getFortuneValue(int level) {
+    public double getFortuneValue(int level) {
         return level*4;
     }
 

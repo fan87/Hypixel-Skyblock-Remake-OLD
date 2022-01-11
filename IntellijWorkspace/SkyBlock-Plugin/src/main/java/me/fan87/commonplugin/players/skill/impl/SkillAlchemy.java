@@ -4,6 +4,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardBaseStat;
 import me.fan87.commonplugin.players.skill.SBSkill;
+import org.bukkit.ChatColor;
 
 import java.util.List;
 
@@ -21,12 +22,12 @@ public class SkillAlchemy extends SBSkill {
 
     @Override
     public String getFortuneDescription(SBPlayer player) {
-        return "Potions that you brew have a " + player.getSkills().skillAlchemy.getLevel() + "longer duration.";
+        return "Potions that you brew have a " + ChatColor.GREEN + "%s" + ChatColor.WHITE + " longer duration.";
     }
 
     @Override
-    public int getFortuneValue(int level) {
-        return 0;
+    public double getFortuneValue(int level) {
+        return level;
     }
 
     @Override

@@ -23,12 +23,12 @@ public class SkillFishing extends SBSkill {
 
     @Override
     public String getFortuneDescription(SBPlayer player) {
-        return "Increases the chance to find treasure when fishing by " + player.getSkills().skillFishing.getLevel()*0.2 + "%.";
+        return "Increases the chance to find treasure when fishing by " + ChatColor.GREEN + "%s" + ChatColor.WHITE + "%.";
     }
 
     @Override
-    public int getFortuneValue(int level) {
-        return 0;
+    public double getFortuneValue(int level) {
+        return level*0.2d;
     }
 
 

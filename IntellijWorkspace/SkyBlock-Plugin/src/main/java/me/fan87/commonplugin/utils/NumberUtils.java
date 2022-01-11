@@ -47,7 +47,7 @@ public class NumberUtils {
         return (Double.toString(number).endsWith(".0")?(int) number + "":number) + large[unit];
     }
 
-    public static String valueChangeDisplay(int oldValue, int newValue) {
+    public static String valueChangeDisplay(double oldValue, double newValue) {
         if (oldValue <= 0) {
             return ChatColor.GREEN + "+" + newValue;
         } else {

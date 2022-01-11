@@ -4,6 +4,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardBaseStat;
 import me.fan87.commonplugin.players.skill.SBSkill;
+import org.bukkit.ChatColor;
 
 import java.util.List;
 
@@ -22,12 +23,12 @@ public class SkillEnchanting extends SBSkill {
 
     @Override
     public String getFortuneDescription(SBPlayer player) {
-        return "Gain " + player.getSkills().skillEnchanting.getLevel()*4 + "% more experience orbs from any source.";
+        return "Gain %s" + ChatColor.GREEN + ChatColor.WHITE + "more experience orbs from any source.";
     }
 
     @Override
-    public int getFortuneValue(int level) {
-        return 0;
+    public double getFortuneValue(int level) {
+        return level*4;
     }
 
     @Override

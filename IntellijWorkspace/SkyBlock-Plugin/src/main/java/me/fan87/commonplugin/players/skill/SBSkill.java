@@ -92,13 +92,13 @@ public abstract class SBSkill {
     }
 
     public String getFortuneDisplayWithLevel(int level, SBPlayer player) {
-        int fortuneValue = getFortuneValue(level - 1);
-        int newFortuneValue = getFortuneValue(level);
+        double fortuneValue = getFortuneValue(level - 1);
+        double newFortuneValue = getFortuneValue(level);
         return getFortuneDescription(player).replace("%s", NumberUtils.valueChangeDisplay(fortuneValue, newFortuneValue));
     }
 
     public abstract String getFortuneDescription(SBPlayer player);
-    public abstract int getFortuneValue(int level);
+    public abstract double getFortuneValue(int level);
     public abstract String getNamespace();
 
     @Getter
@@ -110,7 +110,7 @@ public abstract class SBSkill {
         FORAGING("Foraging", "Logger", Material.SAPLING, Material.LOG, (short) 3, "Cut trees and forage for other plants to earn Foraging XP!", "Increase your Foraging Level to unlock Perks, statistic bonuses, and more!"),
         FISHING("Fishing", "Treasure Hunter", Material.FISHING_ROD, Material.PRISMARINE, (short) 0, "Visit your local pond to fish and earn Fishing XP!", "Increase your Fishing Level to unlock Perks, statistic bonuses, and more!"),
         ENCHANTING("Enchanting", "Conjurer", Material.ENCHANTMENT_TABLE, Material.ENCHANTED_BOOK, (short) 0, "Enchant items to earn Enchanting XP!", "Increase your Enchanting Level to unlock Perks, statistic bonuses, and more!"),
-        ALCHEMY("Alchemy", "Brewer", Material.BREWING_STAND, Material.BLAZE_ROD, (short) 0, "Brew potions to earn Alchemy XP!", "Increase your Alchemy Level to unlock Perks, statistic bonuses, and more!")
+        ALCHEMY("Alchemy", "Brewer", Material.BREWING_STAND_ITEM, Material.BLAZE_ROD, (short) 0, "Brew potions to earn Alchemy XP!", "Increase your Alchemy Level to unlock Perks, statistic bonuses, and more!")
         ;
 
         private String name;
