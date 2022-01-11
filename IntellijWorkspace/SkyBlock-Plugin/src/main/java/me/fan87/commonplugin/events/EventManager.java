@@ -32,13 +32,13 @@ public class EventManager {
     public EventManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         Reflections reflections = new Reflections("org.bukkit.event");
-        for (Class<? extends Event> aClass : reflections.getSubTypesOf(Event.class)) {
+        for (Class<? extends Event> eventClazz : reflections.getSubTypesOf(Event.class)) {
             try {
-                aClass.getDeclaredMethod("getHandlerList");
+                eventClazz.getDeclaredMethod("getHandlerList");
             } catch (Exception e) {
                 continue;
             }
-            this.skyBlock.getServer().getPluginManager().registerEvent(aClass, new Listener() {
+            this.skyBlock.getServer().getPluginManager().registerEvent(eventClazz, new Listener() {
             }, EventPriority.NORMAL, new EventExecutor() {
                 @Override
                 public void execute(Listener listener, Event event) throws EventException {

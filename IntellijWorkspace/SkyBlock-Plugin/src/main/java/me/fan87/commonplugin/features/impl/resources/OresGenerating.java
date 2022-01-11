@@ -207,6 +207,12 @@ public class OresGenerating extends SBFeature {
             int count = 0;
             long lastTime = System.currentTimeMillis();
             double avg = 0;
+            if (hasCache(event.getWorld())) {
+                skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it...");
+                return;
+            }
+            skyBlock.sendMessage(ChatColor.RED + "Cache does not exist!");
+
             for (int x = -radius; x < radius; x++) {
                 for (int y = -radius; y < radius; y++) {
                     if (event.getWorld().loadChunk((int) centerPos.getX() /16 + x, (int) centerPos.getZ() /16 + y, true)) {
@@ -230,8 +236,10 @@ public class OresGenerating extends SBFeature {
 
     @SneakyThrows
     public void saveCache(World world) {
+        getCacheFile(world).delete();
         DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(getCacheFile(world)));
         List<OreSpawn> oreSpawns = this.oreSpawns.get(world.getName());
+        if (oreSpawns == null) return;
         byte[] buffer = new byte[3*4* oreSpawns.size()];
         byte[] array = new byte[0];
         if (buffer.length > 0) {
@@ -309,7 +317,7 @@ public class OresGenerating extends SBFeature {
             cache.mkdirs();
         }
         File file = new File(cache, world.getName() + ".ores");
-        return file.exists() && FileUtils.sizeOf(file) > 0;
+        return file.exists();
     }
 
     @SneakyThrows

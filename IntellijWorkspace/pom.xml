@@ -10,7 +10,7 @@
     <version>v1</version>
     <modules>
         <module>SkyBlock-Plugin</module>
-        <module>DevClientPack</module>
+        <module>DevPack</module>
     </modules>
 
     <properties>
