@@ -1,7 +1,9 @@
 package me.fan87.commonplugin.features.impl.world;
 
+import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.fan87.commonplugin.events.impl.PlayerPostPortalEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
@@ -9,6 +11,7 @@ import me.fan87.commonplugin.utils.SBLocation;
 import me.fan87.commonplugin.utils.TransportUtils;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.WorldsManager;
+import net.minecraft.server.v1_8_R3.PacketPlayInFlying;
 import org.bukkit.*;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
@@ -16,15 +19,20 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LaunchPad extends SBFeature {
 
     private final List<Pad> pads = new ArrayList<>();
+
+    private final Map<SBPlayer, Integer> quota = new HashMap<>();
 
     @Getter
     @AllArgsConstructor
@@ -76,7 +84,7 @@ public class LaunchPad extends SBFeature {
         }
         for (Pad pad : pads) {
             for (Entity nearbyEntity : pad.getLocation().getWorld().getNearbyEntities(pad.getLocation(), 2, 2, 2)) {
-                if (nearbyEntity instanceof Player && !nearbyEntity.isInsideVehicle()) {
+                if (nearbyEntity instanceof Player && !nearbyEntity.isInsideVehicle() && getQuota(skyBlock.getPlayersManager().getPlayer(((Player) nearbyEntity))) <= 0) {
                     animatedSend(skyBlock.getPlayersManager().getPlayer(((Player) nearbyEntity)), pad);
                 }
             }
@@ -84,12 +92,16 @@ public class LaunchPad extends SBFeature {
     }
 
     public void animatedSend(SBPlayer sbPlayer, Pad pad) {
+        setQuota(sbPlayer, 50);
         Player player = sbPlayer.getPlayer();
         ArmorStand armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
         armorStand.setPassenger(player);
         armorStand.setVisible(false);
         armorStand.setGravity(false);
         armorStand.setMarker(true);
+        player.playEffect(player.getLocation(), Effect.EXPLOSION_LARGE, 0);
+        player.playSound(player.getLocation(), Sound.EXPLODE, 1f, 1f);
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -103,6 +115,48 @@ public class LaunchPad extends SBFeature {
                 ((CraftArmorStand) armorStand).getHandle().setPosition(location.getX(), location.getY(), location.getZ());
             }
         }.runTaskTimer(skyBlock, 0, 0);
+    }
+
+    @Subscribe
+    public void onDismount(VehicleExitEvent event) {
+        if (event.getVehicle() instanceof ArmorStand) {
+            event.setCancelled(true);
+        }
+    }
+
+    @Subscribe
+    public void onPortal(PlayerPostPortalEvent event) {
+        for (Pad pad : pads) {
+            if (pad.to == event.getFrom().getWorldType() && pad.from == event.getTo().getWorldType()) {
+                Location location = pad.getLocation();
+                location.setWorld(event.getPlayer().getPlayer().getWorld());
+                double deltaX = location.getWorld().getSpawnLocation().getX() - location.getX();
+                double deltaY = location.getWorld().getSpawnLocation().getY() - location.getY();
+                double deltaZ = location.getWorld().getSpawnLocation().getZ() - location.getZ();
+                if (Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ) > 10) {
+                    event.getPlayer().getPlayer().teleport(location);
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onPacket(PacketPlayReceiveEvent event) {
+        if (event.getNMSPacket().getRawNMSPacket() instanceof PacketPlayInFlying) {
+            PacketPlayInFlying c03 = (PacketPlayInFlying) event.getNMSPacket().getRawNMSPacket();
+            SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+            if (c03.g()) {
+                setQuota(player, getQuota(player) - 1);
+            }
+        }
+    }
+
+    public void setQuota(SBPlayer player, int quota) {
+        this.quota.put(player, quota);
+    }
+
+    public int getQuota(SBPlayer player) {
+        return this.quota.get(player) == null?0:this.quota.get(player);
     }
 
 }

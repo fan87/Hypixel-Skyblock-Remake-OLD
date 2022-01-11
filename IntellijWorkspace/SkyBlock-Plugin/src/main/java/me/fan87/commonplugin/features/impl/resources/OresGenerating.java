@@ -161,7 +161,6 @@ public class OresGenerating extends SBFeature {
                 List<OreSpawn> spawns = this.oreSpawns.get(world.getName());
                 if (spawns == null) continue;
                 if (ticks % 20 == 0 && generated < spawns.size()*0.025) {
-                    System.out.println(generated + " / " + spawns.size());
                     Random random = new Random();
                     for (int i = 0; i < spawns.size()/1000; i++) {
                         OreSpawn oreSpawn = spawns.get(random.nextInt(spawns.size()));

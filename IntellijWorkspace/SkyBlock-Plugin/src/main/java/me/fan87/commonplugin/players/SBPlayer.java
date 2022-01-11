@@ -9,6 +9,7 @@ import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.impl.PlayerPostPortalEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.impl.GuiSkyBlockMenu;
 import me.fan87.commonplugin.gui.impl.GuiYourProfile;
@@ -473,10 +474,13 @@ public class SBPlayer {
         for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
             if (world.getWorldType() == worldType) {
                 World w = skyBlock.getServer().getWorld(world.getWorldName());
+                SBWorld world1 = skyBlock.getWorldsManager().getWorld(w.getName());
+                PlayerPostPortalEvent event = new PlayerPostPortalEvent(skyBlock.getWorldsManager().getWorld(player.getWorld().getName()), world1, this);
                 player.sendMessage(ChatColor.GRAY + "Sending to server " + skyBlock.getConfigsManager().config.serverId + world.getWorldID() + "...");
                 Location spawnLocation = w.getSpawnLocation();
                 spawnLocation.setYaw(180);
                 player.teleport(spawnLocation);
+                EventManager.EVENT_BUS.post(event);
                 currentWorldType = worldType;
                 player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
                 return true;
