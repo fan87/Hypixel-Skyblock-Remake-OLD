@@ -6,6 +6,9 @@ import me.fan87.commonplugin.players.collections.SBCollection;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CmdMaxAllCollections extends SBCommand {
 
 
@@ -35,5 +38,23 @@ public class CmdMaxAllCollections extends SBCommand {
         }
         sender.sendMessage(ChatColor.RED + "Invalid player");
         return true;
+    }
+
+    @Override
+    protected List<String> onTabComplete(CommandSender sender, String alias, String[] args) {
+
+        List<String> out = new ArrayList<>();
+        for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
+
+            String name = loadedPlayer.getPlayer().getName();
+            if (name.startsWith(args[0])) {
+
+                out.add(name);
+
+            }
+
+        }
+
+        return out;
     }
 }

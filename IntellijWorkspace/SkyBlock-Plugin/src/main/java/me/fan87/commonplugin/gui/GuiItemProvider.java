@@ -45,7 +45,7 @@ public class GuiItemProvider {
         return item;
     }
 
-    public static ItemStack getMenuSkull(SBPlayer player) {
+    public static ItemStack getMenuSkull(SBPlayer player, boolean yours) {
         ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
         List<String> lores = new ArrayList<>();
@@ -62,7 +62,7 @@ public class GuiItemProvider {
             }
         }
         meta.setLore(lores);
-        meta.setDisplayName("§aYour SkyBlock Profile");
+        if (!yours) {meta.setDisplayName(ChatColor.GREEN + player.getPlayer().getName() + "'s Profile");} else {meta.setDisplayName("§aYour SkyBlock Profile");}
         skull.setItemMeta(meta);
         getSkull(skull, player.getSkin(), player.getPlayer().getUniqueId().toString());
         return skull;

@@ -19,10 +19,21 @@ import java.util.List;
 public class GuiYourProfile extends Gui {
 
     private SBPlayer player;
+    private boolean yours = true;
 
     public GuiYourProfile(SBPlayer player) {
         super("Your SkyBlock Profile", 6);
         this.player = player;
+    }
+
+    public GuiYourProfile(SBPlayer player, boolean yours){
+
+        this(player);
+        this.yours = yours;
+        if (!yours) {
+            this.setTitle("Viewing " + player.getPlayer().getName() + "'s" + " SkyBlock Profile");
+        }
+
     }
 
     @Subscribe
@@ -33,7 +44,7 @@ public class GuiYourProfile extends Gui {
     @Override
     public void init() {
         fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
-        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player)));
+        set(5, 1, new GuiItem(GuiItemProvider.getMenuSkull(player, yours)));
 
         renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
 

@@ -39,7 +39,7 @@ public class GuiSkyBlockMenu extends Gui {
     @Override
     public void init() {
         this.fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
-        ItemStack menuSkull = GuiItemProvider.getMenuSkull(this.player);
+        ItemStack menuSkull = GuiItemProvider.getMenuSkull(this.player, false);
         ItemMeta itemMeta = menuSkull.getItemMeta();
         itemMeta.getLore().add("");
         itemMeta.getLore().add("§7§eClick to view your profile!");
@@ -137,7 +137,7 @@ public class GuiSkyBlockMenu extends Gui {
 
     @Subscribe
     public void onTick(ServerTickEvent event) {
-        ItemStack menuSkull = GuiItemProvider.getMenuSkull(this.player);
+        ItemStack menuSkull = GuiItemProvider.getMenuSkull(this.player, false);
         ItemMeta itemMeta = menuSkull.getItemMeta();
         itemMeta.getLore().add("");
         itemMeta.getLore().add("§7§eClick to view your profile!");
