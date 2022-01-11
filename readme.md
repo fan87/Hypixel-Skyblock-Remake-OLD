@@ -1,34 +1,64 @@
-# Hypixel SkyBlock Remake / Recreate
+![](https://github.com/fan87/Hypixel-Skyblock-Remake/raw/master/document/assets/Banner.png)
 
-Hypixel SkyBlock Full Remake Project, Including every single item and feature.<br>WIP
 
-## Contribute
 
-Contact me on Discord: `fan87#5283`. I'm not a Hypixel SkyBlock pro, so I might missed something.
+Welcome to the document! You can find more informations about this remake on this document.
 
-## Developers/Contributors
-Go 
-[GitHub Contributors Page](https://github.com/fan87/Hypixel-Skyblock-Remake/graphs/contributors)
-for latest contributors list<br>
-### Contributors
- - fan87 (`fan87#5283`)
- - TropicalFan344 (`TropicalFan344#2076`)
+## Addons System
 
-## Missing Features
+This system allows you to create your own Hypixel SkyBlock experience, also known as Content Pack. We have some pre-made content packs for you, including commands pack, more items pack, debugging pack, plugin support pack and more!
+
+### Pre-made addons
+
+#### Basic Command Pack
+
+This pack includes most commands you want, including `/craft`, `/ec` and some basic commands that's in Hypixel
+
+#### LP SkyBlock
+
+This pack gives the support of LuckPerm plugin, so rank system will work like Hypixel
+
+#### Dev Client Pack
+
+This pack includes some features you'll need to debug stuff, including Path Finding debug info, entity debug info, items debug info and more!
+
+
+
+## Use/Disclaimer
+
+This game is made by Hypixel, which means non of us owns the game, and able to make profit. Most likely you are allowed to use this plugin in a small private server, but Hypixel still has the permission to take your server down, or even take the repository down.
+
+
+
+## Missing Features / Not planned to make
+
 Those features are not being implemented, and currently not working on them.
 If you can code java or know someone who can code java, you can do
-pull requests or DM me on discord to add those 
+pull requests or DM me on discord to add those
 features in.
+
 #### Systems
- - Auction (No point when you are playing with your friends/single player)
- - Bazaar (Nobody will sell/buy anything so pointless)
- - Multi Server (AKA BungeeCord Support, since I'm lazy. I'll add it, don't worry, even tho it will be very difficult to set it up)
+
+- Auction (No point when you are playing with your friends/single player)
+- Bazaar (Nobody will sell/buy anything so pointless)
+- Multi Server (AKA BungeeCord Support, since I'm lazy. I'll add it, don't worry, even tho it will be very difficult to set it up)
+
 #### Addon Support
- - Custom World Type (Lazy to make, probably will make them later)
+
+- Custom World Type (Lazy to make, probably will make them later)
+
 #### Area
- - Save location and stuff to config/database (Lazy, will make it later. For now just change the sourcecode and build it)
 
-## Document
+- Save location and stuff to config/database (Lazy, will make it later. For now just change the sourcecode and build it)
 
-> please read `documents/addons/GettingStarted.md` instead
 
+
+## API
+
+We have an API that allows you to add your own commands, items, blocks, mobs etc into the game! If you are a developer, and you would like to make your own addon, please check out our [Addons API Document](https://github.com/fan87/Hypixel-Skyblock-Remake/blob/master/document/api/GettingStarted.md).
+
+### Developer
+
+- fan87 (`fan87#5283`, the guy who starts the project)\
+- TropicalFan344 (`TropicalFan344#2076`, the guy who codes most commands)
+- YYJ (`YYJ#6116`, the guy who helped finishing the map)
