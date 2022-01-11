@@ -9,15 +9,9 @@ import me.fan87.commonplugin.utils.SBLocation;
 import me.fan87.commonplugin.utils.TransportUtils;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.WorldsManager;
-import net.minecraft.server.v1_8_R3.TileEntity;
-import net.minecraft.server.v1_8_R3.WorldServer;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.*;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -57,27 +51,23 @@ public class LaunchPad extends SBFeature {
     @Subscribe
     public void onTileEntity(ServerTickEvent event) {
         for (World world : skyBlock.getServer().getWorlds()) {
-            WorldServer nmsWorld = ((CraftWorld) world).getHandle();
-            for (TileEntity tileEntity : nmsWorld.tileEntityList) {
-                Block blockAt = world.getBlockAt(tileEntity.getPosition().getX(), tileEntity.getPosition().getY(), tileEntity.getPosition().getZ());
-                if (blockAt.getType() != Material.CHEST)
-                System.out.println(blockAt.getType());
-                if (blockAt instanceof Sign) {
-                    Sign sign = (Sign) blockAt;
-                    System.out.println(sign.getLines().length);
-                    if (sign.getLines().length >= 3) {
-                        System.out.println(sign.getLine(0));
-                        if (sign.getLine(0).contains("[LAUNCHPAD]")) {
-                            WorldsManager.WorldType from = WorldsManager.WorldType.fromString(sign.getLine(1));
-                            WorldsManager.WorldType to = WorldsManager.WorldType.fromString(sign.getLine(2));
-                            if (from != null && to != null) {
-                                if (from == skyBlock.getWorldsManager().getWorld(world.getName()).getWorldType()) {
-                                    pads.add(new Pad(blockAt.getLocation(), from ,to));
-                                    skyBlock.sendMessage(ChatColor.GREEN + "Launch pad detected! From " + from + " to " + to);
+            for (Chunk loadedChunk : world.getLoadedChunks()) {
+                for (BlockState tileEntity : loadedChunk.getTileEntities()) {
+                    if (tileEntity instanceof Sign) {
+                        Sign sign = (Sign) tileEntity;
+                        if (sign.getLines().length >= 3) {
+                            if (sign.getLine(0).contains("[LAUNCHPAD]")) {
+                                WorldsManager.WorldType from = WorldsManager.WorldType.fromString(sign.getLine(1));
+                                WorldsManager.WorldType to = WorldsManager.WorldType.fromString(sign.getLine(2));
+                                if (from != null && to != null) {
+                                    if (from == skyBlock.getWorldsManager().getWorld(world.getName()).getWorldType()) {
+                                        pads.add(new Pad(tileEntity.getLocation(), from ,to));
+                                        skyBlock.sendMessage(ChatColor.GREEN + "Launch pad detected! From " + from + " to " + to);
+                                    }
+                                    tileEntity.getLocation().getBlock().setType(Material.AIR);
+                                } else {
+                                    skyBlock.sendMessage(ChatColor.RED + "Invalid launch pad ( " + new Vec3d(tileEntity.getLocation()) + " )");
                                 }
-                                blockAt.setType(Material.AIR);
-                            } else {
-                                skyBlock.sendMessage(ChatColor.RED + "Invalid launch pad ( " + new Vec3d(blockAt.getLocation()) + " )");
                             }
                         }
                     }
