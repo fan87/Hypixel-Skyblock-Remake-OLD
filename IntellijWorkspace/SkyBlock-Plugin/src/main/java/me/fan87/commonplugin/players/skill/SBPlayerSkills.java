@@ -2,8 +2,7 @@ package me.fan87.commonplugin.players.skill;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.SneakyThrows;
-import me.fan87.commonplugin.players.skill.impl.SkillCombat;
-import me.fan87.commonplugin.players.skill.impl.SkillFarming;
+import me.fan87.commonplugin.players.skill.impl.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -14,7 +13,12 @@ public class SBPlayerSkills {
 
 
     public SkillFarming skillFarming = new SkillFarming();
+    public SkillMining skillMining = new SkillMining();
     public SkillCombat skillCombat = new SkillCombat();
+    public SkillForaging skillForaging = new SkillForaging();
+    public SkillFishing skillFishing = new SkillFishing();
+    public SkillEnchanting skillEnchanting = new SkillEnchanting();
+    public SkillAlchemy skillAlchemy = new SkillAlchemy();
 
     @SneakyThrows
     public SBSkill[] getSkills() {
