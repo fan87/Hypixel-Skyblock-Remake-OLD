@@ -19,9 +19,9 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.greenrobot.eventbus.Subscribe;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,6 +105,7 @@ public class LaunchPad extends SBFeature {
         new BukkitRunnable() {
             @Override
             public void run() {
+                armorStand.setPassenger(player);
                 SBLocation location = TransportUtils.getLocation(player.getWorld(), pad.getFrom(), pad.getTo(), armorStand.getTicksLived());
                 if (location == null) {
                     this.cancel();
@@ -117,12 +118,6 @@ public class LaunchPad extends SBFeature {
         }.runTaskTimer(skyBlock, 0, 0);
     }
 
-    @Subscribe
-    public void onDismount(VehicleExitEvent event) {
-        if (event.getVehicle() instanceof ArmorStand) {
-            event.setCancelled(true);
-        }
-    }
 
     @Subscribe
     public void onPortal(PlayerPostPortalEvent event) {
