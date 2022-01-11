@@ -1,6 +1,5 @@
 package me.fan87.commonplugin.features.impl.resources;
 
-import com.google.common.primitives.Ints;
 import lombok.*;
 import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.events.EventManager;
@@ -12,7 +11,6 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ExperienceOrb;
@@ -162,7 +160,8 @@ public class OresGenerating extends SBFeature {
             for (World world : skyBlock.getServer().getWorlds()) {
                 List<OreSpawn> spawns = this.oreSpawns.get(world.getName());
                 if (spawns == null) continue;
-                if (ticks % 100 == 0 && generated < spawns.size()*0.98) {
+                if (ticks % 20 == 0 && generated < spawns.size()*0.025) {
+                    System.out.println(generated + " / " + spawns.size());
                     Random random = new Random();
                     for (int i = 0; i < spawns.size()/1000; i++) {
                         OreSpawn oreSpawn = spawns.get(random.nextInt(spawns.size()));
@@ -209,6 +208,7 @@ public class OresGenerating extends SBFeature {
             double avg = 0;
             if (hasCache(event.getWorld())) {
                 skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it...");
+                loadCache(event.getWorld());
                 return;
             }
             skyBlock.sendMessage(ChatColor.RED + "Cache does not exist!");
@@ -240,24 +240,13 @@ public class OresGenerating extends SBFeature {
         DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(getCacheFile(world)));
         List<OreSpawn> oreSpawns = this.oreSpawns.get(world.getName());
         if (oreSpawns == null) return;
-        byte[] buffer = new byte[3*4* oreSpawns.size()];
-        byte[] array = new byte[0];
-        if (buffer.length > 0) {
-            skyBlock.sendMessage(world.getName() + " / Buffer Size: " + buffer.length);
-        }
+        byte[] buffer = new byte[oreSpawns.size() * 3 * 8];
         for (int i = 0; i < oreSpawns.size(); i++) {
-            Location location = oreSpawns.get(i).getLocation();
-            array = Ints.toByteArray(location.getBlockX());
-            for (int k = 0; k < 4; k++) {
-                buffer[i*12 + k] = array[k];
-            }
-            array = Ints.toByteArray(location.getBlockY());
-            for (int k = 0; k < 4; k++) {
-                buffer[i*12 + k + 4] = array[k];
-            }
-            array = Ints.toByteArray(location.getBlockZ());
-            for (int k = 0; k < 4; k++) {
-                buffer[i*12 + k + 8] = array[k];
+            OreSpawn oreSpawn = oreSpawns.get(i);
+            Location location = oreSpawn.getLocation();
+            Vec3d vec3d = new Vec3d(location.getX(), location.getY(), location.getZ());
+            for (int j = 0; j < 24; j++) {
+                buffer[i * 24 + j ] = vec3d.toBytesArray()[j];
             }
         }
         outputStream.write(buffer);
@@ -283,8 +272,6 @@ public class OresGenerating extends SBFeature {
                         }
                     }
                 }
-            } else {
-                loadCache(chunk.getWorld());
             }
         }
     }
@@ -294,10 +281,13 @@ public class OresGenerating extends SBFeature {
         File cacheFile = getCacheFile(world);
         FileInputStream inputStream = new FileInputStream(cacheFile);
         byte[] buffer = new byte[24];
-        while (inputStream.read(buffer) != -1) {
+        while (true) {
+            int read = inputStream.read(buffer);
+            if (read == -1) break;
             Vec3d vec3d = Vec3d.fromByteArray(buffer);
             Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
             putOreSpawn(world, new OreSpawn(location, skyBlock.getAreasManager().getAreaOf(location)));
+            location.getBlock().setType(Material.STONE);
         }
     }
 

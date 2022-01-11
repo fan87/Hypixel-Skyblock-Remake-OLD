@@ -167,6 +167,14 @@ public class WorldsManager {
 
         private String name;
         private boolean hidden;
+
+        public static WorldType fromString(String name) {
+            for (WorldType value : WorldType.values()) {
+                if (value.toString().equals(name)) return value;
+            }
+            if (name.equals("BLAZING")) return BLAZING_FORTRESS;
+            return null;
+        }
     }
 
     @Getter

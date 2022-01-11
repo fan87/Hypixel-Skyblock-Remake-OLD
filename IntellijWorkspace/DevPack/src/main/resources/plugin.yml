@@ -1,3 +1,5 @@
 name: DevPack
 version: 1.0
 main: me.fan87.devpack.DevPack
+depend:
+  - HypixelSkyBlock-Common

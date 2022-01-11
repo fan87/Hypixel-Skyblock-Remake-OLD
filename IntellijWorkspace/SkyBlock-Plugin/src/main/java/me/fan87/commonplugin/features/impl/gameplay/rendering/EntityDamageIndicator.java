@@ -61,9 +61,9 @@ public class EntityDamageIndicator extends SBFeature {
         entityArmorStand.setCustomNameVisible(true);
         if (criticals.contains(event)) {
             criticals.remove(event);
-            entityArmorStand.setCustomName(ColorUtils.generateRainbowText("✧" + Math.round(event.getDamage()) + "✧", ColorUtils.RainbowStyle.CRITICAL));
+            entityArmorStand.setCustomName(ColorUtils.generateRainbowText("✧" + Math.round(event.getDamage()*5f) + "✧", ColorUtils.RainbowStyle.CRITICAL));
         } else {
-            entityArmorStand.setCustomName(ChatColor.GRAY + "" + Math.round(event.getDamage()));
+            entityArmorStand.setCustomName(ChatColor.GRAY + "" + Math.round(event.getDamage()*5f));
         }
         EntityDespawner.planDespawnTime(((CraftWorld) entity.getWorld()).addEntity(entityArmorStand, CreatureSpawnEvent.SpawnReason.CUSTOM), 20);
     }

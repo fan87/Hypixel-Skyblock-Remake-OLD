@@ -20,6 +20,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>xyz.xenondevs</groupId>
+            <artifactId>particle</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>

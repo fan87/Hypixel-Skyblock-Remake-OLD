@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.utils;
 
 import lombok.*;
+import org.bukkit.Location;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,12 @@ public class Vec3d {
     private double x;
     private double y;
     private double z;
+
+    public Vec3d(Location location) {
+        this.x = location.getX();
+        this.y = location.getY();
+        this.z = location.getZ();
+    }
 
     @SneakyThrows
     public byte[] toBytesArray() {
