@@ -23,7 +23,7 @@ public class SkillFishing extends SBSkill {
 
     @Override
     public String getFortuneDescription(SBPlayer player) {
-        return "Increases the chance to find treasure when fishing by " + ChatColor.GREEN + "%s" + ChatColor.WHITE + "%.";
+        return "Increases the chance to find treasure when fishing by " + ChatColor.GREEN + "%s%" + ChatColor.WHITE + ".";
     }
 
     @Override
