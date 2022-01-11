@@ -57,7 +57,7 @@ public class GuiCollectionItemsMenu extends Gui {
                 builder.addLore(ChatColor.GRAY + "View all your " + collection.getItem().getDisplayName() + " Collection progress and rewards!", true);
                 if (!collection.isMaxedOut()) {
                     builder.addLore("");
-                    builder.addLore(NumberUtils.getPercentageText("Progress to " + collection.getItem().getDisplayName() + " " + collection.getLevelDisplay(collection.getLevel(collection.getCollected())),
+                    builder.addLore(NumberUtils.getPercentageText("Progress to " + collection.getItem().getDisplayName() + " " + collection.getLevelDisplay(collection.getLevel(collection.getCollected()) + 1),
                             collection.getCollected(), collection.getRequiredAmount(collection.getLevel(collection.getCollected()) + 1), ChatColor.GOLD + "%"));
                     builder.addLore(NumberUtils.generateProgressBar(collection.getCollected(), collection.getRequiredAmount(collection.getLevel(collection.getCollected()) + 1)));
                     builder.addLore("");

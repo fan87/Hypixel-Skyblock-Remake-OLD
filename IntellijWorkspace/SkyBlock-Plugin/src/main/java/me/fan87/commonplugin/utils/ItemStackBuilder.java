@@ -1,5 +1,8 @@
 package me.fan87.commonplugin.utils;
 
+import de.tr7zw.changeme.nbtapi.NBTCompound;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemStackBuilder {
 
@@ -34,6 +38,17 @@ public class ItemStackBuilder {
     public ItemStackBuilder(Material material, int data) {
         this.itemStack = new ItemStack(material, 1, (short) data);
         itemStack.setAmount(1);
+    }
+
+    public ItemStackBuilder setSkullTexture(String texture) {
+        assert itemStack.getType() == Material.SKULL_ITEM;
+        NBTItem nbtItem = new NBTItem(itemStack, true);
+        NBTCompound skullOwner = nbtItem.addCompound("SkullOwner");
+        skullOwner.setString("Id", UUID.randomUUID().toString());
+        NBTCompound properties = skullOwner.addCompound("Properties");
+        NBTListCompound textures = properties.getCompoundList("textures").addCompound();
+        textures.setString("Value", texture);
+        return this;
     }
 
     public ItemStackBuilder setLore(List<String> lore) {

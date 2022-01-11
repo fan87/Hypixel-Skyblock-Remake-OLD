@@ -46,6 +46,8 @@ public abstract class Gui {
             }
             for (int i = 0; i < items.length; i++) {
                 if (i == event.getRawSlot()) {
+                    if (items[i] == null) continue;
+                    if (items[i].getHandler() == null) continue;
                     items[i].getHandler().handleClick(event);
                 }
             }
@@ -90,7 +92,7 @@ public abstract class Gui {
 
     public Gui set(int x, int y, GuiItem item) {
         int slot = getSlotNumberByXY(x, y);
-        slot = Math.min(size, Math.max(0, slot));
+        slot = Math.min(size - 1, Math.max(0, slot));
         items[slot] = item;
         if (inventory != null) {
             inventory.setItem(slot, item.getItemStack());

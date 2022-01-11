@@ -17,8 +17,10 @@ import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.item.init.SBItems;
+import me.fan87.commonplugin.npc.AbstractNPC;
 import me.fan87.commonplugin.players.collections.SBPlayerCollections;
 import me.fan87.commonplugin.players.skill.SBPlayerSkills;
+import me.fan87.commonplugin.players.skill.SBSkill;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import me.fan87.commonplugin.players.tradings.SBTrading;
@@ -27,10 +29,12 @@ import me.fan87.commonplugin.recipes.SBRecipe;
 import me.fan87.commonplugin.utils.BukkitSerialization;
 import me.fan87.commonplugin.utils.IngameDate;
 import me.fan87.commonplugin.utils.NumberUtils;
+import me.fan87.commonplugin.utils.SBNamespace;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -123,8 +127,17 @@ public class SBPlayer {
     @JsonProperty("enderChest")
     private String enderChest = "";
 
+    @JsonProperty("unlockedAreas")
+    private List<String> unlockedAreas = new ArrayList<>();
+
+    @JsonProperty("talkedNpcs")
+    private List<String> talkedNpcs = new ArrayList<>();
+
     @JsonProperty("xp")
     private Float xp = 0F;
+
+    private String extraActionBar = "";
+    private long extraActionBarTime = System.currentTimeMillis();
 
     public boolean showActionBar = true;
 
@@ -135,6 +148,11 @@ public class SBPlayer {
     }
 
     public SBPlayer() {
+    }
+
+    public void showExtraActionBar(String message) {
+        extraActionBarTime = System.currentTimeMillis() + 3000;
+        extraActionBar = message;
     }
 
     public void init(Player player, SkyBlock skyBlock) {
@@ -240,6 +258,9 @@ public class SBPlayer {
         for (SBStat stat : stats.getStats()) {
             stat.getBonusValue().clear();
         }
+        for (SBSkill skill : skills.getSkills()) {
+            skill.setMultiplier(1f);
+        }
         ItemStack[] allInventoryItems = getAllInventoryItems();
         for (int i = 0; i < allInventoryItems.length; i++) {
             if (allInventoryItems[i] == null || allInventoryItems[i].getType() == Material.AIR) continue;
@@ -328,14 +349,38 @@ public class SBPlayer {
         profileGui.open(player.getPlayer());
     }
 
+    public boolean hasTalkedTo(AbstractNPC<?> npc) {
+        AbstractNPC.NPCRegistry npcRegistry = AbstractNPC.getNPCRegistry(npc.getClass());
+        if (npcRegistry != null) {
+            return talkedNpcs.contains(new SBNamespace(npcRegistry.addonName(), npcRegistry.namespace()).toString());
+        }
+        return false;
+    }
+
+    public void setTalkedTo(AbstractNPC<?> npc, boolean talked) {
+        AbstractNPC.NPCRegistry npcRegistry = AbstractNPC.getNPCRegistry(npc.getClass());
+        if (npcRegistry != null) {
+            String e = new SBNamespace(npcRegistry.addonName(), npcRegistry.namespace()).toString();
+            if (talked) {
+                if (talkedNpcs.contains(e)) return;
+                talkedNpcs.add(e);
+            } else {
+                talkedNpcs.remove(e);
+            }
+        }
+    }
+
     /**
      * Displays the bottom text of the screen
      */
     public void displayActionBar() {
         String text = stats.getHealth().getColor() + (int) Math.floor(getPlayer().getHealth()*5) + "/" + (int) (getPlayer().getMaxHealth()*5) + stats.getHealth().getIcon() + "   ";
-        if (stats.getDefence().getValue(this) > 0) {
+        if (System.currentTimeMillis() < extraActionBarTime) {
+            text += extraActionBar + "   ";
+        } else if (stats.getDefence().getValue(this) > 0) {
             text += stats.getDefence().getColor() + stats.getDefence().getValueDisplay((int) stats.getDefence().getValue(this)) + stats.getDefence().getIcon() + " " + stats.getDefence().getName() + "   ";
         }
+
         text += stats.getIntelligence().getColor() + (int) Math.floor(mana) + "/" + (int) Math.floor(getStats().getIntelligence().getValue(this) + 100) + stats.getIntelligence().getIcon();
         getCraftPlayer().getHandle().playerConnection.networkManager.a(new PacketPlayOutChat(new ChatComponentText(text), (byte) 2), null);
     }
@@ -416,7 +461,25 @@ public class SBPlayer {
     }
 
     public SBArea getArea() {
-        return skyBlock.getAreasManager().getAreaOf(player.getLocation());
+        SBArea areaOf = skyBlock.getAreasManager().getAreaOf(player.getLocation());
+        if (areaOf == null) return null;
+        if (!unlockedAreas.contains(areaOf.getName())) {
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 0.5f);
+            sendTitle(areaOf.getColor() + ChatColor.BOLD.toString() + areaOf.getName(), ChatColor.GREEN + "New Zone Discovered!");
+            unlockedAreas.add(areaOf.getName());
+            player.sendMessage(ChatColor.GREEN +                       "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+            player.sendMessage(ChatColor.GREEN + "  " + ChatColor.BOLD + "NEW ZONE " + ChatColor.DARK_GRAY + ChatColor.BOLD + "- " + areaOf.getColor().toString() + ChatColor.BOLD + areaOf.getName());
+            player.sendMessage("");
+            player.sendMessage(ChatColor.DARK_GRAY + "  ➤ " + ChatColor.YELLOW + "Objective system coming soon : )");
+            player.sendMessage("");
+            player.sendMessage(ChatColor.GREEN +                       "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        }
+        return areaOf;
+    }
+
+    public void sendTitle(String title, String subtitle) {
+        getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle)));
+        getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, new ChatComponentText(title)));
     }
 
     public List<String> getScoreboardContent() {
@@ -425,7 +488,7 @@ public class SBPlayer {
         Date date = new Date(System.currentTimeMillis());
         out.add(ChatColor.GRAY + new SimpleDateFormat("dd/MM/yy").format(date) + " " + ChatColor.DARK_GRAY + skyBlock.getConfigsManager().config.serverId + getWorld().getWorldID());
         out.add("");
-        IngameDate ingameDate = new IngameDate(skyBlock.getDatabaseManager().getServerData().dayZero);
+        IngameDate ingameDate = new IngameDate(System.currentTimeMillis() - skyBlock.getDatabaseManager().getServerData().dayZero);
         out.add(String.format(" %s %s", ingameDate.getMonthDisplay().getName(), ingameDate.getDayOfMonthDisplay()));
         out.add(ChatColor.GRAY + " " + ingameDate.getTimeDisplay());
         SBArea area = getArea();

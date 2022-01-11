@@ -27,11 +27,12 @@ public class CmdMaxAllCollections extends SBCommand {
 
                 for (SBCollection collection : loadedPlayer.getCollections().getCollections()) {
 
-                    collection.setCollected(collection.getRequiredAmount(collection.getMaxLevel()));
-                    sender.sendMessage(ChatColor.GREEN + "Successfully set " + ChatColor.YELLOW + loadedPlayer.getPlayer().getName() + ChatColor.GREEN + "'s collection to max");
-                    return true;
+                    collection.setCollected(collection.getRequiredAmount(collection.getMaxLevel()), loadedPlayer);
 
                 }
+
+                sender.sendMessage(ChatColor.GREEN + "Successfully set " + ChatColor.YELLOW + loadedPlayer.getPlayer().getName() + ChatColor.GREEN + "'s collection to max");
+                return true;
 
             }
 

@@ -57,6 +57,6 @@ public class GuiTradings extends GuiList {
 
     @Override
     public void goPage(int page) {
-
+        new GuiTradings(player, page).open(player.getPlayer());
     }
 }

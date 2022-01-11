@@ -25,10 +25,12 @@ public abstract class GuiList extends Gui {
         setTitle(String.format("(%d/%d) %s", getCurrentPage(), getMaxPages(), getTitle()));
         for (int i = 0; i < contents.size(); i++) {
             GuiItem item = contents.get(i);
-            if (i > getLastIndex()) break;
-            if (i <= getFirstIndex()) {
+            if (i > getLastIndex()) {
+                break;
+            }
+            if (i >= getFirstIndex()) {
                 int[] position = getPositionOf(i - getFirstIndex());
-                set(position[0], position[1], item);
+                set(position[1], position[0], item);
             }
         }
         if (canGoNextPage()) {

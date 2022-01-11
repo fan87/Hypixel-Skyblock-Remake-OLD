@@ -19,6 +19,7 @@ public class NumberUtils {
         return format;
     }
 
+
     private static String[] large = new String[] {
             "k",
             "m",

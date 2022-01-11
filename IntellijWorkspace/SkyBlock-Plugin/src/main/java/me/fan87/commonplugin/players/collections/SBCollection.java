@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
+import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardSkillExp;
 import me.fan87.commonplugin.players.skill.SBSkill;
 import me.fan87.commonplugin.utils.RomanUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 
 import java.util.*;
 
@@ -28,7 +30,6 @@ public abstract class SBCollection {
 
     @JsonProperty("collected")
     @Getter
-    @Setter
     private int collected = 0;
 
     @Getter
@@ -40,6 +41,34 @@ public abstract class SBCollection {
         this.collectionPattern = pattern;
         this.maxLevel = maxLevel;
         this.collectionType = collectionType;
+    }
+
+    public void setCollected(int collected, SBPlayer player) {
+        if (this.collected == 0 && collected > 0) {
+            player.getPlayer().sendMessage(ChatColor.YELLOW.toString() + ChatColor.BOLD + "  COLLECTION UNLOCKED " + ChatColor.GOLD + getItem().getDisplayName());
+            player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
+        }
+        int old = getLevel();
+        this.collected = collected;
+        while (getLevel() > old) {
+            old++;
+            levelUp(player, old);
+        }
+    }
+
+    public void levelUp(SBPlayer player, int newLevel) {
+
+        for (SBReward reward : getRewards(newLevel)) {
+            reward.trigger(player);
+        }
+        player.getPlayer().sendMessage(ChatColor.YELLOW + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        player.getPlayer().sendMessage(String.format(ChatColor.GOLD + "  §lCOLLECTION LEVEL UP %s%s %s", ChatColor.GOLD, getItem().getDisplayName(), getLevelDisplay(newLevel)));
+        player.getPlayer().sendMessage("");
+        for (String s : getRewardsLore(ChatColor.GREEN + ChatColor.BOLD.toString() + "REWARDS", newLevel)) {
+            player.getPlayer().sendMessage("  " + s);
+        }
+        player.getPlayer().sendMessage(ChatColor.YELLOW + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
     }
 
     public String getDisplayName() {
@@ -93,7 +122,7 @@ public abstract class SBCollection {
 
     public SBReward[] getRewards(int level) {
         SBReward[] levelReward = getRewardsOfLevel(level);
-        if (levelReward.length <= 0) {
+        if (levelReward == null || levelReward.length <= 0) {
             return new SBReward[] {
                 new RewardSkillExp(getCollectionType().getSkillType(), getRequiredAmount(level)/10)
             };
@@ -102,8 +131,12 @@ public abstract class SBCollection {
     }
 
     public List<String> getRewardsLore(int level) {
+        return getRewardsLore(ChatColor.GRAY + "Rewards:", level);
+    }
+
+    public List<String> getRewardsLore(String title, int level) {
         List<String> out = new ArrayList<>();
-        out.add(ChatColor.GRAY + "Rewards:");
+        out.add(title);
         for (SBReward reward : getRewards(level)) {
             out.addAll(reward.toLore());
         }

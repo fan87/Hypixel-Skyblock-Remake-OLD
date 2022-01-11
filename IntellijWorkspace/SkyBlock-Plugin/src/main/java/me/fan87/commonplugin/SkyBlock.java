@@ -12,6 +12,7 @@ import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
 import me.fan87.commonplugin.features.FeaturesManager;
 import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.areas.AreasManager;
+import me.fan87.commonplugin.npc.NPCManager;
 import me.fan87.commonplugin.players.PlayersManager;
 import me.fan87.commonplugin.recipes.RecipesManager;
 import me.fan87.commonplugin.world.WorldsManager;
@@ -46,6 +47,8 @@ public class SkyBlock extends JavaPlugin {
     private RecipesManager recipesManager;
     @Getter
     private WorldsManager worldsManager;
+    @Getter
+    private NPCManager npcManager;
     @Getter
     private final List<SBAddon> addons = new ArrayList<>();
 
@@ -85,6 +88,7 @@ public class SkyBlock extends JavaPlugin {
         worldsManager.reload();
         this.playersManager = new PlayersManager(this);
         this.commandsManager = new CommandsManager(this);
+        this.npcManager = new NPCManager(this);
     }
 
     @Override

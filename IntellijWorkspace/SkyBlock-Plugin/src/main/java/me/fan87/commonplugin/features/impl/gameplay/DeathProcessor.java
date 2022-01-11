@@ -48,6 +48,7 @@ public class DeathProcessor extends SBFeature {
                 ((Player) event.getEntity()).setHealth(((Player) event.getEntity()).getMaxHealth());
                 SBPlayer player = skyBlock.getPlayersManager().getPlayer(((Player) event.getEntity()).getPlayer());
                 player.getPlayer().setFireTicks(0);
+                player.getPlayer().setFallDistance(0);
                 for (Player p : event.getEntity().getWorld().getPlayers()) {
                     p.sendMessage(ChatColor.RED + " ☠ " + getDeathDamage(event));
                 }

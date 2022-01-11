@@ -91,7 +91,6 @@ public class LaunchPad extends SBFeature {
     }
 
     public void animatedSend(SBPlayer sbPlayer, Pad pad) {
-        setQuota(sbPlayer, 50);
         Player player = sbPlayer.getPlayer();
         ArmorStand armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
         armorStand.setPassenger(player);
@@ -120,6 +119,8 @@ public class LaunchPad extends SBFeature {
 
     @Subscribe
     public void onPortal(PlayerPostPortalEvent event) {
+        setQuota(event.getPlayer(), 50);
+
         for (Pad pad : pads) {
             if (pad.to == event.getFrom().getWorldType() && pad.from == event.getTo().getWorldType()) {
                 Location location = pad.getLocation();

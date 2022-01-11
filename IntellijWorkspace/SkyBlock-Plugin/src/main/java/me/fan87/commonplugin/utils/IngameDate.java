@@ -11,6 +11,7 @@ public class IngameDate {
 
     public IngameDate(long ingameTime) {
         this.ingameTime = ingameTime;
+
     }
 
     public long getTotalDays() {
@@ -50,20 +51,26 @@ public class IngameDate {
         return ingameTime % 1200000;
     }
     public int getHour() {
-        return (int) getMSOfDay()/50000 + 1;
+        long msOfHour = getMSOfDay() % 50000;
+        for (int i = 0; i < 6; i++) {
+            if (msOfHour < (50000/6)*(i + 1) && msOfHour >= (50000/6)*i) {
+                return (i + 1) == 6?((int) getMSOfDay()/50000 + 2):((int) getMSOfDay()/50000 + 1);
+            }
+        }
+        return 0;
     }
     public int getMin() {
         long msOfHour = getMSOfDay() % 50000;
         for (int i = 0; i < 6; i++) {
             if (msOfHour < (50000/6)*(i + 1) && msOfHour >= (50000/6)*i) {
-                return (i + 1) * 10;
+                return (i + 1) * 10 % 60;
             }
         }
         return 0;
     }
 
     public String getTimeDisplay() {
-        return String.format("%d:%2d", getHour()%12, getMin()) + (getHour() >= 12?"pm":"am") + (getHour()>=6&&getHour()<=19?ChatColor.AQUA + " ☽": ChatColor.YELLOW + " ☀");
+        return String.format("%d:%02d", getHour()%12, getMin()) + (getHour() >= 12?"pm":"am") + (getHour()>=6&&getHour()<=19?ChatColor.YELLOW + " ☀":ChatColor.AQUA + " ☽");
     }
 
     @Getter

@@ -12,6 +12,7 @@ import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.item.impl.ItemSkyBlockMenu;
 import me.fan87.commonplugin.item.impl.ItemVanilla;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.minecraft.server.v1_8_R3.ItemStack;
@@ -19,9 +20,8 @@ import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Field;
@@ -121,9 +121,26 @@ public class SBItems {
 
     @Subscribe
     public void updateItemDrop(EntitySpawnEvent event) {
-        if (event.getEntityType() == EntityType.DROPPED_ITEM) {
-            Item entity = (Item) event.getEntity();
-            entity.setItemStack(new SBItemStack(entity.getItemStack()).getItemStack());
+//        if (event.getEntityType() == EntityType.DROPPED_ITEM) {
+//            Item entity = (Item) event.getEntity();
+//            entity.setItemStack(new SBItemStack(entity.getItemStack()).getItemStack());
+//        }
+    }
+
+    @Subscribe
+    public void onPickup(PlayerPickupItemEvent event) {
+        SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        org.bukkit.inventory.ItemStack itemStack = event.getItem().getItemStack();
+        NBTItem nbt = new NBTItem(itemStack, true);
+        boolean wasCustomized = nbt.hasKey("ExtraAttributes");
+        SBItemStack itemStack1 = new SBItemStack(itemStack);
+        event.getItem().setItemStack(itemStack1.getItemStack());
+        if (!wasCustomized) {
+            for (SBCollection collection : player.getCollections().getCollections()) {
+                if (collection.getItem() == itemStack1.getType().getItem()) {
+                    collection.setCollected(collection.getCollected() + itemStack1.getItemStack().getAmount(), player);
+                }
+            }
         }
     }
 

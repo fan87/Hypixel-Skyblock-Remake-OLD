@@ -74,15 +74,15 @@ public class ExpUtils {
     }
 
     public static long getTotalSkillExp(int targetLevel) {
-        return skill[targetLevel*4 + 2];
+        return skill[Math.min(60, targetLevel)*4 + 2];
     }
 
     public static long getExtraSkillExp(int targetLevel) {
-        return skill[targetLevel*4 + 1];
+        return skill[Math.min(60, targetLevel)*4 + 1];
     }
 
     public static long getSkillLevelUpCoins(int newLevel) {
-        return skill[newLevel*4 + 3];
+        return skill[Math.min(60, newLevel)*4 + 3];
     }
 
 }

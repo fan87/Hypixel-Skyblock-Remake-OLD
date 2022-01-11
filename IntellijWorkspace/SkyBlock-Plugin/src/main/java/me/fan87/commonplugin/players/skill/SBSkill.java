@@ -3,6 +3,7 @@ package me.fan87.commonplugin.players.skill;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardCoins;
@@ -10,7 +11,9 @@ import me.fan87.commonplugin.players.reward.impl.RewardFortune;
 import me.fan87.commonplugin.utils.ExpUtils;
 import me.fan87.commonplugin.utils.NumberUtils;
 import me.fan87.commonplugin.utils.RomanUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,25 +24,45 @@ public abstract class SBSkill {
     @JsonProperty("exp")
     private double exp = 0;
 
+    @Getter
+    @Setter
+    private float multiplier = 1f;
 
 
     public void setExp(double exp, SBPlayer player) {
         int old = getLevel();
-        this.exp = exp;
+        this.exp = Math.min(ExpUtils.getTotalSkillExp(getMaxLevel(player)), exp);
         while (getLevel() > old) {
             old++;
             levelUp(old, player);
         }
     }
 
+    public int getMaxLevel(SBPlayer player) {
+        return 60;
+    }
+
     public void addExp(double exp, SBPlayer player) {
+        exp = exp * multiplier;
         setExp(getExp() + exp, player);
+        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ORB_PICKUP, 0.5f, 1.762f);
+        if (!(getLevel() >= getMaxLevel(player))) {
+            player.showExtraActionBar(ChatColor.DARK_AQUA + "+" + exp + " " + getSkillType().getName() + " (" + NumberUtils.formatNumber(getExtraExp()) + (("/" + NumberUtils.formatLargeNumber(getRequiredExp(getLevel() + 1), false))) + ")");
+        }
     }
 
     private void levelUp(int newLevel, SBPlayer player) {
         for (SBReward reward : getRewards(newLevel, player)) {
             reward.trigger(player);
         }
+        player.getPlayer().sendMessage(ChatColor.DARK_AQUA + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        player.getPlayer().sendMessage(String.format("  §b§lSKILL LEVEL UP §3%s §3%s", getSkillType().getName(), getLevelDisplay(newLevel)));
+        player.getPlayer().sendMessage("");
+        for (String s : getRewardLore(ChatColor.GREEN + ChatColor.BOLD.toString() + "REWARDS", newLevel, player)) {
+            player.getPlayer().sendMessage("  " + s);
+        }
+        player.getPlayer().sendMessage(ChatColor.DARK_AQUA + "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
     }
 
     public double getExtraExp() {
@@ -55,7 +78,7 @@ public abstract class SBSkill {
     }
 
     public int getLevel() {
-        return ExpUtils.getCurrentSkillLevel(exp);
+        return Math.min(60, ExpUtils.getCurrentSkillLevel(exp));
     }
 
     public String getLevelDisplay(int level) {

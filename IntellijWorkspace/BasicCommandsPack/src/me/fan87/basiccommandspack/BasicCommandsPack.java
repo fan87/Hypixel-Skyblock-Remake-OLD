@@ -25,6 +25,7 @@ public class BasicCommandsPack extends JavaPlugin {
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdForceTp());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdView());
         skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdTest());
+        skyBlock.getCommandsManager().registerCommand("basiccmdpack", new CmdSpawnNpc());
     }
 
 }
