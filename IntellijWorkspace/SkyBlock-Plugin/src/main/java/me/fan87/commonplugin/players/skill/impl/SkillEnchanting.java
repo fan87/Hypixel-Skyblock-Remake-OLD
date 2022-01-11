@@ -23,7 +23,7 @@ public class SkillEnchanting extends SBSkill {
 
     @Override
     public String getFortuneDescription(SBPlayer player) {
-        return "Gain %s" + ChatColor.GREEN + ChatColor.WHITE + "more experience orbs from any source.";
+        return "Gain %s" + ChatColor.GREEN + ChatColor.WHITE + " more experience orbs from any source.";
     }
 
     @Override
