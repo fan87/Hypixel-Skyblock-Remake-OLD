@@ -120,11 +120,32 @@ public class AreasManager {
         if (area == COAL_MINES || area == COAL_MINES_1 || area == COAL_MINES_2 || area == COAL_MINES_3 || area == COAL_MINES_4) {
             return Arrays.asList(Material.COAL_ORE);
         }
+        if (area == GOLD_MINE) {
+            return Arrays.asList(Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE);
+        }
+        if (area == DIAMOND_RESERVE) {
+            return Arrays.asList(Material.DIAMOND_ORE);
+        }
+        if (area == OBSIDIAN_SANCTUARY) {
+            return Arrays.asList(Material.DIAMOND_ORE, Material.OBSIDIAN, Material.DIAMOND_BLOCK);
+        }
+        if (area == GUNPOWDER_MINES) {
+            return Arrays.asList(Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE);
+        }
+        if (area == LAPIS_QUARRY) {
+            return Arrays.asList(Material.LAPIS_ORE);
+        }
+        if (area == PIGMENS_DEN) {
+            return Arrays.asList(Material.REDSTONE_ORE);
+        }
+        if (area == SLIMEHILL) {
+            return Arrays.asList(Material.EMERALD_ORE);
+        }
         return Arrays.asList();
     }
 
     public boolean canMineLogs(SBArea area) {
-        return area.getWorldType() == WorldsManager.WorldType.PARK || area == FOREST;
+        return area != null && area.getWorldType() == WorldsManager.WorldType.PARK || area == FOREST;
     }
 
 }

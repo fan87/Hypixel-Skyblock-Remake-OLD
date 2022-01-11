@@ -18,7 +18,7 @@ public class CmdHub extends SBCommand {
         Player player = (Player) sender;
         SBPlayer sbPlayer = skyBlock.getPlayersManager().getPlayer(player);
         player.sendMessage(ChatColor.GRAY + "Wrapping...");
-        sbPlayer.send(WorldsManager.WorldType.SKYBLOCK_HUB);
+        sbPlayer.send(WorldsManager.WorldType.DEEP_CAVERNS);
         return true;
     }
 }

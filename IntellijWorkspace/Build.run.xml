@@ -11,6 +11,7 @@
           <option name="goals">
             <list>
               <option value="package" />
+              <option value="-T100" />
             </list>
           </option>
           <option name="pomFileName" />

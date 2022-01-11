@@ -2,6 +2,7 @@ package me.fan87.commonplugin.world;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import me.fan87.commonplugin.utils.Vec3d;
 
 @EqualsAndHashCode
 public class SBWorld {
@@ -26,6 +27,25 @@ public class SBWorld {
     public void setWorldType(WorldsManager.WorldType worldType) {
         worldsManager.getConfig().set(worldName + ".type", worldType.getName());
     }
+
+    public Vec3d getSpawn() {
+        if (!worldsManager.getConfig().contains(worldName + ".spawn")) {
+            return null;
+        }
+        Vec3d vec3d = Vec3d.fromString(worldsManager.getConfig().getString(worldName + ".spawn"));
+        return vec3d;
+    }
+
+    public int getPreScanArea() {
+        return worldsManager.getConfig().contains(worldName + ".scanSize")?worldsManager.getConfig().getInt(worldName + ".scanSize"):20;
+    }
+
+    public void setSpawn(Vec3d spawn) {
+        worldsManager.getConfig().set(worldName + ".spawn", spawn.toString());
+        worldsManager.saveConfig();
+    }
+
+
 
     public char getWorldID() {
         return "ABCDEFGHIKLMNOPQRSTVXYZ".charAt(worldsManager.getWorlds().indexOf(this));

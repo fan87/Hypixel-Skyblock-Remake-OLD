@@ -181,7 +181,7 @@ public class SBPlayer {
             e.printStackTrace();
         }
 
-        player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
+//        player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
     }
 
     protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
@@ -478,6 +478,7 @@ public class SBPlayer {
                 spawnLocation.setYaw(180);
                 player.teleport(spawnLocation);
                 currentWorldType = worldType;
+                player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
                 return true;
             }
         }

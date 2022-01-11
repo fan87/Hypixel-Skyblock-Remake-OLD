@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.utils.world.VoidGenerator;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
@@ -78,11 +79,18 @@ public class WorldsManager {
                     FileUtils.copyDirectory(file, backup);
                 } else {
                     skyBlock.sendMessage(ChatColor.GREEN + "Backup found! Using it...");
+                    if (file.exists()) {
+                        file.delete();
+                    }
                     FileUtils.copyDirectory(backup, file);
                 }
             }
-            new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
+            World world1 = new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
             WorldType worldType = getWorld(worldName).getWorldType();
+            Vec3d spawn = getWorld(worldName).getSpawn();
+            if (spawn != null) {
+                world1.setSpawnLocation((int) spawn.getX(), (int) spawn.getY(), (int) spawn.getZ());
+            }
             skyBlock.sendMessage(ChatColor.GREEN + " - Prepared map: " + worldName + "(Type: " + worldType.getName() + ")");
             missingTypes.remove(worldType);
         }
