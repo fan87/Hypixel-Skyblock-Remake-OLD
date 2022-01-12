@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class LPDisplayNameChanger extends SBFeature {
     public LPDisplayNameChanger() {
@@ -25,7 +25,7 @@ public class LPDisplayNameChanger extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onJoin(PlayerJoinEvent event) {
         LuckPerms luckPerms = LuckPermsProvider.get();
         User user = luckPerms.getUserManager().getUser(event.getPlayer().getUniqueId());

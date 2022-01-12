@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
@@ -24,7 +24,7 @@ public class PlayersManager {
 
     public PlayersManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
-        EventManager.EVENT_BUS.register(this);
+        EventManager.register(this);
         for (Player onlinePlayer : skyBlock.getServer().getOnlinePlayers()) {
             addPlayer(onlinePlayer);
         }
@@ -64,7 +64,7 @@ public class PlayersManager {
     public void removePlayer(PlayerQuitEvent event) {
         SBPlayer player = getPlayer(event.getPlayer());
         player.save();
-        EventManager.EVENT_BUS.unregister(loadedPlayers.remove(player));
+        EventManager.unregister(loadedPlayers.remove(player));
     }
 
     public SBPlayer getPlayer(Player player) {

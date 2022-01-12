@@ -4,7 +4,7 @@ import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.world.SBWorld;
 import org.bukkit.World;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class WeatherChanger extends SBFeature {
     public WeatherChanger() {
@@ -21,7 +21,7 @@ public class WeatherChanger extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         for (World world : skyBlock.getServer().getWorlds()) {
             SBWorld sbWorld = skyBlock.getWorldsManager().getWorld(world.getName());

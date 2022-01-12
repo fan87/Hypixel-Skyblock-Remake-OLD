@@ -1,4 +1,4 @@
-package me.fan87.commonplugin.item.impl;
+package me.fan87.commonplugin.item.impl.misc;
 
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;

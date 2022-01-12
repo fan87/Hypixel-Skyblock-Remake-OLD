@@ -1,14 +1,14 @@
 package me.fan87.commonplugin.features.impl.greif;
 
 import me.fan87.commonplugin.features.SBFeature;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import me.fan87.commonplugin.world.SBWorld;
+import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.event.block.BlockPhysicsEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class LadderPhysicDisabler extends SBFeature {
     public LadderPhysicDisabler() {
-        super("Ladder Physics Disabler", "Disables the ladder physics so you can.. you know", false);
+        super("Physics Disabler", "Disables the block physics so you can.. you know", false);
     }
 
     @Override
@@ -21,11 +21,11 @@ public class LadderPhysicDisabler extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onPhysics(BlockPhysicsEvent event) {
-        if (event.getBlock().getType() == Material.LADDER) {
-            event.setCancelled(true);
-        }
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
+        if (world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) return;
+        event.setCancelled(true);
     }
 
 }

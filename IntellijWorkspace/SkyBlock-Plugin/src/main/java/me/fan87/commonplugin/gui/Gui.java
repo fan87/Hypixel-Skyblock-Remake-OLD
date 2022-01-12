@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.Arrays;
 
@@ -31,14 +31,14 @@ public abstract class Gui {
         this.items = new GuiItem[rows*9];
         this.title = title.substring(0, Math.min(32, title.length()));
         this.size = rows*9;
-        EventManager.EVENT_BUS.register(this);
+        EventManager.register(this);
     }
 
     public boolean canMove(InventoryClickEvent inventoryClickEvent) {
         return false;
     }
 
-    @Subscribe
+    @Subscribe()
     public void onClick(InventoryClickEvent event) {
         if (event.getInventory().equals(inventory)) {
             if (!canMove(event)) {
@@ -54,7 +54,7 @@ public abstract class Gui {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onClose(InventoryCloseEvent event) {
         if (event.getInventory().equals(inventory)) {
             destroy();
@@ -183,7 +183,7 @@ public abstract class Gui {
     }
 
     public void destroy() {
-        EventManager.EVENT_BUS.unregister(this);
+        EventManager.unregister(this);
     }
 
 }

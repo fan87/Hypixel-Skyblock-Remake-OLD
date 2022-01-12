@@ -11,6 +11,7 @@
     <modules>
         <module>SkyBlock-Plugin</module>
         <module>DevPack</module>
+        <module>Fan87ModPack</module>
     </modules>
 
     <properties>

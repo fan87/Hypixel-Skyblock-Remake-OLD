@@ -7,7 +7,7 @@ import me.fan87.commonplugin.features.impl.gameplay.rendering.EntityDamageIndica
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class Criticals extends SBFeature {
 
@@ -32,7 +32,7 @@ public class Criticals extends SBFeature {
             SBPlayer player = skyBlock.getPlayersManager().getPlayer(damager);
             if (player.getStats().getCritChance().nextValue(player)) {
                 PlayerCriticalEvent criticalEvent = new PlayerCriticalEvent(event);
-                EventManager.EVENT_BUS.postSticky(criticalEvent);
+                EventManager.post(criticalEvent);
                 if (criticalEvent.isCancelled()) return;
                 EntityDamageIndicator.setCritical(event, true);
             }

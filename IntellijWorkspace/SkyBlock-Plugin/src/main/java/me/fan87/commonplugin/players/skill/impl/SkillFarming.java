@@ -19,6 +19,8 @@ public class SkillFarming extends SBSkill {
     public List<SBReward> getRewards(int level, SBPlayer player) {
         List<SBReward> rewards = super.getRewards(level, player);
         rewards.add(new RewardBaseStat(player.getStats().getHealth(), getHealthBonus(level)));
+        RewardBaseStat fortune = new RewardBaseStat(player.getStats().getFarmingFortune(), getFortuneValue(level) - getFortuneValue(level-1));
+        rewards.add(fortune);
         return rewards;
     }
 

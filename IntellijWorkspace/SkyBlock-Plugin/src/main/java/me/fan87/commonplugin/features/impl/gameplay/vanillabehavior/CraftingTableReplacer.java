@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class CraftingTableReplacer extends SBFeature {
     public CraftingTableReplacer() {
@@ -24,7 +24,7 @@ public class CraftingTableReplacer extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onGuiOpen(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.WORKBENCH && !event.getPlayer().isSneaking()) {
             event.setCancelled(true);

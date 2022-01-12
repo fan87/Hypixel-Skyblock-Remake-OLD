@@ -3,7 +3,7 @@ package me.fan87.commonplugin.features.impl.data;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.ChatColor;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class DatabaseAutoSave extends SBFeature {
     public DatabaseAutoSave() {
@@ -22,7 +22,7 @@ public class DatabaseAutoSave extends SBFeature {
 
     private int ticks = 0;
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         ticks++;
         if (ticks % skyBlock.getConfigsManager().config.autoSaveTick == 0) {

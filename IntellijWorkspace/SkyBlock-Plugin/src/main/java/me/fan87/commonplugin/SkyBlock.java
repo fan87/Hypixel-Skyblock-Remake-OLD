@@ -80,7 +80,7 @@ public class SkyBlock extends JavaPlugin {
         this.configsManager = new ConfigsManager(this);
         this.databaseManager = new DatabaseManager(this);
         this.recipesManager = new RecipesManager(this);
-        EventManager.EVENT_BUS.register(new SBItems(this));
+        EventManager.register(new SBItems(this));
         this.areasManager = new AreasManager(this);
         this.eventManager = new EventManager(this);
         this.worldsManager = new WorldsManager(this);
@@ -94,7 +94,7 @@ public class SkyBlock extends JavaPlugin {
     @Override
     public void onDisable() {
         databaseManager.saveAll();
-        EventManager.EVENT_BUS.post(new ServerShutdownEvent());
+        EventManager.post(new ServerShutdownEvent());
         PacketEvents.get().terminate();
     }
 

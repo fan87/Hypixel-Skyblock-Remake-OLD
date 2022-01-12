@@ -7,7 +7,7 @@ import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class LiquidMoveDisabler extends SBFeature {
     public LiquidMoveDisabler() {
@@ -19,7 +19,7 @@ public class LiquidMoveDisabler extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onBlockPhysics(BlockPhysicsEvent event) {
         Material mat = event.getBlock().getType();
         if (mat == Material.STATIONARY_WATER) {
@@ -36,16 +36,16 @@ public class LiquidMoveDisabler extends SBFeature {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onBlockChange(BlockEvent event) {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onSpread(BlockSpreadEvent event) {
     }
 
-    @Subscribe
+    @Subscribe()
     public void onBlockFromTo(BlockFromToEvent event) {
         Block block = event.getBlock();
         if (block.getType() == Material.WATER) {

@@ -10,7 +10,7 @@ import me.fan87.commonplugin.utils.LoreUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class GuiYourProfile extends Gui {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
 
     }

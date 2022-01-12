@@ -14,7 +14,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +53,7 @@ public class DeathProcessor extends SBFeature {
                     p.sendMessage(ChatColor.RED + " ☠ " + getDeathDamage(event));
                 }
                 SBPlayerDeathEvent event1 = new SBPlayerDeathEvent(player, player.getCoins() / 2d);
-                EventManager.EVENT_BUS.postSticky(event1);
+                EventManager.post(event1);
                 if (!event1.isCancelled()) {
                     player.getPlayer().sendMessage(ChatColor.RED + "You died and lost " + NumberUtils.formatNumber(event1.getLoseCoins()) + " coins!");
                     player.setCoins(player.getCoins() - event1.getLoseCoins());

@@ -138,6 +138,7 @@ public abstract class SBCollection {
         List<String> out = new ArrayList<>();
         out.add(title);
         for (SBReward reward : getRewards(level)) {
+            if (!reward.isShown()) continue;
             out.addAll(reward.toLore());
         }
         return out;

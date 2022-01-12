@@ -90,6 +90,7 @@ public abstract class SBSkill {
         if (level == 0) return out;
         out.add(title);
         for (SBReward reward : getRewards(level, player)) {
+            if (!reward.isShown()) continue;
             List<String> c = reward.toLore();
             List<String> n = new ArrayList<>();
             for (String s : c) {

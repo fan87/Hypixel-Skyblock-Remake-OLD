@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.Team;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
@@ -38,7 +38,7 @@ public class NPCManager {
 
     public NPCManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
-        EventManager.EVENT_BUS.register(this);
+        EventManager.register(this);
 
         Reflections reflections = new Reflections();
         for (Class<? extends AbstractNPC> aClass : reflections.getSubTypesOf(AbstractNPC.class)) {
@@ -68,7 +68,7 @@ public class NPCManager {
         existingNpcList.add(npc);
     }
 
-    @Subscribe
+    @Subscribe()
     @SneakyThrows
     public void onPacket(PacketPlayReceiveEvent event) {
         Object nmsPacket = event.getNMSPacket().getRawNMSPacket();
@@ -93,7 +93,7 @@ public class NPCManager {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         for (AbstractNPC<?> npc : existingNpcList) {
             if (npc.displayToAll()) {
@@ -129,7 +129,7 @@ public class NPCManager {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onPlayerJoin(PlayerJoinEvent event) {
         for (Team team : new ArrayList<>(event.getPlayer().getScoreboard().getTeams())) {
             if (team.getName().startsWith("NPC-")) team.unregister();
@@ -141,7 +141,7 @@ public class NPCManager {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         for (AbstractNPC<?> npc : existingNpcList) {
             if (npc.displayToAll()) {

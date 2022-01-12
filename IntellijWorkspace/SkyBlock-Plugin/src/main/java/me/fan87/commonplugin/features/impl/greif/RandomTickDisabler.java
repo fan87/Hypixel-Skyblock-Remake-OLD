@@ -3,7 +3,7 @@ package me.fan87.commonplugin.features.impl.greif;
 import me.fan87.commonplugin.events.impl.WorldTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.world.WorldsManager;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class RandomTickDisabler extends SBFeature {
     public RandomTickDisabler() {
@@ -20,7 +20,7 @@ public class RandomTickDisabler extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onWorldTick(WorldTickEvent event) {
         if (event.getWorldType() != WorldsManager.WorldType.PRIVATE_ISLAND && event.getWorld() != null) {
             event.getWorld().setGameRuleValue("randomTickSpeed", "0");

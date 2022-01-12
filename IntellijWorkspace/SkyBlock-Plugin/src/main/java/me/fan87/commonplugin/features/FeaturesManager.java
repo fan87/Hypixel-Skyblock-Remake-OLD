@@ -66,6 +66,11 @@ public class FeaturesManager {
         return configFile;
     }
 
-
+    public <T extends SBFeature> T getFeature(Class<T> clazz) {
+        for (SBFeature feature : getFeatures()) {
+            if (feature.getClass() == clazz) return (T) feature;
+        }
+        return null;
+    }
 
 }

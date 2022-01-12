@@ -3,7 +3,7 @@ package me.fan87.commonplugin.features.impl.hypixel;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class PerWorldChat extends SBFeature {
     public PerWorldChat() {

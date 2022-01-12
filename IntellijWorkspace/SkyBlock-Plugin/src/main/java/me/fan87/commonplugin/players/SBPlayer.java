@@ -2,12 +2,14 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.jcsoftware.jscoreboards.JPerPlayerMethodBasedScoreboard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.areas.SBArea;
+import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.impl.PlayerPostPortalEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
@@ -18,6 +20,7 @@ import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.npc.AbstractNPC;
+import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.collections.SBPlayerCollections;
 import me.fan87.commonplugin.players.skill.SBPlayerSkills;
 import me.fan87.commonplugin.players.skill.SBSkill;
@@ -40,7 +43,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 import org.jongo.MongoCollection;
 import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
@@ -138,6 +141,7 @@ public class SBPlayer {
 
     private String extraActionBar = "";
     private long extraActionBarTime = System.currentTimeMillis();
+    private long lastInventoryUpdate = 0; // Todo: Make anticheat to prevent this type of crasher
 
     public boolean showActionBar = true;
 
@@ -160,8 +164,8 @@ public class SBPlayer {
         this.player = player;
         player.closeInventory();
         this.uuid = player.getUniqueId().toString();
-        if (!EventManager.EVENT_BUS.isRegistered(this)) {
-            EventManager.EVENT_BUS.register(this);
+        if (!EventManager.isRegistered(this)) {
+            EventManager.register(this);
         }
         mana = getStats().getIntelligence().getValue(this) + 100;
         for (Property textures : getCraftPlayer().getProfile().getProperties().get("textures")) {
@@ -234,7 +238,7 @@ public class SBPlayer {
     }
 
 
-    public ItemStack[] getAllInventoryItems() {
+    public ItemStack[] getRawInventoryItems() {
         ItemStack[] out = new ItemStack[45];
         out[5] = player.getInventory().getArmorContents()[0];
         out[6] = player.getInventory().getArmorContents()[1];
@@ -249,11 +253,18 @@ public class SBPlayer {
         return out;
     }
 
+
     /**
      * Update the inventory and save custom NBT Data to every items
      */
     @SneakyThrows
     public void updateInventory() {
+        updateInventory(player.getInventory().getHeldItemSlot());
+    }
+
+    @SneakyThrows
+    public void updateInventory(int heldSlot) {
+        lastInventoryUpdate = System.currentTimeMillis();
         activeItems.clear();
         for (SBStat stat : stats.getStats()) {
             stat.getBonusValue().clear();
@@ -261,32 +272,62 @@ public class SBPlayer {
         for (SBSkill skill : skills.getSkills()) {
             skill.setMultiplier(1f);
         }
-        ItemStack[] allInventoryItems = getAllInventoryItems();
+        ItemStack[] allInventoryItems = getRawInventoryItems();
         for (int i = 0; i < allInventoryItems.length; i++) {
             if (allInventoryItems[i] == null || allInventoryItems[i].getType() == Material.AIR) continue;
             ItemStack item = allInventoryItems[i];
             SBItemStack sbItemStack = new SBItemStack(item);
+            NBTItem nbt = new NBTItem(item, true);
+            boolean wasCustomized = nbt.hasKey("ExtraAttributes");
+            if (!wasCustomized) {
+                for (SBCollection collection : getCollections().getCollections()) {
+                    if (collection.getItem() == sbItemStack.getType().getItem()) {
+                        collection.setCollected(collection.getCollected() + sbItemStack.getItemStack().getAmount(), this);
+                    }
+                }
+            }
             if (sbItemStack.getType().getType() != SBMaterial.ItemType.CUSTOM) {
                 sbItemStack.updatePlayerStats(this, i);
             } else {
-                if (sbItemStack.getType().getItem().isInActive(i, this)) {
-                    sbItemStack.updatePlayerStats(this, i);
-                    activeItems.add(sbItemStack);;
+                SBCustomItem item1 = sbItemStack.getType().getItem();
+                if (item1 != null) {
+                    if (item1.isInActive(heldSlot, i, this)) {
+                        sbItemStack.updatePlayerStats(this, i);
+                        activeItems.add(sbItemStack);;
+                    }
                 }
+
             }
         }
-
     }
 
     public List<SBItemStack> getActiveItems() {
         return new ArrayList<>(activeItems);
     }
 
+    public boolean isItemActive(SBCustomItem item) {
+        for (SBItemStack activeItem : activeItems) {
+            if (activeItem != null & activeItem.getType().getItem() == item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEnchantmentActive(SBEnchantment enchantment) {
+        for (SBItemStack activeItem : activeItems) {
+            if (activeItem.getEnchantmentLevel(enchantment) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public CraftPlayer getCraftPlayer() {
         return (CraftPlayer) player;
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         scoreboard.setTitle(player.getPlayer(), getScoreboardTitle());
         scoreboard.setLines(player.getPlayer(), getScoreboardContent());
@@ -310,26 +351,8 @@ public class SBPlayer {
         }
     }
 
-    /**
-     * DEPRECATED!
-     * TODO: Write a replacement
-     */
-    @Deprecated
-    public boolean isItemActive(SBCustomItem customItem) {
-        for (int i = 0; i < player.getInventory().getSize(); i++) {
-            if (player.getInventory().getItem(i) == null || player.getInventory().getItem(i).getType() == Material.AIR) continue;
-            ItemStack item = player.getInventory().getItem(i);
-            SBItemStack sbItemStack = new SBItemStack(item);
-            if (sbItemStack.getType().getType() != SBMaterial.ItemType.CUSTOM) {
-                continue;
-            } else {
-                if (sbItemStack.getType().getItem().isInActive(i, this) && sbItemStack.getType().getItem() == customItem) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
+
 
     /**
      * Opens the skyblock menu
@@ -543,7 +566,7 @@ public class SBPlayer {
                 Location spawnLocation = w.getSpawnLocation();
                 spawnLocation.setYaw(180);
                 player.teleport(spawnLocation);
-                EventManager.EVENT_BUS.post(event);
+                EventManager.post(event);
                 currentWorldType = worldType;
                 player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
                 return true;

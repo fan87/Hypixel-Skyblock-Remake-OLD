@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.Collection;
 import java.util.List;
@@ -135,7 +135,7 @@ public class GuiSkyBlockMenu extends Gui {
         }));
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         ItemStack menuSkull = GuiItemProvider.getMenuSkull(this.player, false);
         ItemMeta itemMeta = menuSkull.getItemMeta();

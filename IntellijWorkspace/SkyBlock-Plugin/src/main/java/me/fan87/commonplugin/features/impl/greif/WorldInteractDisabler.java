@@ -5,7 +5,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class WorldInteractDisabler extends SBFeature {
 

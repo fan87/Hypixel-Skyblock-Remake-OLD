@@ -15,7 +15,7 @@ package me.fan87.commonplugin.item.init;
 
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
-import me.fan87.commonplugin.item.impl.ItemVanilla;
+import me.fan87.commonplugin.item.impl.misc.ItemVanilla;
 import org.bukkit.Material;
 
 
@@ -1474,8 +1474,6 @@ public class ItemsVANILLA {
         SBItems.registerItem(BAT_FIREWORK);
         GREAT_CARROT_CANDY = new ItemVanilla("GREAT_CARROT_CANDY", "Great Carrot Candy", "", Material.CARROT, (short) 0, "", SBCustomItem.Rarity.RARE, true, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(GREAT_CARROT_CANDY);
-        SUPER_EGG = new ItemVanilla("SUPER_EGG", "Super Enchanted Egg", "", Material.MONSTER_EGG, (short) 0, "", SBCustomItem.Rarity.RARE, true, null, SBCustomItem.Category.MATERIAL, skyBlock);
-        SBItems.registerItem(SUPER_EGG);
         TELEPORT_PAD = new ItemVanilla("TELEPORT_PAD", "Teleport Pad", "", Material.ENDER_PORTAL_FRAME, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, true, null, SBCustomItem.Category.MATERIAL, skyBlock);
         SBItems.registerItem(TELEPORT_PAD);
 

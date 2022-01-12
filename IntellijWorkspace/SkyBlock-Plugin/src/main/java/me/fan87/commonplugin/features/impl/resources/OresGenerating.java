@@ -2,24 +2,22 @@ package me.fan87.commonplugin.features.impl.resources;
 
 import lombok.*;
 import me.fan87.commonplugin.areas.SBArea;
-import me.fan87.commonplugin.events.EventManager;
-import me.fan87.commonplugin.events.impl.ModifiedDropsEvent;
-import me.fan87.commonplugin.events.impl.ModifiedXPDropsEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.features.impl.api.BlockDropFirer;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.ItemStack;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -66,93 +64,42 @@ public class OresGenerating extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void blockBreakEvent(BlockBreakEvent event) {
         SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
         SBArea area = skyBlock.getAreasManager().getAreaOf(event.getBlock().getLocation());
         boolean canMine = skyBlock.getAreasManager().getOresToGenerate(area).size() > 0;
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
-        Random random = new Random();
         List<ItemStack> newDrops = new ArrayList<>();
         int amount = 0;
         if (canMine && skyBlock.getAreasManager().getOresToGenerate(area).contains(event.getBlock().getType())) {
-            for (ItemStack drop : event.getBlock().getDrops()) {
-                amount = drop.getAmount();
-                amount += (int) player.getStats().getMiningFortune().getValue(player)/100;
-                if (random.nextInt(99) + 1 < player.getStats().getMiningFortune().getValue(player) % 100) {
-                    amount++;
-                }
-                int left = amount;
-                while (left > 0) {
-                    int count = Math.min(left, drop.getMaxStackSize());
-                    left -= count;
-                    ItemStack clone = drop.clone();
-                    clone.setAmount(count);
-                    newDrops.add(clone);
-                }
-            }
             generated--;
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.STONE), 0);
-
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
                 minedStones.put(event.getBlock().getLocation(), new MinedStone(Material.STONE, System.currentTimeMillis()));
             }
+            skyBlock.getFeaturesManager().getFeature(BlockDropFirer.class).breakBlock(player, event);
         }
         if (canMine && (event.getBlock().getType() == Material.STONE && event.getBlock().getData() == 0)) {
-            for (ItemStack drop : event.getBlock().getDrops()) {
-                amount = drop.getAmount();
-                int left = amount;
-                while (left > 0) {
-                    int count = Math.min(left, drop.getMaxStackSize());
-                    left -= count;
-                    ItemStack clone = drop.clone();
-                    clone.setAmount(count);
-                    newDrops.add(clone);
-                }
-            }
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.COBBLESTONE), 0);
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
                 minedStones.put(event.getBlock().getLocation(), new MinedStone(Material.STONE, System.currentTimeMillis()));
             }
+            skyBlock.getFeaturesManager().getFeature(BlockDropFirer.class).breakBlock(player, event);
         }
 
         if (canMine && (event.getBlock().getType() == Material.COBBLESTONE) && event.getBlock().getData() == 0) {
-            for (ItemStack drop : event.getBlock().getDrops()) {
-                amount = drop.getAmount();
-                int left = amount;
-                while (left > 0) {
-                    int count = Math.min(left, drop.getMaxStackSize());
-                    left -= count;
-                    ItemStack clone = drop.clone();
-                    clone.setAmount(count);
-                    newDrops.add(clone);
-                }
-            }
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.BEDROCK), 0);
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
                 minedStones.put(event.getBlock().getLocation(), new MinedStone(event.getBlock().getType(), System.currentTimeMillis()));
             }
-        }
-        ModifiedDropsEvent e = new ModifiedDropsEvent(newDrops, event);
-        EventManager.EVENT_BUS.postSticky(e);
-        if (!e.isCancelled()) {
-            for (ItemStack newDrop : e.getDrops()) {
-                event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), newDrop);
-            }
-        }
-        ModifiedXPDropsEvent e2 = new ModifiedXPDropsEvent(event.getExpToDrop(), event);
-        EventManager.EVENT_BUS.postSticky(e2);
-        if (!e2.isCancelled()) {
-            if (e2.getXp() > 0) {
-                ExperienceOrb spawn = event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
-                spawn.setExperience(e2.getXp());
-            }
+            skyBlock.getFeaturesManager().getFeature(BlockDropFirer.class).breakBlock(player, event);
         }
     }
 
     int ticks = 0;
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         ticks++;
         try {
@@ -185,17 +132,17 @@ public class OresGenerating extends SBFeature {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onChunkUnload(ChunkUnloadEvent event) {
         event.setCancelled(true);
     }
 
-    @Subscribe
+    @Subscribe()
     public void onWorldUnloaded(WorldUnloadEvent event) {
         oreSpawns.remove(event.getWorld().getName());
     }
 
-    @Subscribe
+    @Subscribe()
     public void onWorldLoaded(WorldLoadEvent event) {
         Bukkit.getScheduler().runTaskLater(skyBlock, () -> {
             skyBlock.sendMessage(ChatColor.YELLOW + "Init world: " + event.getWorld().getName());
@@ -205,8 +152,9 @@ public class OresGenerating extends SBFeature {
             int count = 0;
             long lastTime = System.currentTimeMillis();
             double avg = 0;
+            long l = FileUtils.sizeOf(getCacheFile(event.getWorld()));
             if (hasCache(event.getWorld())) {
-                skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it...");
+                skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it... (Ore Count: " + l/8 + ")");
                 loadCache(event.getWorld());
                 return;
             }

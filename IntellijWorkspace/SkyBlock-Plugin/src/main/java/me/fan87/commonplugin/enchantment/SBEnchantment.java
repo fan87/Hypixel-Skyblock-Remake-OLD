@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.enchantment;
 
+import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.utils.SBNamespace;
@@ -13,11 +14,14 @@ public class SBEnchantment {
     private final SBNamespace namespace;
     private final String displayName;
     protected final SkyBlock skyBlock;
+    @Getter
+    private final int maxEnchantingTableLevel;
 
-    public SBEnchantment(SkyBlock skyBlock, SBNamespace namespace, String displayName) {
+    public SBEnchantment(SkyBlock skyBlock, SBNamespace namespace, String displayName, int maxEnchantingTableLevel) {
         this.skyBlock = skyBlock;
         this.namespace = namespace;
         this.displayName = displayName;
+        this.maxEnchantingTableLevel = maxEnchantingTableLevel;
     }
 
     public SBNamespace getNamespace() {
@@ -28,15 +32,13 @@ public class SBEnchantment {
     }
 
     public Map<Enchantment, Integer> getVanillaEnchantment() {
-        return new HashMap<>();
+        HashMap<Enchantment, Integer> enchantmentIntegerHashMap = new HashMap<>();
+        enchantmentIntegerHashMap.put(Enchantment.DURABILITY, 1);
+        return enchantmentIntegerHashMap;
     }
 
     public boolean isCompatibleWith(SBEnchantment enchantment) {
         return true;
-    }
-
-    public int getMaxLevel() {
-        return 1;
     }
 
     public boolean isItemAccepted(SBCustomItem item) {

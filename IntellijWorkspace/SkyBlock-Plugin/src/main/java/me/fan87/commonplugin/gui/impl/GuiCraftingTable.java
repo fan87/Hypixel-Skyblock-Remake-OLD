@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class GuiCraftingTable extends Gui {
     private SkyBlock skyBlock;
@@ -136,7 +136,7 @@ public class GuiCraftingTable extends Gui {
         }, 1);
     }
 
-    @Subscribe
+    @Subscribe()
     public void onClick(PacketPlayReceiveEvent event) {
         if (event.getNMSPacket().getRawNMSPacket() instanceof PacketPlayInWindowClick) {
             if (getInventory().getViewers().size() > 0 && event.getPlayer().equals(getInventory().getViewers().get(0))) {

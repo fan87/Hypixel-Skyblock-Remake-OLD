@@ -12,6 +12,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
+
 public class GuiCollectionItemsMenu extends Gui {
 
     private SBCollection.CollectionType collectionType;
@@ -37,10 +39,10 @@ public class GuiCollectionItemsMenu extends Gui {
                 .addLore(NumberUtils.getPercentageText("Collection " +
                                 (showMaxedOut ? "Maxed Out" : "Unlocked"),
                         (showMaxedOut ? player.getCollections().getMaxedOutCollections(sbCollection -> sbCollection.getCollectionType() == collectionType) : unlockedCollections),
-                        player.getCollections().getCollections().length, ChatColor.GOLD + "%"))
+                        (int) Arrays.stream(player.getCollections().getCollections()).filter(c -> c.getCollectionType() == collectionType).count(), ChatColor.GOLD + "%"))
                 .addLore(NumberUtils.generateProgressBar(
                         (showMaxedOut ? player.getCollections().getMaxedOutCollections(sbCollection -> sbCollection.getCollectionType() == collectionType) : unlockedCollections),
-                        player.getCollections().getCollections().length))
+                        (int) Arrays.stream(player.getCollections().getCollections()).filter(c -> c.getCollectionType() == collectionType).count()))
                 .build();
 
         set(5, 1, new GuiItem(build));

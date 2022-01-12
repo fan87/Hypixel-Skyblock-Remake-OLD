@@ -13,7 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class GuiSkillTypesMenu extends Gui {
 
@@ -72,7 +72,7 @@ public class GuiSkillTypesMenu extends Gui {
         renderGoBackItems(new GuiSkyBlockMenu(player), player.getPlayer());
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
 
     }

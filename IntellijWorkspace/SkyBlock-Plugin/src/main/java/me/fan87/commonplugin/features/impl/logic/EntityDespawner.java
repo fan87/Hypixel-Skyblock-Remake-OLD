@@ -5,7 +5,7 @@ import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class EntityDespawner extends SBFeature {
         despawns.put(entity.getEntityId(), ticksLeft);
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         for (World world : skyBlock.getServer().getWorlds()) {
             for (Entity entity : world.getEntities()) {
@@ -45,7 +45,7 @@ public class EntityDespawner extends SBFeature {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onShutdown(ServerShutdownEvent event) {
         for (Integer integer : despawns.keySet()) {
             for (World world : skyBlock.getServer().getWorlds()) {

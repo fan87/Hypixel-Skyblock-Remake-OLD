@@ -5,7 +5,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;
 import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.enchantment.SBEnchantments;
-import me.fan87.commonplugin.item.impl.ItemVanilla;
+import me.fan87.commonplugin.item.impl.misc.ItemVanilla;
 import me.fan87.commonplugin.item.init.SBItems;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.LangUtils;
@@ -162,7 +162,7 @@ public class SBItemStack {
     public void addSafeEnchantment(SBEnchantment enchantment, int level) {
         enchantment = SBEnchantments.getEnchantment(enchantment.getNamespace());
 
-        if (enchantment.getMaxLevel() >= level) {
+        if (enchantment.getMaxEnchantingTableLevel() >= level) {
             addEnchantment(enchantment, level);
             return;
         }
@@ -187,7 +187,7 @@ public class SBItemStack {
             NBTCompound enchantments = getExtraAttributeCompound().getOrCreateCompound("enchantments");
             for (SBEnchantment key : this.enchantments.keySet()) {
                 enchantments.setInteger(key.getNamespace() + "", this.enchantments.get(key));
-                itemStack.addEnchantments(key.getVanillaEnchantment());
+                try {itemStack.addUnsafeEnchantments(key.getVanillaEnchantment());} catch (Exception e) {e.printStackTrace();}
             }
         } else {
             if (getExtraAttributeCompound().hasKey("enchantments")) {
@@ -202,10 +202,10 @@ public class SBItemStack {
         return integer;
     }
 
-    public boolean isInActive(SBPlayer player, int slot) {
+    public boolean isInActive(int heldSlot, SBPlayer player, int slot) {
         SBCustomItem item = getType().getItem();
         if (item != null) {
-            return item.isInActive(slot, player);
+            return item.isInActive(heldSlot, slot, player);
         }
         return false;
     }

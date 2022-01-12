@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class ItemSkyBlockMenu extends SBCustomItem {
 
@@ -28,7 +28,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         event.getPlayer().getInventory().setItem(8, new SBItemStack(this).getItemStack());
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTrashingMe(PlayerDropItemEvent event) {
         SBItemStack itemStack = new SBItemStack(event.getItemDrop().getItemStack());
         if (itemStack.getType().getItem() == this) {
@@ -37,7 +37,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void skyblockMenuClick(InventoryClickEvent event) {
         if (event.getHotbarButton() != -1) {
             ItemStack item = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
@@ -72,14 +72,14 @@ public class ItemSkyBlockMenu extends SBCustomItem {
 
 
     @Override
-    public boolean isInActive(int slot, SBPlayer player) {
-        if (player.getPlayer().getInventory().getHeldItemSlot() == slot) {
+    public boolean isInActive(int heldSlot, int slot, SBPlayer player) {
+        if (heldSlot == slot - 36) {
             return true;
         }
         return false;
     }
 
-    @Subscribe
+    @Subscribe()
     public void onBlockInteract(PlayerInteractEntityEvent event) {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         if (player != null) {
@@ -91,7 +91,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
     }
 
 
-    @Subscribe
+    @Subscribe()
     public void onRightClick(PlayerInteractEvent event) {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         if (player != null) {

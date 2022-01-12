@@ -12,7 +12,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class EntityDamageIndicator extends SBFeature {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         CraftEntity entity = ((CraftEntity) event.getEntity());
         DamageIndicatorEvent event1 = new DamageIndicatorEvent(event);
-        EventManager.EVENT_BUS.postSticky(event1);
+        EventManager.post(event1);
         if (event1.isCancelled()) return;
         float height = entity.getHandle().length / 2f;
         Location location = entity.getLocation().add(0, height, 0);

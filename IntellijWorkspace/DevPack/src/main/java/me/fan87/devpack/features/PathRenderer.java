@@ -13,7 +13,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 import xyz.xenondevs.particle.ParticleBuilder;
 import xyz.xenondevs.particle.ParticleEffect;
 import xyz.xenondevs.particle.data.color.RegularColor;
@@ -42,7 +42,7 @@ public class PathRenderer extends SBFeature {
     }
 
     int ticks = 0;
-    @Subscribe
+    @Subscribe()
     @SneakyThrows
     public void onTick(ServerTickEvent event) {
         ticks++;

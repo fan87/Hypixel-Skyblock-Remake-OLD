@@ -10,7 +10,7 @@ import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
 import me.fan87.commonplugin.item.impl.ItemSkyBlockMenu;
-import me.fan87.commonplugin.item.impl.ItemVanilla;
+import me.fan87.commonplugin.item.impl.misc.ItemVanilla;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
@@ -20,9 +20,12 @@ import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -75,7 +78,7 @@ public class SBItems {
     protected static void registerItem(SBCustomItem item) {
         if (getItem(item.getNamespace()) == null) {
             registeredItems.put(new SBNamespace("default", item.getNamespace()), item);
-            EventManager.EVENT_BUS.register(item);
+            EventManager.register(item);
         } else {
             throw new IllegalArgumentException("Name already taken: " + item.getNamespace());
         }
@@ -84,7 +87,7 @@ public class SBItems {
     public static void registerItem(String addonNamespace, SBCustomItem item) {
         if (getItem(item.getNamespace()) == null) {
             registeredItems.put(new SBNamespace(addonNamespace, item.getNamespace()), item);
-            EventManager.EVENT_BUS.register(item);
+            EventManager.register(item);
         } else {
             throw new IllegalArgumentException("Name already taken: " + item.getNamespace());
         }
@@ -119,7 +122,7 @@ public class SBItems {
 
 
 
-    @Subscribe
+    @Subscribe()
     public void updateItemDrop(EntitySpawnEvent event) {
 //        if (event.getEntityType() == EntityType.DROPPED_ITEM) {
 //            Item entity = (Item) event.getEntity();
@@ -127,7 +130,7 @@ public class SBItems {
 //        }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onPickup(PlayerPickupItemEvent event) {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         org.bukkit.inventory.ItemStack itemStack = event.getItem().getItemStack();
@@ -144,7 +147,15 @@ public class SBItems {
         }
     }
 
-    @Subscribe
+    @Subscribe()
+    public void onClick(InventoryClickEvent event) {
+        if (event.getWhoClicked() instanceof Player) {
+            SBPlayer player = skyBlock.getPlayersManager().getPlayer(((Player) event.getWhoClicked()));
+            player.updateInventory();
+        }
+    }
+
+    @Subscribe()
     public void onReceive(PacketPlayReceiveEvent event) {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         if (player == null) return;
@@ -153,7 +164,14 @@ public class SBItems {
         }
     }
 
-    @Subscribe
+    @Subscribe()
+    public void onSlot(PlayerItemHeldEvent event) {
+        SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        if (player == null) return;
+        player.updateInventory(event.getNewSlot());
+    }
+
+    @Subscribe()
     public void updateInventories(PacketPlaySendEvent event) {
         Object rawNMSPacket = event.getNMSPacket().getRawNMSPacket();
         Field[] fields = rawNMSPacket.getClass().getDeclaredFields();

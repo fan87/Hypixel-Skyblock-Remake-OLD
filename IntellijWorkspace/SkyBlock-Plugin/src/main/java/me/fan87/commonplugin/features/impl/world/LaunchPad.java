@@ -20,7 +20,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class LaunchPad extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTileEntity(ServerTickEvent event) {
         for (World world : skyBlock.getServer().getWorlds()) {
             for (Chunk loadedChunk : world.getLoadedChunks()) {
@@ -117,7 +117,7 @@ public class LaunchPad extends SBFeature {
     }
 
 
-    @Subscribe
+    @Subscribe()
     public void onPortal(PlayerPostPortalEvent event) {
         setQuota(event.getPlayer(), 50);
 
@@ -135,7 +135,7 @@ public class LaunchPad extends SBFeature {
         }
     }
 
-    @Subscribe
+    @Subscribe()
     public void onPacket(PacketPlayReceiveEvent event) {
         if (event.getNMSPacket().getRawNMSPacket() instanceof PacketPlayInFlying) {
             PacketPlayInFlying c03 = (PacketPlayInFlying) event.getNMSPacket().getRawNMSPacket();

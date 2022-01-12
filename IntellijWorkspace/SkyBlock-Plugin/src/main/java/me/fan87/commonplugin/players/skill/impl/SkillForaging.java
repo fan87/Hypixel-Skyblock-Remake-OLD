@@ -18,6 +18,8 @@ public class SkillForaging extends SBSkill {
     public List<SBReward> getRewards(int level, SBPlayer player) {
         List<SBReward> rewards = super.getRewards(level, player);
         rewards.add(new RewardBaseStat(player.getStats().getStrength(), getStrengthBonus(level)));
+        RewardBaseStat fortune = new RewardBaseStat(player.getStats().getForagingFortune(), getFortuneValue(level) - getFortuneValue(level-1));
+        rewards.add(fortune);
         return rewards;
     }
 

@@ -2,7 +2,7 @@ package me.fan87.commonplugin.features.impl.performance;
 
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class AntiUnload extends SBFeature {
     public AntiUnload() {
@@ -19,7 +19,7 @@ public class AntiUnload extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onChunkUnload(ChunkUnloadEvent event) {
         event.setCancelled(true);
     }

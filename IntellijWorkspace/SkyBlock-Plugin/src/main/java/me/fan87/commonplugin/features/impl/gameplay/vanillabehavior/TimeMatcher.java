@@ -3,7 +3,7 @@ package me.fan87.commonplugin.features.impl.gameplay.vanillabehavior;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.World;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class TimeMatcher extends SBFeature {
     public TimeMatcher() {
@@ -20,7 +20,7 @@ public class TimeMatcher extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         for (World world : skyBlock.getServer().getWorlds()) {
             world.setTime((System.currentTimeMillis() - skyBlock.getDatabaseManager().getServerData().dayZero)/50 - 3000);

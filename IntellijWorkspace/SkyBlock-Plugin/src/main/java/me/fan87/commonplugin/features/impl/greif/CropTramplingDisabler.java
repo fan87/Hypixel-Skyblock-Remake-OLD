@@ -6,7 +6,7 @@ import org.bukkit.entity.Creature;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class CropTramplingDisabler extends SBFeature {
     public CropTramplingDisabler() {
@@ -23,7 +23,7 @@ public class CropTramplingDisabler extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onCropDestroy(PlayerInteractEvent event) {
 
         if (event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType().equals(Material.SOIL)) {
@@ -32,7 +32,7 @@ public class CropTramplingDisabler extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void onCropDestroy(EntityInteractEvent event) {
 
         if (event.getEntity() instanceof Creature && event.getBlock().getType().equals(Material.SOIL)) {

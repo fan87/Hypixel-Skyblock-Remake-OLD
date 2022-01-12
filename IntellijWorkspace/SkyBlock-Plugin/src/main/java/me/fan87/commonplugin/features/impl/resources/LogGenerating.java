@@ -5,20 +5,21 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import me.fan87.commonplugin.areas.SBArea;
-import me.fan87.commonplugin.events.EventManager;
-import me.fan87.commonplugin.events.impl.ModifiedDropsEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.features.impl.api.BlockDropFirer;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.world.SBWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class LogGenerating extends SBFeature {
 
@@ -51,53 +52,30 @@ public class LogGenerating extends SBFeature {
 
     }
 
-    @Subscribe
+    @Subscribe()
     public void blockBreakEvent(BlockBreakEvent event) {
         SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
         SBArea area = skyBlock.getAreasManager().getAreaOf(event.getBlock().getLocation());
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
-        Random random = new Random();
-        List<ItemStack> newDrops = new ArrayList<>();
-        int amount = 0;
         if (skyBlock.getAreasManager().canMineLogs(area) &&
                 (event.getBlock().getType() == Material.LOG ||
                         event.getBlock().getType() == Material.LOG_2 ||
                         event.getBlock().getType() == Material.LEAVES ||
                         event.getBlock().getType() == Material.LEAVES_2)) {
-            for (ItemStack drop : event.getBlock().getDrops()) {
-                amount = drop.getAmount();
-                amount += (int) player.getStats().getForagingFortune().getValue(player)/100;
-                if (random.nextInt(99) + 1 < player.getStats().getForagingFortune().getValue(player) % 100) {
-                    amount++;
-                }
-                int left = amount;
-                while (left > 0) {
-                    int count = Math.min(left, drop.getMaxStackSize());
-                    left -= count;
-                    ItemStack clone = drop.clone();
-                    clone.setAmount(count);
-                    newDrops.add(clone);
-                }
-            }
             generated--;
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.AIR), 0);
 
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
                 minedStones.put(event.getBlock().getLocation(), new MinedLog(event.getBlock().getType(), System.currentTimeMillis(), event.getBlock().getData()));
             }
-        }
-        ModifiedDropsEvent e = new ModifiedDropsEvent(newDrops, event);
-        EventManager.EVENT_BUS.postSticky(e);
-        if (!e.isCancelled()) {
-            for (ItemStack newDrop : e.getDrops()) {
-                event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), newDrop);
-            }
+            BlockDropFirer feature = skyBlock.getFeaturesManager().getFeature(BlockDropFirer.class);
+            feature.breakBlock(player, event);
         }
     }
 
     int ticks = 0;
 
-    @Subscribe
+    @Subscribe()
     public void onTick(ServerTickEvent event) {
         ticks++;
         if (ticks % 200 != 0) return;

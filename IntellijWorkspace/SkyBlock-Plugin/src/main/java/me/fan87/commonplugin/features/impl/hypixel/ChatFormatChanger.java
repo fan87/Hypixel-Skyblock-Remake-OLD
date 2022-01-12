@@ -3,7 +3,7 @@ package me.fan87.commonplugin.features.impl.hypixel;
 import me.fan87.commonplugin.features.SBFeature;
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.greenrobot.eventbus.Subscribe;
+import me.fan87.commonplugin.events.Subscribe;
 
 public class ChatFormatChanger extends SBFeature {
     public ChatFormatChanger() {
