@@ -2,12 +2,14 @@ package me.fan87.commonplugin.positionplaceholder;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.utils.SBMap;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
@@ -58,7 +60,7 @@ public class ArmorstandPlaceholderManager {
                     String namespace = nbt.getString("SBArmorPlaceHolderKey");
                     String[] data = nbt.getStringList("SBArmorPlaceHolderValues").toArray(new String[0]);
                     for (ArmorStandHandler armorStandHandler : handlers.get(namespace)) {
-                        if (armorStandHandler.onFound(new SBArmorStandPlaceHolder(namespace, data))) {
+                        if (armorStandHandler.onFound(new SBArmorStandPlaceHolder(namespace, data, armorStand.getLocation()))) {
                             entity.remove();
                         }
                     }
@@ -77,6 +79,8 @@ public class ArmorstandPlaceholderManager {
     public static class SBArmorStandPlaceHolder {
         private String namespace;
         private String[] value;
+        @Getter
+        private Location location;
 
         public String getPlaceHolderName() {
             return namespace;
