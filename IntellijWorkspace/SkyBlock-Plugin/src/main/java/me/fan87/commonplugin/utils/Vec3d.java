@@ -3,10 +3,9 @@ package me.fan87.commonplugin.utils;
 import lombok.*;
 import org.bukkit.Location;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.nio.ByteBuffer;
 
 @Getter
 @Setter
@@ -36,8 +35,7 @@ public class Vec3d {
 
     @SneakyThrows
     public static Vec3d fromByteArray(byte[] data) {
-        DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(data));
-        return new Vec3d(inputStream.readDouble(), inputStream.readDouble(), inputStream.readDouble());
+        return new Vec3d(ByteBuffer.wrap(data, 0, 8).getDouble(), ByteBuffer.wrap(data, 8, 8).getDouble(), ByteBuffer.wrap(data, 16, 8).getDouble());
     }
 
     public static Vec3d fromString(String input) {
