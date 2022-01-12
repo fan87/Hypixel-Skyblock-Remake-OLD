@@ -8,7 +8,6 @@ import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.utils.SBMap;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -39,7 +38,6 @@ public class ArmorstandPlaceholderManager {
         registerArmorStandHandler("TEST", new ArmorStandHandler() {
             @Override
             public boolean onFound(SBArmorStandPlaceHolder armorStandPlaceHolder) {
-                Bukkit.broadcastMessage("Found placeholder: " + armorStandPlaceHolder.getData(0));
                 return true;
             }
         });
@@ -88,6 +86,10 @@ public class ArmorstandPlaceholderManager {
 
         public String getData(int index) {
             return value[index];
+        }
+
+        public int getDataLength(int index) {
+            return value.length;
         }
 
     }
