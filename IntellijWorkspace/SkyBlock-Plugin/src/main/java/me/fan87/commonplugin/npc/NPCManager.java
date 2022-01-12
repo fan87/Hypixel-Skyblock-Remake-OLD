@@ -68,28 +68,32 @@ public class NPCManager {
         existingNpcList.add(npc);
     }
 
-    @Subscribe()
+    @Subscribe
     @SneakyThrows
     public void onPacket(PacketPlayReceiveEvent event) {
         Object nmsPacket = event.getNMSPacket().getRawNMSPacket();
-        if (nmsPacket instanceof PacketPlayInUseEntity) {
-            PacketPlayInUseEntity packet = ((PacketPlayInUseEntity) nmsPacket);
-            SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
-            Field a = PacketPlayInUseEntity.class.getDeclaredField("a");
-            a.setAccessible(true);
-            int entityId = (int) a.get(packet);
-            for (AbstractNPC<?> npc : existingNpcList) {
-                if (entityId == npc.getNpcEntity().getId()) {
-                    Location location = player.getPlayer().getLocation();
-                    double deltaX = location.getX() - npc.getNpcEntity().locX;
-                    double deltaY = location.getY() - npc.getNpcEntity().locY;
-                    double deltaZ = location.getZ() - npc.getNpcEntity().locZ;
-                    if (Math.sqrt(deltaX*deltaY + deltaY*deltaY + deltaZ*deltaZ) < 10) {
-                        npc.onInteract(player);
+        try {
+            if (nmsPacket instanceof PacketPlayInUseEntity) {
+                PacketPlayInUseEntity packet = ((PacketPlayInUseEntity) nmsPacket);
+                SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+                Field a = PacketPlayInUseEntity.class.getDeclaredField("a");
+                a.setAccessible(true);
+                int entityId = (int) a.get(packet);
+                for (AbstractNPC<?> npc : existingNpcList) {
+                    if (entityId == npc.getNpcEntity().getId()) {
+                        Location location = player.getPlayer().getLocation();
+                        double deltaX = location.getX() - npc.getNpcEntity().locX;
+                        double deltaY = location.getY() - npc.getNpcEntity().locY;
+                        double deltaZ = location.getZ() - npc.getNpcEntity().locZ;
+                        if (Math.sqrt(deltaX*deltaY + deltaY*deltaY + deltaZ*deltaZ) < 10) {
+                            npc.onInteract(player);
+                        }
+                        return;
                     }
-                    return;
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

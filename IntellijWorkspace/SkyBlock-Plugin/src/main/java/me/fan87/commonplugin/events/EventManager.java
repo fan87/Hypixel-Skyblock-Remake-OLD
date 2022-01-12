@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.events;
 
 import io.github.retrooper.packetevents.PacketEvents;
+import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
@@ -94,7 +95,15 @@ public class EventManager {
                 for (Class<?> aClass : new ArrayList<>(classListMap.keySet())) {
                     if (aClass.isAssignableFrom(event.getClass())) {
                         for (Method method : classListMap.get(aClass)) {
-                            method.invoke(subscriber, event);
+                            try {
+                                method.invoke(subscriber, event);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                System.err.println("Error while trying to fire " + event.getClass().getSimpleName());
+                                if (event instanceof  PacketPlayReceiveEvent) {
+                                    System.err.println("Packet: " + ((PacketPlayReceiveEvent) event).getNMSPacket().getRawNMSPacket().getClass().getSimpleName());
+                                }
+                            }
                         }
                     }
                 }

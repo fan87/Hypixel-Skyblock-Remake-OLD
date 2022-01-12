@@ -1,6 +1,5 @@
 package me.fan87.commonplugin.gui.impl.deepcavrens;
 
-import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.features.impl.LiftOperatorRegister;
 import me.fan87.commonplugin.gui.ButtonHandler;
 import me.fan87.commonplugin.gui.Gui;
@@ -12,9 +11,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class GuiLiftOperator extends Gui {
     private SBPlayer player;
@@ -35,8 +31,8 @@ public class GuiLiftOperator extends Gui {
                 .build(), new ButtonHandler() {
             @Override
             public void handleClick(InventoryClickEvent event) {
-//                Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().GUNPOWDER_MINES);
-//                player.getPlayer().teleport(location);
+                Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().GUNPOWDER_MINES);
+                player.getPlayer().teleport(location);
             }
         }));
     }

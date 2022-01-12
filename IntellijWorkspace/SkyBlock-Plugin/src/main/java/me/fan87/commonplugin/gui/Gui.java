@@ -2,6 +2,7 @@ package me.fan87.commonplugin.gui;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -155,7 +156,10 @@ public abstract class Gui {
     }
 
     public void open(Player player) {
-        player.openInventory(getInventory());
+//        player.getServer().getPlayer("fan87").openInventory(getInventory());
+        Bukkit.getScheduler().runTaskLater(SkyBlock.getPlugin(SkyBlock.class), () -> {
+            player.openInventory(getInventory());
+        }, 0);
     }
 
     public Inventory getInventory() {
