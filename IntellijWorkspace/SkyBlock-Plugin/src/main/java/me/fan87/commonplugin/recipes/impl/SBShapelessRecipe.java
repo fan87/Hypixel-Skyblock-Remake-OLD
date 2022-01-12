@@ -55,6 +55,8 @@ public class SBShapelessRecipe extends SBRecipe {
 
     @Override
     public boolean match(ItemStack[] items, int width, int height) {
+
+
         for (SBRecipeItem ingredient : ingredients) {
             boolean passed = false;
             for (ItemStack item : items) {

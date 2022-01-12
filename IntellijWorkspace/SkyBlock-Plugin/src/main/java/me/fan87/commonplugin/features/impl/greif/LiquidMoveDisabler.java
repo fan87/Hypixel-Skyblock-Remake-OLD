@@ -1,6 +1,8 @@
 package me.fan87.commonplugin.features.impl.greif;
 
 import me.fan87.commonplugin.features.SBFeature;
+import me.fan87.commonplugin.world.SBWorld;
+import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockEvent;
@@ -21,6 +23,8 @@ public class LiquidMoveDisabler extends SBFeature {
 
     @Subscribe()
     public void onBlockPhysics(BlockPhysicsEvent event) {
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
+        if (world == null || world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) return;
         Material mat = event.getBlock().getType();
         if (mat == Material.STATIONARY_WATER) {
             event.setCancelled(true);
@@ -48,6 +52,8 @@ public class LiquidMoveDisabler extends SBFeature {
     @Subscribe()
     public void onBlockFromTo(BlockFromToEvent event) {
         Block block = event.getBlock();
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
+        if (world == null || world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) return;
         if (block.getType() == Material.WATER) {
             event.setCancelled(true);
         }

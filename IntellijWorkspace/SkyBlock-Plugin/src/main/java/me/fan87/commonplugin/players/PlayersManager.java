@@ -39,6 +39,7 @@ public class PlayersManager {
         try {
             SBPlayer sbPlayer = SBPlayer.newPlayer(player, skyBlock);
             loadedPlayers.add(sbPlayer);
+            sbPlayer.init(player, skyBlock);
         } catch (Exception e) {
             e.printStackTrace();
             if (player.isOp()) {
@@ -64,6 +65,7 @@ public class PlayersManager {
     public void removePlayer(PlayerQuitEvent event) {
         SBPlayer player = getPlayer(event.getPlayer());
         player.save();
+        player.onDestroy();
         EventManager.unregister(loadedPlayers.remove(player));
     }
 

@@ -51,6 +51,8 @@ features in.
 
 - Save location and stuff to config/database (Lazy, will make it later. For now just change the sourcecode and build it)
 
+## Installation
+Full Install guild coming soon! If you want to test out this plugin, contact me on Discord, and I'll teach you. You won't be able to figure it out yourself unless you read the source code.
 
 
 ## API

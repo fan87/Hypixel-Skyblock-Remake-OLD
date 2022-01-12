@@ -1,11 +1,12 @@
 package me.fan87.commonplugin.features.impl.greif;
 
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.world.SBWorld;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import me.fan87.commonplugin.events.Subscribe;
 
 public class WorldInteractDisabler extends SBFeature {
 
@@ -25,7 +26,9 @@ public class WorldInteractDisabler extends SBFeature {
 
     @Subscribe(priority = 10)
     public void worldInteractDisabler(PlayerInteractEvent event) {
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getPlayer().getWorld().getName());
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        if (world.canPlayerBuild(player)) return;
         if (!player.isBuilding() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             event.setCancelled(true);
         }
@@ -33,7 +36,9 @@ public class WorldInteractDisabler extends SBFeature {
 
     @Subscribe(priority = 10)
     public void breakBlockDisabler(BlockBreakEvent event) {
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getPlayer().getWorld().getName());
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
+        if (world.canPlayerBuild(player)) return;
         if (!player.isBuilding()) {
             event.setCancelled(true);
         }

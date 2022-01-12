@@ -1,16 +1,15 @@
 package me.fan87.commonplugin.features.impl.api;
 
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.BlockDropEvent;
 import me.fan87.commonplugin.events.impl.XPDropEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +36,8 @@ public class BlockDropFirer extends SBFeature {
         if (event.isCancelled()) return;
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         event.setCancelled(true);
-        Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.AIR), 0);
         breakBlock(player, event);
+        event.getBlock().setType(Material.AIR);
     }
 
     public void breakBlock(SBPlayer player, BlockBreakEvent event) {
@@ -47,14 +46,14 @@ public class BlockDropFirer extends SBFeature {
         EventManager.post(e);
         if (!e.isCancelled()) {
             for (ItemStack newDrop : e.getDrops()) {
-                event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), newDrop);
+                event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.5, 0.5), newDrop);
             }
         }
         XPDropEvent e2 = new XPDropEvent(player, event.getExpToDrop(), event, random);
         EventManager.post(e2);
         if (!e2.isCancelled()) {
             if (e2.getXp() > 0) {
-                ExperienceOrb spawn = event.getBlock().getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class);
+                ExperienceOrb spawn = event.getBlock().getWorld().spawn(event.getBlock().getLocation().add(0.5, 0.5, 0.5), ExperienceOrb.class);
                 spawn.setExperience(e2.getXp());
             }
         }

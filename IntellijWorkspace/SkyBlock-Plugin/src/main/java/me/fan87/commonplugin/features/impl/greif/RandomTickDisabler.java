@@ -24,6 +24,9 @@ public class RandomTickDisabler extends SBFeature {
     public void onWorldTick(WorldTickEvent event) {
         if (event.getWorldType() != WorldsManager.WorldType.PRIVATE_ISLAND && event.getWorld() != null) {
             event.getWorld().setGameRuleValue("randomTickSpeed", "0");
+
+        } else {
+            event.getWorld().setGameRuleValue("randomTickSpeed", "4");
         }
     }
 }

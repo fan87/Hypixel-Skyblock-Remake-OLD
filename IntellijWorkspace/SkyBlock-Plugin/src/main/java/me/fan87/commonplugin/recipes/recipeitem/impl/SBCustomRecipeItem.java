@@ -34,14 +34,23 @@ public class SBCustomRecipeItem extends SBRecipeItem {
     public boolean check(ItemStack itemStack) {
         if (itemStack == null || itemStack.getType() == Material.AIR) return false;
         SBItemStack sbItemStack = new SBItemStack(itemStack);
-        return sbItemStack.getType().getItem() == item && itemStack.getAmount() >= amount && sbItemStack.canBeUsedForCrafting();
+        if (getItem() == null) return false;
+        String first = sbItemStack.getType().getItem().getNamespace();
+        String second = getItem().getNamespace();
+        return (sbItemStack.getType().getItem() == item
+                || ((first.startsWith("WOOD:") || first.equals("WOOD")) && (second.startsWith("WOOD:") || second.equals("WOOD")))
+        ) && itemStack.getAmount() >= amount && sbItemStack.canBeUsedForCrafting();
     }
 
     @Override
     public boolean action(ItemStack itemStack) {
         if (itemStack == null || itemStack.getType() == Material.AIR) return false;
         SBItemStack sbItemStack = new SBItemStack(itemStack);
-        if (sbItemStack.getType().getItem() == item && sbItemStack.canBeUsedForCrafting()) {
+        String first = sbItemStack.getType().getItem().getNamespace();
+        String second = getItem().getNamespace();
+        if ((sbItemStack.getType().getItem() == item
+                || ((first.startsWith("WOOD:") || first.equals("WOOD")) && (second.startsWith("WOOD:") || second.equals("WOOD")))
+        ) && sbItemStack.canBeUsedForCrafting()) {
             if (itemStack.getAmount() >= amount) {
                 itemStack.setAmount(itemStack.getAmount() - amount);
                 return true;

@@ -1,12 +1,14 @@
 package me.fan87.commonplugin.positionplaceholder;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
+import me.fan87.commonplugin.features.impl.api.ClientSideEntityController;
 import me.fan87.commonplugin.utils.SBMap;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -49,12 +51,14 @@ public class ArmorstandPlaceholderManager {
         for (World world : skyBlock.getServer().getWorlds()) {
             for (Entity entity : world.getEntities()) {
                 if (!(entity instanceof ArmorStand)) continue;
+                ClientSideEntityController clientSideEntityController = skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class);
                 ArmorStand armorStand = (ArmorStand) entity;
                 ItemStack itemInHand = armorStand.getItemInHand();
                 if (itemInHand == null) continue;
                 if (itemInHand.getType() == Material.AIR) continue;
                 NBTItem nbt = new NBTItem(itemInHand, true);
                 if (nbt.hasKey("SBArmorPlaceHolderKey")) {
+                    clientSideEntityController.removeEntity(armorStand.getEntityId());
                     String namespace = nbt.getString("SBArmorPlaceHolderKey");
                     String[] data = nbt.getStringList("SBArmorPlaceHolderValues").toArray(new String[0]);
                     for (ArmorStandHandler armorStandHandler : handlers.get(namespace)) {
@@ -65,6 +69,13 @@ public class ArmorstandPlaceholderManager {
                 }
             }
         }
+    }
+
+
+
+    @Subscribe
+    public void onPacketReceive(PacketPlayReceiveEvent event) {
+
     }
 
     public void registerArmorStandHandler(String name, ArmorStandHandler signHandler) {
