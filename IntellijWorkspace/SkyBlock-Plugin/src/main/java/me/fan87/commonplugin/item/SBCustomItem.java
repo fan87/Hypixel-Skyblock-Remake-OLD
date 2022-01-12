@@ -180,6 +180,18 @@ public class SBCustomItem {
         GAUNTLET((heldSlot, inventory, slot) -> heldSlot == slot - 36);
 
         private ActiveChecker activeChecker;
+
+        public boolean isTool() {
+            return this == SPADE || this == DRILL || this == SHEARS || this == AXE || this == PICKAXE || this == GAUNTLET;
+        }
+
+        public boolean isWeapon() {
+            return this == BOW || this == SWORD || this == AXE || this == FISHING_WEAPON || this == GAUNTLET || this == WAND;
+        }
+
+        public boolean hasDurability() {
+            return isTool() || isWeapon() || this == FISHING_ROD;
+        }
     }
 
     public interface ActiveChecker {

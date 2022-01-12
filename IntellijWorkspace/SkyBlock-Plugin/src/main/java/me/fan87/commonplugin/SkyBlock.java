@@ -15,6 +15,7 @@ import me.fan87.commonplugin.areas.AreasManager;
 import me.fan87.commonplugin.npc.NPCManager;
 import me.fan87.commonplugin.players.PlayersManager;
 import me.fan87.commonplugin.recipes.RecipesManager;
+import me.fan87.commonplugin.positionplaceholder.ArmorstandPlaceholderManager;
 import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -50,6 +51,8 @@ public class SkyBlock extends JavaPlugin {
     @Getter
     private NPCManager npcManager;
     @Getter
+    private ArmorstandPlaceholderManager armorstandPlaceholderManager;
+    @Getter
     private final List<SBAddon> addons = new ArrayList<>();
 
 
@@ -84,6 +87,7 @@ public class SkyBlock extends JavaPlugin {
         this.areasManager = new AreasManager(this);
         this.eventManager = new EventManager(this);
         this.worldsManager = new WorldsManager(this);
+        this.armorstandPlaceholderManager = new ArmorstandPlaceholderManager(this);
         this.featuresManager = new FeaturesManager(this);
         worldsManager.reload();
         this.playersManager = new PlayersManager(this);
