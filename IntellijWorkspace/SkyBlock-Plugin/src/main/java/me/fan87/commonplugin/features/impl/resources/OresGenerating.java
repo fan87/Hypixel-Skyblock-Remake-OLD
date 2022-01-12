@@ -227,20 +227,27 @@ public class OresGenerating extends SBFeature {
     public void loadCache(World world) {
         File cacheFile = getCacheFile(world);
         long l = FileUtils.sizeOf(cacheFile);
-        long created = 0;
+        long[] created = new long[1];
         FileInputStream inputStream = new FileInputStream(cacheFile);
         byte[] buffer = new byte[24];
         while (true) {
-            int read = inputStream.read(buffer);
-            if (read == -1) break;
-            if (created++ % 1000 == 0) {
-                System.out.println("Progress: " + created + " / " + l/24);
+            try {
+                int read = inputStream.read(buffer);
+                if (read == -1) {
+                    break;
+                }
+                if (created[0]++ % 1000 == 0) {
+                    System.out.println("Progress: " + created[0] + " / " + l/24);
+                }
+                Vec3d vec3d = Vec3d.fromByteArray(buffer);
+                Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
+                putOreSpawn(world, new OreSpawn(location, skyBlock.getAreasManager().getAreaOf(location)));
+                location.getBlock().setType(Material.STONE);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            Vec3d vec3d = Vec3d.fromByteArray(buffer);
-            Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
-            putOreSpawn(world, new OreSpawn(location, skyBlock.getAreasManager().getAreaOf(location)));
-            location.getBlock().setType(Material.STONE);
         }
+
     }
 
     public void putOreSpawn(World world, OreSpawn spawn) {
