@@ -88,9 +88,7 @@ public class ArmorstandPlaceholderManager {
             return value[index];
         }
 
-        public int getDataLength(int index) {
-            return value.length;
-        }
+        public int getDataLength(int index) {return value.length;}
 
     }
 
