@@ -154,7 +154,7 @@ public class OresGenerating extends SBFeature {
             double avg = 0;
             long l = FileUtils.sizeOf(getCacheFile(event.getWorld()));
             if (hasCache(event.getWorld())) {
-                skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it... (Ore Count: " + l/8 + ")");
+                skyBlock.sendMessage(ChatColor.GREEN + "Cache exist! Using it... (Ore Count: " + l/24 + ")");
                 loadCache(event.getWorld());
                 return;
             }
@@ -234,7 +234,7 @@ public class OresGenerating extends SBFeature {
             int read = inputStream.read(buffer);
             if (read == -1) break;
             if (created++ % 1000 == 0) {
-                System.out.println("Progress: " + created + " / " + l/8);
+                System.out.println("Progress: " + created + " / " + l/24);
             }
             Vec3d vec3d = Vec3d.fromByteArray(buffer);
             Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
