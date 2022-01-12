@@ -55,6 +55,10 @@ public class SBArea {
         return false;
     }
 
+    public String getNamespace() {
+        return getName().toUpperCase().replace(" ", "_").replace("'", "");
+    }
+
     public enum AreaCheckType {
         BIOME,
         POSITION;
