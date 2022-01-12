@@ -85,12 +85,6 @@ public class ArmorstandPlaceholderManager {
             return namespace;
         }
 
-        public String getData(int index) {
-            return value[index];
-        }
-
-        public int getDataLength(int index) {return value.length;}
-
     }
 
     public interface ArmorStandHandler {
