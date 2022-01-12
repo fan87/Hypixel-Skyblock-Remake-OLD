@@ -76,6 +76,7 @@ public class ArmorstandPlaceholderManager {
     @AllArgsConstructor
     public static class SBArmorStandPlaceHolder {
         private String namespace;
+        @Getter
         private String[] value;
         @Getter
         private Location location;
