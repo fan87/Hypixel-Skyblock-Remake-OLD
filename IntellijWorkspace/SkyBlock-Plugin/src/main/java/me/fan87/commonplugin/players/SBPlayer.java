@@ -329,7 +329,7 @@ public class SBPlayer {
 
     @Subscribe()
     public void onTick(ServerTickEvent event) {
-        scoreboard.setTitle(player.getPlayer(), getScoreboardTitle());
+        scoreboard.setTitle(player.getPlayer(), "");
         scoreboard.setLines(player.getPlayer(), getScoreboardContent());
         tickStats();
         if (showActionBar) {
@@ -533,31 +533,31 @@ public class SBPlayer {
 
     public String getScoreboardTitle() {
         int tick = player.getTicksLived();
-        int firstDuration = 120;
-        int animationDuration = 2;
-        int keepWhiteDuration = 20;
-        int blinkDuration = 12;
-        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*3;
-        if (tick % totalTick <= firstDuration) {
-            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
-        }
-        for (int i = 0; i < "SKYBLOCK".length(); i++) {
-            if (tick % totalTick <= firstDuration + animationDuration*(i + 2)) {
-                String first = "SKYBLOCK".substring(0, i + 1);
-                String second = "SKYBLOCK".substring(i + 1);
-                return ChatColor.WHITE + ChatColor.BOLD.toString() + first + ChatColor.YELLOW + ChatColor.BOLD.toString() + second;
-            }
-        }
-        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration) {
-            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
-        }
-        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration) {
-            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
-        }
-        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration*2) {
-            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
-        }
-        return "UNKNOWN";
+//        int firstDuration = 120; // Todo: Fix, it's a JScoreboard API glitch
+//        int animationDuration = 2;
+//        int keepWhiteDuration = 20;
+//        int blinkDuration = 12;
+//        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*3;
+//        if (tick % totalTick <= firstDuration) {
+//            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
+//        }
+//        for (int i = 0; i < "SKYBLOCK".length(); i++) {
+//            if (tick % totalTick <= firstDuration + animationDuration*(i + 2)) {
+//                String first = "SKYBLOCK".substring(0, i + 1);
+//                String second = "SKYBLOCK".substring(i + 1);
+//                return ChatColor.WHITE + ChatColor.BOLD.toString() + first + ChatColor.YELLOW + ChatColor.BOLD.toString() + second;
+//            }
+//        }
+//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration) {
+//            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
+//        }
+//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration) {
+//            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
+//        }
+//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration*2) {
+//            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
+//        }
+        return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
     }
 
     public boolean send(WorldsManager.WorldType worldType) {

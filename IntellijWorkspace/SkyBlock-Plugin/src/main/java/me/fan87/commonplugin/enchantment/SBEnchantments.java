@@ -3,6 +3,7 @@ package me.fan87.commonplugin.enchantment;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.addon.SBAddon;
 import me.fan87.commonplugin.addon.exceptions.UnknownAddonError;
+import me.fan87.commonplugin.enchantment.impl.EnchEfficiency;
 import me.fan87.commonplugin.enchantment.impl.EnchTelekinesis;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.utils.SBNamespace;
@@ -21,6 +22,7 @@ public class SBEnchantments {
     protected static final SkyBlock skyBlock = SkyBlock.getPlugin(SkyBlock.class);
 
     public static final EnchTelekinesis TELEKINESIS = new EnchTelekinesis(skyBlock);
+    public static final EnchEfficiency EFFICIENCY = new EnchEfficiency(skyBlock);
 
     private static final Map<SBNamespace, SBEnchantment> registeredEnchantments = new HashMap<>();
 

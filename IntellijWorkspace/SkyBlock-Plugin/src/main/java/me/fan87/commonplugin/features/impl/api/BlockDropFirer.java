@@ -46,7 +46,6 @@ public class BlockDropFirer extends SBFeature {
         BlockDropEvent e = new BlockDropEvent(player, drops, event, random, true);
         EventManager.post(e);
         if (!e.isCancelled()) {
-            System.out.println(e.getDrops().size() + "B / " + Thread.currentThread().getName());
             for (ItemStack newDrop : e.getDrops()) {
                 event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), newDrop);
             }

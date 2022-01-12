@@ -16,4 +16,7 @@ public class SBConfig {
     @SerializedName("serverIp")
     public String serverIp = "www.hypixel.net";
 
+    @SerializedName("doNotReplacePlaceHolder")
+    public boolean doNotReplacePlaceHolder = false;
+
 }

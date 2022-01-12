@@ -4,6 +4,7 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.impl.BlockDropEvent;
+import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.SBNamespace;
@@ -18,7 +19,7 @@ public class EnchTelekinesis extends SBEnchantment {
 
     @Subscribe(priority = -200)
     public void onBreak(BlockDropEvent event) {
-        if (!event.isCancelled()) {
+        if (!event.isCancelled() && event.getPlayer().isEnchantmentActive(this)) {
             ItemStack[] itemStacks = event.getDrops().toArray(new ItemStack[0]);
             for (ItemStack itemStack : itemStacks) {
                 if (event.getPlayer().getPlayer().getInventory().firstEmpty() != -1) {
@@ -37,10 +38,12 @@ public class EnchTelekinesis extends SBEnchantment {
                     event.getPlayer().getPlayer().getInventory().addItem(itemStack);
                 }
             }
-
-            System.out.println(event.getDrops().size() + "A / " + Thread.currentThread().getName());
         }
     }
 
-
+    @Override
+    public boolean isItemAccepted(SBCustomItem item) {
+        SBCustomItem.Category category = item.getCategory();
+        return category.isWeapon() || category.isTool();
+    }
 }

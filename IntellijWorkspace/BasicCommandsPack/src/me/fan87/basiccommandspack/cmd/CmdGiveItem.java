@@ -80,7 +80,6 @@ public class CmdGiveItem extends SBCommand {
             }
 
         }
-        System.out.println(Arrays.toString(args));
 
         return out;
     }

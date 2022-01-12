@@ -187,7 +187,7 @@ public class SBItemStack {
             NBTCompound enchantments = getExtraAttributeCompound().getOrCreateCompound("enchantments");
             for (SBEnchantment key : this.enchantments.keySet()) {
                 enchantments.setInteger(key.getNamespace() + "", this.enchantments.get(key));
-                try {itemStack.addUnsafeEnchantments(key.getVanillaEnchantment());} catch (Exception e) {e.printStackTrace();}
+                try {itemStack.addUnsafeEnchantments(key.getVanillaEnchantment(this.enchantments.get(key)));} catch (Exception e) {e.printStackTrace();}
             }
         } else {
             if (getExtraAttributeCompound().hasKey("enchantments")) {
