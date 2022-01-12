@@ -424,6 +424,10 @@ public class SBPlayer {
         }
     }
 
+    public void lockRecipe(SBCustomItem item) {
+        unlockedRecipeData.remove(item.getNamespace());
+    }
+
     public List<SBCustomItem> getAllUnlockedRecipes() {
         List<SBCustomItem> items = new ArrayList<>();
         for (String namespace : new ArrayList<>(unlockedRecipeData)) {
