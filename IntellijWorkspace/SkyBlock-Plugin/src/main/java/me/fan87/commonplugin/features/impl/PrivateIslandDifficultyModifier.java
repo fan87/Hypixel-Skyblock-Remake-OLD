@@ -38,7 +38,7 @@ public class PrivateIslandDifficultyModifier extends SBFeature {
             if (index == 0) {
                 index = 1;
             }
-            sbWorld.getWorld().setDifficulty(Difficulty.values()[Math.min(Difficulty.values().length, index)]);
+            sbWorld.getWorld().setDifficulty(Difficulty.values()[Math.min(Difficulty.values().length - 1, index)]);
         }
     }
 

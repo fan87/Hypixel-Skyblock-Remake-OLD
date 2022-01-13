@@ -1,13 +1,9 @@
 package me.fan87.basiccommandspack.cmd;
 
 import me.fan87.commonplugin.commands.SBCommand;
-import me.fan87.commonplugin.utils.SBNamespace;
-import me.fan87.commonplugin.world.SBWorld;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.NBTTagList;
+import me.fan87.commonplugin.features.impl.api.SignInputAPI;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 public class CmdTest extends SBCommand {
 
@@ -17,16 +13,9 @@ public class CmdTest extends SBCommand {
 
     @Override
     protected boolean onCommand(CommandSender sender, String label, String[] args) {
-        SBWorld world = skyBlock.getWorldsManager().getWorld(((Player) sender).getWorld().getName());
-        if (world == null) {
-            sender.sendMessage("null");
-            return true;
-        }
-        NBTTagList npcList = world.getWorldData().getList("NpcList", 10);
-        for (int i = 0; i < npcList.size(); i++) {
-            NBTTagCompound nbtData = npcList.get(i);
-            sender.sendMessage(new Vector(nbtData.getDouble("x"), nbtData.getDouble("y"), nbtData.getDouble("z")).toString() + " / " + SBNamespace.fromString(nbtData.getString("type")));
-        }
+        SignInputAPI.showSignEditor(skyBlock.getPlayersManager().getPlayer(((Player) sender)), content -> {
+            sender.sendMessage(content[0]);
+        }, "This is line 1", "This is line 2", "Line 3", "Yay");
         return true;
     }
 }
