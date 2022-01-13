@@ -261,6 +261,7 @@ public class OresGenerating extends SBFeature {
     }
 
     public boolean hasCache(World world) {
+        if (world.getName().startsWith("PI-")) return true;
         File cache = new File("cache");
         if (!cache.exists()) {
             cache.mkdirs();

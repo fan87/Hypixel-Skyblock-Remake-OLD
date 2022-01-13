@@ -16,7 +16,10 @@ import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.apache.commons.io.FileUtils;
 import org.bson.types.ObjectId;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
@@ -117,6 +120,9 @@ public class PrivateIsland {
             File file = new File(worldName);
             GridFSBucket bucket = GridFSBuckets.create(skyBlock.getDatabaseManager().getDatabase(), "worlds");
             GridFSUploadStream outputStream = bucket.openUploadStream("PI-" + UUID.randomUUID());
+            if (worldId != null) {
+                bucket.delete(new ObjectId(worldId));
+            }
             ZipUtils.zipFile(file, outputStream);
             worldId = outputStream.getObjectId().toString();
         } else {
@@ -124,11 +130,12 @@ public class PrivateIsland {
         }
     }
 
+    @SneakyThrows
     public void unload() {
         if (worldName != null) {
             skyBlock.getServer().unloadWorld(worldName, false);
             File file = new File(worldName);
-            file.delete();
+            FileUtils.deleteDirectory(file);
             System.out.println("Successfully unloaded " + worldName);
         }
     }
@@ -140,11 +147,11 @@ public class PrivateIsland {
     public NBTTagCompound getWorldData() {
         for (LivingEntity livingEntity : getWorld().getLivingEntities()) {
             if (livingEntity instanceof ArmorStand) {
-                skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
                 ItemStack itemInHand = ((ArmorStand) livingEntity).getItemInHand();
                 net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
                 if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
                 if (itemStack.getTag().hasKey("WorldDataStorage")) {
+                    skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
                     return itemStack.getTag().getCompound("WorldDataStorage");
                 }
             }
@@ -164,12 +171,13 @@ public class PrivateIsland {
     public void saveWorldData(NBTTagCompound tagCompound) {
         for (LivingEntity livingEntity : getWorld().getLivingEntities()) {
             if (livingEntity instanceof ArmorStand) {
-                skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
                 ItemStack itemInHand = ((ArmorStand) livingEntity).getItemInHand();
                 net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
                 if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
                 if (itemStack.getTag().hasKey("WorldDataStorage")) {
+                    skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
                     itemStack.getTag().set("WorldDataStorage", tagCompound);
+                    return;
                 }
             }
         }

@@ -1,14 +1,16 @@
 package me.fan87.commonplugin.features;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import org.bukkit.ChatColor;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,10 @@ public class FeaturesManager {
         }
         skyBlock.sendMessage(ChatColor.GREEN + "Finished initializing features");
     }
+    private Gson gson = new GsonBuilder()
+            .excludeFieldsWithoutExposeAnnotation()
+            .setPrettyPrinting()
+            .create();
 
     @SneakyThrows
     public void registerFeature(SBFeature feature) {
@@ -41,27 +47,36 @@ public class FeaturesManager {
                 throw new IllegalArgumentException("Feature name already taken: " + feature.getName());
             }
         }
-        features.add(feature);
-        feature.skyBlock = this.skyBlock;
-        feature.featuresManager = this;
-        Gson gson = new Gson();
-        JsonObject object = gson.fromJson(new FileReader(getConfigFile()), JsonObject.class);
-        if (object == null) object = new JsonObject();
-        if (object.has(feature.getName())) {
-            if (object.get(feature.getName()).getAsBoolean()) {
-                feature.setToggled(true);
-            } else {
-                feature.setToggled(false);
-            }
-        } else {
-            feature.setToggled(true);
+        SBFeature feature1 = gson.fromJson(new FileReader(getConfigFile(feature)), feature.getClass());
+        if (feature1 == null) {
+            feature1 = feature;
+            feature1.toggled = true;
+        }
+        feature1.skyBlock = skyBlock;
+        feature1.featuresManager = this;
+        features.add(feature1);
+        if (feature1.isToggled()) {
+            feature1.toggled = false;
+            feature1.setToggled(true);
+        }
+        saveConfigFile();
+    }
+
+    @SneakyThrows
+    public void saveConfigFile() {
+        for (SBFeature feature : features) {
+            String s = gson.toJson(feature);
+            FileOutputStream outputStream = new FileOutputStream(getConfigFile(feature));
+            outputStream.write(s.getBytes(StandardCharsets.UTF_8));
+            outputStream.close();
         }
     }
 
     @SneakyThrows
-    public File getConfigFile() {
-        skyBlock.getDataFolder().mkdirs();
-        File configFile = new File(skyBlock.getDataFolder(), "features.json");
+    public File getConfigFile(SBFeature feature) {
+        File features = new File(skyBlock.getDataFolder(), "features");
+        features.mkdirs();
+        File configFile = new File(features, feature.getName() + ".json");
         if (!configFile.exists()) configFile.createNewFile();
         return configFile;
     }

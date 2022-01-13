@@ -3,6 +3,7 @@ package me.fan87.commonplugin.players;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.impl.SBPlayerJoinEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -40,6 +41,8 @@ public class PlayersManager {
             SBPlayer sbPlayer = SBPlayer.newPlayer(player, skyBlock);
             loadedPlayers.add(sbPlayer);
             sbPlayer.init(player, skyBlock);
+            SBPlayerJoinEvent event = new SBPlayerJoinEvent(sbPlayer);
+            EventManager.post(event);
         } catch (Exception e) {
             e.printStackTrace();
             if (player.isOp()) {

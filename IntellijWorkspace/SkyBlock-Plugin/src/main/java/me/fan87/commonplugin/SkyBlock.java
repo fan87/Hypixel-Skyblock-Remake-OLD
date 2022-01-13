@@ -2,6 +2,7 @@ package me.fan87.commonplugin;
 
 import io.github.retrooper.packetevents.PacketEvents;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import me.fan87.commonplugin.addon.SBAddon;
 import me.fan87.commonplugin.commands.CommandsManager;
 import me.fan87.commonplugin.config.ConfigsManager;
@@ -17,6 +18,7 @@ import me.fan87.commonplugin.players.PlayersManager;
 import me.fan87.commonplugin.recipes.RecipesManager;
 import me.fan87.commonplugin.positionplaceholder.ArmorstandPlaceholderManager;
 import me.fan87.commonplugin.world.WorldsManager;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,11 +67,12 @@ public class SkyBlock extends JavaPlugin {
 
 
     @Override
+    @SneakyThrows
     public void onEnable() {
         File file = new File(".");
         for (File listFile : file.listFiles()) {
             if (listFile.getName().startsWith("PI-") && listFile.isDirectory()) {
-                listFile.delete();
+                FileUtils.deleteDirectory(listFile);
             }
         }
         for (Player onlinePlayer : getServer().getOnlinePlayers()) {

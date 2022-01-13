@@ -10,9 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.fan87.commonplugin.events.Subscribe;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class EntityDamageIndicator extends SBFeature {
         super("Entity Damage Indicator", "Shows entity's current health, info, and other info above them.", false);
     }
 
-    private final static List<EntityDamageByEntityEvent> criticals = new ArrayList<>();
+    private final static List<EntityDamageEvent> criticals = new ArrayList<>();
 
     @Override
     protected void onEnable() {
@@ -47,8 +49,11 @@ public class EntityDamageIndicator extends SBFeature {
     }
 
     @Subscribe(priority = -60)
-    public void onEntityDamage(EntityDamageByEntityEvent event) {
+    public void onEntityDamage(EntityDamageEvent event) {
         CraftEntity entity = ((CraftEntity) event.getEntity());
+        if (!(entity instanceof LivingEntity)) {
+            return;
+        }
         DamageIndicatorEvent event1 = new DamageIndicatorEvent(event);
         EventManager.post(event1);
         if (event1.isCancelled()) return;

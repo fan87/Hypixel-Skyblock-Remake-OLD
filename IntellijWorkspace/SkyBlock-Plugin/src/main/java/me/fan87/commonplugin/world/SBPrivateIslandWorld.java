@@ -50,7 +50,7 @@ public class SBPrivateIslandWorld extends SBWorld {
     }
 
     @Override
-    public char getWorldID() {
+    public String getWorldID() {
         return super.getWorldID();
     }
 }

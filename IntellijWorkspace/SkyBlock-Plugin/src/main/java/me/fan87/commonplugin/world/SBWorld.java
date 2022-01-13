@@ -62,10 +62,15 @@ public class SBWorld {
         worldsManager.saveConfig();
     }
 
-
-
-    public char getWorldID() {
-        return "ABCDEFGHIKLMNOPQRSTVXYZ".charAt(worldsManager.getWorlds().indexOf(this));
+    public String getWorldID() {
+        StringBuilder out = new StringBuilder();
+        int i = worldsManager.getWorlds().indexOf(this);
+        String chars = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789qwertyuiopasdfghjklzxcvbnm";
+        while(i > 0) {
+            out.insert(0, chars.charAt(i % chars.length()));
+            i=i/chars.length();
+        }
+        return out.toString();
     }
 
     public World getWorld() {

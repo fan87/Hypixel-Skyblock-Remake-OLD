@@ -37,6 +37,7 @@ import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
 import me.fan87.commonplugin.world.privateisland.PrivateIsland;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import org.bukkit.*;
@@ -144,6 +145,7 @@ public class SBPlayer {
     @Getter
     private PrivateIsland privateIsland;
 
+
     private String extraActionBar = "";
     private long extraActionBarTime = System.currentTimeMillis();
     private long lastInventoryUpdate = 0; // Todo: Make anticheat to prevent this type of crasher
@@ -221,6 +223,10 @@ public class SBPlayer {
 
     public void onDestroy() {
         privateIsland.unload();
+    }
+
+    public void sendPacket(Packet<?> packet) {
+        getCraftPlayer().getHandle().playerConnection.sendPacket(packet);
     }
 
     protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
@@ -546,7 +552,7 @@ public class SBPlayer {
         out.add("Objective");
         out.add(ChatColor.YELLOW + "Objective System coming soon!");
         out.add("");
-        out.add(ChatColor.YELLOW + skyBlock.getConfigsManager().config.serverIp);
+        out.add(ChatColor.YELLOW + skyBlock.getConfigsManager().config.scoreboardServerIp);
         return out;
     }
 

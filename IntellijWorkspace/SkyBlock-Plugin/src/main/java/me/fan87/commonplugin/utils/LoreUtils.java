@@ -11,7 +11,7 @@ public class LoreUtils {
 
 
 
-    public static List<String> splitLoreForLine(String input, String linePrefix, String lineSuffix) {
+    public static List<String> splitLoreForLine(String input, String linePrefix, String lineSuffix, int width) {
         char[] array = input.toCharArray();
         List<String> out = new ArrayList<>();
         String currentColor = "";
@@ -44,7 +44,7 @@ public class LoreUtils {
                 continue;
             }
             if (c == ' ') {
-                if (new ChatComponentText(currentLine + currentWord).getText().length() > 32) {
+                if (new ChatComponentText(currentLine + currentWord).getText().length() > width) {
                     out.add(currentLine + lineSuffix);
                     currentLine = linePrefix + cachedColor + currentWord + " ";
                 } else {
@@ -66,7 +66,7 @@ public class LoreUtils {
     }
 
     public static List<String> splitLoreForLine(String input) {
-        return splitLoreForLine(input, "", "");
+        return splitLoreForLine(input, "", "", 32);
     }
 
 }

@@ -13,8 +13,8 @@ public class SBConfig {
     @SerializedName("hexServerId")
     public String serverId = "m001";
 
-    @SerializedName("serverIp")
-    public String serverIp = "www.hypixel.net";
+    @SerializedName("scoreboardServerIp")
+    public String scoreboardServerIp = "www.hypixel.net";
 
     @SerializedName("doNotReplacePlaceHolder")
     public boolean doNotReplacePlaceHolder = false;

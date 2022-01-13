@@ -3,6 +3,8 @@ package me.fan87.commonplugin.enchantment;
 import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
+import me.fan87.commonplugin.item.SBItemStack;
+import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.SBNamespace;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
@@ -48,6 +50,10 @@ public class SBEnchantment {
 
     public String getDescription(ChatColor color, int level) {
         return color + "Empty Description.";
+    }
+
+    public float getDamageMultiplier(SBItemStack itemStack, int level, SBPlayer player) {
+        return 1f;
     }
 
 }

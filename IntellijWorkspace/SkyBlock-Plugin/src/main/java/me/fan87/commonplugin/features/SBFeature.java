@@ -1,17 +1,12 @@
 package me.fan87.commonplugin.features;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
 import org.bukkit.ChatColor;
-
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.nio.charset.StandardCharsets;
 
 /**
  * SBFeature works like daemon in linux (or service if you want to name it), it will keep running and listen for events
@@ -29,7 +24,9 @@ public abstract class SBFeature {
     protected FeaturesManager featuresManager;
 
     @Getter
-    private boolean toggled = false;
+    @SerializedName("toggled")
+    @Expose
+    protected boolean toggled = false;
 
     public SBFeature(String name, String description, boolean beta) {
         this.name = name;
@@ -42,12 +39,6 @@ public abstract class SBFeature {
 
     @SneakyThrows
     public void setToggled(boolean value) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonObject object = gson.fromJson(new FileReader(featuresManager.getConfigFile()), JsonObject.class);
-        if (object == null) object = new JsonObject();
-        object.remove(getName());
-        object.addProperty(getName(), value);
-        new FileOutputStream(featuresManager.getConfigFile()).write(gson.toJson(object).getBytes(StandardCharsets.UTF_8));
         if (value) {
             if (!toggled) {
                 skyBlock.getServer().getConsoleSender().sendMessage(" - " + ChatColor.GREEN + getName() + " has been enabled!");
