@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LiftOperatorRegister extends SBFeature {
-    public final Map<SBArea, Location> points = new HashMap<>();
+    public final Map<SBArea, Location> liftPoints = new HashMap<>();
     public LiftOperatorRegister() {
         super("Lift Operator Register", "Register the Lift", true);
     }
@@ -24,7 +24,7 @@ public class LiftOperatorRegister extends SBFeature {
 
                     if (area.getNamespace().equals(armorStandPlaceHolder.getValue()[0])) {
 
-                        points.put(area, armorStandPlaceHolder.getLocation());
+                        liftPoints.put(area, armorStandPlaceHolder.getLocation());
 
                     }
 

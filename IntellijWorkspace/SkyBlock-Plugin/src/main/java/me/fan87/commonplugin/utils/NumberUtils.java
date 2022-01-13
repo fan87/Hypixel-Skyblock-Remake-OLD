@@ -22,18 +22,18 @@ public class NumberUtils {
 
     private static String[] large = new String[] {
             "k",
-            "m",
+            "M",
             "b",
-            "t",
-            "qa",
-            "qi",
-            "sx",
-            "sp",
-            "oct", // Why do I feel like it will 64 bit overflow lol
+            "T",
+            "QA",
+            "QI",
+            "SX",
+            "SP",
+            "OCT", // Why do I feel like it will 64 bit overflow lol
     };
     public static String formatLargeNumber(double number, boolean forceDecPoint) {
         int unit = -1;
-        while (number > 1000) {
+        while (number >= 1000) {
             if (forceDecPoint || number/1000d <= 10) {
                 number = Math.floor(number/100d)/10d;
             } else {
