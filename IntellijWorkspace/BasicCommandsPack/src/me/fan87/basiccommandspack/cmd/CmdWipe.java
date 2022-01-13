@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CmdWipe extends SBCommand {
     public CmdWipe() {
         super("wipe", "Wipe traget player's all data in data base.", "skyblock.wipe", "/wipe <player>");
@@ -38,5 +41,26 @@ public class CmdWipe extends SBCommand {
         }
         sender.sendMessage(ChatColor.RED + "Invalid Player!");
         return true;
+    }
+
+    protected List<String> onTabComplete(CommandSender sender, String alias, String[] args) {
+
+        List<String> out = new ArrayList<>();
+
+        if (args.length == 1) {
+
+            for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
+
+                String name = loadedPlayer.getPlayer().getName();
+                if (name.startsWith(args[0])) {
+
+                    out.add(name);
+
+                }
+
+            }
+
+        }
+        return out;
     }
 }

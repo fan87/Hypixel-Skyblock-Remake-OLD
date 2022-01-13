@@ -504,6 +504,10 @@ public class SBPlayer {
         return areaOf;
     }
 
+    public boolean hasBeenTo(SBArea area) {
+        return unlockedAreas.contains(area.getName());
+    }
+
     public void sendTitle(String title, String subtitle) {
         getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle)));
         getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, new ChatComponentText(title)));
