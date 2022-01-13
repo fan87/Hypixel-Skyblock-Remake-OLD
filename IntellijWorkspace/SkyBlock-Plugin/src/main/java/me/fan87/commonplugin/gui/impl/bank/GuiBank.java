@@ -39,5 +39,19 @@ public class GuiBank extends Gui {
                 new GuiDeposit(player).open(player.getPlayer());
             }
         }));
+        set(5, 2, new GuiItem(new ItemStackBuilder(Material.DISPENSER)
+                .addAllItemFlags()
+                .setDisplayName(ChatColor.GREEN + "Withdraw Coins")
+                .addLore(ChatColor.GRAY + "Current balance: " + ChatColor.GOLD + player.getBankCoins(), true)
+                .addLore("")
+                .addLore(ChatColor.GRAY + "Take your coins out of the bank in order to spend them.", true)
+                .addLore("")
+                .addLore(ChatColor.YELLOW + "Click to withdraw coins!")
+                .build(), new ButtonHandler() {
+            @Override
+            public void handleClick(InventoryClickEvent event) {
+                new GuiWithdraw(player).open(player.getPlayer());
+            }
+        }));
     }
 }

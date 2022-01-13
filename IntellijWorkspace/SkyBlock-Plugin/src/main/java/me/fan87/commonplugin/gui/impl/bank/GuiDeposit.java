@@ -9,6 +9,7 @@ import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.NumberUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class GuiDeposit extends Gui {
@@ -21,7 +22,7 @@ public class GuiDeposit extends Gui {
     @Override
     public void init() {
         fill(new GuiItem(GuiItemProvider.backgroundGlassPane()));
-        set(3, 2, new GuiItem(new ItemStackBuilder(Material.CHEST)
+        set(2, 2, new GuiItem(new ItemStackBuilder(Material.CHEST)
                 .addAllItemFlags()
                 .setAmount(64)
                 .setDisplayName(ChatColor.GREEN + "Your whole purse")
@@ -40,11 +41,12 @@ public class GuiDeposit extends Gui {
                     player.setBankCoins(player.getBankCoins() + player.getCoins());
                     player.getPlayer().sendMessage(ChatColor.GREEN + "You have deposit " + ChatColor.GOLD + NumberUtils.formatLargeNumber(player.getCoins(), false) + " coins" + ChatColor.GREEN + "! You now have " + ChatColor.GOLD + NumberUtils.formatLargeNumber(player.getBankCoins(), false) + " coins " + ChatColor.GREEN + "in your account!");
                     player.setCoins(0);
+                    player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 8.0f, 4.0f);
                     new GuiBank(player).open(player .getPlayer());
                 }
             }
         }));
-        set(6, 2, new GuiItem(new ItemStackBuilder(Material.CHEST)
+        set(5, 2, new GuiItem(new ItemStackBuilder(Material.CHEST)
                 .addAllItemFlags()
                 .setAmount(32)
                 .setDisplayName(ChatColor.GREEN + "Half your purse")
@@ -63,8 +65,18 @@ public class GuiDeposit extends Gui {
                     player.setBankCoins(player.getBankCoins() + player.getCoins()/2);
                     player.getPlayer().sendMessage(ChatColor.GREEN + "You have deposit " + ChatColor.GOLD + NumberUtils.formatLargeNumber(player.getCoins(), false) + " coins" + ChatColor.GREEN + "! You now have " + ChatColor.GOLD + NumberUtils.formatLargeNumber(player.getBankCoins(), false) + " coins " + ChatColor.GREEN + "in your account!");
                     player.setCoins(player.getCoins()/2);
+                    player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 8.0f, 4.0f);
                     new GuiBank(player).open(player .getPlayer());
                 }
+            }
+        }));
+        set(5, 4, new GuiItem(new ItemStackBuilder(Material.ARROW)
+                .setDisplayName(ChatColor.GREEN + "Go Back")
+                .addLore(ChatColor.GRAY + "To Bank Account")
+                .build(), new ButtonHandler() {
+            @Override
+            public void handleClick(InventoryClickEvent event) {
+                new GuiBank(player).open(player.getPlayer());
             }
         }));
     }
