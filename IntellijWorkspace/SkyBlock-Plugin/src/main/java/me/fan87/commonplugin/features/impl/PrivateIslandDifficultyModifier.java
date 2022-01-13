@@ -44,14 +44,10 @@ public class PrivateIslandDifficultyModifier extends SBFeature {
 
     @Subscribe
     public void onSpwan(CreatureSpawnEvent event) {
-        for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
-            if (world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) {
-                int index = (int) (world.getWorld().getFullTime() / difficultyChangeTicks);
-                if (index == 0) {
-                    if (event.getEntity() instanceof Monster && event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CHUNK_GEN || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
-                        event.setCancelled(true);
-                    }
-                }
+        int index = (int) (event.getEntity().getWorld().getFullTime() / difficultyChangeTicks);
+        if (index == 0) {
+            if (event.getEntity() instanceof Monster && event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CHUNK_GEN || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
+                event.setCancelled(true);
             }
         }
     }

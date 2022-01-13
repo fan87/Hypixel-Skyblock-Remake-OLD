@@ -38,6 +38,9 @@ public class SBWorld {
         this.skyBlock = skyBlock;
         this.worldName = worldName;
         this.worldsManager = worldsManager;
+    }
+
+    protected void init() {
         NBTTagList npcList = getWorldData().getList("NpcList", 10);
         for (int i = 0; i < npcList.size(); i++) {
             NBTTagCompound nbtData = npcList.get(i);
@@ -101,7 +104,8 @@ public class SBWorld {
     }
 
     public World getWorld() {
-        return worldsManager.getSkyBlock().getServer().getWorld(getWorldName());
+        World world = worldsManager.getSkyBlock().getServer().getWorld(getWorldName());
+        return world;
     }
 
     public boolean canPlayerBuild(SBPlayer player) {
@@ -115,7 +119,9 @@ public class SBWorld {
         for (LivingEntity livingEntity : getWorld().getLivingEntities()) {
             if (livingEntity instanceof ArmorStand) {
                 ItemStack itemInHand = ((ArmorStand) livingEntity).getItemInHand();
+                if (itemInHand == null || itemInHand.getType() == Material.AIR) continue;
                 net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
+                if (itemStack == null) continue;
                 if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
                 if (itemStack.getTag().hasKey("WorldDataStorage")) {
                     skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());

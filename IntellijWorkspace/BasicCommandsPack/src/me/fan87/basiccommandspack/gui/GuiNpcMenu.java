@@ -1,6 +1,5 @@
 package me.fan87.basiccommandspack.gui;
 
-import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.gui.GuiItemProvider;
 import me.fan87.commonplugin.gui.impl.GuiSkyBlockMenu;
@@ -46,13 +45,7 @@ public class GuiNpcMenu extends GuiList {
                 player.getPlayer().closeInventory();
                 try {
                     Location location = player.getPlayer().getLocation();
-                    AbstractNPC npc = clazz.getConstructor(SkyBlock.class).newInstance(player.getSkyBlock());
-                    npc.create(player.getPlayer().getWorld());
-                    if (!npc.displayToAll()) {
-                        npc.display(player.getPlayer());
-                    }
-                    npc.getNpcEntity().setPosition(location.getX(), location.getY(), location.getZ());
-                    npc.updatePosition();
+                    player.getWorld().addNPC(location.toVector(), sbNamespace);
                     player.getPlayer().sendMessage(ChatColor.GREEN + "Successfully spawned " + ChatColor.YELLOW + registry.name() + ChatColor.GREEN + "!");
                 } catch (Exception e) {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

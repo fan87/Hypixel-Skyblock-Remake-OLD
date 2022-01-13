@@ -245,9 +245,6 @@ public class OresGenerating extends SBFeature {
                 }
                 Vec3d vec3d = Vec3d.fromByteArray(buffer);
                 Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
-                if (world.getName().startsWith("hub")) {
-                    System.out.println(location);
-                }
                 putOreSpawn(world, new OreSpawn(location, skyBlock.getAreasManager().getAreaOf(location)));
                 location.getBlock().setType(Material.STONE);
             } catch (Exception e) {

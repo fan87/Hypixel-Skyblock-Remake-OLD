@@ -90,6 +90,8 @@ public class WorldsManager {
             }
             World world1 = new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
             WorldType worldType = getWorld(worldName).getWorldType();
+            SBWorld sbWorld = new SBWorld(skyBlock, worldName, this);
+            sbWorld.init();
             Vec3d spawn = getWorld(worldName).getSpawn();
             if (spawn != null) {
                 world1.setSpawnLocation((int) spawn.getX(), (int) spawn.getY(), (int) spawn.getZ());
