@@ -38,7 +38,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().GUNPOWDER_MINES);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().GUNPOWDER_MINES);
                     player.getPlayer().teleport(location);
                 }
             }));
@@ -56,7 +56,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().LAPIS_QUARRY);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().LAPIS_QUARRY);
                     player.getPlayer().teleport(location);
                 }
             }));
@@ -73,7 +73,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().PIGMENS_DEN);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().PIGMENS_DEN);
                     player.getPlayer().teleport(location);
                 }
             }));
@@ -90,7 +90,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().SLIMEHILL);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().SLIMEHILL);
                     player.getPlayer().teleport(location);
                 }
             }));
@@ -107,7 +107,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().DIAMOND_RESERVE);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().DIAMOND_RESERVE);
                     player.getPlayer().teleport(location);
                 }
             }));
@@ -124,7 +124,7 @@ public class GuiLiftOperator extends Gui {
                     .build(), new ButtonHandler() {
                 @Override
                 public void handleClick(InventoryClickEvent event) {
-                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).points.get(player.getSkyBlock().getAreasManager().OBSIDIAN_SANCTUARY);
+                    Location location = player.getSkyBlock().getFeaturesManager().getFeature(LiftOperatorRegister.class).liftPoints.get(player.getSkyBlock().getAreasManager().OBSIDIAN_SANCTUARY);
                     player.getPlayer().teleport(location);
                 }
             }));

@@ -27,7 +27,10 @@ import java.util.List;
 public class NPCLiftOperator extends NPCPlayer {
     @Override
     public List<String> getLore(Player player) {
-        return Arrays.asList(ChatColor.AQUA.toString() + "Lift Operator", ChatColor.YELLOW + ChatColor.BOLD.toString() + "CLICK");
+        return Arrays.asList(
+                ChatColor.AQUA.toString() + "Lift Operator",
+                ChatColor.YELLOW + ChatColor.BOLD.toString() + "CLICK"
+        );
     }
 
     @Override
