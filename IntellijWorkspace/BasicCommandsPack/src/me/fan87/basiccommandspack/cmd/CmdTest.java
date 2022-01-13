@@ -1,7 +1,7 @@
 package me.fan87.basiccommandspack.cmd;
 
 import me.fan87.commonplugin.commands.SBCommand;
-import me.fan87.commonplugin.npc.impl.NPCTest;
+import me.fan87.commonplugin.world.SBWorld;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -13,10 +13,9 @@ public class CmdTest extends SBCommand {
 
     @Override
     protected boolean onCommand(CommandSender sender, String label, String[] args) {
-        NPCTest npc = new NPCTest(skyBlock);
-        npc.create(((Player) sender).getWorld());
-        npc.display(((Player) sender).getPlayer());
-        npc.updatePosition(((Player) sender).getPlayer());
+        SBWorld world = skyBlock.getWorldsManager().getWorld(((Player) sender).getWorld().getName());
+        if (world == null) sender.sendMessage("null");
+        sender.sendMessage(world.getWorldType().getName());
         return true;
     }
 }

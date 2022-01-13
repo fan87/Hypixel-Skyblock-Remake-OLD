@@ -28,7 +28,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         event.getPlayer().getInventory().setItem(8, new SBItemStack(this).getItemStack());
     }
 
-    @Subscribe()
+    @Subscribe
     public void onTrashingMe(PlayerDropItemEvent event) {
         SBItemStack itemStack = new SBItemStack(event.getItemDrop().getItemStack());
         if (itemStack.getType().getItem() == this) {
@@ -37,7 +37,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
         }
     }
 
-    @Subscribe()
+    @Subscribe
     public void skyblockMenuClick(InventoryClickEvent event) {
         if (event.getHotbarButton() != -1) {
             ItemStack item = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());

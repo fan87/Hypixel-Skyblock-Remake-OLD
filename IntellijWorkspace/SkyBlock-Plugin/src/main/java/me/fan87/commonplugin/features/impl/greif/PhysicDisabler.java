@@ -6,8 +6,8 @@ import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import me.fan87.commonplugin.events.Subscribe;
 
-public class LadderPhysicDisabler extends SBFeature {
-    public LadderPhysicDisabler() {
+public class PhysicDisabler extends SBFeature {
+    public PhysicDisabler() {
         super("Physics Disabler", "Disables the block physics so you can.. you know", false);
     }
 
@@ -24,7 +24,7 @@ public class LadderPhysicDisabler extends SBFeature {
     @Subscribe()
     public void onPhysics(BlockPhysicsEvent event) {
         SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
-        if (world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) return;
+        if (world != null && world.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) return;
         event.setCancelled(true);
     }
 

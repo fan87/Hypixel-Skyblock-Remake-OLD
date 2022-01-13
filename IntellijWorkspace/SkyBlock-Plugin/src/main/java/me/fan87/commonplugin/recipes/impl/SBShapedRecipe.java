@@ -9,6 +9,7 @@ import me.fan87.commonplugin.recipes.recipeitem.impl.SBAirRecipeItem;
 import me.fan87.commonplugin.recipes.recipeitem.impl.SBCustomRecipeItem;
 import me.fan87.commonplugin.utils.ItemUtils;
 import me.fan87.commonplugin.utils.SBMatrix;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 

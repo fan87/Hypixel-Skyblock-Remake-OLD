@@ -1,26 +1,29 @@
 package me.fan87.commonplugin.item;
 
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.recipes.SBRecipe;
 import me.fan87.commonplugin.utils.LoreUtils;
+import me.fan87.commonplugin.utils.RomanUtils;
 import net.minecraft.server.v1_8_R3.EnumItemRarity;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SBCustomItem {
 
@@ -81,11 +84,25 @@ public class SBCustomItem {
         if (itemStack.getType().getItem() != this) {
             return new ArrayList<>();
         }
-        return getLores();
-    }
 
-    public List<String> getLores() {
         List<String> out = new ArrayList<>();
+        if (itemStack.getEnchantments().size() > 0) {
+            if (itemStack.getEnchantments().size() > 5) {
+                Map<SBEnchantment, Integer> enchantments = itemStack.getEnchantments();
+                List<String> ench = new ArrayList<>();
+                for (SBEnchantment enchantment : enchantments.keySet()) {
+                    ench.add(ChatColor.BLUE + enchantment.getDisplayName() + " " + RomanUtils.toRoman(enchantments.get(enchantment)));
+                }
+                out.addAll(LoreUtils.splitLoreForLine(ChatColor.BLUE + String.join(ChatColor.BLUE + ", ", ench)));
+                out.add("");
+            } else {
+                for (SBEnchantment enchantment : itemStack.getEnchantments().keySet()) {
+                    out.add(ChatColor.BLUE + enchantment.getDisplayName() + " " + RomanUtils.toRoman(itemStack.getEnchantments().get(enchantment)));
+                    out.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + enchantment.getDescription(ChatColor.GRAY, itemStack.getEnchantmentLevel(enchantment))));
+                    out.add("");
+                }
+            }
+        }
         if (!getDescription().equals("")) {
             out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
             out.add("");
@@ -108,9 +125,17 @@ public class SBCustomItem {
 
     public ItemStack newItemStack() {
         ItemStack itemStack = new ItemStack(getMaterial(), 1, durability);
-        NBTItem nbt = new NBTItem(itemStack, true);
-        NBTCompound extraAttributes = nbt.addCompound("ExtraAttributes");
-        extraAttributes.setString("id", getNamespace());
+        net.minecraft.server.v1_8_R3.ItemStack itemStack1 = CraftItemStack.asNMSCopy(itemStack);
+//        NBTItem nbt = new NBTItem(itemStack, true);
+//        NBTCompound extraAttributes = nbt.addCompound("ExtraAttributes");
+//        extraAttributes.setString("id", getNamespace());
+        NBTTagCompound nbtBase = new NBTTagCompound();
+        if (itemStack1.getTag() == null) {
+            itemStack1.setTag(new NBTTagCompound());
+        }
+        itemStack1.getTag().set("ExtraAttributes", nbtBase);
+        nbtBase.setString("id", getNamespace());
+        itemStack = CraftItemStack.asCraftMirror(itemStack1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -122,7 +147,7 @@ public class SBCustomItem {
             itemMeta.spigot().setUnbreakable(true);
         } catch (Exception ignored) {}
         itemStack.setItemMeta(itemMeta);
-        applyExtraAttributes(extraAttributes);
+        applyExtraAttributes(nbtBase);
         return itemStack;
     }
 
@@ -137,7 +162,7 @@ public class SBCustomItem {
 
     }
 
-    public void applyExtraAttributes(NBTCompound compound) {
+    public void applyExtraAttributes(NBTTagCompound compound) {
 
     }
 

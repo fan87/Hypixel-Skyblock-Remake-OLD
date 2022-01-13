@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.players.PlayersManager;
+import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.utils.world.VoidGenerator;
 import org.apache.commons.io.FileUtils;
@@ -47,6 +49,7 @@ public class WorldsManager {
         skyBlock.sendMessage(ChatColor.YELLOW + "Loading worlds manager...");
         List<WorldType> missingTypes = Arrays.asList(WorldType.values()).stream().filter(worldType -> !worldType.isHidden()).collect(Collectors.toList());
         for (World world : skyBlock.getServer().getWorlds()) {
+            if (world.getName().startsWith("PI-")) continue;
             boolean found = false;
             for (String allConfiguredWorld : getAllConfiguredWorlds()) {
                 if (world.getName().equals(allConfiguredWorld)) {
@@ -128,6 +131,13 @@ public class WorldsManager {
         for (String worldName : getAllConfiguredWorlds()) {
             worlds.add(new SBWorld(worldName, this));
         }
+        PlayersManager playersManager = skyBlock.getPlayersManager();
+        if (playersManager != null) {
+            for (SBPlayer loadedPlayer : playersManager.getLoadedPlayers()) {
+                worlds.add(new SBPrivateIslandWorld(loadedPlayer.getPrivateIsland(), this));
+            }
+        }
+
         return worlds;
     }
 
@@ -149,6 +159,7 @@ public class WorldsManager {
     public void setWorldType(World world, WorldType type) {
         config.set(world.getName() + ".type", type.getName());
     }
+
 
     @Getter
     @AllArgsConstructor

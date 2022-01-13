@@ -1,15 +1,15 @@
 package me.fan87.commonplugin.features.impl.gameplay.vanillabehavior;
 
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.World;
-import me.fan87.commonplugin.events.Subscribe;
 
-public class MobSpawnDisabler extends SBFeature {
-    public MobSpawnDisabler() {
-        super("Mob Spawn Disabler", "Disable vanilla mob spawning behavior", false);
+public class FireTickDisabler extends SBFeature {
+    public FireTickDisabler() {
+        super("Fire Tick Disabler", "Disables the fire ticking behavior", false);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class MobSpawnDisabler extends SBFeature {
 
     @Override
     protected void onDisable() {
-        setToggled(true);
+
     }
 
     @Subscribe()
@@ -28,9 +28,9 @@ public class MobSpawnDisabler extends SBFeature {
             SBWorld world1 = skyBlock.getWorldsManager().getWorld(world.getName());
             if (world1 != null) {
                 if (world1.getWorldType() == WorldsManager.WorldType.PRIVATE_ISLAND) {
-                    world.setGameRuleValue("doMobSpawning", "true");
+                    world.setGameRuleValue("doFireTick", "true");
                 } else {
-                    world.setGameRuleValue("doMobSpawning", "false");
+                    world.setGameRuleValue("doFireTick", "false");
                 }
             }
         }

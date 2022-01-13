@@ -1,13 +1,12 @@
 package me.fan87.commonplugin.events;
 
 import io.github.retrooper.packetevents.PacketEvents;
-import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.registerers.PacketRegisterer;
 import me.fan87.commonplugin.events.registerers.TickEventRegisterer;
-import me.fan87.commonplugin.utils.SBMap;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
@@ -16,10 +15,8 @@ import org.bukkit.plugin.EventExecutor;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public class EventManager {
 
@@ -52,68 +49,64 @@ public class EventManager {
         PacketEvents.get().registerListener(new PacketRegisterer());
     }
 
-    private static final Map<Object, Map<Class<?>, List<Method>>> handlers = new SBMap<Object, Map<Class<?>, List<Method>>>() {
-        @Override
-        public Map<Class<?>, List<Method>> getDefaultValue() {
-            return new SBMap<Class<?>, List<Method>>() {
-                @Override
-                public List<Method> getDefaultValue() {
-                    return new ArrayList<>();
-                }
-            };
-        }
-    };
+    private static final Map<Class<?>, List<EventHandler>> handlers = new HashMap<>();
 
     public static void unregister(Object subscriber) {
-        handlers.remove(subscriber);
+        for (Class<?> aClass : handlers.keySet()) {
+            handlers.get(aClass).removeIf(eventHandler -> eventHandler.object == subscriber);
+        }
     }
 
     public static boolean isRegistered(Object subscriber) {
-        return handlers.containsKey(subscriber);
+        for (Class<?> aClass : handlers.keySet()) {
+            for (EventHandler eventHandler : handlers.get(aClass)) {
+                if (eventHandler.object == subscriber) return true;
+            }
+        }
+        return false;
     }
 
     public static void register(Object subscriber) {
-        Map<Class<?>, List<Method>> classListMap = handlers.get(subscriber);
-        for (Method declaredMethod : subscriber.getClass().getMethods()) {
-            if (declaredMethod.getAnnotationsByType(Subscribe.class).length != 1 || declaredMethod.getParameterCount() != 1) continue;
-            List<Method> methods = classListMap.get(declaredMethod.getParameterTypes()[0]);
-            methods.add(declaredMethod);
-            classListMap.put(declaredMethod.getParameterTypes()[0], methods);
-        }
-        handlers.put(subscriber, classListMap);
-        for (Class<?> aClass : handlers.get(subscriber).keySet()) {
-            handlers.get(subscriber).get(aClass).sort(Comparator.comparingInt(m -> -1 * m.getAnnotationsByType(Subscribe.class)[0].priority()));
+        Class<?> clazz = subscriber.getClass();
+        while (clazz != null) {
+            for (Method declaredMethod : clazz.getDeclaredMethods()) {
+                if (Modifier.isStatic(declaredMethod.getModifiers())) continue;
+                if (declaredMethod.getAnnotationsByType(Subscribe.class).length != 1) continue;
+                if (declaredMethod.getParameterTypes().length != 1) continue;
+                Class<?> eventType = declaredMethod.getParameterTypes()[0];
+                List<EventHandler> list = handlers.getOrDefault(eventType, new ArrayList<>());
+                list.add(new EventHandler(subscriber, declaredMethod));
+                handlers.put(eventType, list);
+            }
+            clazz = clazz.getSuperclass();
         }
     }
 
     @SneakyThrows
     public static Object post(Object event) {
-
-        try {
-            for (Object subscriber : new ArrayList<>(handlers.keySet())) {
-                Map<Class<?>, List<Method>> classListMap = handlers.get(subscriber);
-                for (Class<?> aClass : new ArrayList<>(classListMap.keySet())) {
-                    if (aClass.isAssignableFrom(event.getClass())) {
-                        for (Method method : classListMap.get(aClass)) {
-                            try {
-                                method.invoke(subscriber, event);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.err.println("Error while trying to fire " + event.getClass().getSimpleName());
-                                if (event instanceof  PacketPlayReceiveEvent) {
-                                    System.err.println("Packet: " + ((PacketPlayReceiveEvent) event).getNMSPacket().getRawNMSPacket().getClass().getSimpleName());
-                                }
-                            }
-                        }
-                    }
-                }
+        List<EventHandler> methods = new ArrayList<>();
+        for (Class<?> aClass : new ArrayList<>(handlers.keySet())) {
+            if (aClass.isAssignableFrom(event.getClass())) {
+                methods.addAll(new ArrayList<>(handlers.get(aClass)));
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
+        methods.sort(Comparator.comparingInt(handler -> -1 * handler.method.getAnnotationsByType(Subscribe.class)[0].priority()));
+        for (EventHandler method : methods) {
+            method.invoke(event);
+        }
         return event;
+    }
+
+    @AllArgsConstructor
+    private static class EventHandler {
+        private Object object;
+        private Method method;
+
+        @SneakyThrows
+        public void invoke(Object event) {
+            method.setAccessible(true);
+            method.invoke(object, event);
+        }
     }
 
 }

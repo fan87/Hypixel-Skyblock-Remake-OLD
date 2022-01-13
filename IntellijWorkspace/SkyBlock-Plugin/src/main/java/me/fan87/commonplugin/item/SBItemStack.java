@@ -30,6 +30,7 @@ public class SBItemStack {
     private ItemStack itemStack;
     private boolean customized;
 
+    @Getter
     private final Map<SBEnchantment, Integer> enchantments = new HashMap<>();
 
     public SBItemStack(ItemStack itemStack) {
@@ -143,7 +144,7 @@ public class SBItemStack {
         SBMaterial type = getType();
         if (type.getType() == SBMaterial.ItemType.CUSTOM) {
             itemMeta.setDisplayName(type.getItem().getRarity().getColor() + type.getItem().getDisplayName());
-            itemMeta.setLore(type.getItem().getLores());
+            itemMeta.setLore(type.getItem().getLores(this));
         }
         if (type.getType() == SBMaterial.ItemType.UNKNOWN) {
             itemMeta.setDisplayName(itemMeta.getDisplayName() + ChatColor.BLACK + " (Deprecated)");

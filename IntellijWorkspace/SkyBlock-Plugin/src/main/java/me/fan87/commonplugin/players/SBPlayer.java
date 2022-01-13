@@ -35,6 +35,7 @@ import me.fan87.commonplugin.utils.NumberUtils;
 import me.fan87.commonplugin.utils.SBNamespace;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
+import me.fan87.commonplugin.world.privateisland.PrivateIsland;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
@@ -122,7 +123,7 @@ public class SBPlayer {
 
     @Getter
     @JsonProperty("lastWorld")
-    private WorldsManager.WorldType currentWorldType;
+    private WorldsManager.WorldType currentWorldType = WorldsManager.WorldType.PRIVATE_ISLAND;
 
     @JsonProperty("inventory")
     private String inventory = "";
@@ -139,6 +140,10 @@ public class SBPlayer {
     @JsonProperty("xp")
     private Float xp = 0F;
 
+    @JsonProperty("privateIslandData")
+    @Getter
+    private PrivateIsland privateIsland;
+
     private String extraActionBar = "";
     private long extraActionBarTime = System.currentTimeMillis();
     private long lastInventoryUpdate = 0; // Todo: Make anticheat to prevent this type of crasher
@@ -152,6 +157,7 @@ public class SBPlayer {
     }
 
     public SBPlayer() {
+
     }
 
     public void showExtraActionBar(String message) {
@@ -162,6 +168,11 @@ public class SBPlayer {
     public void init(Player player, SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         this.player = player;
+        if (privateIsland == null) {
+            privateIsland = new PrivateIsland();
+        }
+        privateIsland.init(this);
+        privateIsland.load();
         player.closeInventory();
         this.uuid = player.getUniqueId().toString();
         if (!EventManager.isRegistered(this)) {
@@ -202,9 +213,14 @@ public class SBPlayer {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            player.getInventory().clear();
+            player.getEnderChest().clear();
         }
 
-//        player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
+    }
+
+    public void onDestroy() {
+        privateIsland.unload();
     }
 
     protected static SBPlayer newPlayer(Player player, SkyBlock skyBlock) {
@@ -228,11 +244,9 @@ public class SBPlayer {
         while (iterator.hasNext()) {
             SBPlayer sbPlayer = iterator.next();
             players.remove(String.format("{\"uuid\": \"%s\", \"_id\": {\"$ne\": {\"$oid\": \"%s\"}}}", player.getUniqueId().toString(), sbPlayer._id));
-            sbPlayer.init(player, skyBlock);
             return sbPlayer;
         }
         SBPlayer sbPlayer = new SBPlayer();
-        sbPlayer.init(player, skyBlock);
         players.insert(sbPlayer);
         return sbPlayer;
     }
@@ -470,6 +484,7 @@ public class SBPlayer {
     }
 
     public void save() {
+        privateIsland.save();
         this.xp = player.getExp();
         this.inventory = BukkitSerialization.toBase64(player.getInventory());
         this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
@@ -523,9 +538,14 @@ public class SBPlayer {
         out.add(String.format(" %s %s", ingameDate.getMonthDisplay().getName(), ingameDate.getDayOfMonthDisplay()));
         out.add(ChatColor.GRAY + " " + ingameDate.getTimeDisplay());
         SBArea area = getArea();
-        out.add(ChatColor.GRAY + " ⏣ " + (area ==null?"None": area.getColor() + area.getName()));
+        if (getWorld() == null || getWorld().getWorldType() != WorldsManager.WorldType.PRIVATE_ISLAND) {
+            out.add(ChatColor.GRAY + " ⏣ " + (area ==null?"None": area.getColor() + area.getName()));
+        } else {
+            out.add(ChatColor.GRAY + " ⏣ " + ChatColor.GREEN + "Your Island");
+        }
+
         out.add("");
-        out.add(ChatColor.RESET + "Purse: " + ChatColor.GOLD + NumberUtils.formatNumber(coins));
+        out.add(ChatColor.RESET + "Purse: " + ChatColor.GOLD + NumberUtils.formatNumber(getCoins()));
         out.add("");
         out.add("Objective");
         out.add(ChatColor.YELLOW + "Objective System coming soon!");
@@ -565,21 +585,33 @@ public class SBPlayer {
     }
 
     public boolean send(WorldsManager.WorldType worldType) {
+        World w = null;
+        SBWorld world1 = null;
+        if (worldType == WorldsManager.WorldType.PRIVATE_ISLAND) {
+            w = privateIsland.getWorld();
+            world1 = skyBlock.getWorldsManager().getWorld(privateIsland.getWorldName());
+        }
         for (SBWorld world : skyBlock.getWorldsManager().getWorlds()) {
             if (world.getWorldType() == worldType) {
-                World w = skyBlock.getServer().getWorld(world.getWorldName());
-                SBWorld world1 = skyBlock.getWorldsManager().getWorld(w.getName());
-                PlayerPostPortalEvent event = new PlayerPostPortalEvent(skyBlock.getWorldsManager().getWorld(player.getWorld().getName()), world1, this);
-                player.sendMessage(ChatColor.GRAY + "Sending to server " + skyBlock.getConfigsManager().config.serverId + world.getWorldID() + "...");
-                Location spawnLocation = w.getSpawnLocation();
-                spawnLocation.setYaw(180);
-                player.teleport(spawnLocation);
-                EventManager.post(event);
-                currentWorldType = worldType;
-                player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
-                return true;
+                w = skyBlock.getServer().getWorld(world.getWorldName());
+                WorldsManager worldsManager = skyBlock.getWorldsManager();
+                if (worldsManager != null) {
+                    world1 = worldsManager.getWorld(w.getName());
+                }
             }
         }
+        if (w != null && world1 != null) {
+            PlayerPostPortalEvent event = new PlayerPostPortalEvent(skyBlock.getWorldsManager().getWorld(player.getWorld().getName()), world1, this);
+            player.sendMessage(ChatColor.GRAY + "Sending to server " + skyBlock.getConfigsManager().config.serverId + world1.getWorldID() + "...");
+            Location spawnLocation = w.getSpawnLocation();
+            spawnLocation.setYaw(world1.getSpawnYaw());
+            player.teleport(spawnLocation);
+            EventManager.post(event);
+            currentWorldType = worldType;
+            player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
+            return true;
+        }
+
         player.sendMessage(ChatColor.RED + "Unable to send you to " + worldType.getName() + "! Please try again later.");
         return false;
     }

@@ -1,12 +1,12 @@
 package me.fan87.commonplugin.features.impl.stat;
 
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.BlockDropEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-import me.fan87.commonplugin.events.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ForagingFortuneListener extends SBFeature {
         ) {
             Random random = event.getRandom();
             List<ItemStack> drops = new ArrayList<>();
-            for (ItemStack drop : event.getDrops()) {
+            for (ItemStack drop : new ArrayList<>(event.getDrops())) {
                 int amount = drop.getAmount();
                 amount += (int) player.getStats().getMiningFortune().getValue(player)/100;
                 if (random.nextInt(99) + 1 < player.getStats().getMiningFortune().getValue(player) % 100) {

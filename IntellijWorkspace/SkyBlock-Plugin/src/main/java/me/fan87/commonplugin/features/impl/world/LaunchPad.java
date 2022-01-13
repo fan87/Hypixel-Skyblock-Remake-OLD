@@ -10,6 +10,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.SBLocation;
 import me.fan87.commonplugin.utils.TransportUtils;
 import me.fan87.commonplugin.utils.Vec3d;
+import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
 import net.minecraft.server.v1_8_R3.PacketPlayInFlying;
 import org.bukkit.*;
@@ -122,7 +123,10 @@ public class LaunchPad extends SBFeature {
         setQuota(event.getPlayer(), 50);
 
         for (Pad pad : pads) {
-            if (pad.to == event.getFrom().getWorldType() && pad.from == event.getTo().getWorldType()) {
+            SBWorld from = event.getFrom();
+            SBWorld to = event.getTo();
+            if (from == null || to == null) return;
+            if (pad.to == from.getWorldType() && pad.from == to.getWorldType()) {
                 Location location = pad.getLocation();
                 location.setWorld(event.getPlayer().getPlayer().getWorld());
                 double deltaX = location.getWorld().getSpawnLocation().getX() - location.getX();
