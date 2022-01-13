@@ -18,6 +18,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class ArmorstandPlaceholderManager {
 
     private final SkyBlock skyBlock;
 
+    private final Map<Integer, ArmorStandHandler> registered = new HashMap<>();
 
     public final Map<String, List<ArmorStandHandler>> handlers = new SBMap<String, List<ArmorStandHandler>>() {
         @Override
@@ -57,20 +59,19 @@ public class ArmorstandPlaceholderManager {
                 if (itemInHand == null) continue;
                 if (itemInHand.getType() == Material.AIR) continue;
                 NBTItem nbt = new NBTItem(itemInHand, true);
-                if (nbt.hasKey("SBArmorPlaceHolderKey")) {
+                if (nbt.hasKey("SBArmorPlaceHolderKey") && !registered.containsKey(armorStand.getEntityId())) {
                     clientSideEntityController.removeEntity(armorStand.getEntityId());
                     String namespace = nbt.getString("SBArmorPlaceHolderKey");
                     String[] data = nbt.getStringList("SBArmorPlaceHolderValues").toArray(new String[0]);
                     for (ArmorStandHandler armorStandHandler : handlers.get(namespace)) {
                         if (armorStandHandler.onFound(new SBArmorStandPlaceHolder(namespace, data, armorStand.getLocation()))) {
-                            entity.remove();
+                            registered.put(armorStand.getEntityId(), armorStandHandler);
                         }
                     }
                 }
             }
         }
     }
-
 
 
     @Subscribe

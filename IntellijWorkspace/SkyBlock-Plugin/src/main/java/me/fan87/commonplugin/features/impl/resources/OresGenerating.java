@@ -107,9 +107,13 @@ public class OresGenerating extends SBFeature {
             for (World world : skyBlock.getServer().getWorlds()) {
                 List<OreSpawn> spawns = this.oreSpawns.get(world.getName());
                 if (spawns == null) continue;
-                if (ticks % 20 == 0 && generated < spawns.size()*0.025) {
+                int total = 0;
+                for (List<OreSpawn> value : oreSpawns.values()) {
+                    total += value.size();
+                }
+                if (ticks % 200 == 0 /*&& generated < total*0.025*/) {
                     Random random = new Random();
-                    for (int i = 0; i < spawns.size()/1000; i++) {
+                    for (int i = 0; i < spawns.size()*0.001; i++) {
                         OreSpawn oreSpawn = spawns.get(random.nextInt(spawns.size()));
                         List<Material> oresToGenerate = skyBlock.getAreasManager().getOresToGenerate(oreSpawn.getArea());
                         if (oreSpawn.getLocation().getBlock().getType() == Material.STONE && oresToGenerate.size() > 0) {
@@ -241,6 +245,9 @@ public class OresGenerating extends SBFeature {
                 }
                 Vec3d vec3d = Vec3d.fromByteArray(buffer);
                 Location location = new Location(world, vec3d.getX(), vec3d.getY(), vec3d.getZ());
+                if (world.getName().startsWith("hub")) {
+                    System.out.println(location);
+                }
                 putOreSpawn(world, new OreSpawn(location, skyBlock.getAreasManager().getAreaOf(location)));
                 location.getBlock().setType(Material.STONE);
             } catch (Exception e) {

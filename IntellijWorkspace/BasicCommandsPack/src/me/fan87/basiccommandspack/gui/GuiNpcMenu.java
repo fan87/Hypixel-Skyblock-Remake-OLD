@@ -38,6 +38,7 @@ public class GuiNpcMenu extends GuiList {
                     .setSkullTexture(registry.skin())
                     .addLore(ChatColor.GRAY + "Location: " + ChatColor.BLUE + registry.world().getName())
                     .addLore(ChatColor.GRAY + "Provider: " + ChatColor.BLUE + (registry.addonName().equals("default")?ChatColor.GRAY + "Built-in":player.getSkyBlock().getAddon(registry.addonName()).getName()))
+                    .addLore(ChatColor.GRAY + "Namespace: " + ChatColor.GRAY + sbNamespace.toString())
                     .addLore("")
                     .addLore(ChatColor.YELLOW + "Click to spawn!")
                     .setDisplayName(ChatColor.GREEN + registry.name()).build();
