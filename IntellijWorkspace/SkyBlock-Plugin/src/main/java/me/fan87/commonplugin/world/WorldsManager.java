@@ -90,6 +90,8 @@ public class WorldsManager {
             }
             World world1 = new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
             WorldType worldType = getWorld(worldName).getWorldType();
+            SBWorld sbWorld = new SBWorld(skyBlock, worldName, this);
+            sbWorld.init();
             Vec3d spawn = getWorld(worldName).getSpawn();
             if (spawn != null) {
                 world1.setSpawnLocation((int) spawn.getX(), (int) spawn.getY(), (int) spawn.getZ());
@@ -129,12 +131,12 @@ public class WorldsManager {
     public List<SBWorld> getWorlds() {
         List<SBWorld> worlds = new ArrayList<>();
         for (String worldName : getAllConfiguredWorlds()) {
-            worlds.add(new SBWorld(worldName, this));
+            worlds.add(new SBWorld(skyBlock, worldName, this));
         }
         PlayersManager playersManager = skyBlock.getPlayersManager();
         if (playersManager != null) {
             for (SBPlayer loadedPlayer : playersManager.getLoadedPlayers()) {
-                worlds.add(new SBPrivateIslandWorld(loadedPlayer.getPrivateIsland(), this));
+                worlds.add(new SBPrivateIslandWorld(skyBlock, loadedPlayer.getPrivateIsland(), this));
             }
         }
 

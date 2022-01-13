@@ -86,7 +86,11 @@ public class NPCManager {
                         double deltaY = location.getY() - npc.getNpcEntity().locY;
                         double deltaZ = location.getZ() - npc.getNpcEntity().locZ;
                         if (Math.sqrt(deltaX*deltaY + deltaY*deltaY + deltaZ*deltaZ) < 10) {
-                            npc.onInteract(player);
+                            if (player.isBuilding()) {
+                                player.getWorld().removeNpc(npc);
+                            } else {
+                                npc.onInteract(player);
+                            }
                         }
                         return;
                     }

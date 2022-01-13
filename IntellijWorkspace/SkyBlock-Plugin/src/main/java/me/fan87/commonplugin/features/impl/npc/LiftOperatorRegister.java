@@ -1,9 +1,8 @@
-package me.fan87.commonplugin.features.impl;
+package me.fan87.commonplugin.features.impl.npc;
 
 import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.positionplaceholder.ArmorstandPlaceholderManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.util.HashMap;

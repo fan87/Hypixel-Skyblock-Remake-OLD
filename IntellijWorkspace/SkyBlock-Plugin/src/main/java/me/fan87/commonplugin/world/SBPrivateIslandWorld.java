@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.world;
 
+import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.privateisland.PrivateIsland;
 
@@ -17,8 +18,8 @@ public class SBPrivateIslandWorld extends SBWorld {
 
     private PrivateIsland privateIsland;
 
-    protected SBPrivateIslandWorld(PrivateIsland privateIsland, WorldsManager worldsManager) {
-        super(privateIsland.getWorldName(), worldsManager);
+    protected SBPrivateIslandWorld(SkyBlock skyBlock, PrivateIsland privateIsland, WorldsManager worldsManager) {
+        super(skyBlock, privateIsland.getWorldName(), worldsManager);
         this.privateIsland = privateIsland;
     }
 
@@ -50,7 +51,7 @@ public class SBPrivateIslandWorld extends SBWorld {
     }
 
     @Override
-    public char getWorldID() {
+    public String getWorldID() {
         return super.getWorldID();
     }
 }

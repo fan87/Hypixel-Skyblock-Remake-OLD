@@ -1,6 +1,6 @@
 package me.fan87.commonplugin.gui.impl.deepcavrens;
 
-import me.fan87.commonplugin.features.impl.LiftOperatorRegister;
+import me.fan87.commonplugin.features.impl.npc.LiftOperatorRegister;
 import me.fan87.commonplugin.gui.ButtonHandler;
 import me.fan87.commonplugin.gui.Gui;
 import me.fan87.commonplugin.gui.GuiItem;

@@ -158,6 +158,10 @@ public class SBCustomItem {
         return null;
     }
 
+    public double getDamage(SBItemStack itemStack) {
+        return 0;
+    }
+
     protected void extraProcessItemStack() {
 
     }

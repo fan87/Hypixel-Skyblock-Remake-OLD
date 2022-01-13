@@ -137,6 +137,7 @@ public abstract class AbstractNPC<EntityType extends EntityLiving> {
         String name();
         String skin();
         WorldsManager.WorldType world() default WorldsManager.WorldType.NONE;
+
     }
 
 

@@ -8,19 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
-import me.fan87.commonplugin.features.impl.api.ClientSideEntityController;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.ZipUtils;
 import me.fan87.commonplugin.utils.world.VoidGenerator;
+import me.fan87.commonplugin.world.SBWorld;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.apache.commons.io.FileUtils;
 import org.bson.types.ObjectId;
-import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 
 import java.io.File;
 import java.util.UUID;
@@ -106,7 +104,7 @@ public class PrivateIsland {
                 .generateStructures(false)
                 .generator(new VoidGenerator())
                 .createWorld();
-        getWorldData();
+        getSBWorld().getWorldData();
         return world;
     }
 
@@ -117,6 +115,9 @@ public class PrivateIsland {
             File file = new File(worldName);
             GridFSBucket bucket = GridFSBuckets.create(skyBlock.getDatabaseManager().getDatabase(), "worlds");
             GridFSUploadStream outputStream = bucket.openUploadStream("PI-" + UUID.randomUUID());
+            if (worldId != null) {
+                bucket.delete(new ObjectId(worldId));
+            }
             ZipUtils.zipFile(file, outputStream);
             worldId = outputStream.getObjectId().toString();
         } else {
@@ -124,11 +125,12 @@ public class PrivateIsland {
         }
     }
 
+    @SneakyThrows
     public void unload() {
         if (worldName != null) {
             skyBlock.getServer().unloadWorld(worldName, false);
             File file = new File(worldName);
-            file.delete();
+            FileUtils.deleteDirectory(file);
             System.out.println("Successfully unloaded " + worldName);
         }
     }
@@ -137,58 +139,12 @@ public class PrivateIsland {
         return skyBlock.getServer().getWorld(worldName);
     }
 
-    public NBTTagCompound getWorldData() {
-        for (LivingEntity livingEntity : getWorld().getLivingEntities()) {
-            if (livingEntity instanceof ArmorStand) {
-                skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
-                ItemStack itemInHand = ((ArmorStand) livingEntity).getItemInHand();
-                net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
-                if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
-                if (itemStack.getTag().hasKey("WorldDataStorage")) {
-                    return itemStack.getTag().getCompound("WorldDataStorage");
-                }
-            }
-        }
-        ArmorStand armorStand = getWorld().spawn(new Location(getWorld(), 0, 1, 0), ArmorStand.class);
-        armorStand.setMarker(true);
-        armorStand.setGravity(false);
-        armorStand.setVisible(false);
-        skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(armorStand.getEntityId());
-        ItemStack itemInHand = new ItemStack(Material.STONE);
-        armorStand.setItemInHand(itemInHand);
-        net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
-        if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
-        return itemStack.getTag().getCompound("WorldDataStorage");
-    }
-
-    public void saveWorldData(NBTTagCompound tagCompound) {
-        for (LivingEntity livingEntity : getWorld().getLivingEntities()) {
-            if (livingEntity instanceof ArmorStand) {
-                skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(livingEntity.getEntityId());
-                ItemStack itemInHand = ((ArmorStand) livingEntity).getItemInHand();
-                net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
-                if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
-                if (itemStack.getTag().hasKey("WorldDataStorage")) {
-                    itemStack.getTag().set("WorldDataStorage", tagCompound);
-                }
-            }
-        }
-        ArmorStand armorStand = getWorld().spawn(new Location(getWorld(), 0, 1, 0), ArmorStand.class);
-        armorStand.setMarker(true);
-        armorStand.setGravity(false);
-        armorStand.setVisible(false);
-        skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class).removeEntity(armorStand.getEntityId());
-        ItemStack itemInHand = new ItemStack(Material.STONE);
-        armorStand.setItemInHand(itemInHand);
-        net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(itemInHand);
-        if (itemStack.getTag() == null) itemStack.setTag(new NBTTagCompound());
-        itemStack.getTag().set("WorldDataStorage", tagCompound);
-        itemInHand = CraftItemStack.asCraftMirror(itemStack);
-        armorStand.setItemInHand(itemInHand);
+    public SBWorld getSBWorld() {
+        return skyBlock.getWorldsManager().getWorld(worldName);
     }
 
     public boolean isBlockManuallyPlaced(Location location) {
-        NBTTagList manuallyPlaced1 = getWorldData().getList("manuallyPlaced", 10);
+        NBTTagList manuallyPlaced1 = getSBWorld().getWorldData().getList("manuallyPlaced", 10);
         for (int i = 0; i < manuallyPlaced1.size(); i++) {
             NBTTagCompound manuallyPlaced = manuallyPlaced1.get(i);
             if (manuallyPlaced.getInt("x") == location.getBlockX() && manuallyPlaced.getInt("y") == location.getBlockY() && manuallyPlaced.getInt("z") == location.getBlockZ()) {
@@ -200,7 +156,7 @@ public class PrivateIsland {
 
     public void setBlockManuallyPlaced(Location location, boolean value) {
         if (!value) {
-            NBTTagCompound worldData = getWorldData();
+            NBTTagCompound worldData = getSBWorld().getWorldData();
             NBTTagList manuallyPlaced1 = worldData.getList("manuallyPlaced", 10);
             for (int i = 0; i < manuallyPlaced1.size(); i++) {
                 NBTTagCompound manuallyPlaced = manuallyPlaced1.get(i);
@@ -209,7 +165,7 @@ public class PrivateIsland {
                 }
             }
         } else {
-            NBTTagCompound worldData = getWorldData();
+            NBTTagCompound worldData = getSBWorld().getWorldData();
             NBTTagList manuallyPlaced1 = worldData.getList("manuallyPlaced", 10);
             for (int i = 0; i < manuallyPlaced1.size(); i++) {
                 NBTTagCompound manuallyPlaced = manuallyPlaced1.get(i);
@@ -223,7 +179,7 @@ public class PrivateIsland {
             comp.setInt("z", location.getBlockZ());
             manuallyPlaced1.add(comp);
             worldData.set("manuallyPlaced", manuallyPlaced1);
-            saveWorldData(worldData);
+            getSBWorld().saveWorldData(worldData);
         }
     }
 

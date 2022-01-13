@@ -7,6 +7,7 @@ import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
@@ -53,6 +54,8 @@ public class ClientSideEntityController extends SBFeature {
     }
 
     public void removeEntity(int entityId) {
+        if (hiddenEntities.contains(entityId)) return;
+
         if (isToggled()) {
             PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entityId);
             if (skyBlock.getPlayersManager() != null) {
@@ -84,6 +87,14 @@ public class ClientSideEntityController extends SBFeature {
     @SneakyThrows
     public void onPacketSent(PacketPlaySendEvent event) {
         Object rawNMSPacket = event.getNMSPacket().getRawNMSPacket();
+        if (rawNMSPacket instanceof PacketPlayOutSpawnEntity) {
+            PacketPlayOutSpawnEntity packet = ((PacketPlayOutSpawnEntity) rawNMSPacket);
+            Field a = PacketPlayOutSpawnEntity.class.getDeclaredField("a");
+            a.setAccessible(true);
+            int entityId = ((int) a.get(packet));
+            if (hiddenEntities.contains(entityId)) {
+            }
+        }
         if (rawNMSPacket instanceof PacketPlayOutSpawnEntityLiving) {
             PacketPlayOutSpawnEntityLiving packet = ((PacketPlayOutSpawnEntityLiving) rawNMSPacket);
             Field a = PacketPlayOutSpawnEntityLiving.class.getDeclaredField("a");
