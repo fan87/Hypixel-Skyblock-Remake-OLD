@@ -2,6 +2,7 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import me.fan87.commonplugin.gui.impl.bank.GuiBank;
 import me.fan87.commonplugin.utils.NumberUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -16,7 +17,7 @@ public class SBBankAccount {
         player.getPlayer().sendMessage(ChatColor.DARK_GRAY + "Withdrawing coins...");
         double withdrawCoins = Math.min(coins, bankCoins);
         if (withdrawCoins < 1) {
-            player.getPlayer().sendMessage(ChatColor.RED + "You cannot withdraw this little coins!");
+            player.getPlayer().sendMessage(ChatColor.RED + "You don't have any Coins in your bank account!");
             return;
         }
         bankCoins -= withdrawCoins;
@@ -31,6 +32,7 @@ public class SBBankAccount {
                 bankCoins>1?"s":"",
                 ChatColor.GREEN
         ));
+        new GuiBank(player).open(player.getPlayer());
         player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 8.0f, 4.0f);
     }
 
@@ -48,7 +50,7 @@ public class SBBankAccount {
         player.getPlayer().sendMessage(ChatColor.DARK_GRAY + "Depositing coins...");
         double depositCoins = Math.min(coins,player. purseCoins);
         if (depositCoins < 1) {
-            player.getPlayer().sendMessage(ChatColor.RED + "You can't deposit this little!");
+            player.getPlayer().sendMessage(ChatColor.RED + "You don't have any Coins!");
             return;
         }
         bankCoins += depositCoins;
@@ -63,6 +65,7 @@ public class SBBankAccount {
                 bankCoins>1?"s":"",
                 ChatColor.GREEN
         ));
+        new GuiBank(player).open(player.getPlayer());
         player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 8.0f, 4.0f);
     }
 
