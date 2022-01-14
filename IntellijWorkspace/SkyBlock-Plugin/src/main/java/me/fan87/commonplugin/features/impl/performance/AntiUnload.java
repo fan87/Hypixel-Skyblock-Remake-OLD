@@ -21,6 +21,6 @@ public class AntiUnload extends SBFeature {
 
     @Subscribe()
     public void onChunkUnload(ChunkUnloadEvent event) {
-        event.setCancelled(true);
+//        event.setCancelled(true);
     }
 }

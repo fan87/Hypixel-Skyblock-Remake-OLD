@@ -9,6 +9,7 @@ import me.fan87.commonplugin.debug.DebugGui;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -56,6 +57,10 @@ public class DebugSkyBlock extends DebugGui {
                     lastMemoryUsage = System.currentTimeMillis();
                 }
                 ImGui.plotLines("Memory Usage", memoryUsage, 256, 0, String.format("%s/%sMB", memoryUsage[memoryUsage.length-1], Runtime.getRuntime().maxMemory()/1024/1024), 3000, 5000, 200f, 100f);
+                ImGui.text("TPS: " + MinecraftServer.getServer().recentTps[0]);
+                if (ImGui.collapsingHeader("Events Time")) {
+
+                }
                 ImGui.end();
             }
 

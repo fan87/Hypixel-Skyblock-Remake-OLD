@@ -54,7 +54,6 @@ public class LogGenerating extends SBFeature {
 
     @Subscribe()
     public void blockBreakEvent(BlockBreakEvent event) {
-        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
         SBArea area = skyBlock.getAreasManager().getAreaOf(event.getBlock().getLocation());
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         if (skyBlock.getAreasManager().canMineLogs(area) &&

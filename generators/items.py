@@ -138,6 +138,9 @@ for id in vanilla_items:
     glowing = "false"
     color = "null"
     count += 1
+    price = 0
+    if "npc_sell_price" in item:
+        price = item["npc_sell_price"]
     if "color" in item:
         color = f"Color.fromRGB({item['color']})"
     if "description" in item:
@@ -169,11 +172,11 @@ for id in vanilla_items:
     if color == "":
         color = "null"
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, {price}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new ItemVanilla("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, {price}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
     all += f"public static SBCustomItem " + id.replace(":", "__") + f" = Items" + category + "." + id.replace(":", "__") + ";\n"
@@ -189,6 +192,9 @@ for id in custom_items:
     skin = ""
     rarity = "COMMON"
     category = "MATERIAL_"
+    price = 0
+    if "npc_sell_price" in item:
+        price = item["npc_sell_price"]
     if count % 3 == 0:
         category += "A"
     elif count % 3 == 1:
@@ -230,11 +236,11 @@ for id in custom_items:
     if color == "":
         color = "null"
     if category in const:
-        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
+        const[category] += f"""        {id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, {price}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """
     else:
-        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, skyBlock);
+        const.update({category: f"""{        id.replace(":", "__")} = new SBCustomItem("{id}", "{item["name"]}", "{description}", Material.{item["material"]}, (short) {durability}, "{skin}", SBCustomItem.Rarity.{rarity}, {glowing}, {color}, SBCustomItem.Category.{real_category}, {price}, skyBlock);
         SBItems.registerItem({id.replace(":", "__")});
 """})
     all += f"public static SBCustomItem " + id.replace(":", "__") + f" = Items" + category + "." + id.replace(":", "__") + ";\n"

@@ -2,6 +2,7 @@ package me.fan87.commonplugin.features.impl.resources;
 
 import lombok.*;
 import me.fan87.commonplugin.areas.SBArea;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.features.impl.api.BlockDropFirer;
@@ -16,8 +17,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
-import org.bukkit.inventory.ItemStack;
-import me.fan87.commonplugin.events.Subscribe;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -66,13 +65,11 @@ public class OresGenerating extends SBFeature {
 
     @Subscribe()
     public void blockBreakEvent(BlockBreakEvent event) {
-        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
         SBArea area = skyBlock.getAreasManager().getAreaOf(event.getBlock().getLocation());
-        boolean canMine = skyBlock.getAreasManager().getOresToGenerate(area).size() > 0;
+        List<Material> oresToGenerate = skyBlock.getAreasManager().getOresToGenerate(area);
+        boolean canMine = oresToGenerate.size() > 0;
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
-        List<ItemStack> newDrops = new ArrayList<>();
-        int amount = 0;
-        if (canMine && skyBlock.getAreasManager().getOresToGenerate(area).contains(event.getBlock().getType())) {
+        if (canMine && oresToGenerate.contains(event.getBlock().getType())) {
             generated--;
             Bukkit.getScheduler().runTaskLater(skyBlock, () -> event.getBlock().setType(Material.STONE), 0);
             if (!minedStones.containsKey(event.getBlock().getLocation())) {
@@ -138,7 +135,7 @@ public class OresGenerating extends SBFeature {
 
     @Subscribe()
     public void onChunkUnload(ChunkUnloadEvent event) {
-        event.setCancelled(true);
+//        event.setCancelled(true);
     }
 
     @Subscribe()

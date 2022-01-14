@@ -46,9 +46,9 @@ public class PathRenderer extends SBFeature {
     @SneakyThrows
     public void onTick(ServerTickEvent event) {
         ticks++;
-        if (ticks % 1 == 0) {
+        if (ticks % 1 == 0 && false) {
             for (World world : Bukkit.getWorlds()) {
-                for (Entity e : world.getEntities()) {
+                for (Entity e : world.getLivingEntities()) {
                     if (e instanceof CraftLivingEntity) {
                         CraftLivingEntity craftLivingEntity = (CraftLivingEntity) e;
                         if (craftLivingEntity.getHandle() instanceof EntityInsentient) {

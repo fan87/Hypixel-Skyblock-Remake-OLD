@@ -2,7 +2,6 @@ package me.fan87.commonplugin.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
@@ -53,12 +52,12 @@ public class SBCustomItem {
     @Getter
     private final RecipeCategory recipeCategory;
 
-    @Setter
+    @Getter
     private final boolean unlockedByDefault;
 
+    private final double sellPrice;
 
-
-    public SBCustomItem(String namespace, String displayName, String description, Material material, short durability, Rarity rarity, Category category, SkyBlock skyBlock, RecipeCategory recipeCategory, boolean unlockedByDefault) {
+    public SBCustomItem(String namespace, String displayName, String description, Material material, short durability, Rarity rarity, Category category, double sellPrice, SkyBlock skyBlock, RecipeCategory recipeCategory, boolean unlockedByDefault) {
         this.namespace = namespace;
         this.material = material;
         this.displayName = displayName;
@@ -68,13 +67,21 @@ public class SBCustomItem {
         this.durability = durability;
         this.skyBlock = skyBlock;
         this.recipeCategory = recipeCategory;
+        this.sellPrice = sellPrice;
         this.unlockedByDefault = unlockedByDefault;
     }
 
-    public SBCustomItem(String namespace, String displayName, String description, Material material, short durability, Rarity rarity, Category category, SkyBlock skyBlock, RecipeCategory recipeCategory) {
-        this(namespace, displayName, description, material, durability, rarity, category, skyBlock, recipeCategory, false);
+    public SBCustomItem(String namespace, String displayName, String description, Material material, short durability, Rarity rarity, Category category, double sellPrice, SkyBlock skyBlock, RecipeCategory recipeCategory) {
+        this(namespace, displayName, description, material, durability, rarity, category, sellPrice, skyBlock, recipeCategory, false);
     }
 
+    public double getSellPrice(SBItemStack itemStack) {
+        return itemStack.getItemStack().getAmount() * sellPrice; // Todo: Enchantment
+    }
+
+    public boolean isSellable(SBItemStack itemStack) {
+        return getSellPrice(itemStack) > 0;
+    }
 
     public boolean shouldDisplayRarity() {
         return true;

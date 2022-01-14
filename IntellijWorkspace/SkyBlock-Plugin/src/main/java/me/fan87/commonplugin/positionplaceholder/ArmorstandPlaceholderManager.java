@@ -10,6 +10,7 @@ import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.impl.api.ClientSideEntityController;
 import me.fan87.commonplugin.utils.SBMap;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -38,39 +39,37 @@ public class ArmorstandPlaceholderManager {
     public ArmorstandPlaceholderManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
         EventManager.register(this);
-
-        registerArmorStandHandler("TEST", new ArmorStandHandler() {
-            @Override
-            public boolean onFound(SBArmorStandPlaceHolder armorStandPlaceHolder) {
-                return true;
+        new Thread(() -> {
+            for (World world : skyBlock.getServer().getWorlds()) {
+                for (Entity entity : world.getEntities()) {
+                    if (!(entity instanceof ArmorStand)) continue;
+                    ClientSideEntityController clientSideEntityController = skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class);
+                    ArmorStand armorStand = (ArmorStand) entity;
+                    ItemStack itemInHand = armorStand.getItemInHand();
+                    if (itemInHand == null) continue;
+                    if (itemInHand.getType() == Material.AIR) continue;
+                    NBTItem nbt = new NBTItem(itemInHand, true);
+                    if (nbt.hasKey("SBArmorPlaceHolderKey") && !registered.containsKey(armorStand.getEntityId())) {
+                        Bukkit.getScheduler().runTask(skyBlock, () -> clientSideEntityController.removeEntity(armorStand.getEntityId()));
+                        String namespace = nbt.getString("SBArmorPlaceHolderKey");
+                        String[] data = nbt.getStringList("SBArmorPlaceHolderValues").toArray(new String[0]);
+                        for (ArmorStandHandler armorStandHandler : handlers.get(namespace)) {
+                            Bukkit.getScheduler().runTask(skyBlock, () -> {
+                                if (armorStandHandler.onFound(new SBArmorStandPlaceHolder(namespace, data, armorStand.getLocation()))) {
+                                    registered.put(armorStand.getEntityId(), armorStandHandler);
+                                }
+                            });
+                        }
+                    }
+                }
             }
-        });
+        }).start();
     }
 
     @Subscribe
     public void onTick(ServerTickEvent event) {
         if (skyBlock.getConfigsManager().config.doNotReplacePlaceHolder) return;
-        for (World world : skyBlock.getServer().getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                if (!(entity instanceof ArmorStand)) continue;
-                ClientSideEntityController clientSideEntityController = skyBlock.getFeaturesManager().getFeature(ClientSideEntityController.class);
-                ArmorStand armorStand = (ArmorStand) entity;
-                ItemStack itemInHand = armorStand.getItemInHand();
-                if (itemInHand == null) continue;
-                if (itemInHand.getType() == Material.AIR) continue;
-                NBTItem nbt = new NBTItem(itemInHand, true);
-                if (nbt.hasKey("SBArmorPlaceHolderKey") && !registered.containsKey(armorStand.getEntityId())) {
-                    clientSideEntityController.removeEntity(armorStand.getEntityId());
-                    String namespace = nbt.getString("SBArmorPlaceHolderKey");
-                    String[] data = nbt.getStringList("SBArmorPlaceHolderValues").toArray(new String[0]);
-                    for (ArmorStandHandler armorStandHandler : handlers.get(namespace)) {
-                        if (armorStandHandler.onFound(new SBArmorStandPlaceHolder(namespace, data, armorStand.getLocation()))) {
-                            registered.put(armorStand.getEntityId(), armorStandHandler);
-                        }
-                    }
-                }
-            }
-        }
+
     }
 
 

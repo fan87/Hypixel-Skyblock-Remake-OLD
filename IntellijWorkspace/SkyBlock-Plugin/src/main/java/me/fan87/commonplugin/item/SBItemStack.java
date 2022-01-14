@@ -49,6 +49,15 @@ public class SBItemStack {
         return true;
     }
 
+    public boolean canSellToNpc() {
+        return getType().getItem() != null && getType().getItem().isSellable(this);
+    }
+
+    public double getSellPrice() {
+        if (getType().getItem() == null) return 0;
+        return getType().getItem().getSellPrice(this);
+    }
+
     public SBItemStack(SBCustomItem item) {
         this(item, 1);
     }

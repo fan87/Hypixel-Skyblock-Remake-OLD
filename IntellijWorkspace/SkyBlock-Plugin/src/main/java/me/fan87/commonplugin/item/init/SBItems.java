@@ -16,6 +16,7 @@ import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.minecraft.server.v1_8_R3.ItemStack;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -94,14 +95,7 @@ public class SBItems {
     }
 
     public static SBCustomItem getItem(String namespace) {
-        SBNamespace sbNamespace = new SBNamespace("default", namespace);
-        if (namespace.contains("::")) {
-            sbNamespace.setNamespace(namespace.split("::")[1]);
-            sbNamespace.setAddonName(namespace.split("::")[0]);
-        }
-        if (!registeredItems.containsKey(sbNamespace)) {
-            return null;
-        }
+        SBNamespace sbNamespace = SBNamespace.fromString(namespace);
         return registeredItems.get(sbNamespace);
     }
 
@@ -134,8 +128,14 @@ public class SBItems {
     public void onPickup(PlayerPickupItemEvent event) {
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         org.bukkit.inventory.ItemStack itemStack = event.getItem().getItemStack();
-        NBTItem nbt = new NBTItem(itemStack, true);
-        boolean wasCustomized = nbt.hasKey("ExtraAttributes");
+        if (itemStack == null || itemStack.getType() == Material.AIR) return;
+        NBTTagCompound tag = CraftItemStack.asNMSCopy(itemStack).getTag();
+        boolean wasCustomized;
+        if (tag == null) {
+            wasCustomized = false;
+        } else {
+            wasCustomized = tag.hasKey("ExtraAttributes");
+        }
         SBItemStack itemStack1 = new SBItemStack(itemStack);
         event.getItem().setItemStack(itemStack1.getItemStack());
         if (!wasCustomized) {

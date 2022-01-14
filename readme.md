@@ -22,6 +22,10 @@ This pack gives the support of LuckPerm plugin, so rank system will work like Hy
 
 This pack includes some features you'll need to debug stuff, including Path Finding debug info, entity debug info, items debug info and more!
 
+## Bad Performance
+Performance is really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really bad. (Avg 16 TPS)<br>
+Why? Cuz I want to make it expendable but epically failed.<br>
+If you want to help me fixing it, you can use /pp command to get the lag source (Not the exact method name, but the event handler name). I'm lazy to make synchronize thread, so it might throw exception. Try it more times and it will work.
 
 
 ## Use/Disclaimer

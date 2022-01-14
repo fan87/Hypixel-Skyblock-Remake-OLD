@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsAXE
 // Category: AXE
-// Last Update: 2022-01-10 17:27:50.172275
+// Last Update: 2022-01-14 03:34:12.704036
 
 public class ItemsAXE {
 
@@ -50,43 +50,43 @@ public class ItemsAXE {
 
 
     public ItemsAXE(SkyBlock skyBlock) {
-        CHICKEN_AXE = new SBCustomItem("CHICKEN_AXE", "Chicken Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        CHICKEN_AXE = new SBCustomItem("CHICKEN_AXE", "Chicken Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(CHICKEN_AXE);
-        SWEET_AXE = new SBCustomItem("SWEET_AXE", "Sweet Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SWEET_AXE = new SBCustomItem("SWEET_AXE", "Sweet Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 25, skyBlock);
         SBItems.registerItem(SWEET_AXE);
-        ROOKIE_AXE = new SBCustomItem("ROOKIE_AXE", "Rookie Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        ROOKIE_AXE = new SBCustomItem("ROOKIE_AXE", "Rookie Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, 6, skyBlock);
         SBItems.registerItem(ROOKIE_AXE);
-        COCO_CHOPPER = new SBCustomItem("COCO_CHOPPER", "Coco Chopper", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, skyBlock);
+        COCO_CHOPPER = new SBCustomItem("COCO_CHOPPER", "Coco Chopper", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(COCO_CHOPPER);
-        MELON_DICER = new SBCustomItem("MELON_DICER", "Melon Dicer", "", Material.DIAMOND_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, skyBlock);
+        MELON_DICER = new SBCustomItem("MELON_DICER", "Melon Dicer", "", Material.DIAMOND_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(MELON_DICER);
-        PROMISING_AXE = new SBCustomItem("PROMISING_AXE", "Promising Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        PROMISING_AXE = new SBCustomItem("PROMISING_AXE", "Promising Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 20, skyBlock);
         SBItems.registerItem(PROMISING_AXE);
-        JUNGLE_AXE = new SBCustomItem("JUNGLE_AXE", "Jungle Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        JUNGLE_AXE = new SBCustomItem("JUNGLE_AXE", "Jungle Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 480, skyBlock);
         SBItems.registerItem(JUNGLE_AXE);
-        SHEEP_AXE = new SBCustomItem("SHEEP_AXE", "Sheep Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SHEEP_AXE = new SBCustomItem("SHEEP_AXE", "Sheep Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(SHEEP_AXE);
-        PIG_AXE = new SBCustomItem("PIG_AXE", "Pig Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        PIG_AXE = new SBCustomItem("PIG_AXE", "Pig Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(PIG_AXE);
-        SCULPTORS_AXE = new SBCustomItem("SCULPTORS_AXE", "Sculptor's Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        SCULPTORS_AXE = new SBCustomItem("SCULPTORS_AXE", "Sculptor's Axe", "", Material.STONE_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, 64, skyBlock);
         SBItems.registerItem(SCULPTORS_AXE);
-        MUSHROOM_COW_AXE = new SBCustomItem("MUSHROOM_COW_AXE", "Mushroom Cow Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        MUSHROOM_COW_AXE = new SBCustomItem("MUSHROOM_COW_AXE", "Mushroom Cow Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(MUSHROOM_COW_AXE);
-        GHOST_THROWING_AXE = new SBCustomItem("GHOST_THROWING_AXE", "Ghost Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        GHOST_THROWING_AXE = new SBCustomItem("GHOST_THROWING_AXE", "Ghost Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 1, skyBlock);
         SBItems.registerItem(GHOST_THROWING_AXE);
-        DUNGEON_HAMMER = new SBCustomItem("DUNGEON_HAMMER", "Hammer", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        DUNGEON_HAMMER = new SBCustomItem("DUNGEON_HAMMER", "Hammer", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.AXE, 1, skyBlock);
         SBItems.registerItem(DUNGEON_HAMMER);
-        TREECAPITATOR_AXE = new SBCustomItem("TREECAPITATOR_AXE", "Treecapitator", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, skyBlock);
+        TREECAPITATOR_AXE = new SBCustomItem("TREECAPITATOR_AXE", "Treecapitator", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, 10000, skyBlock);
         SBItems.registerItem(TREECAPITATOR_AXE);
-        EFFICIENT_AXE = new SBCustomItem("EFFICIENT_AXE", "Efficient Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        EFFICIENT_AXE = new SBCustomItem("EFFICIENT_AXE", "Efficient Axe", "", Material.IRON_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 25, skyBlock);
         SBItems.registerItem(EFFICIENT_AXE);
-        THROWING_AXE = new SBCustomItem("THROWING_AXE", "Throwing Axe", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.AXE, skyBlock);
+        THROWING_AXE = new SBCustomItem("THROWING_AXE", "Throwing Axe", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.RARE, false, null, SBCustomItem.Category.AXE, 1, skyBlock);
         SBItems.registerItem(THROWING_AXE);
-        PUMPKIN_DICER = new SBCustomItem("PUMPKIN_DICER", "Pumpkin Dicer", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, skyBlock);
+        PUMPKIN_DICER = new SBCustomItem("PUMPKIN_DICER", "Pumpkin Dicer", "", Material.GOLD_AXE, (short) 0, "", SBCustomItem.Rarity.EPIC, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(PUMPKIN_DICER);
-        COW_AXE = new SBCustomItem("COW_AXE", "Cow Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        COW_AXE = new SBCustomItem("COW_AXE", "Cow Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(COW_AXE);
-        RABBIT_AXE = new SBCustomItem("RABBIT_AXE", "Rabbit Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, skyBlock);
+        RABBIT_AXE = new SBCustomItem("RABBIT_AXE", "Rabbit Axe", "", Material.WOOD_AXE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.AXE, 0, skyBlock);
         SBItems.registerItem(RABBIT_AXE);
 
 

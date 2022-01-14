@@ -2,7 +2,6 @@ package me.fan87.commonplugin.players;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mojang.authlib.properties.Property;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.jcsoftware.jscoreboards.JPerPlayerMethodBasedScoreboard;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +10,7 @@ import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.areas.SBArea;
 import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.PlayerPostPortalEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.impl.GuiSkyBlockMenu;
@@ -36,26 +36,22 @@ import me.fan87.commonplugin.utils.SBNamespace;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.WorldsManager;
 import me.fan87.commonplugin.world.privateisland.PrivateIsland;
-import net.minecraft.server.v1_8_R3.ChatComponentText;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
-import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import me.fan87.commonplugin.events.Subscribe;
 import org.jongo.MongoCollection;
 import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class SBPlayer {
 
@@ -89,16 +85,17 @@ public class SBPlayer {
 
     @Getter
     @JsonProperty("coins")
-    private double coins;
-
-    public void setCoins(double coins) {
-        this.coins = Math.max(0, coins);
-    }
+    protected double purseCoins;
 
     @Getter
-    @Setter
-    @JsonProperty("bankCoins")
-    private double bankCoins;
+    @JsonProperty("personalBankAccount")
+    private SBBankAccount bankAccount = new SBBankAccount();
+
+    public boolean setPurseCoins(double coins) {
+        this.purseCoins = Math.max(0, coins);
+        return true;
+    }
+
 
     @JsonProperty("unlockedRecipeData")
     private List<String> unlockedRecipeData = new ArrayList<>();
@@ -146,6 +143,13 @@ public class SBPlayer {
     private PrivateIsland privateIsland;
 
 
+    @JsonProperty("persistentStorage")
+    @Getter
+    private Map<String, String> persistentStorage = new HashMap<>();
+
+    @JsonProperty("soldItems")
+    private Deque<String> soldItems = new ArrayDeque<>();
+
     private String extraActionBar = "";
     private long extraActionBarTime = System.currentTimeMillis();
     private long lastInventoryUpdate = 0; // Todo: Make anticheat to prevent this type of crasher
@@ -155,11 +159,33 @@ public class SBPlayer {
     private final List<SBItemStack> activeItems = new ArrayList<>();
 
     public void addCoins(double coins) {
-        this.coins += coins;
+        this.purseCoins += coins;
     }
 
     public SBPlayer() {
 
+    }
+
+    @SneakyThrows
+    public void addSoldItem(SBItemStack itemStack) {
+        soldItems.addFirst(BukkitSerialization.itemStackArrayToBase64(new ItemStack[] {itemStack.getItemStack()}));
+        while (soldItems.size() > 10) {
+            soldItems.removeLast();
+        }
+    }
+
+    @SneakyThrows
+    public SBItemStack peekSoldItem() {
+        String peek = soldItems.peek();
+        if (peek == null) return null;
+        return new SBItemStack(BukkitSerialization.itemStackArrayFromBase64(peek)[0]);
+    }
+
+    @SneakyThrows
+    public SBItemStack pollSoldItem() {
+        String poll = soldItems.poll();
+        if (poll == null) return null;
+        return new SBItemStack(BukkitSerialization.itemStackArrayFromBase64(poll)[0]);
     }
 
     public void showExtraActionBar(String message) {
@@ -219,10 +245,15 @@ public class SBPlayer {
             player.getEnderChest().clear();
         }
 
+        Bukkit.getScheduler().runTaskLater(skyBlock, () -> {
+            player.sendMessage(ChatColor.YELLOW + "Welcome to " + ChatColor.GREEN + "Hypixel SkyBlock" + ChatColor.YELLOW + "!");
+        }, 20);
+
     }
 
     public void onDestroy() {
         privateIsland.unload();
+        EventManager.unregister(this);
     }
 
     public void sendPacket(Packet<?> packet) {
@@ -296,9 +327,11 @@ public class SBPlayer {
         for (int i = 0; i < allInventoryItems.length; i++) {
             if (allInventoryItems[i] == null || allInventoryItems[i].getType() == Material.AIR) continue;
             ItemStack item = allInventoryItems[i];
+            NBTTagCompound tag = CraftItemStack.asNMSCopy(item).getTag();
+            boolean wasCustomized = false;
+            if (tag != null)
+                wasCustomized = tag.hasKey("ExtraAttributes");
             SBItemStack sbItemStack = new SBItemStack(item);
-            NBTItem nbt = new NBTItem(item, true);
-            boolean wasCustomized = nbt.hasKey("ExtraAttributes");
             if (!wasCustomized) {
                 for (SBCollection collection : getCollections().getCollections()) {
                     if (collection.getItem() == sbItemStack.getType().getItem()) {
@@ -349,12 +382,17 @@ public class SBPlayer {
 
     @Subscribe()
     public void onTick(ServerTickEvent event) {
-        scoreboard.setTitle(player.getPlayer(), "");
-        scoreboard.setLines(player.getPlayer(), getScoreboardContent());
-        tickStats();
-        if (showActionBar) {
-            displayActionBar();
+        if (player.getTicksLived() % 2 == 0) {
+            scoreboard.setTitle(player.getPlayer(), getScoreboardTitle());
         }
+        if (player.getTicksLived() % 5 == 0) {
+            scoreboard.setLines(player.getPlayer(), getScoreboardContent());
+            if (showActionBar) {
+                displayActionBar();
+            }
+        }
+        tickStats();
+
     }
 
 
@@ -490,7 +528,7 @@ public class SBPlayer {
     }
 
     public void save() {
-        privateIsland.save();
+        Bukkit.getScheduler().runTask(skyBlock, () -> privateIsland.save());
         this.xp = player.getExp();
         this.inventory = BukkitSerialization.toBase64(player.getInventory());
         this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
@@ -551,7 +589,7 @@ public class SBPlayer {
         }
 
         out.add("");
-        out.add(ChatColor.RESET + "Purse: " + ChatColor.GOLD + NumberUtils.formatNumber(getCoins()));
+        out.add(ChatColor.RESET + "Purse: " + ChatColor.GOLD + NumberUtils.formatNumber(getPurseCoins()));
         out.add("");
         out.add("Objective");
         out.add(ChatColor.YELLOW + "Objective System coming soon!");
@@ -563,30 +601,30 @@ public class SBPlayer {
 
     public String getScoreboardTitle() {
         int tick = player.getTicksLived();
-//        int firstDuration = 120; // Todo: Fix, it's a JScoreboard API glitch
-//        int animationDuration = 2;
-//        int keepWhiteDuration = 20;
-//        int blinkDuration = 12;
-//        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*3;
-//        if (tick % totalTick <= firstDuration) {
-//            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
-//        }
-//        for (int i = 0; i < "SKYBLOCK".length(); i++) {
-//            if (tick % totalTick <= firstDuration + animationDuration*(i + 2)) {
-//                String first = "SKYBLOCK".substring(0, i + 1);
-//                String second = "SKYBLOCK".substring(i + 1);
-//                return ChatColor.WHITE + ChatColor.BOLD.toString() + first + ChatColor.YELLOW + ChatColor.BOLD.toString() + second;
-//            }
-//        }
-//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration) {
-//            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
-//        }
-//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration) {
-//            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
-//        }
-//        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration*2) {
-//            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
-//        }
+        int firstDuration = 120;
+        int animationDuration = 2;
+        int keepWhiteDuration = 20;
+        int blinkDuration = 12;
+        int totalTick = firstDuration + animationDuration + keepWhiteDuration + blinkDuration*3;
+        if (tick % totalTick <= firstDuration) {
+            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
+        for (int i = 0; i < "SKYBLOCK".length(); i++) {
+            if (tick % totalTick <= firstDuration + animationDuration*(i + 2)) {
+                String first = "SKYBLOCK".substring(0, i + 1);
+                String second = "SKYBLOCK".substring(i + 1);
+                return ChatColor.WHITE + ChatColor.BOLD.toString() + first + ChatColor.YELLOW + ChatColor.BOLD.toString() + second;
+            }
+        }
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration) {
+            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration) {
+            return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
+        if (tick % totalTick <= firstDuration + animationDuration*"SKYBLOCK".length() + keepWhiteDuration + blinkDuration*2) {
+            return ChatColor.WHITE + ChatColor.BOLD.toString() + "SKYBLOCK";
+        }
         return ChatColor.YELLOW + ChatColor.BOLD.toString() + "SKYBLOCK";
     }
 
@@ -614,6 +652,7 @@ public class SBPlayer {
             player.teleport(spawnLocation);
             EventManager.post(event);
             currentWorldType = worldType;
+            player.sendMessage("");
             player.sendMessage(ChatColor.GREEN + "You are playing on profile: " + ChatColor.YELLOW + player.getName());
             return true;
         }
@@ -621,5 +660,7 @@ public class SBPlayer {
         player.sendMessage(ChatColor.RED + "Unable to send you to " + worldType.getName() + "! Please try again later.");
         return false;
     }
+
+
 
 }

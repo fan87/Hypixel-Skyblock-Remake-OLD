@@ -52,9 +52,9 @@ public class LPDisplayNameChanger extends SBFeature {
             if (team == null) {
                 team = scoreboard.registerNewTeam("SB" + event.getPlayer().getUniqueId().toString().substring(0, 14));
             }
+            team.addPlayer(event.getPlayer());
             team.setPrefix(prefix);
             team.setSuffix(suffix);
-            team.addPlayer(event.getPlayer());
         }
     }
 }

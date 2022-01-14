@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsSPADE
 // Category: SPADE
-// Last Update: 2022-01-10 17:27:50.174864
+// Last Update: 2022-01-14 03:34:12.705955
 
 public class ItemsSPADE {
 
@@ -33,9 +33,9 @@ public class ItemsSPADE {
 
 
     public ItemsSPADE(SkyBlock skyBlock) {
-        FLINT_SHOVEL = new SBCustomItem("FLINT_SHOVEL", "Flint Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        FLINT_SHOVEL = new SBCustomItem("FLINT_SHOVEL", "Flint Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.SPADE, 20, skyBlock);
         SBItems.registerItem(FLINT_SHOVEL);
-        PROMISING_SPADE = new SBCustomItem("PROMISING_SPADE", "Promising Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.SPADE, skyBlock);
+        PROMISING_SPADE = new SBCustomItem("PROMISING_SPADE", "Promising Shovel", "", Material.IRON_SPADE, (short) 0, "", SBCustomItem.Rarity.UNCOMMON, false, null, SBCustomItem.Category.SPADE, 10, skyBlock);
         SBItems.registerItem(PROMISING_SPADE);
 
 

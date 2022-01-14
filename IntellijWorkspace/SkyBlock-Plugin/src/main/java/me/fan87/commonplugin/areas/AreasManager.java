@@ -11,6 +11,7 @@ import org.bukkit.block.Biome;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,15 +99,17 @@ public class AreasManager {
         areas.add(area);
     }
 
+    public final static List<Long> areaGettingPerformance = new ArrayList<>();
+
     public SBArea getAreaOf(Location location) {
-        for (SBArea sbLocation : areas.stream().sorted((o1, o2) -> {
-            return Double.compare(
-                    Math.abs((o1.getFromX() - o1.getToX()) * (o1.getFromY() - o1.getToY()) * (o1.getFromZ() - o1.getToZ())),
-                    Math.abs((o2.getFromX() - o2.getToX()) * (o2.getFromY() - o2.getToY()) * (o2.getFromZ() - o2.getToZ()))
-            );
-        }).collect(Collectors.toList())) {
-            if (sbLocation.match(skyBlock, location)) return sbLocation;
+        long before = System.currentTimeMillis();
+        for (SBArea sbLocation : areas.stream().sorted(Comparator.comparingDouble(o -> Math.abs((o.getFromX() - o.getToX()) * (o.getFromY() - o.getToY()) * (o.getFromZ() - o.getToZ())))).collect(Collectors.toList())) {
+            if (sbLocation.match(skyBlock, location)) {
+                areaGettingPerformance.add(System.currentTimeMillis() - before);
+                return sbLocation;
+            }
         }
+        areaGettingPerformance.add(System.currentTimeMillis() - before);
         return null;
     }
 

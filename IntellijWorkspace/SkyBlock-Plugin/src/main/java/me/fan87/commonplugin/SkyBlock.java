@@ -4,19 +4,19 @@ import io.github.retrooper.packetevents.PacketEvents;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.addon.SBAddon;
+import me.fan87.commonplugin.areas.AreasManager;
 import me.fan87.commonplugin.commands.CommandsManager;
 import me.fan87.commonplugin.config.ConfigsManager;
 import me.fan87.commonplugin.database.DatabaseManager;
 import me.fan87.commonplugin.debug.DebugGuiManager;
+import me.fan87.commonplugin.entity.EntitiesManager;
 import me.fan87.commonplugin.events.EventManager;
-import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
 import me.fan87.commonplugin.features.FeaturesManager;
 import me.fan87.commonplugin.item.init.SBItems;
-import me.fan87.commonplugin.areas.AreasManager;
 import me.fan87.commonplugin.npc.NPCManager;
 import me.fan87.commonplugin.players.PlayersManager;
-import me.fan87.commonplugin.recipes.RecipesManager;
 import me.fan87.commonplugin.positionplaceholder.ArmorstandPlaceholderManager;
+import me.fan87.commonplugin.recipes.RecipesManager;
 import me.fan87.commonplugin.world.WorldsManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.ChatColor;
@@ -55,6 +55,8 @@ public class SkyBlock extends JavaPlugin {
     private NPCManager npcManager;
     @Getter
     private ArmorstandPlaceholderManager armorstandPlaceholderManager;
+    @Getter
+    private EntitiesManager entitiesManager;
     @Getter
     private final List<SBAddon> addons = new ArrayList<>();
 
@@ -103,12 +105,11 @@ public class SkyBlock extends JavaPlugin {
         this.playersManager = new PlayersManager(this);
         this.commandsManager = new CommandsManager(this);
         this.npcManager = new NPCManager(this);
+        this.entitiesManager = new EntitiesManager(this);
     }
 
     @Override
     public void onDisable() {
-        databaseManager.saveAll();
-        EventManager.post(new ServerShutdownEvent());
         PacketEvents.get().terminate();
     }
 

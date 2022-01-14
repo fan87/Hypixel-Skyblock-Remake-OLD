@@ -11,6 +11,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.EventExecutor;
 import org.reflections.Reflections;
 
@@ -51,6 +52,11 @@ public class EventManager {
 
     private static final Map<Class<?>, List<EventHandler>> handlers = new HashMap<>();
 
+    // Fields below are for performance indicating
+    public static final Map<String, List<Long>> pp = new HashMap<>();
+    public static final Map<String, Long> postedTimes = new HashMap<>();
+    public static final Map<String, List<Long>> eventProcessTime = new HashMap<>();
+
     public static void unregister(Object subscriber) {
         for (Class<?> aClass : handlers.keySet()) {
             handlers.get(aClass).removeIf(eventHandler -> eventHandler.object == subscriber);
@@ -82,8 +88,11 @@ public class EventManager {
         }
     }
 
+
     @SneakyThrows
     public static Object post(Object event) {
+        postedTimes.put(event.getClass().getName(), postedTimes.getOrDefault(event.getClass().getName(), 0L) + 1);
+        long before = System.currentTimeMillis();
         List<EventHandler> methods = new ArrayList<>();
         for (Class<?> aClass : new ArrayList<>(handlers.keySet())) {
             if (aClass.isAssignableFrom(event.getClass())) {
@@ -92,8 +101,19 @@ public class EventManager {
         }
         methods.sort(Comparator.comparingInt(handler -> -1 * handler.method.getAnnotationsByType(Subscribe.class)[0].priority()));
         for (EventHandler method : methods) {
+            long start = System.currentTimeMillis();
             method.invoke(event);
+            if (event instanceof PlayerJoinEvent) continue;
+            long took = System.currentTimeMillis() - start;
+            List<Long> longs = pp.get(method.toString());
+            if (longs == null) longs = new ArrayList<>();
+            longs.add(took);
+            pp.put(method.toString(), longs);
         }
+        ArrayList<Long> defaultValue = new ArrayList<>();
+        List<Long> orDefault = eventProcessTime.getOrDefault(event.getClass().getName(), defaultValue);
+        orDefault.add(System.currentTimeMillis() - before);
+        eventProcessTime.put(event.getClass().getName(), orDefault);
         return event;
     }
 
@@ -101,6 +121,11 @@ public class EventManager {
     private static class EventHandler {
         private Object object;
         private Method method;
+
+        @Override
+        public String toString() {
+            return method.toString();
+        }
 
         @SneakyThrows
         public void invoke(Object event) {

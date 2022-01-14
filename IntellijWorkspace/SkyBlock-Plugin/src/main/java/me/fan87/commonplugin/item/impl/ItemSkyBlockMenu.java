@@ -20,7 +20,7 @@ public class ItemSkyBlockMenu extends SBCustomItem {
 
 
     public ItemSkyBlockMenu(SkyBlock skyBlock) {
-        super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, (short) 0, Rarity.COMMON, Category.MATERIAL, skyBlock, RecipeCategory.SPECIAL);
+        super("SKYBLOCK_MENU", "§aSkyBlock Menu §7(Right Click)", "View all of your SkyBlock progress, including your Skills, Collections, Recipes, and more!\n\n" + ChatColor.YELLOW + "Click to open!", Material.NETHER_STAR, (short) 0, Rarity.COMMON, Category.MATERIAL, 0, skyBlock, RecipeCategory.SPECIAL);
     }
 
     @Subscribe(priority = 0)
@@ -45,7 +45,6 @@ public class ItemSkyBlockMenu extends SBCustomItem {
                 SBItemStack itemStack = new SBItemStack(item);
                 if (itemStack.getType().getItem() == SBItems.SKYBLOCK_MENU) {
                     event.setCancelled(true);
-//                    skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
                 }
             }
         }
@@ -55,7 +54,6 @@ public class ItemSkyBlockMenu extends SBCustomItem {
             SBMaterial type = itemStack.getType();
             if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
                 event.setCancelled(true);
-//                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
             }
         }
         if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
@@ -64,7 +62,6 @@ public class ItemSkyBlockMenu extends SBCustomItem {
             SBMaterial type = itemStack.getType();
             if (type.getType() == SBMaterial.ItemType.CUSTOM && type.getItem() == SBItems.SKYBLOCK_MENU) {
                 event.setCancelled(true);
-//                skyBlock.getPlayersManager().getPlayer((Player) event.getWhoClicked()).openSkyBlockMenu();
             }
         }
 

@@ -1,5 +1,6 @@
 package me.fan87.commonplugin.world;
 
+import lombok.Getter;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.utils.Vec3d;
 import me.fan87.commonplugin.world.privateisland.PrivateIsland;
@@ -16,6 +17,7 @@ public class SBPrivateIslandWorld extends SBWorld {
         privateIsland.setSpawnYaw(spawnYaw);
     }
 
+    @Getter
     private PrivateIsland privateIsland;
 
     protected SBPrivateIslandWorld(SkyBlock skyBlock, PrivateIsland privateIsland, WorldsManager worldsManager) {

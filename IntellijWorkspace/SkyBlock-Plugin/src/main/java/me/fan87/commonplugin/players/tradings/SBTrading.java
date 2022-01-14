@@ -1,14 +1,17 @@
 package me.fan87.commonplugin.players.tradings;
 
 import lombok.Getter;
+import me.fan87.commonplugin.gui.GuiItem;
 import me.fan87.commonplugin.item.SBItemVector;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 import me.fan87.commonplugin.players.reward.impl.RewardTrading;
 import me.fan87.commonplugin.players.tradings.tradable.SBTradable;
+import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 
 @Getter
@@ -37,6 +40,10 @@ public class SBTrading {
             }
         }
         return null;
+    }
+
+    protected boolean isUnlocked(SBPlayer player) {
+        return player.isTradingUnlocked(this);
     }
 
     public String getNotEnoughMessage() {
@@ -82,5 +89,31 @@ public class SBTrading {
             return false;
         }
     }
+
+    public GuiItem getDisplayItem(SBPlayer player) {
+        ItemStackBuilder builder = new ItemStackBuilder(Material.INK_SACK, 8)
+                .setDisplayName(org.bukkit.ChatColor.RED + "???")
+                .addLore(org.bukkit.ChatColor.GRAY + "Progress through your item collections and explore the world to unlock new trades!", true);
+        if (isUnlocked(player)) {
+            builder.setItemStack(this.getTo().getDisplayItem());
+            builder.addLore("");
+            builder.addLore(org.bukkit.ChatColor.GRAY + "Cost");
+            for (SBTradable sbTradable : this.getFrom()) {
+                builder.addLore(sbTradable.toString());
+            }
+            builder.addLore("");
+            builder.addLore(org.bukkit.ChatColor.YELLOW + "Click to trade!");
+            builder.addLore(org.bukkit.ChatColor.YELLOW + "Right-Click for more trading options!");
+        }
+        return new GuiItem(builder.build(), event -> {
+            if (isUnlocked(player)) {
+                this.confirmTrade(player, 1f);
+            } else {
+                player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.VILLAGER_NO, 1f, 1f);
+                player.getPlayer().sendMessage(org.bukkit.ChatColor.RED + "This item is locked!");
+            }
+        });
+    }
+
 
 }

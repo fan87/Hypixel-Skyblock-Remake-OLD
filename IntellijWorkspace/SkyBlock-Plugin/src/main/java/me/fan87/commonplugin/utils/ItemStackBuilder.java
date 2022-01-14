@@ -98,6 +98,22 @@ public class ItemStackBuilder {
         return addLore(Arrays.asList(lore));
     }
 
+    public ItemStackBuilder removeLore(int index) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        List<String> lore1 = itemMeta.getLore();
+        if (lore1 == null) {
+            return this;
+        }
+        if (lore1.size() == 0) return this;
+        while (index < 0) {
+            index += lore1.size();
+        }
+        lore1.remove(index);
+        itemMeta.setLore(lore1);
+        itemStack.setItemMeta(itemMeta);
+        return this;
+    }
+
     public ItemStackBuilder setDisplayName(String name) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);

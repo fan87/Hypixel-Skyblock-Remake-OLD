@@ -1,15 +1,17 @@
 package me.fan87.commonplugin.enchantment.impl;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.enchantment.SBEnchantment;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.BlockDropEvent;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.SBNamespace;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
-import me.fan87.commonplugin.events.Subscribe;
 
 public class EnchTelekinesis extends SBEnchantment {
 
@@ -24,8 +26,10 @@ public class EnchTelekinesis extends SBEnchantment {
             for (ItemStack itemStack : itemStacks) {
                 if (event.getPlayer().getPlayer().getInventory().firstEmpty() != -1) {
                     event.getDrops().remove(itemStack);
-                    NBTItem nbt = new NBTItem(itemStack, true);
-                    boolean wasCustomized = nbt.hasKey("ExtraAttributes");
+                    if (itemStack == null || itemStack.getType() == Material.AIR) continue;
+                    NBTTagCompound tag = CraftItemStack.asNMSCopy(itemStack).getTag();
+                    boolean wasCustomized = false;
+                    if (tag != null) wasCustomized = tag.hasKey("ExtraAttributes");
                     SBItemStack itemStack1 = new SBItemStack(itemStack);
                     itemStack = itemStack1.getItemStack();
                     if (!wasCustomized) {

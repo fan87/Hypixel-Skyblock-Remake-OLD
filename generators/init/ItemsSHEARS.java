@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsSHEARS
 // Category: SHEARS
-// Last Update: 2022-01-10 17:27:50.174183
+// Last Update: 2022-01-14 03:34:12.705527
 
 public class ItemsSHEARS {
 
@@ -32,7 +32,7 @@ public class ItemsSHEARS {
 
 
     public ItemsSHEARS(SkyBlock skyBlock) {
-        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, true, null, SBCustomItem.Category.SHEARS, skyBlock);
+        ENCHANTED_SHEARS = new SBCustomItem("ENCHANTED_SHEARS", "Enchanted Shears", "", Material.SHEARS, (short) 0, "", SBCustomItem.Rarity.COMMON, true, null, SBCustomItem.Category.SHEARS, 2, skyBlock);
         SBItems.registerItem(ENCHANTED_SHEARS);
 
 

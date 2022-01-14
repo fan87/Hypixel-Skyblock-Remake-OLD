@@ -2,10 +2,15 @@ package me.fan87.commonplugin.utils;
 
 import lombok.SneakyThrows;
 import net.minecraft.server.v1_8_R3.Item;
+import net.minecraft.server.v1_8_R3.NBTBase;
+import net.minecraft.server.v1_8_R3.NBTReadLimiter;
 import org.bukkit.Server;
 import org.bukkit.command.CommandMap;
 
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class ReflectionUtils {
 
@@ -43,6 +48,20 @@ public class ReflectionUtils {
      */
     public static void hasCraftingResult(Item item, Item craftingResult) {
         item.r();
+    }
+
+    @SneakyThrows
+    public static void writeNBTCompound(NBTBase nbt, DataOutput output) {
+        Method write = NBTBase.class.getDeclaredMethod("write", DataOutput.class);
+        write.setAccessible(true);
+        write.invoke(nbt, output);
+    }
+
+    @SneakyThrows
+    public static void loadNBTCompound(NBTBase nbt, DataInput input, int depth, NBTReadLimiter readLimiter) {
+        Method write = NBTBase.class.getDeclaredMethod("load", DataInput.class, int.class, NBTReadLimiter.class);
+        write.setAccessible(true);
+        write.invoke(nbt, input, depth, readLimiter);
     }
 
 }

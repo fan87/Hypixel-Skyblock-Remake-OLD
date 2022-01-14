@@ -1,12 +1,12 @@
 package me.fan87.commonplugin.features.impl.logic;
 
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerShutdownEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.features.SBFeature;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import me.fan87.commonplugin.events.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +15,10 @@ public class EntityDespawner extends SBFeature {
         super("Entity Despawn", "Despawn mobs automatically when their \"ticksLeft\" ran out. DO NOT TURN THIS OFF OR YOU'LL F*CK UP YOUR WORLD!", false);
     }
 
-    private static final Map<Integer, Long> despawns = new HashMap<>();
+    private static final Map<Entity, Long> despawns = new HashMap<>();
 
     @Override
     protected void onEnable() {
-
     }
 
     @Override
@@ -28,33 +27,27 @@ public class EntityDespawner extends SBFeature {
     }
 
     public static void planDespawnTime(Entity entity, long ticksLeft) {
-        despawns.put(entity.getEntityId(), ticksLeft);
+        despawns.put(entity, ticksLeft);
     }
 
     @Subscribe()
     public void onTick(ServerTickEvent event) {
-        for (World world : skyBlock.getServer().getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                Long left = despawns.get(entity.getEntityId());
-                if (left == null) continue;
-                if (left <= 0) {
-                    entity.remove();
-                }
-                despawns.put(entity.getEntityId(), left-1);
+        for (Entity entity : new ArrayList<>(despawns.keySet())) {
+            Long aLong = despawns.get(entity);
+            aLong -= 1;
+            if (aLong < 0) {
+                entity.remove();
+                despawns.remove(entity);
+            } else {
+                despawns.put(entity, aLong);
             }
         }
     }
 
     @Subscribe()
     public void onShutdown(ServerShutdownEvent event) {
-        for (Integer integer : despawns.keySet()) {
-            for (World world : skyBlock.getServer().getWorlds()) {
-                for (Entity entity : world.getEntities()) {
-                    if (entity.getEntityId() == integer) {
-                        entity.remove();
-                    }
-                }
-            }
+        for (Entity entity : despawns.keySet()) {
+            entity.remove();
         }
         despawns.clear();
     }

@@ -23,7 +23,7 @@ import org.bukkit.Color;
 
 // Start class: ItemsFISHING_WEAPON
 // Category: FISHING_WEAPON
-// Last Update: 2022-01-10 17:27:50.174632
+// Last Update: 2022-01-14 03:34:12.705809
 
 public class ItemsFISHING_WEAPON {
 
@@ -33,9 +33,9 @@ public class ItemsFISHING_WEAPON {
 
 
     public ItemsFISHING_WEAPON(SkyBlock skyBlock) {
-        PHANTOM_ROD = new SBCustomItem("PHANTOM_ROD", "Phantom Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
+        PHANTOM_ROD = new SBCustomItem("PHANTOM_ROD", "Phantom Rod", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.FISHING_WEAPON, 1000, skyBlock);
         SBItems.registerItem(PHANTOM_ROD);
-        THE_SHREDDER = new SBCustomItem("THE_SHREDDER", "Shredder", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.FISHING_WEAPON, skyBlock);
+        THE_SHREDDER = new SBCustomItem("THE_SHREDDER", "Shredder", "", Material.FISHING_ROD, (short) 0, "", SBCustomItem.Rarity.LEGENDARY, false, null, SBCustomItem.Category.FISHING_WEAPON, 1000, skyBlock);
         SBItems.registerItem(THE_SHREDDER);
 
 
