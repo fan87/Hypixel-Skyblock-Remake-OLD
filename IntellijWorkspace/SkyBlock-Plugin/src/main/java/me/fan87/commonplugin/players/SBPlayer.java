@@ -49,6 +49,7 @@ import org.jongo.MongoCollection;
 import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -124,10 +125,10 @@ public class SBPlayer {
     private WorldsManager.WorldType currentWorldType = WorldsManager.WorldType.PRIVATE_ISLAND;
 
     @JsonProperty("inventory")
-    private String inventory = "";
+    private String inventoryData = "";
 
     @JsonProperty("enderChest")
-    private String enderChest = "";
+    private String enderChestData = "";
 
     @JsonProperty("unlockedAreas")
     private List<String> unlockedAreas = new ArrayList<>();
@@ -141,6 +142,9 @@ public class SBPlayer {
     @JsonProperty("privateIslandData")
     @Getter
     private PrivateIsland privateIsland;
+
+    @Getter
+    private final SBItemStack[] inventory = new SBItemStack[45];
 
 
     @JsonProperty("persistentStorage")
@@ -230,12 +234,12 @@ public class SBPlayer {
         try {
             player.setExp(xp);
 
-            Inventory itemStacks = BukkitSerialization.fromBase64(inventory);
+            Inventory itemStacks = BukkitSerialization.fromBase64(inventoryData);
             for (int i = 0; i < itemStacks.getSize(); i++) {
                 player.getInventory().setItem(i, itemStacks.getItem(i));
             }
 
-            Inventory e = BukkitSerialization.fromBase64(enderChest);
+            Inventory e = BukkitSerialization.fromBase64(enderChestData);
             for (int i = 0; i < e.getSize(); i++) {
                 player.getEnderChest().setItem(i, e.getItem(i));
             }
@@ -289,7 +293,7 @@ public class SBPlayer {
     }
 
 
-    public ItemStack[] getRawInventoryItems() {
+    protected ItemStack[] getRawInventoryItems() {
         ItemStack[] out = new ItemStack[45];
         out[5] = player.getInventory().getArmorContents()[0];
         out[6] = player.getInventory().getArmorContents()[1];
@@ -304,6 +308,10 @@ public class SBPlayer {
         return out;
     }
 
+    @Nullable
+    public SBItemStack getHeldItem() {
+        return getInventory()[getPlayer().getInventory().getHeldItemSlot() + 36];
+    }
 
     /**
      * Update the inventory and save custom NBT Data to every items
@@ -325,6 +333,7 @@ public class SBPlayer {
         }
         ItemStack[] allInventoryItems = getRawInventoryItems();
         for (int i = 0; i < allInventoryItems.length; i++) {
+            inventory[i] = null;
             if (allInventoryItems[i] == null || allInventoryItems[i].getType() == Material.AIR) continue;
             ItemStack item = allInventoryItems[i];
             NBTTagCompound tag = CraftItemStack.asNMSCopy(item).getTag();
@@ -339,6 +348,7 @@ public class SBPlayer {
                     }
                 }
             }
+            inventory[i] = sbItemStack;
             if (sbItemStack.getType().getType() != SBMaterial.ItemType.CUSTOM) {
                 sbItemStack.updatePlayerStats(this, i);
             } else {
@@ -531,8 +541,8 @@ public class SBPlayer {
         Bukkit.getScheduler().runTask(skyBlock, () -> {
             privateIsland.save();
             this.xp = player.getExp();
-            this.inventory = BukkitSerialization.toBase64(player.getInventory());
-            this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
+            this.inventoryData = BukkitSerialization.toBase64(player.getInventory());
+            this.enderChestData = BukkitSerialization.toBase64(player.getEnderChest());
             MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
             players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
         });

@@ -17,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 public class DamageRecalculator extends SBFeature {
 
 
-    public DamageRecalculator(String name, String description, boolean beta) {
-        super(name, description, beta);
+    public DamageRecalculator() {
+        super("Damage Recalculator", "Recalculates the damage taken to entity.", false);
     }
 
     @Override
@@ -41,12 +41,14 @@ public class DamageRecalculator extends SBFeature {
             double damageMultiplier = 1;
             double damage = 5;
             if (itemInHand != null) {
-                itemStack = new SBItemStack(itemInHand);
-                if (itemStack.getType().getType() == SBMaterial.ItemType.CUSTOM) {
-                    damage = itemStack.getType().getItem().getDamage(itemStack);
-                    if (damage < 5) damage = 5;
-                    for (SBEnchantment enchantment : itemStack.getEnchantments().keySet()) {
-                        damageMultiplier *= enchantment.getDamageMultiplier(itemStack, itemStack.getEnchantmentLevel(enchantment), player);
+                itemStack = player.getHeldItem();
+                if (itemStack != null) {
+                    if (itemStack.getType().getType() == SBMaterial.ItemType.CUSTOM) {
+                        damage = itemStack.getType().getItem().getDamage(itemStack);
+                        if (damage < 5) damage = 5;
+                        for (SBEnchantment enchantment : itemStack.getEnchantments().keySet()) {
+                            damageMultiplier *= enchantment.getDamageMultiplier(itemStack, itemStack.getEnchantmentLevel(enchantment), player);
+                        }
                     }
                 }
             }

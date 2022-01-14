@@ -92,7 +92,7 @@ public class NPCPlayer extends AbstractNPC<EntityPlayer> {
                 try {
                     entityPlayer.playerConnection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, npcEntity));
                 } catch (Exception ignored) {}
-            }, 10);
+            }, 40);
             Scoreboard scoreboard = player.getScoreboard();
             Team team;
             if ((team = scoreboard.getTeam("NPC-" + getPlayerName())) == null) {

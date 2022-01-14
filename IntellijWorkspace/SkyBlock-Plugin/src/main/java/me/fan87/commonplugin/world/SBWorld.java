@@ -188,6 +188,8 @@ public class SBWorld {
         saveWorldData(worldData);
     }
 
+
+
     public void addNPC(Vector vector, SBNamespace npcNamespace) {
         NBTTagCompound worldData = getWorldData();
         spawnNpc(vector, npcNamespace);

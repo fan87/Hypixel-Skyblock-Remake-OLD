@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
+import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.players.PlayersManager;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.Vec3d;
@@ -12,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.world.WorldLoadEvent;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -32,6 +35,15 @@ public class WorldsManager {
     @SneakyThrows
     public WorldsManager(SkyBlock skyBlock) {
         this.skyBlock = skyBlock;
+        EventManager.register(this);
+    }
+
+    @Subscribe
+    public void onWorldLoad(WorldLoadEvent event) {
+        Bukkit.getScheduler().runTaskLater(skyBlock, () -> {
+            SBWorld world = getWorld(event.getWorld().getName());
+            world.init();
+        }, 2);
 
     }
 
@@ -91,12 +103,12 @@ public class WorldsManager {
             World world1 = new WorldCreator(worldName).environment(World.Environment.NORMAL).generator(new VoidGenerator()).generateStructures(false).createWorld();
             WorldType worldType = getWorld(worldName).getWorldType();
             SBWorld sbWorld = new SBWorld(skyBlock, worldName, this);
-            sbWorld.init();
             Vec3d spawn = getWorld(worldName).getSpawn();
             if (spawn != null) {
                 world1.setSpawnLocation((int) spawn.getX(), (int) spawn.getY(), (int) spawn.getZ());
             }
             skyBlock.sendMessage(ChatColor.GREEN + " - Prepared map: " + worldName + "(Type: " + worldType.getName() + ")");
+            sbWorld.init();
             missingTypes.remove(worldType);
         }
         saveConfig();

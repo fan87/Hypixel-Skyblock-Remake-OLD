@@ -6,17 +6,16 @@ import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.addon.SBAddon;
 import me.fan87.commonplugin.addon.exceptions.UnknownAddonError;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.Team;
-import me.fan87.commonplugin.events.Subscribe;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
@@ -68,6 +67,7 @@ public class NPCManager {
         existingNpcList.add(npc);
     }
 
+
     @Subscribe
     @SneakyThrows
     public void onPacket(PacketPlayReceiveEvent event) {
@@ -105,18 +105,16 @@ public class NPCManager {
     public void onTick(ServerTickEvent event) {
         for (AbstractNPC<?> npc : existingNpcList) {
             if (npc.displayToAll()) {
-                for (World world : skyBlock.getServer().getWorlds()) {
-                    for (Player player : world.getPlayers()) {
-                        if (npc.getViewers().contains(player)) {
-                            continue;
-                        }
-                        Location location = player.getLocation();
-                        double deltaX = location.getX() - npc.asCraftCopy().getLocation().getX();
-                        double deltaY = location.getY() - npc.asCraftCopy().getLocation().getY();
-                        double deltaZ = location.getZ() - npc.asCraftCopy().getLocation().getZ();
-                        if (location.getWorld() == npc.asCraftCopy().getWorld() && Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ) < npc.getAppearDistance()) {
-                            npc.display(player);
-                        }
+                for (Player player : npc.asCraftCopy().getWorld().getPlayers()) {
+                    if (npc.getViewers().contains(player)) {
+                        continue;
+                    }
+                    Location location = player.getLocation();
+                    double deltaX = location.getX() - npc.asCraftCopy().getLocation().getX();
+                    double deltaY = location.getY() - npc.asCraftCopy().getLocation().getY();
+                    double deltaZ = location.getZ() - npc.asCraftCopy().getLocation().getZ();
+                    if (location.getWorld() == npc.asCraftCopy().getWorld() && Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ) < npc.getAppearDistance()) {
+                        npc.display(player);
                     }
                 }
                 for (Player viewer : new ArrayList<>(npc.getViewers())) {

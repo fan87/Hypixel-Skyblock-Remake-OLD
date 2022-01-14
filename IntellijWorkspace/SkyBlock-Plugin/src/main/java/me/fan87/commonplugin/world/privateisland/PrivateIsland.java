@@ -16,7 +16,6 @@ import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.apache.commons.io.FileUtils;
 import org.bson.types.ObjectId;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -112,7 +111,8 @@ public class PrivateIsland {
     @SneakyThrows
     public void save() {
         if (worldName != null) {
-            skyBlock.getServer().getWorld(worldName).save();
+            World world = skyBlock.getServer().getWorld(worldName);
+            world.save();
             File file = new File(worldName);
             GridFSBucket bucket = GridFSBuckets.create(skyBlock.getDatabaseManager().getDatabase(), "worlds");
             GridFSUploadStream outputStream = bucket.openUploadStream("PI-" + UUID.randomUUID());
@@ -123,7 +123,6 @@ public class PrivateIsland {
             }
             ZipUtils.zipFile(file, outputStream);
             worldId = outputStream.getObjectId().toString();
-            skyBlock.sendMessage(ChatColor.GREEN + "Successfully saved world (OID: " + worldId + ")");
         } else {
             load().save();
         }

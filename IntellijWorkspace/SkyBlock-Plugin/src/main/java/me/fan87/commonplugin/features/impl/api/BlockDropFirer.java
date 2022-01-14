@@ -36,8 +36,8 @@ public class BlockDropFirer extends SBFeature {
         if (event.isCancelled()) return;
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         event.setCancelled(true);
-        breakBlock(player, event);
         event.getBlock().setType(Material.AIR);
+        breakBlock(player, event);
     }
 
     public void breakBlock(SBPlayer player, BlockBreakEvent event) {

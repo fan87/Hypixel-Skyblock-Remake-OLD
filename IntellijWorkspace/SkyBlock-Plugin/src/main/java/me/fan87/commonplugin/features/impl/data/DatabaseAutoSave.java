@@ -22,22 +22,7 @@ public class DatabaseAutoSave extends SBFeature {
 
     @Override
     protected void onEnable() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    if (sendSavingMessage) {
-                        skyBlock.sendMessage(ChatColor.YELLOW + "Saving data...");
-                    }
-                    skyBlock.getDatabaseManager().saveAll();
-                    if (sendSavingMessage) {
-                        skyBlock.sendMessage(ChatColor.GREEN + "Data saved to database!...");
-                    }
-                    Thread.sleep(waitTimeMs);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+
     }
 
     @Override
@@ -49,6 +34,15 @@ public class DatabaseAutoSave extends SBFeature {
 
     @Subscribe()
     public void onTick(ServerTickEvent event) {
-
+        ticks++;
+        if (ticks % 200 == 0) {
+            if (sendSavingMessage) {
+                skyBlock.sendMessage(ChatColor.YELLOW + "Saving data...");
+            }
+            skyBlock.getDatabaseManager().saveAll();
+            if (sendSavingMessage) {
+                skyBlock.sendMessage(ChatColor.GREEN + "Data saved to database!...");
+            }
+        }
     }
 }

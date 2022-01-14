@@ -33,6 +33,7 @@ public class GuiNpcMenu extends GuiList {
             Class<? extends AbstractNPC> clazz = player.getSkyBlock().getNpcManager().getNpcList().get(sbNamespace);
             NPCPlayer.NPCRegistry registry = NPCPlayer.getNPCRegistry(clazz);
             assert registry != null;
+            if (!registry.shown()) continue;
             ItemStack build = new ItemStackBuilder(Material.SKULL_ITEM, 3)
                     .setSkullTexture(registry.skin())
                     .addLore(ChatColor.GRAY + "Location: " + ChatColor.BLUE + registry.world().getName())

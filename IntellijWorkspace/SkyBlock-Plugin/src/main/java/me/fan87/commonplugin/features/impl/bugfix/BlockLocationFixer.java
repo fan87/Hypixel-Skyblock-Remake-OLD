@@ -6,8 +6,11 @@ import me.fan87.commonplugin.world.SBPrivateIslandWorld;
 import me.fan87.commonplugin.world.SBWorld;
 import me.fan87.commonplugin.world.privateisland.PrivateIsland;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Ageable;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
 import static org.bukkit.Material.*;
 
@@ -44,6 +47,30 @@ public class BlockLocationFixer extends SBFeature {
                 ) {
                     island.setBlockManuallyPlaced(event.getBlock().getLocation(), false);
                 }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onExplode(BlockExplodeEvent event) {
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getBlock().getWorld().getName());
+        if (world instanceof SBPrivateIslandWorld) {
+            SBPrivateIslandWorld privateIsland = (SBPrivateIslandWorld) world;
+            PrivateIsland island = privateIsland.getPrivateIsland();
+            for (Block block : event.blockList()) {
+                island.setBlockManuallyPlaced(block.getLocation(), false);
+            }
+        }
+    }
+
+    @Subscribe
+    public void onExplode(EntityExplodeEvent event) {
+        SBWorld world = skyBlock.getWorldsManager().getWorld(event.getEntity().getWorld().getName());
+        if (world instanceof SBPrivateIslandWorld) {
+            SBPrivateIslandWorld privateIsland = (SBPrivateIslandWorld) world;
+            PrivateIsland island = privateIsland.getPrivateIsland();
+            for (Block block : event.blockList()) {
+                island.setBlockManuallyPlaced(block.getLocation(), false);
             }
         }
     }
