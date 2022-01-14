@@ -28,7 +28,7 @@ public class MiningFortuneListener extends SBFeature {
 
     }
 
-    @Subscribe(priority = -100)
+    @Subscribe(priority = -300)
     public void onBlockDrop(BlockDropEvent event) {
         Block block = event.getBlockBreakEvent().getBlock();
         SBPlayer player = event.getPlayer();
