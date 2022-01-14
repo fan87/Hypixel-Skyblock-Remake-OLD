@@ -28,7 +28,7 @@ public class MiningFortuneListener extends SBFeature {
 
     }
 
-    @Subscribe(priority = -300)
+    @Subscribe(priority = -100)
     public void onBlockDrop(BlockDropEvent event) {
         Block block = event.getBlockBreakEvent().getBlock();
         SBPlayer player = event.getPlayer();
@@ -45,32 +45,18 @@ public class MiningFortuneListener extends SBFeature {
             Random random = event.getRandom();
             List<ItemStack> drops = new ArrayList<>();
             for (ItemStack drop : event.getDrops()) {
-                Material type = drop.getType();
-                int data = drop.getDurability();
-                if (
-                        type == Material.COAL ||
-                        type == Material.IRON_INGOT ||
-                        type == Material.GOLD_INGOT ||
-                        (type == Material.INK_SACK && data == 4) ||
-                        type == Material.REDSTONE ||
-                        type == Material.EMERALD ||
-                        type == Material.DIAMOND ||
-                        type == Material.QUARTZ
-                ) {
-
-                    int amount = drop.getAmount();
-                    amount += (int) player.getStats().getMiningFortune().getValue(player)/100;
-                    if (random.nextInt(99) + 1 < player.getStats().getMiningFortune().getValue(player) % 100) {
-                        amount++;
-                    }
-                    int left = amount;
-                    while (left > 0) {
-                        int count = Math.min(left, drop.getMaxStackSize());
-                        left -= count;
-                        ItemStack clone = drop.clone();
-                        clone.setAmount(count);
-                        drops.add(clone);
-                    }
+                int amount = drop.getAmount();
+                amount += (int) player.getStats().getMiningFortune().getValue(player)/100;
+                if (random.nextInt(99) + 1 < player.getStats().getMiningFortune().getValue(player) % 100) {
+                    amount++;
+                }
+                int left = amount;
+                while (left > 0) {
+                    int count = Math.min(left, drop.getMaxStackSize());
+                    left -= count;
+                    ItemStack clone = drop.clone();
+                    clone.setAmount(count);
+                    drops.add(clone);
                 }
             }
             event.setDrops(drops);

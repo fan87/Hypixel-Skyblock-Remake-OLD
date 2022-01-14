@@ -28,7 +28,7 @@ public abstract class SBEntity extends ISBEntity {
         entity.setHealth(getMaxHealth()/5d);
         entity.setRemoveWhenFarAway(false);
         entity.setCustomNameVisible(false);
-        nameTag = new Hologram(skyBlock, String.format("%s[%sLv%d%s] %s%s %s%d%s/%s%d%s❤",
+        nameTag = new Hologram(skyBlock, entity.getLocation(), String.format("%s[%sLv%d%s] %s%s %s%d%s/%s%d%s❤",
                 ChatColor.DARK_GRAY,
                 ChatColor.GRAY,
                 getLevel(),

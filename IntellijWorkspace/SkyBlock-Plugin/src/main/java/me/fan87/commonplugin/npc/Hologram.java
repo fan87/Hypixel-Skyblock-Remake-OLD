@@ -3,6 +3,7 @@ package me.fan87.commonplugin.npc;
 import me.fan87.commonplugin.SkyBlock;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.entity.Player;
@@ -21,9 +22,10 @@ import java.util.List;
 public class Hologram extends AbstractNPC<EntityArmorStand> {
 
     private EntityArmorStand npcEntity;
+    private Location location;
     private final List<String> text = new ArrayList<>();
 
-    public Hologram(SkyBlock skyBlock, String... text) {
+    public Hologram(SkyBlock skyBlock, Location location, String... text) {
         super(skyBlock);
         this.text.addAll(Arrays.asList(text));
     }
@@ -53,7 +55,7 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
     public Hologram display(Player... players) {
         if (npcEntity == null) throw new IllegalStateException("NPC is not created! Please use NPC.create() first!");
         for (Player player : players) {
-            Bukkit.broadcastMessage("Displaying to " + player.getName());
+            Bukkit.broadcastMessage("Displaying to: " + player.getName());
             displayLore(npcEntity, player);
         }
         updatePosition();
@@ -74,6 +76,7 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
         if (npcEntity == null) throw new IllegalStateException("NPC is not created! Please use NPC.create() first!");
         try {
             for (Player player : players) {
+                Bukkit.broadcastMessage("Hidden from player: " + player.getName());
                 if (viewers.contains(player)) {
                     viewers.remove(player);
                     hideLore(player);
