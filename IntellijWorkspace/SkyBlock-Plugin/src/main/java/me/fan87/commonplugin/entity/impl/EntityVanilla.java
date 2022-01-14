@@ -7,11 +7,11 @@ import org.bukkit.entity.LivingEntity;
 
 public class EntityVanilla extends SBEntity {
 
-    private final LivingEntity entity;
+    private final LivingEntity entity1;
 
     public EntityVanilla(SkyBlock skyBlock, LivingEntity entity) {
         super(skyBlock);
-        this.entity = entity;
+        this.entity1 = entity;
         Bukkit.broadcastMessage("Spawned!");
         spawn(entity.getLocation());
     }
@@ -19,7 +19,7 @@ public class EntityVanilla extends SBEntity {
 
     @Override
     public double getMaxHealth() {
-        return entity.getMaxHealth() * 5d;
+        return entity1.getMaxHealth() * 5d;
     }
 
     @Override
@@ -29,11 +29,11 @@ public class EntityVanilla extends SBEntity {
 
     @Override
     public String getName() {
-        return entity.getName();
+        return entity1.getName();
     }
 
     @Override
     protected LivingEntity spawnEntity() {
-        return entity;
+        return entity1;
     }
 }

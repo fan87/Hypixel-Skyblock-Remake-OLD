@@ -81,27 +81,6 @@ public class SBItemStack {
         itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         itemStack.setItemMeta(itemMeta);
         generateExtraAttributes();
-        if (enchantments.size() > 0) {
-            for (Enchantment enchantment : itemStack.getEnchantments().keySet()) {
-                itemStack.removeEnchantment(enchantment);
-            }
-            for (SBEnchantment key : this.enchantments.keySet()) {
-                try {
-                    NBTCompound enchantments = getExtraAttributeCompound().getOrCreateCompound("enchantments");
-                    enchantments.setInteger(key.getNamespace() + "", this.enchantments.get(key));
-                    Map<Enchantment, Integer> vanillaEnchantment = key.getVanillaEnchantment(this.enchantments.get(key));
-                    for (Enchantment enchantment : vanillaEnchantment.keySet()) {
-                        itemStack.addUnsafeEnchantment(enchantment, vanillaEnchantment.get(enchantment));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            if (getExtraAttributeCompound().hasKey("enchantments")) {
-                getExtraAttributeCompound().removeKey("enchantments");
-            }
-        }
     }
 
     public SBMaterial getType() {

@@ -356,7 +356,7 @@ public class SBPlayer {
                 if (item1 != null) {
                     if (item1.isInActive(heldSlot, i, this)) {
                         sbItemStack.updatePlayerStats(this, i);
-                        activeItems.add(sbItemStack);;
+                        activeItems.add(sbItemStack);
                     }
                 }
 

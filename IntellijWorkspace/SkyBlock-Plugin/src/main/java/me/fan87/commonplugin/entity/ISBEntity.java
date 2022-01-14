@@ -23,6 +23,7 @@ public abstract class ISBEntity {
     public EntityUpdateResult updateEntity() {
         if (shouldBeRemoved()) {
             getEntity().remove();
+            onDestroy();
             return EntityUpdateResult.REMOVE;
         }
         return EntityUpdateResult.CONTINUE;

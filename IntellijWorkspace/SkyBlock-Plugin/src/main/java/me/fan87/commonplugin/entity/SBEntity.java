@@ -75,4 +75,5 @@ public abstract class SBEntity extends ISBEntity {
     protected boolean shouldBeRemoved() {
         return entity.isDead() || removed;
     }
+
 }

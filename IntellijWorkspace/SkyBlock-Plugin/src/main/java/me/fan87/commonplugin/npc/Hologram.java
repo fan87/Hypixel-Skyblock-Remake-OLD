@@ -28,6 +28,7 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
     public Hologram(SkyBlock skyBlock, Location location, String... text) {
         super(skyBlock);
         this.text.addAll(Arrays.asList(text));
+        this.location = location;
     }
 
 
@@ -42,12 +43,8 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
         npcEntity.n(true);
         npcEntity.setGravity(true);
         npcEntity.setInvisible(true);
+        npcEntity.setPosition(location.getX(), location.getY(), location.getZ());
         skyBlock.getNpcManager().addNpc(this);
-        if (displayToAll()) {
-            for (Player player : world.getPlayers()) {
-                display(player);
-            }
-        }
         return this;
     }
 
@@ -55,6 +52,7 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
     public Hologram display(Player... players) {
         if (npcEntity == null) throw new IllegalStateException("NPC is not created! Please use NPC.create() first!");
         for (Player player : players) {
+            viewers.add(player);
             Bukkit.broadcastMessage("Displaying to: " + player.getName());
             displayLore(npcEntity, player);
         }
