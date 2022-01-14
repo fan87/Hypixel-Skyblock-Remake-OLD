@@ -93,6 +93,7 @@ public class DatabaseManager {
     }
 
     public void saveAll() {
+        if (skyBlock.getPlayersManager() == null) return;
         for (SBPlayer loadedPlayer : skyBlock.getPlayersManager().getLoadedPlayers()) {
             loadedPlayer.save();
         }
