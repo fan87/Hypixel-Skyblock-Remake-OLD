@@ -528,12 +528,15 @@ public class SBPlayer {
     }
 
     public void save() {
-        Bukkit.getScheduler().runTask(skyBlock, () -> privateIsland.save());
-        this.xp = player.getExp();
-        this.inventory = BukkitSerialization.toBase64(player.getInventory());
-        this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
-        MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
-        players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
+        Bukkit.getScheduler().runTask(skyBlock, () -> {
+            privateIsland.save();
+            this.xp = player.getExp();
+            this.inventory = BukkitSerialization.toBase64(player.getInventory());
+            this.enderChest = BukkitSerialization.toBase64(player.getEnderChest());
+            MongoCollection players = skyBlock.getDatabaseManager().getCollection("players");
+            players.update(String.format("{\"uuid\": \"%s\"}", uuid)).upsert().multi().with(this);
+        });
+
     }
 
     public void openEnderChest() {

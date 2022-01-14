@@ -73,11 +73,11 @@ public class SkillLevel extends SBFeature {
         if (type == WHEAT && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() == 7) skills.skillFarming.addExp(4.0, event.getPlayer());
         if (type == POTATO && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() == 7) skills.skillFarming.addExp(4.0, event.getPlayer());
         if (type == CARROT && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() == 7) skills.skillFarming.addExp(4.0, event.getPlayer());
+        if (type == COCOA && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() >= 8) skills.skillFarming.addExp(4.0, event.getPlayer());
         if (type == MELON_BLOCK) skills.skillFarming.addExp(4.0, event.getPlayer());
         if (type == PUMPKIN) skills.skillFarming.addExp(4.5, event.getPlayer());
         if (type == SUGAR_CANE) skills.skillFarming.addExp(2.0, event.getPlayer());
-        if (type == CACTUS && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() == 7) skills.skillFarming.addExp(2.0, event.getPlayer());
-        if (type == COCOA && ((Ageable) event.getBlockBreakEvent().getBlock()).getAge() >= 8) skills.skillFarming.addExp(4.0, event.getPlayer());
+        if (type == CACTUS) skills.skillFarming.addExp(2.0, event.getPlayer());
         if (type == RED_ROSE) skills.skillForaging.addExp(1.0, event.getPlayer());
         if (type == LOG) skills.skillForaging.addExp(6.0, event.getPlayer());
         if (type == LOG_2) skills.skillForaging.addExp(6.0, event.getPlayer());

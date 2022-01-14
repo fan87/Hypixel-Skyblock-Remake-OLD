@@ -119,7 +119,7 @@ public class NPCManager {
                         }
                     }
                 }
-                for (Player viewer : npc.getViewers()) {
+                for (Player viewer : new ArrayList<>(npc.getViewers())) {
                     Location location = viewer.getLocation();
                     double deltaX = location.getX() - npc.asCraftCopy().getLocation().getX();
                     double deltaY = location.getY() - npc.asCraftCopy().getLocation().getY();
