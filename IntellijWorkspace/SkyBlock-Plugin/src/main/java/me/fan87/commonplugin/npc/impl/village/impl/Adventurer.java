@@ -9,8 +9,11 @@ import me.fan87.commonplugin.npc.NPCManager;
 import me.fan87.commonplugin.npc.NPCPlayer;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.tradings.tradable.impl.CoinTradable;
+import me.fan87.commonplugin.utils.RotationUtils;
 import me.fan87.commonplugin.world.WorldsManager;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -27,6 +30,35 @@ import java.util.List;
 public class Adventurer extends NPCPlayer {
     public Adventurer(SkyBlock skyBlock) {
         super(skyBlock);
+    }
+
+    @Override
+    protected void onTick() {
+        Entity nearest = null;
+        double lastDist = 0;
+        for (Entity nearbyEntity : asCraftCopy().getWorld().getNearbyEntities(asCraftCopy().getLocation(), 10, 5, 10)) {
+            if (nearest == null) {
+                nearest = nearbyEntity;
+                double deltaX = nearest.getLocation().getX() - asCraftCopy().getLocation().getX();
+                double deltaY = nearest.getLocation().getY() - asCraftCopy().getLocation().getY();
+                double deltaZ = nearest.getLocation().getZ() - asCraftCopy().getLocation().getZ();
+                lastDist = Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ);
+                continue;
+            }
+            double deltaX = nearest.getLocation().getX() - asCraftCopy().getLocation().getX();
+            double deltaY = nearest.getLocation().getY() - asCraftCopy().getLocation().getY();
+            double deltaZ = nearest.getLocation().getZ() - asCraftCopy().getLocation().getZ();
+            double sqrt = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+            if (sqrt < lastDist) {
+                nearest = nearbyEntity;
+                lastDist = sqrt;
+            }
+        }
+        if (nearest != null) {
+            Location location = nearest.getLocation();
+            float[] face = RotationUtils.tryFace(getNpcEntity().locX - location.getX(), getNpcEntity().locY - location.getY(), getNpcEntity().locZ - location.getZ());
+            rotate(face[0], face[1]);
+        }
     }
 
     @Override

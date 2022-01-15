@@ -43,7 +43,6 @@ public class BlockDropFirer extends SBFeature {
 
     public void breakBlock(SBPlayer player, BlockBreakEvent event) {
         List<ItemStack> drops = new ArrayList<>(event.getBlock().getDrops(player.getPlayer().getItemInHand()));
-        Bukkit.broadcastMessage(drops.size() + "");
         BlockDropEvent e = new BlockDropEvent(player, drops, event, random, true);
         EventManager.post(e);
         if (!e.isCancelled()) {

@@ -42,11 +42,12 @@ public class EnchSmeltingTouch extends SBEnchantment {
                 drop.setType(Material.COAL);
                 drop.setDurability(((short) 1));
             }
-            if (drop.getType() == Material.COBBLESTONE) {
-                drop.setType(Material.STONE);
-            }
-            if (drop.getType() == Material.STONE) {
-                drop.setType(Material.COBBLESTONE);
+            if (drop.getType() == Material.COBBLESTONE || drop.getType() == Material.STONE) {
+                if (event.getBlockBreakEvent().getBlock().getType() == Material.STONE) {
+                    drop.setType(Material.COBBLESTONE);
+                } else {
+                    drop.setType(Material.STONE);
+                }
             }
             if (drop.getType() == Material.SAND) {
                 drop.setType(Material.GLASS);

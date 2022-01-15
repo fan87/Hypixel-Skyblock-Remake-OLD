@@ -55,8 +55,13 @@ public class DeathProcessor extends SBFeature {
                 SBPlayerDeathEvent event1 = new SBPlayerDeathEvent(player, player.getPurseCoins() / 2d);
                 EventManager.post(event1);
                 if (!event1.isCancelled()) {
-                    player.getPlayer().sendMessage(ChatColor.RED + "You died and lost " + NumberUtils.formatNumber(event1.getLoseCoins()) + " coins!");
-                    player.setPurseCoins(player.getPurseCoins() - event1.getLoseCoins());
+                    if (player.getMana() < (player.getStats().getIntelligence().getValue(player)+100)/2) {
+                        player.getPlayer().sendMessage(ChatColor.RED + "You died and lost " + NumberUtils.formatNumber(event1.getLoseCoins()) + " coins!");
+                        player.setPurseCoins(player.getPurseCoins() - event1.getLoseCoins());
+                    } else {
+                        player.getPlayer().sendMessage(ChatColor.RED + "You Died!");
+                        player.setMana((player.getStats().getIntelligence().getValue(player)+100)/2);
+                    }
                 }
                 ((Player) event.getEntity()).playSound(event.getEntity().getLocation(), Sound.HURT_FLESH, 1f, 0.9f);
             }
