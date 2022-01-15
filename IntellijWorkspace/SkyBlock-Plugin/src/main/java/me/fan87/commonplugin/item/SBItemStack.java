@@ -229,5 +229,14 @@ public class SBItemStack {
         return false;
     }
 
+    public double getDamage() {
+        if (getType().getType() != SBMaterial.ItemType.CUSTOM) return 0;
+        try {
+            return getType().getItem().getDamage(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 }

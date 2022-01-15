@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 public class DamageCalculationEvent {
 
-    private double armorBonus;
+    private double armorMultiplier;
     private double weaponBonus;
+    private double enchantmentBonus;
 
 }

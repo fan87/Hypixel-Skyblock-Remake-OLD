@@ -64,4 +64,34 @@ public class ReflectionUtils {
         write.invoke(nbt, input, depth, readLimiter);
     }
 
+    @SneakyThrows
+    public static <T> T get(Object obj, String fieldName, Class<T> type) {
+        Class<?> clazz = obj.getClass();
+        while (clazz != null) {
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                if (declaredField.getName().equals(fieldName)) {
+                    declaredField.setAccessible(true);
+                    Object o = declaredField.get(obj);
+                    return (T) o;
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return null;
+    }
+
+    @SneakyThrows
+    public static void set(Object obj, String fieldName, Object value) {
+        Class<?> clazz = obj.getClass();
+        while (clazz != null) {
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                if (declaredField.getName().equals(fieldName)) {
+                    declaredField.setAccessible(true);
+                    declaredField.set(obj, value);
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+    }
+
 }

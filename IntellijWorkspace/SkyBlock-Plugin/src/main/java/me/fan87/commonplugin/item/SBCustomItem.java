@@ -79,13 +79,12 @@ public class SBCustomItem {
         return itemStack.getItemStack().getAmount() * sellPrice; // Todo: Enchantment
     }
 
-    public boolean isSellable(SBItemStack itemStack) {
-        return getSellPrice(itemStack) > 0;
-    }
-
-    public boolean shouldDisplayRarity() {
-        return true;
-    }
+    public boolean isSellable(SBItemStack itemStack) {return getSellPrice(itemStack) > 0;}
+    public double getDamage(SBItemStack itemStack) {return 0;}
+    public void applyExtraAttributes(NBTTagCompound compound) {}
+    public void updatePlayerStats(SBPlayer player, int inventoryIndex) {}
+    public boolean isUnbreakable() {return true;}
+    public boolean shouldDisplayRarity() {return true;}
 
     public List<String> getLores(SBItemStack itemStack) {
         if (itemStack.getType().getItem() != this) {
@@ -126,16 +125,10 @@ public class SBCustomItem {
         return getCategory().getActiveChecker().isActive(heldSlot, player.getPlayer().getInventory(), slot);
     }
 
-    public boolean isUnbreakable() {
-        return true;
-    }
 
     public ItemStack newItemStack() {
         ItemStack itemStack = new ItemStack(getMaterial(), 1, durability);
         net.minecraft.server.v1_8_R3.ItemStack itemStack1 = CraftItemStack.asNMSCopy(itemStack);
-//        NBTItem nbt = new NBTItem(itemStack, true);
-//        NBTCompound extraAttributes = nbt.addCompound("ExtraAttributes");
-//        extraAttributes.setString("id", getNamespace());
         NBTTagCompound nbtBase = new NBTTagCompound();
         if (itemStack1.getTag() == null) {
             itemStack1.setTag(new NBTTagCompound());
@@ -158,28 +151,6 @@ public class SBCustomItem {
         return itemStack;
     }
 
-    public SBRecipe getRecipe() {
-        for (SBRecipe craftingRecipe : skyBlock.getRecipesManager().getCraftingRecipes()) {
-            if (craftingRecipe.getOutputType() == this) return craftingRecipe;
-        }
-        return null;
-    }
-
-    public double getDamage(SBItemStack itemStack) {
-        return 0;
-    }
-
-    protected void extraProcessItemStack() {
-
-    }
-
-    public void applyExtraAttributes(NBTTagCompound compound) {
-
-    }
-
-    public void updatePlayerStats(SBPlayer player, int inventoryIndex) {
-
-    }
 
     public boolean isRecipeUnlockedByDefault() {
         return unlockedByDefault;

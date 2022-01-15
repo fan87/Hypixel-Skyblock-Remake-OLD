@@ -34,7 +34,8 @@ public class CalculationUtils {
      * @return The final damage
      */
     public static double getFinalDamage(double initDamage, double damageMultiplier, double armorBonus, double criticalDamage) {
-        return initDamage * damageMultiplier * armorBonus * (1 + criticalDamage/100d);
+        double v = initDamage * damageMultiplier * armorBonus * (1 + criticalDamage / 100d);
+        return v;
     }
 
 }

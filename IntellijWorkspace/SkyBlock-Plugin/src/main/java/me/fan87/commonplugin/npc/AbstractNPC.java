@@ -33,7 +33,7 @@ public abstract class AbstractNPC<EntityType extends EntityLiving> {
     protected final SkyBlock skyBlock;
 
 
-    protected final Map<Player, List<EntityArmorStand>> loreEntities = new HashMap<>();
+    public final Map<Player, List<EntityArmorStand>> loreEntities = new HashMap<>();
     @Getter
     protected final List<Player> viewers = new ArrayList<>();
     @Getter

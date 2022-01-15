@@ -12,7 +12,6 @@ public class EntityVanilla extends SBEntity {
     public EntityVanilla(SkyBlock skyBlock, LivingEntity entity) {
         super(skyBlock);
         this.entity1 = entity;
-        Bukkit.broadcastMessage("Spawned!");
         spawn(entity.getLocation());
     }
 

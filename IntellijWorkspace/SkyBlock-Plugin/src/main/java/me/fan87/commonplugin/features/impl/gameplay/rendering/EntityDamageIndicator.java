@@ -69,9 +69,9 @@ public class EntityDamageIndicator extends SBFeature {
         entityArmorStand.setCustomNameVisible(true);
         if (criticals.contains(event)) {
             criticals.remove(event);
-            entityArmorStand.setCustomName(ColorUtils.generateRainbowText("✧" + Math.round(event.getDamage()*5f) + "✧", ColorUtils.RainbowStyle.CRITICAL));
+            entityArmorStand.setCustomName(ColorUtils.generateRainbowText("✧" + Math.round(event.getFinalDamage()*5f) + "✧", ColorUtils.RainbowStyle.CRITICAL));
         } else {
-            entityArmorStand.setCustomName(ChatColor.GRAY + "" + Math.round(event.getDamage()*5f));
+            entityArmorStand.setCustomName(ChatColor.GRAY + "" + Math.round(event.getFinalDamage()*5f));
         }
         for (Player onlinePlayer : skyBlock.getServer().getOnlinePlayers()) {
             CraftPlayer player = (CraftPlayer) onlinePlayer;

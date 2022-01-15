@@ -53,7 +53,6 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
         if (npcEntity == null) throw new IllegalStateException("NPC is not created! Please use NPC.create() first!");
         for (Player player : players) {
             viewers.add(player);
-            Bukkit.broadcastMessage("Displaying to: " + player.getName());
             displayLore(npcEntity, player);
         }
         updatePosition();
@@ -74,7 +73,6 @@ public class Hologram extends AbstractNPC<EntityArmorStand> {
         if (npcEntity == null) throw new IllegalStateException("NPC is not created! Please use NPC.create() first!");
         try {
             for (Player player : players) {
-                Bukkit.broadcastMessage("Hidden from player: " + player.getName());
                 if (viewers.contains(player)) {
                     viewers.remove(player);
                     hideLore(player);
