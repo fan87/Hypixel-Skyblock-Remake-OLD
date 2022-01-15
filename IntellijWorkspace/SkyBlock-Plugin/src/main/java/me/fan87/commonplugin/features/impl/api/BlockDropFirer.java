@@ -6,6 +6,7 @@ import me.fan87.commonplugin.events.impl.BlockDropEvent;
 import me.fan87.commonplugin.events.impl.XPDropEvent;
 import me.fan87.commonplugin.features.SBFeature;
 import me.fan87.commonplugin.players.SBPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -36,12 +37,13 @@ public class BlockDropFirer extends SBFeature {
         if (event.isCancelled()) return;
         SBPlayer player = skyBlock.getPlayersManager().getPlayer(event.getPlayer());
         event.setCancelled(true);
-        event.getBlock().setType(Material.AIR);
         breakBlock(player, event);
+        event.getBlock().setType(Material.AIR);
     }
 
     public void breakBlock(SBPlayer player, BlockBreakEvent event) {
         List<ItemStack> drops = new ArrayList<>(event.getBlock().getDrops(player.getPlayer().getItemInHand()));
+        Bukkit.broadcastMessage(drops.size() + "");
         BlockDropEvent e = new BlockDropEvent(player, drops, event, random, true);
         EventManager.post(e);
         if (!e.isCancelled()) {
