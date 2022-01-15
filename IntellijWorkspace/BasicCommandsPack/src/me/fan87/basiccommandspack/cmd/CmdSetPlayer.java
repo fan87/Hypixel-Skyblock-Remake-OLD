@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CmdSetPlayer extends SBCommand {
 
@@ -42,7 +43,7 @@ public class CmdSetPlayer extends SBCommand {
 
             for (SBStat stat : skyBlock.getPlayersManager().getPlayer(((Player) sender)).getStats().getStats()) {
 
-                String e = stat.getNamespace();
+                String e = stat.getNamespace().toLowerCase();
                 if (e.startsWith(args[1])){
 
                     out.add(e);
