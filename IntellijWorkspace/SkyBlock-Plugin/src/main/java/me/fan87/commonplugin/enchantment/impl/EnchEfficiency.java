@@ -5,6 +5,7 @@ import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.utils.SBMap;
 import me.fan87.commonplugin.utils.SBNamespace;
+import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 
 import java.util.Map;
@@ -26,5 +27,10 @@ public class EnchEfficiency extends SBEnchantment {
     public boolean isItemAccepted(SBCustomItem item) {
         SBCustomItem.Category category = item.getCategory();
         return category.isTool();
+    }
+
+    @Override
+    public String getDescription(ChatColor color, int level) {
+        return color + "Increases how quickly your tool breaks blocks.";
     }
 }

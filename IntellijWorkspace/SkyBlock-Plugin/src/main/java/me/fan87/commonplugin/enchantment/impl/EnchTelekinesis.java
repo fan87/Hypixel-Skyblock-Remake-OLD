@@ -9,6 +9,7 @@ import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.SBNamespace;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
@@ -17,6 +18,11 @@ public class EnchTelekinesis extends SBEnchantment {
 
     public EnchTelekinesis(SkyBlock skyBlock) {
         super(skyBlock, new SBNamespace("default", "TELEKINESIS"), "Telekinesis", 1);
+    }
+
+    @Override
+    public String getDescription(ChatColor color, int level) {
+        return color + "Block and mob drops go directly into your inventory.z";
     }
 
     @Subscribe(priority = -200)

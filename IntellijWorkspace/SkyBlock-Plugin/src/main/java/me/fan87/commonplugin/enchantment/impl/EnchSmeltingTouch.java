@@ -5,6 +5,7 @@ import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.BlockDropEvent;
 import me.fan87.commonplugin.utils.SBNamespace;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.ContainerBlock;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +20,12 @@ public class EnchSmeltingTouch extends SBEnchantment {
         super(skyBlock, new SBNamespace("default", "SMELTING_TOUCH"), "Smelting Touch", 1);
     }
 
-    @Subscribe(priority = -200)
+    @Override
+    public String getDescription(ChatColor color, int level) {
+        return color + "Automatically smelts broken blocks into their smelted form.";
+    }
+
+    @Subscribe(priority = -199)
     public void onBreak(BlockDropEvent event) {
         if (event.isCancelled()) return;
         if (!event.getPlayer().isEnchantmentActive(this)) return;
@@ -42,8 +48,23 @@ public class EnchSmeltingTouch extends SBEnchantment {
             if (drop.getType() == Material.STONE) {
                 drop.setType(Material.COBBLESTONE);
             }
+            if (drop.getType() == Material.SAND) {
+                drop.setType(Material.GLASS);
+            }
+            if (drop.getType() == Material.CACTUS) {
+                drop.setType(Material.INK_SACK);
+                drop.setDurability(((short) 2));
+            }
+            if (drop.getType() == Material.NETHERRACK) {
+                drop.setType(Material.NETHER_BRICK);
+            }
+            if (drop.getType() == Material.CLAY) {
+                drop.setType(Material.BRICK);
+            }
+            System.out.println(drop.getType().toString());
             meltedDrops.add(drop);
         }
+        event.setDrops(meltedDrops);
     }
 }
 
