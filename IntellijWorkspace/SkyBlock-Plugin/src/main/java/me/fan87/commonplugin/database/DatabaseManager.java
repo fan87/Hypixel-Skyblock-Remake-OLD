@@ -33,7 +33,7 @@ public class DatabaseManager {
     private MongoDatabase database;
     @Getter
     private Jongo jongo;
-    @Getter
+    @Getter 
     private SBServerData serverData;
 
 

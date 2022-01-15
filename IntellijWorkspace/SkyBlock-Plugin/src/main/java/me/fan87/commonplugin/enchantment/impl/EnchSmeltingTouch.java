@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.ContainerBlock;
 import org.bukkit.inventory.ItemStack;
 
+import java.rmi.MarshalException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,12 +21,29 @@ public class EnchSmeltingTouch extends SBEnchantment {
 
     @Subscribe(priority = -200)
     public void onBreak(BlockDropEvent event) {
-        if (!event.isCancelled()) {
-            if (event.getPlayer().isEnchantmentActive(this)) {
-                if (event.getBlockBreakEvent().getBlock() instanceof ContainerBlock) return;
-                event.setDrops(Arrays.asList(new ItemStack(Material.DIAMOND_ORE)));
-                event.setCancelled(true);
+        if (event.isCancelled()) return;
+        if (!event.getPlayer().isEnchantmentActive(this)) return;
+        if (event.getBlockBreakEvent().getBlock() instanceof ContainerBlock) return;
+        List<ItemStack> meltedDrops = new ArrayList<>();
+        for (ItemStack drop : event.getDrops()) {
+            if (drop.getType() == Material.IRON_ORE) {
+                drop.setType(Material.IRON_INGOT);
             }
+            if (drop.getType() == Material.GOLD_ORE) {
+                drop.setType(Material.GOLD_INGOT);
+            }
+            if (drop.getType() == Material.LOG || drop.getType() == Material.LOG_2) {
+                drop.setType(Material.COAL);
+                drop.setDurability(((short) 1));
+            }
+            if (drop.getType() == Material.COBBLESTONE) {
+                drop.setType(Material.STONE);
+            }
+            if (drop.getType() == Material.STONE) {
+                drop.setType(Material.COBBLESTONE);
+            }
+            meltedDrops.add(drop);
         }
     }
 }
+
