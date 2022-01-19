@@ -109,7 +109,7 @@ for id in custom_items:
     if id == "SKYBLOCK_MENU":
         continue
     i += 1
-    out(item["name"])
+    print(json.dumps(item) + ", ")
 
 # out("Hi")
 print(ttt + "};")

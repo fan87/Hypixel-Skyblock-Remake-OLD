@@ -1,8 +1,8 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
-import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,6 +51,11 @@ public class StatMagicFind extends SBStat {
     @Override
     public String getColor() {
         return "§b";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.MAGIC_FIND;
     }
 
     @Override

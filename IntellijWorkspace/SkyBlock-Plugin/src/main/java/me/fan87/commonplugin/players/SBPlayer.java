@@ -12,6 +12,7 @@ import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.events.impl.PlayerPostPortalEvent;
+import me.fan87.commonplugin.events.impl.PlayerTickEvent;
 import me.fan87.commonplugin.events.impl.ServerTickEvent;
 import me.fan87.commonplugin.gui.impl.GuiSkyBlockMenu;
 import me.fan87.commonplugin.gui.impl.GuiYourProfile;
@@ -156,7 +157,6 @@ public class SBPlayer {
 
     private String extraActionBar = "";
     private long extraActionBarTime = System.currentTimeMillis();
-    private long lastInventoryUpdate = 0; // Todo: Make anticheat to prevent this type of crasher
 
     public boolean showActionBar = true;
 
@@ -164,6 +164,11 @@ public class SBPlayer {
 
     public void addCoins(double coins) {
         this.purseCoins += coins;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof SBPlayer && ((SBPlayer) obj).getUuid().equals(getUuid());
     }
 
     public SBPlayer() {
@@ -323,7 +328,6 @@ public class SBPlayer {
 
     @SneakyThrows
     public void updateInventory(int heldSlot) {
-        lastInventoryUpdate = System.currentTimeMillis();
         activeItems.clear();
         for (SBStat stat : stats.getStats()) {
             stat.getBonusValue().clear();
@@ -392,6 +396,8 @@ public class SBPlayer {
 
     @Subscribe()
     public void onTick(ServerTickEvent event) {
+
+
         if (player.getTicksLived() % 2 == 0) {
             scoreboard.setTitle(player.getPlayer(), getScoreboardTitle());
         }
@@ -402,6 +408,9 @@ public class SBPlayer {
             }
         }
         tickStats();
+
+        PlayerTickEvent e = new PlayerTickEvent(this);
+        EventManager.post(e);
 
     }
 
@@ -581,6 +590,7 @@ public class SBPlayer {
     }
 
     public void sendTitle(String title, String subtitle) {
+        getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.RESET, null));
         getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle)));
         getCraftPlayer().getHandle().playerConnection.sendPacket(new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, new ChatComponentText(title)));
     }

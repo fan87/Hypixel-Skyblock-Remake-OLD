@@ -4,6 +4,7 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -54,6 +55,11 @@ public class StatPristine extends SBStat {
     @Override
     public String getColor() {
         return "§5";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.PRISTINE;
     }
 
     @Override

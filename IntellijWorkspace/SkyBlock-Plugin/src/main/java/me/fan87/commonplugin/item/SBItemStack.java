@@ -71,7 +71,7 @@ public class SBItemStack {
     public void updatePlayerStats(SBPlayer player, int inventoryIndex) {
         SBMaterial type = getType();
         if (type.getType() == SBMaterial.ItemType.CUSTOM) {
-            type.getItem().updatePlayerStats(player, inventoryIndex);
+            type.getItem().updatePlayerStats(player, this, inventoryIndex);
         }
     }
 

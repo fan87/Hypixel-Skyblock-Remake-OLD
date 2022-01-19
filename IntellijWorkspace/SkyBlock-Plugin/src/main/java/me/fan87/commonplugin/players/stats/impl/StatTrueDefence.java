@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -52,6 +53,11 @@ public class StatTrueDefence extends SBStat {
     @Override
     public String getColor() {
         return ChatColor.WHITE + "";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.TRUE_DEFENCE;
     }
 
     @Override

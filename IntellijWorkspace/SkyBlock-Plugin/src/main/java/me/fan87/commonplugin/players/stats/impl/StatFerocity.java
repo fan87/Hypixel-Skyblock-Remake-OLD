@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -52,6 +53,11 @@ public class StatFerocity extends SBStat {
     @Override
     public String getColor() {
         return "§c";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.FEROCITY;
     }
 
     @Override

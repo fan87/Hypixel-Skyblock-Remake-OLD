@@ -4,7 +4,7 @@ import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.addon.SBAddon;
 import me.fan87.commonplugin.addon.exceptions.UnknownAddonError;
 import me.fan87.commonplugin.item.SBItemVector;
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.tradings.tradable.SBTradable;
 import me.fan87.commonplugin.players.tradings.tradable.impl.ItemTradable;
 import me.fan87.commonplugin.utils.SBNamespace;
@@ -23,8 +23,8 @@ public class SBTradings {
 
     public static SBTrading GRASS = new SBTrading(
             new SBNamespace("default", "GRASS_BLOCK"),
-            new SBTradable[]{ new ItemTradable(new SBItemVector(ItemsVANILLA.DIRT, 4))},
-            new SBItemVector(ItemsVANILLA.GRASS, 4), true);
+            new SBTradable[]{ new ItemTradable(new SBItemVector(ItemsVanilla.DIRT, 4))},
+            new SBItemVector(ItemsVanilla.GRASS, 4), true);
 
 
     static {

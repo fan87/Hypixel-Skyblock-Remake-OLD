@@ -3,9 +3,8 @@ package me.fan87.commonplugin.npc.impl.village.impl;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.gui.impl.npc.GuiShop;
 import me.fan87.commonplugin.item.SBItemVector;
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.npc.AbstractNPC;
-import me.fan87.commonplugin.npc.NPCManager;
 import me.fan87.commonplugin.npc.NPCPlayer;
 import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.tradings.tradable.impl.CoinTradable;
@@ -65,11 +64,11 @@ public class Adventurer extends NPCPlayer {
     protected void onInteract(SBPlayer player) {
         super.onInteract(player);
         new GuiShop(player, "Adventurer"
-                , new GuiShop.ShopItem(new SBItemVector(ItemsVANILLA.ROTTEN_FLESH, 1), new CoinTradable(8))
-                , new GuiShop.ShopItem(new SBItemVector(ItemsVANILLA.BONE, 1), new CoinTradable(8))
-                , new GuiShop.ShopItem(new SBItemVector(ItemsVANILLA.STRING, 1), new CoinTradable(10))
-                , new GuiShop.ShopItem(new SBItemVector(ItemsVANILLA.SLIME_BALL, 1), new CoinTradable(14))
-                , new GuiShop.ShopItem(new SBItemVector(ItemsVANILLA.SULPHUR, 1), new CoinTradable(10)))
+                , new GuiShop.ShopItem(new SBItemVector(ItemsVanilla.ROTTEN_FLESH, 1), new CoinTradable(8))
+                , new GuiShop.ShopItem(new SBItemVector(ItemsVanilla.BONE, 1), new CoinTradable(8))
+                , new GuiShop.ShopItem(new SBItemVector(ItemsVanilla.STRING, 1), new CoinTradable(10))
+                , new GuiShop.ShopItem(new SBItemVector(ItemsVanilla.SLIME_BALL, 1), new CoinTradable(14))
+                , new GuiShop.ShopItem(new SBItemVector(ItemsVanilla.SULPHUR, 1), new CoinTradable(10)))
                 .open(player.getPlayer());
     }
 

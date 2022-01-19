@@ -4,6 +4,7 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -53,6 +54,11 @@ public class StatCritDamage extends SBStat {
     @Override
     public String getColor() {
         return "§9";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.CRIT_DAMAGE;
     }
 
     @Override

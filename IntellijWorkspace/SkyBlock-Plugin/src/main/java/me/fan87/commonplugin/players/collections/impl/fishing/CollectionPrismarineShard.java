@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.fishing;
 
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionPrismarineShard extends SBCollection {
     public CollectionPrismarineShard() {
-        super(ItemsVANILLA.PRISMARINE_SHARD, new CollectionPattern(10, 25, 50, 100, 200, 400), 6, CollectionType.FISHING);
+        super(ItemsVanilla.PRISMARINE_SHARD, new CollectionPattern(10, 25, 50, 100, 200, 400), 6, CollectionType.FISHING);
     }
 
     @Override

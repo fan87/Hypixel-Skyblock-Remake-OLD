@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.mining;
 
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionNetherrack extends SBCollection {
     public CollectionNetherrack() {
-        super(ItemsVANILLA.NETHERRACK, new CollectionPattern(50, 250, 500, 1000, 5000), 5, CollectionType.MINING);
+        super(ItemsVanilla.NETHERRACK, new CollectionPattern(50, 250, 500, 1000, 5000), 5, CollectionType.MINING);
     }
 
     @Override

@@ -4,8 +4,11 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import io.github.retrooper.packetevents.event.impl.PacketPlaySendEvent;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import me.fan87.commonplugin.SkyBlock;
 import me.fan87.commonplugin.events.EventManager;
+import me.fan87.commonplugin.events.Subscribe;
+import me.fan87.commonplugin.item.SBBlock;
 import me.fan87.commonplugin.item.SBCustomItem;
 import me.fan87.commonplugin.item.SBItemStack;
 import me.fan87.commonplugin.item.SBMaterial;
@@ -15,6 +18,7 @@ import me.fan87.commonplugin.players.SBPlayer;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.utils.ItemStackBuilder;
 import me.fan87.commonplugin.utils.SBNamespace;
+import me.fan87.commonplugin.world.SBWorld;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
@@ -22,11 +26,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import me.fan87.commonplugin.events.Subscribe;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -38,7 +41,8 @@ public class SBItems {
     private static final Map<SBNamespace, SBCustomItem> registeredItems = new HashMap<>();
 
     static {
-        new ItemsVANILLA(SkyBlock.getPlugin(SkyBlock.class));
+        new ItemsVanilla(SkyBlock.getPlugin(SkyBlock.class));
+        new ItemsAcessory(SkyBlock.getPlugin(SkyBlock.class));
     }
 
     public static SBCustomItem SKYBLOCK_MENU;
@@ -51,8 +55,6 @@ public class SBItems {
 
         SKYBLOCK_MENU = new ItemSkyBlockMenu(skyBlock);
         registerItem(SKYBLOCK_MENU);
-
-
     }
     
     public static ItemVanilla getVanillaItem(Material material, short damage) {
@@ -114,14 +116,23 @@ public class SBItems {
         return registeredItems.get(namespace);
     }
 
-
-
-    @Subscribe()
-    public void updateItemDrop(EntitySpawnEvent event) {
-//        if (event.getEntityType() == EntityType.DROPPED_ITEM) {
-//            Item entity = (Item) event.getEntity();
-//            entity.setItemStack(new SBItemStack(entity.getItemStack()).getItemStack());
-//        }
+    @Subscribe(priority = -500)
+    @SneakyThrows
+    public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.isCancelled()) return;
+        Player p = event.getPlayer();
+        SBPlayer player = skyBlock.getPlayersManager().getPlayer(p);
+        if (player.getHeldItem() != null && player.getHeldItem().getType().getType() == SBMaterial.ItemType.CUSTOM) {
+            SBMaterial type = player.getHeldItem().getType();
+            if (!type.getItem().isPlaceable()) {
+                event.setCancelled(true);
+            } else if (type.getItem() instanceof SBBlock) {
+                SBWorld world = player.getWorld();
+                if (world == null) return;
+                Class<?> blockDataClass = ((SBBlock) type.getItem()).getBlockDataClass();
+                world.setBlockData(event.getBlock().getLocation(), blockDataClass.newInstance());
+            }
+        }
     }
 
     @Subscribe()

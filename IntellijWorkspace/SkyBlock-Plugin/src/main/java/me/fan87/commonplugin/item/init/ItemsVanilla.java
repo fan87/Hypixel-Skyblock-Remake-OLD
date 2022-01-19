@@ -25,7 +25,7 @@ import org.bukkit.Color;
 // Category: VANILLA
 // Last Update: 2022-01-14 03:34:12.695284
 
-public class ItemsVANILLA {
+public class ItemsVanilla {
 
     public static SBCustomItem STAINED_GLASS__15;
     public static SBCustomItem FERMENTED_SPIDER_EYE;
@@ -513,7 +513,7 @@ public class ItemsVANILLA {
 
 
 
-    public ItemsVANILLA(SkyBlock skyBlock) {
+    public ItemsVanilla(SkyBlock skyBlock) {
         STAINED_GLASS__15 = new ItemVanilla("STAINED_GLASS:15", "Black Stained Glass", "", Material.STAINED_GLASS, (short) 15, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, 3, skyBlock);
         SBItems.registerItem(STAINED_GLASS__15);
         FERMENTED_SPIDER_EYE = new ItemVanilla("FERMENTED_SPIDER_EYE", "Fermented Spider Eye", "", Material.FERMENTED_SPIDER_EYE, (short) 0, "", SBCustomItem.Rarity.COMMON, false, null, SBCustomItem.Category.MATERIAL, 10, skyBlock);

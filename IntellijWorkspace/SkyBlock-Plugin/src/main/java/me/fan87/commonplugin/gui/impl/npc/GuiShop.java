@@ -61,7 +61,8 @@ public class GuiShop extends Gui {
         if (inventoryClickEvent.getRawSlot() >= 54) {
             org.bukkit.inventory.ItemStack currentItem = inventoryClickEvent.getCurrentItem();
             org.bukkit.inventory.ItemStack cloned = currentItem.clone();
-            SBItemStack itemStack = new SBItemStack(currentItem);
+            if (currentItem == null || currentItem.getType() == Material.AIR) return false;
+                SBItemStack itemStack = new SBItemStack(currentItem);
             if (itemStack.canSellToNpc()) {
                 double price = itemStack.getSellPrice();
                 if (player.setPurseCoins(player.getPurseCoins() + price)) {
@@ -74,6 +75,7 @@ public class GuiShop extends Gui {
                     Bukkit.getScheduler().runTask(player.getSkyBlock(), () -> player.getPlayer().updateInventory());
                 }
             } else {
+                ((Player) inventoryClickEvent.getWhoClicked()).playSound(player.getPlayer().getLocation(), Sound.ENDERMAN_TELEPORT, 1f, 1f);
                 inventoryClickEvent.getWhoClicked().sendMessage(ChatColor.RED + "This item cannot be sold!");
             }
         }

@@ -7,11 +7,13 @@ import me.fan87.commonplugin.enchantment.SBEnchantment;
 import me.fan87.commonplugin.events.EventManager;
 import me.fan87.commonplugin.events.Subscribe;
 import me.fan87.commonplugin.players.SBPlayer;
-import me.fan87.commonplugin.recipes.SBRecipe;
+import me.fan87.commonplugin.players.stats.SBStat;
+import me.fan87.commonplugin.players.stats.SBStatVector;
 import me.fan87.commonplugin.utils.LoreUtils;
 import me.fan87.commonplugin.utils.RomanUtils;
 import net.minecraft.server.v1_8_R3.EnumItemRarity;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -23,6 +25,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class SBCustomItem {
 
@@ -55,6 +58,9 @@ public class SBCustomItem {
     @Getter
     private final boolean unlockedByDefault;
 
+    @Getter
+    private final List<SBAbility> abilities = new ArrayList<>();
+
     private final double sellPrice;
 
     public SBCustomItem(String namespace, String displayName, String description, Material material, short durability, Rarity rarity, Category category, double sellPrice, SkyBlock skyBlock, RecipeCategory recipeCategory, boolean unlockedByDefault) {
@@ -81,10 +87,18 @@ public class SBCustomItem {
 
     public boolean isSellable(SBItemStack itemStack) {return getSellPrice(itemStack) > 0;}
     public double getDamage(SBItemStack itemStack) {return 0;}
+    public SBStatVector getStatVector(SBItemStack itemStack) {return new SBStatVector();}
     public void applyExtraAttributes(NBTTagCompound compound) {}
-    public void updatePlayerStats(SBPlayer player, int inventoryIndex) {}
     public boolean isUnbreakable() {return true;}
     public boolean shouldDisplayRarity() {return true;}
+    public boolean isPlaceable() {return false;}
+    public boolean isHiddenFromAPI() {return false;}
+    public boolean canBeReforged() {return false;}
+    public String getSkin() {return "";}
+
+    public void updatePlayerStats(SBPlayer player, SBItemStack itemStack, int inventoryIndex) {
+        player.getStats().add(getStatVector(itemStack));
+    }
 
     public List<String> getLores(SBItemStack itemStack) {
         if (itemStack.getType().getItem() != this) {
@@ -92,6 +106,33 @@ public class SBCustomItem {
         }
 
         List<String> out = new ArrayList<>();
+        List<SBAbility> abilities = getAbilities();
+        SBStatVector statVector = getStatVector(itemStack);
+        boolean add = false;
+        if (getDamage(itemStack) > 0) {
+            add = true;
+        }
+        for (SBStat stat : statVector.getStats()) {
+            if (stat.getValue(null) != stat.getDefaultValue()) {
+                out.add(String.format("%s%s: %s%s", ChatColor.GRAY, stat.getName(), stat.getType().isDef()?ChatColor.GREEN:ChatColor.RED, stat.getValueDisplay(stat.getValue(null))));
+                add = true;
+            }
+        }
+        if (add) {
+            out.add("");
+        }
+        if (abilities.size() > 0) {
+            for (SBAbility ability : abilities) {
+                out.add(String.format(ability.getAbilityType().getDisplayName(), ability.getName()));
+                out.addAll(LoreUtils.splitLoreForLine(ChatColor.GRAY + ability.getDescription().replace("%%color%%", ChatColor.GRAY.toString())));
+                if (ability.getManaCost() > 0) {
+                    out.add(String.format("%sMana Cost: %s%d", ChatColor.DARK_GRAY, ChatColor.DARK_AQUA, ability.getManaCost()));
+                }
+                if (ability.getCoolDown() > 0) {
+                    out.add(String.format("%sCooldown: %s%ds", ChatColor.DARK_GRAY, ChatColor.GREEN, ability.getCoolDown()));
+                }
+            }
+        }
         if (itemStack.getEnchantments().size() > 0) {
             if (itemStack.getEnchantments().size() > 5) {
                 Map<SBEnchantment, Integer> enchantments = itemStack.getEnchantments();
@@ -111,15 +152,22 @@ public class SBCustomItem {
         }
         if (!getDescription().equals("")) {
             out.addAll(LoreUtils.splitLoreForLine("§7" + getDescription()));
-            out.add("");
+            if (shouldDisplayRarity()) {
+                out.add("");
+            }
         }
         if (shouldDisplayRarity()) {
-            out.add(rarity.getColor() + ChatColor.BOLD.toString() + rarity.getName());
+            String e = rarity.getColor() + ChatColor.BOLD.toString() + rarity.getName();
+            if (getCategory() != Category.MATERIAL) {
+                e += " " + getCategory().toString().replace("_", " ");
+            }
+            if (canBeReforged()) {
+                out.add(ChatColor.DARK_GRAY + "This item can be reforged!");
+            }
+            out.add(e);
         }
         return out;
     }
-
-
 
     public boolean isInActive(int heldSlot, int slot, SBPlayer player) {
         return getCategory().getActiveChecker().isActive(heldSlot, player.getPlayer().getInventory(), slot);
@@ -135,6 +183,20 @@ public class SBCustomItem {
         }
         itemStack1.getTag().set("ExtraAttributes", nbtBase);
         nbtBase.setString("id", getNamespace());
+        if (!getSkin().equals("")) {
+            NBTTagCompound skullOwner = new NBTTagCompound();
+            itemStack1.getTag().set("SkullOwner", skullOwner);
+            skullOwner.setString("id", UUID.randomUUID().toString());
+            NBTTagCompound properties = new NBTTagCompound();
+            skullOwner.set("Properties", properties);
+            NBTTagList textures = properties.getList("textures", 10);
+            NBTTagCompound nbtbase = new NBTTagCompound();
+            nbtbase.setString("Value", getSkin());
+            textures.add(nbtbase);
+            NBTTagCompound texture = new NBTTagCompound();
+            textures.add(texture);
+            properties.set("textures", textures);
+        }
         itemStack = CraftItemStack.asCraftMirror(itemStack1);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -150,7 +212,6 @@ public class SBCustomItem {
         applyExtraAttributes(nbtBase);
         return itemStack;
     }
-
 
     public boolean isRecipeUnlockedByDefault() {
         return unlockedByDefault;

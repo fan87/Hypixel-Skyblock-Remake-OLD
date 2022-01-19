@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -50,6 +51,11 @@ public class StatBonusAttackSpeed extends SBStat {
     @Override
     public String getColor() {
         return "§e";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.BONUS_ATTACK_SPEED;
     }
 
     @Override

@@ -45,7 +45,7 @@ public abstract class SBStat {
     public double getTotalBonusValue(SBPlayer player) {
         double value = 0;
         for (StatBonus statBonus : new ArrayList<>(bonusValue)) {
-            if (System.currentTimeMillis() > statBonus.expirationTime) {
+            if (System.currentTimeMillis() > statBonus.expirationTime && statBonus.expirationTime > 1) {
                 bonusValue.remove(statBonus);
                 continue;
             }
@@ -97,6 +97,7 @@ public abstract class SBStat {
     public abstract String getName();
     public abstract String getIcon();
     public abstract String getColor();
+    public abstract SBPlayerStats.StatType getType();
     public abstract ItemStack getIconItemStack();
     public abstract String getExampledDescription(SBPlayer player);
 
@@ -122,6 +123,11 @@ public abstract class SBStat {
      */
     public abstract void onTick(SBPlayer player);
 
+    public void add(SBStat stat) {
+        this.baseValue += stat.getBaseValue() - stat.getDefaultValue();
+        this.bonusValue.addAll(stat.getBonusValue());
+    }
+
     @AllArgsConstructor
     @Getter
     public static class StatBonus {
@@ -134,6 +140,11 @@ public abstract class SBStat {
          * Value of the bonus
          */
         private final double value;
+
+        @Override
+        public StatBonus clone() throws CloneNotSupportedException {
+            return new StatBonus(expirationTime, value);
+        }
     }
 
 

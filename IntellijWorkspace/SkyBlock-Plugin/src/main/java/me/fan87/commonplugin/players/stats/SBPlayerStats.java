@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.fan87.commonplugin.players.stats.impl.*;
@@ -33,6 +34,16 @@ public class SBPlayerStats {
     private StatForagingFortune foragingFortune = new StatForagingFortune();
     private StatPristine pristine = new StatPristine();
 
+    public void add(SBStatVector statVector) {
+        for (SBStat stat : getStats()) {
+            for (SBStat statVectorStat : statVector.getStats()) {
+                if (statVectorStat.getNamespace().equals(stat.getNamespace())) {
+                    stat.add(statVectorStat);
+                }
+            }
+        }
+    }
+
     @SneakyThrows
     public SBStat[] getStats() {
         List<SBStat> stats = new ArrayList<>();
@@ -44,26 +55,30 @@ public class SBPlayerStats {
         return stats.toArray(new SBStat[0]);
     }
 
+    @Getter
+    @AllArgsConstructor
     public enum StatType {
-        HEALTH,
-        DEFENCE,
-        SPEED,
-        STRENGTH,
-        CRIT_CHANCE,
-        CRIT_DAMAGE,
-        INTELLIGENCE,
-        MINING_SPEED,
-        BONUS_ATTACK_SPEED,
-        SEA_CREATURE_CHANCE,
-        MAGIC_FIND,
-        PET_LUCK,
-        TRUE_DEFENCE,
-        FEROCITY,
-        ABILITY_DAMAGE,
-        MINING_FORTUNE,
-        FARMING_FORTUNE,
-        FORAGING_FORTUNE,
-        PRISTINE
+        HEALTH(true),
+        DEFENCE(true),
+        SPEED(true),
+        STRENGTH(false),
+        CRIT_CHANCE(false),
+        CRIT_DAMAGE(false),
+        INTELLIGENCE(true),
+        MINING_SPEED(true),
+        BONUS_ATTACK_SPEED(false),
+        SEA_CREATURE_CHANCE(true),
+        MAGIC_FIND(true),
+        PET_LUCK(true),
+        TRUE_DEFENCE(true),
+        FEROCITY(true),
+        ABILITY_DAMAGE(false),
+        MINING_FORTUNE(true),
+        FARMING_FORTUNE(true),
+        FORAGING_FORTUNE(true),
+        PRISTINE(true);
+
+        private boolean def;
     }
 
 }

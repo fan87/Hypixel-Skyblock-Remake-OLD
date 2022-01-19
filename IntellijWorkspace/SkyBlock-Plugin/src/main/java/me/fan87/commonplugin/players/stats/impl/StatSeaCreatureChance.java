@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -50,6 +51,11 @@ public class StatSeaCreatureChance extends SBStat {
     @Override
     public String getColor() {
         return "§3";
+    }
+
+    @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.SEA_CREATURE_CHANCE;
     }
 
     @Override

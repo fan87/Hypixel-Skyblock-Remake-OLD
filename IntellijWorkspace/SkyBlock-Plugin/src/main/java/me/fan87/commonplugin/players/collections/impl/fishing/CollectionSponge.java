@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.fishing;
 
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionSponge extends SBCollection {
     public CollectionSponge() {
-        super(ItemsVANILLA.SPONGE, new CollectionPattern(20, 40, 100, 200, 400, 800, 1500, 2500, 4000), 9, CollectionType.FISHING);
+        super(ItemsVanilla.SPONGE, new CollectionPattern(20, 40, 100, 200, 400, 800, 1500, 2500, 4000), 9, CollectionType.FISHING);
     }
 
     @Override

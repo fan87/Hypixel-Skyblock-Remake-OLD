@@ -1,6 +1,7 @@
 package me.fan87.commonplugin.players.stats.impl;
 
 import me.fan87.commonplugin.players.SBPlayer;
+import me.fan87.commonplugin.players.stats.SBPlayerStats;
 import me.fan87.commonplugin.players.stats.SBStat;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -59,6 +60,11 @@ public class StatHealth extends SBStat {
     }
 
     @Override
+    public SBPlayerStats.StatType getType() {
+        return SBPlayerStats.StatType.HEALTH;
+    }
+
+    @Override
     public ItemStack getIconItemStack() {
         return new ItemStack(Material.GOLDEN_APPLE);
     }
@@ -70,8 +76,12 @@ public class StatHealth extends SBStat {
 
     @Override
     public void onTick(SBPlayer player) {
-        player.getPlayer().setHealthScaled(true);
-        player.getPlayer().setHealthScale(20 + (int) ((getValue(player) - 100)/100f)*2);
-        player.getPlayer().setMaxHealth(getValue(player)/5f);
+        int newHealthScale = 20 + (int) ((getValue(player) - 100) / 100f) * 2;
+        double newMaxHealth = getValue(player) / 5f;
+        if (!player.getPlayer().isHealthScaled() || player.getPlayer().getHealthScale() != newHealthScale || player.getPlayer().getMaxHealth() != newMaxHealth) {
+            player.getPlayer().setHealthScaled(true);
+            player.getPlayer().setHealthScale(newHealthScale);
+            player.getPlayer().setMaxHealth(newMaxHealth);
+        }
     }
 }

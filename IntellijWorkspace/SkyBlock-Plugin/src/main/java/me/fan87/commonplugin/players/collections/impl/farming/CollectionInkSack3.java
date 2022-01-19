@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.farming;
 
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionInkSack3 extends SBCollection {
     public CollectionInkSack3() {
-        super(ItemsVANILLA.INK_SACK__3, new CollectionPattern(75, 200, 500, 2000, 5000, 10000, 20000, 50000, 100000), 9, CollectionType.FARMING);
+        super(ItemsVanilla.INK_SACK__3, new CollectionPattern(75, 200, 500, 2000, 5000, 10000, 20000, 50000, 100000), 9, CollectionType.FARMING);
     }
 
     @Override

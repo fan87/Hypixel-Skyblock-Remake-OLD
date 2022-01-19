@@ -12,5 +12,8 @@ public class ItemVanilla extends SBCustomItem {
     }
 
 
-
+    @Override
+    public boolean isPlaceable() {
+        return true;
+    }
 }

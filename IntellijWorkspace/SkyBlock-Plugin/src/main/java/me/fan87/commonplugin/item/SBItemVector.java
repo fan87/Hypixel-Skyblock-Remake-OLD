@@ -69,7 +69,8 @@ public class SBItemVector {
         if (InventoryUtils.isInventoryFull(player.getPlayer().getInventory())) {
             return false;
         }
-        InventoryUtils.giveItem(player.getPlayer(), new ItemStackBuilder(item.newItemStack()).setAmount(amount).build());
+        ItemStack build = new ItemStackBuilder(item.newItemStack()).setAmount(amount).build();
+        InventoryUtils.giveItem(player.getPlayer(), new SBItemStack(build).getItemStack());
         return true;
     }
 

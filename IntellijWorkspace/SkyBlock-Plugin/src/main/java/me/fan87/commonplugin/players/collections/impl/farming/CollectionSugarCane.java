@@ -9,13 +9,13 @@
 //////////////////////////////////////////////////////////////////////////
 package me.fan87.commonplugin.players.collections.impl.farming;
 
-import me.fan87.commonplugin.item.init.ItemsVANILLA;
+import me.fan87.commonplugin.item.init.ItemsVanilla;
 import me.fan87.commonplugin.players.collections.SBCollection;
 import me.fan87.commonplugin.players.reward.SBReward;
 
 public class CollectionSugarCane extends SBCollection {
     public CollectionSugarCane() {
-        super(ItemsVANILLA.SUGAR_CANE, new CollectionPattern(100, 250, 500, 1000, 2000, 5000, 10000, 20000, 50000), 9, CollectionType.FARMING);
+        super(ItemsVanilla.SUGAR_CANE, new CollectionPattern(100, 250, 500, 1000, 2000, 5000, 10000, 20000, 50000), 9, CollectionType.FARMING);
     }
 
     @Override
