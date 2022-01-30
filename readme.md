@@ -1,3 +1,7 @@
+
+## Developmenet Paused!!
+I'm sick (Physically), so it's temporary paused. I'll get back when I feel better.
+
 ![](https://github.com/fan87/Hypixel-Skyblock-Remake/raw/master/document/assets/Banner.png)
 
 
