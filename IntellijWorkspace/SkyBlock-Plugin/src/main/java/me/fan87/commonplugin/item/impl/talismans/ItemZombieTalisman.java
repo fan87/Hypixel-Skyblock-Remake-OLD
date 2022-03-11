@@ -24,6 +24,6 @@ public class ItemZombieTalisman extends SBCustomItem {
                 RecipeCategory.SPECIAL);
     }
 
-    
+
 
 }
