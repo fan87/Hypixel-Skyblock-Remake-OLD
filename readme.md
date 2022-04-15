@@ -1,6 +1,6 @@
 
-## Developmenet Paused!!
-Resume very soon : >
+# Moved
+This project has been moved to [https://github.com/fan87/Hypixel-SkyBlock-Remake](https://github.com/fan87/Hypixel-SkyBlock-Remake) !
 
 ![](https://github.com/fan87/Hypixel-Skyblock-Remake/raw/master/document/assets/Banner.png)
 
