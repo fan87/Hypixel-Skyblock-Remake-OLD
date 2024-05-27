@@ -14,6 +14,8 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
 
+    /// UNSAFE CODE, DO NOT USE
+
     @SneakyThrows
     public static void zipFile(File folder, OutputStream outputStream) {
         ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
